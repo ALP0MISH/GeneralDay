@@ -7,6 +7,8 @@ android {
     namespace = "com.example.general.day"
     compileSdk = 34
 
+
+
     defaultConfig {
         applicationId = "com.example.general.day"
         minSdk = 26
