@@ -1,4 +1,4 @@
-package com.example.general.day.theme
+package com.example.general.day.presentation.theme
 
 import android.app.Activity
 import android.os.Build
