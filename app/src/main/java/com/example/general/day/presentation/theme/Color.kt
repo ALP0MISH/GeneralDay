@@ -1,4 +1,4 @@
-package com.example.general.day.theme
+package com.example.general.day.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
