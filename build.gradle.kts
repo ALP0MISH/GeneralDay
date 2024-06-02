@@ -1,4 +1,3 @@
-
 buildscript {
     repositories {
         google()
@@ -10,4 +9,5 @@ plugins {
     alias(libs.plugins.kotlin) apply false
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.kotlin.kapt) apply false
+    alias(libs.plugins.androidLibrary) apply false
 }

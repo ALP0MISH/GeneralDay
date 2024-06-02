@@ -4,6 +4,7 @@ agp-version = "8.2.0"
 androidxLifecycle = "2.8.0"
 androidxActivity = "1.9.0"
 androidxComposeBom = "2024.05.00"
+androidGradlePlugin = "8.2.0"
 converter-gson = "2.9.0"
 coil-compose = "2.6.0"
 compileSdk = "34"
@@ -64,6 +65,7 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 [plugins]
 
 android-application = { id = "com.android.application", version.ref = "agp-version" }
+androidLibrary = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-version" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin-version" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt-version" }
