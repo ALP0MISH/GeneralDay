@@ -17,3 +17,5 @@ dependencyResolutionManagement {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "General-Day"
 include(":app")
+include(":data")
+ 
