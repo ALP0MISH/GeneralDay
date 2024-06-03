@@ -25,6 +25,12 @@ dependencies {
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
 
+    /** Room **/
+    kapt(libs.room.compiler)
+    kapt(libs.room.ktx.compiler)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+
     /** Retrofit **/
     implementation(libs.retrofit)
     implementation(libs.logging.interceptor)

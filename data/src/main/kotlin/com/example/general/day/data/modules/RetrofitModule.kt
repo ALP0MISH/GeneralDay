@@ -1,5 +1,6 @@
 package com.example.general.day.data.modules
 
+import com.example.general.day.data.service.CityWeatherService
 import com.example.general.day.data.service.WeatherService
 import dagger.Module
 import dagger.Provides
@@ -8,15 +9,10 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val BASE_URL = "https://openweathermap.org/api"
+private const val BASE_URL = "https://api.openweathermap.org/"
 
 @Module
-class RetrofitModule {
-
-    @Provides
-    fun provideSignService(
-        retrofit: Retrofit
-    ): WeatherService = retrofit.create(WeatherService::class.java)
+object RetrofitModule {
 
     @Provides
     fun createRetrofit(): Retrofit {
@@ -27,4 +23,14 @@ class RetrofitModule {
                     .build()
             ).build()
     }
+
+    @Provides
+    fun provideWeatherService(
+        retrofit: Retrofit
+    ): WeatherService = retrofit.create(WeatherService::class.java)
+
+    @Provides
+    fun provideCityService(
+        retrofit: Retrofit
+    ): CityWeatherService = retrofit.create(CityWeatherService::class.java)
 }
