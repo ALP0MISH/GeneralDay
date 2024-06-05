@@ -32,4 +32,20 @@ data class WeatherForFiveDaysResultCloud(
     val weather: List<Weather>,
     @SerializedName("wind")
     val wind: Wind
-)
+) {
+    companion object {
+        val unknown = WeatherForFiveDaysResultCloud(
+            clouds = Clouds(all = -1),
+            dt = -1,
+            dtTxt = String(),
+            main = Main.unknown,
+            pop = 0.0,
+            rainAndSnow = RainAndSnow(h = 0.0),
+            snow = RainAndSnow(h = 0.0),
+            sys = Sys(pod = String()),
+            visibility = -1,
+            weather = emptyList(),
+            wind = Wind(deg = -1, speed = 0.0)
+        )
+    }
+}
