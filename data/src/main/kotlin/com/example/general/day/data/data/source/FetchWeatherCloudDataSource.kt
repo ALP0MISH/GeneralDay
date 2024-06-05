@@ -3,7 +3,7 @@ package com.example.general.day.data.data.source
 import com.example.general.day.data.model.current.weather.CurrentWeatherResponse
 import com.example.general.day.data.model.weather.five.days.WeatherForFiveDaysResponse
 
-interface FetchWeatherCloud {
+interface FetchWeatherCloudDataSource {
     suspend fun fetchCurrentWeather(
         latitude: Double,
         longitude: Double,

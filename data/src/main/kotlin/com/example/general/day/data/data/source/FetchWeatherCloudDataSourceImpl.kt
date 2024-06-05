@@ -7,10 +7,10 @@ import com.example.general.day.data.service.WeatherService
 import java.util.concurrent.CancellationException
 import javax.inject.Inject
 
-class FetchWeatherCloudImpl @Inject constructor(
+class FetchWeatherCloudDataSourceImpl @Inject constructor(
     private val serviceCity: CityWeatherService,
     private val service: WeatherService
-) : FetchWeatherCloud {
+) : FetchWeatherCloudDataSource {
 
     override suspend fun fetchCurrentWeather(
         latitude: Double,
