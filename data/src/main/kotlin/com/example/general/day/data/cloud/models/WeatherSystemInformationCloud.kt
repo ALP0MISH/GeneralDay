@@ -3,7 +3,7 @@ package com.example.general.day.data.cloud.models
 
 import com.google.gson.annotations.SerializedName
 
-data class WeatherSystemInformation(
+data class WeatherSystemInformationCloud(
     @SerializedName("pod")
-    val pod: String
+    val partOfDay: String
 )

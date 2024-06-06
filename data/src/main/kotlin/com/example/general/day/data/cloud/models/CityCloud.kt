@@ -3,9 +3,9 @@ package com.example.general.day.data.cloud.models
 
 import com.google.gson.annotations.SerializedName
 
-data class City(
+data class CityCloud(
     @SerializedName("coord")
-    val coordinates: Coordinates,
+    val coordinates: CoordinatesCloud,
     @SerializedName("country")
     val country: String,
     @SerializedName("id")
@@ -18,8 +18,8 @@ data class City(
     val sunset: Int,
 ){
     companion object {
-        val unknown = City(
-            coordinates = Coordinates(lat = 0.0, lon = 0.0),
+        val unknown = CityCloud(
+            coordinates = CoordinatesCloud(lat = 0.0, lon = 0.0),
             country = String(),
             id = -1,
             name = String(),

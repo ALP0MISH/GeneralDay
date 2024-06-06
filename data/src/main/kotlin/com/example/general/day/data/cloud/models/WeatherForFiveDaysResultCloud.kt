@@ -5,41 +5,41 @@ import com.google.gson.annotations.SerializedName
 
 data class WeatherForFiveDaysResultCloud(
     @SerializedName("clouds")
-    val clouds: Clouds,
+    val clouds: CloudsCloud,
     @SerializedName("dt")
     val time: Int,
     @SerializedName("dt_txt")
     val timeText: String,
     @SerializedName("main")
-    val main: WeatherTemperature,
+    val weatherTemperature: WeatherTemperatureCloud,
     @SerializedName("pop")
     val probabilityOfPrecipitation: Double,
     @SerializedName("rain")
-    val rainAndSnow: ForRainOrSnow,
+    val rainAndSnow: ForRainOrSnowCloud,
     @SerializedName("snow")
-    val snow: ForRainOrSnow,
+    val snow: ForRainOrSnowCloud,
     @SerializedName("sys")
-    val systemInformation: WeatherSystemInformation,
+    val systemInformation: WeatherSystemInformationCloud,
     @SerializedName("visibility")
     val visibility: Int,
     @SerializedName("weather")
-    val weather: List<Weather>,
+    val weather: List<WeatherCloud>,
     @SerializedName("wind")
-    val wind: Wind
+    val wind: WindCloud
 ) {
     companion object {
         val unknown = WeatherForFiveDaysResultCloud(
-            clouds = Clouds(all = -1),
+            clouds = CloudsCloud(all = -1),
             time = -1,
             timeText = String(),
-            main = WeatherTemperature.unknown,
+            weatherTemperature = WeatherTemperatureCloud.unknown,
             probabilityOfPrecipitation = 0.0,
-            rainAndSnow = ForRainOrSnow(h = 0.0),
-            snow = ForRainOrSnow(h = 0.0),
-            systemInformation = WeatherSystemInformation(pod = String()),
+            rainAndSnow = ForRainOrSnowCloud(hour = 0.0),
+            snow = ForRainOrSnowCloud(hour = 0.0),
+            systemInformation = WeatherSystemInformationCloud(partOfDay = String()),
             visibility = -1,
             weather = emptyList(),
-            wind = Wind(degrees = -1, speed = 0.0)
+            wind = WindCloud(degrees = -1, speed = 0.0)
         )
     }
 }

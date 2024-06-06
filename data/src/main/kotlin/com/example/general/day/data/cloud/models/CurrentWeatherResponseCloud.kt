@@ -3,42 +3,42 @@ package com.example.general.day.data.cloud.models
 
 import com.google.gson.annotations.SerializedName
 
-data class CurrentWeatherResponse(
+data class CurrentWeatherResponseCloud(
     @SerializedName("base")
     val base: String,
     @SerializedName("clouds")
-    val clouds: Clouds,
+    val clouds: CloudsCloud,
     @SerializedName("cod")
     val code: Int,
     @SerializedName("coord")
-    val coordinates: Coordinates,
+    val coordinates: CoordinatesCloud,
     @SerializedName("dt")
     val time: Int,
     @SerializedName("id")
     val id: Int,
     @SerializedName("main")
-    val main: WeatherTemperature,
+    val main: WeatherTemperatureCloud,
     @SerializedName("name")
     val name: String,
     @SerializedName("sys")
-    val systemInformation: WeatherSystemInformation,
+    val systemInformation: WeatherSystemInformationCloud,
     @SerializedName("weather")
-    val weather: List<Weather>,
+    val weather: List<WeatherCloud>,
     @SerializedName("wind")
-    val wind: Wind
+    val wind: WindCloud
 ) {
     companion object {
-        val unknown = CurrentWeatherResponse(
+        val unknown = CurrentWeatherResponseCloud(
             base = String(),
-            clouds = Clouds(all = -1),
+            clouds = CloudsCloud(all = -1),
             code = -1,
             id = -1,
-            main = WeatherTemperature.unknown,
+            main = WeatherTemperatureCloud.unknown,
             name = String(),
-            systemInformation = WeatherSystemInformation(pod = String()),
+            systemInformation = WeatherSystemInformationCloud(partOfDay = String()),
             weather = emptyList(),
-            wind = Wind(degrees = -1, speed = 0.0),
-            coordinates = Coordinates(lat = 0.0, lon = 0.0),
+            wind = WindCloud(degrees = -1, speed = 0.0),
+            coordinates = CoordinatesCloud(lat = 0.0, lon = 0.0),
             time = -1
         )
     }

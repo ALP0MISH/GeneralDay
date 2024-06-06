@@ -20,9 +20,9 @@ data class WeatherForFiveDaysResultData(
             timeText = String(),
             weatherTemperature = WeatherTemperatureData.unknown,
             probabilityOfPrecipitation = 0.0,
-            rainAndSnow = ForRainOrSnowData(h = 0.0),
-            snow = ForRainOrSnowData(h = 0.0),
-            systemInformation = WeatherSystemInformationData(pod = String()),
+            rainAndSnow = ForRainOrSnowData(hour = 0.0),
+            snow = ForRainOrSnowData(hour = 0.0),
+            systemInformation = WeatherSystemInformationData(partOfDay = String()),
             visibility = -1,
             weather = emptyList(),
             wind = WindData(degrees = -1, speed = 0.0)

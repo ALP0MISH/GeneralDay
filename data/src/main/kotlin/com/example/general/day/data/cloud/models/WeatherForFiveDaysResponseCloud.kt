@@ -3,9 +3,9 @@ package com.example.general.day.data.cloud.models
 
 import com.google.gson.annotations.SerializedName
 
-data class WeatherForFiveDaysResponse(
+data class WeatherForFiveDaysResponseCloud(
     @SerializedName("city")
-    val city: City,
+    val city: CityCloud,
     @SerializedName("cnt")
     val timeCount: Int,
     @SerializedName("cod")
@@ -16,8 +16,8 @@ data class WeatherForFiveDaysResponse(
     val message: Int
 ) {
     companion object {
-        val unknown = WeatherForFiveDaysResponse(
-            city = City.unknown,
+        val unknown = WeatherForFiveDaysResponseCloud(
+            city = CityCloud.unknown,
             code = String(),
             timeCount = -1,
             list = emptyList(),

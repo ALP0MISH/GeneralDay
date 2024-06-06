@@ -1,7 +1,7 @@
 package com.example.general.day.data.cloud.service
 
-import com.example.general.day.data.cloud.models.CurrentWeatherResponse
-import com.example.general.day.data.cloud.models.WeatherForFiveDaysResponse
+import com.example.general.day.data.cloud.models.CurrentWeatherResponseCloud
+import com.example.general.day.data.cloud.models.WeatherForFiveDaysResponseCloud
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -15,11 +15,11 @@ interface WeatherService {
     suspend fun fetchCurrentWeather(
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double,
-    ): Response<CurrentWeatherResponse>
+    ): Response<CurrentWeatherResponseCloud>
 
     @GET(FETCH_WEATHER_FOR_5_DAYS_EVERY_THREE_HOURS)
     suspend fun fetchWeatherForFiveDays(
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double,
-    ): Response<WeatherForFiveDaysResponse>
+    ): Response<WeatherForFiveDaysResponseCloud>
 }

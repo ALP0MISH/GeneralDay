@@ -20,9 +20,9 @@ data class WeatherForFiveDaysResultLocal(
             timeText = String(),
             localWeatherTemperature = WeatherTemperatureLocal.unknown,
             probabilityOfPrecipitation = 0.0,
-            localRainAndSnow = ForRainOrSnowLocal(h = 0.0),
-            snow = ForRainOrSnowLocal(h = 0.0),
-            localSystemInformation = WeatherSystemInformationLocal(pod = String()),
+            localRainAndSnow = ForRainOrSnowLocal(hour = 0.0),
+            snow = ForRainOrSnowLocal(hour = 0.0),
+            localSystemInformation = WeatherSystemInformationLocal(partOfDay = String()),
             visibility = -1,
             localWeather = emptyList(),
             localWind = WindLocal(degrees = -1, speed = 0.0)

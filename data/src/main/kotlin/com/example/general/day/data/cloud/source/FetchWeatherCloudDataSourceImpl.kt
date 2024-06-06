@@ -1,7 +1,7 @@
 package com.example.general.day.data.cloud.source
 
-import com.example.general.day.data.cloud.models.CurrentWeatherResponse
-import com.example.general.day.data.cloud.models.WeatherForFiveDaysResponse
+import com.example.general.day.data.cloud.models.CurrentWeatherResponseCloud
+import com.example.general.day.data.cloud.models.WeatherForFiveDaysResponseCloud
 import com.example.general.day.data.cloud.service.CityWeatherService
 import com.example.general.day.data.cloud.service.WeatherService
 import java.util.concurrent.CancellationException
@@ -15,66 +15,66 @@ class FetchWeatherCloudDataSourceImpl @Inject constructor(
     override suspend fun fetchCurrentWeather(
         latitude: Double,
         longitude: Double
-    ): CurrentWeatherResponse {
+    ): CurrentWeatherResponseCloud {
         return try {
             val response = service.fetchCurrentWeather(latitude, longitude)
             if (response.isSuccessful) {
-                response.body() ?: CurrentWeatherResponse.unknown
+                response.body() ?: CurrentWeatherResponseCloud.unknown
             } else {
-                CurrentWeatherResponse.unknown
+                CurrentWeatherResponseCloud.unknown
             }
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            CurrentWeatherResponse.unknown
+            CurrentWeatherResponseCloud.unknown
         }
     }
 
     override suspend fun fetchWeatherForFiveDays(
         latitude: Double,
         longitude: Double
-    ): WeatherForFiveDaysResponse {
+    ): WeatherForFiveDaysResponseCloud {
         return try {
             val response = service.fetchWeatherForFiveDays(latitude, longitude)
             if (response.isSuccessful) {
-                response.body() ?: WeatherForFiveDaysResponse.unknown
+                response.body() ?: WeatherForFiveDaysResponseCloud.unknown
             } else {
-                WeatherForFiveDaysResponse.unknown
+                WeatherForFiveDaysResponseCloud.unknown
             }
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            WeatherForFiveDaysResponse.unknown
+            WeatherForFiveDaysResponseCloud.unknown
         }
     }
 
-    override suspend fun fetchCurrentCityWeather(cityName: String): CurrentWeatherResponse {
+    override suspend fun fetchCurrentCityWeather(cityName: String): CurrentWeatherResponseCloud {
         return try {
             val response = serviceCity.fetchCurrentCityWeather(cityName)
             if (response.isSuccessful) {
-                response.body() ?: CurrentWeatherResponse.unknown
+                response.body() ?: CurrentWeatherResponseCloud.unknown
             } else {
-                CurrentWeatherResponse.unknown
+                CurrentWeatherResponseCloud.unknown
             }
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            CurrentWeatherResponse.unknown
+            CurrentWeatherResponseCloud.unknown
         }
     }
 
-    override suspend fun fetchWeatherCityForFiveDays(cityName: String): WeatherForFiveDaysResponse {
+    override suspend fun fetchWeatherCityForFiveDays(cityName: String): WeatherForFiveDaysResponseCloud {
         return try {
             val response = serviceCity.fetchWeatherCityWeatherForFiveDays(cityName)
             if (response.isSuccessful) {
-                response.body() ?: WeatherForFiveDaysResponse.unknown
+                response.body() ?: WeatherForFiveDaysResponseCloud.unknown
             } else {
-                WeatherForFiveDaysResponse.unknown
+                WeatherForFiveDaysResponseCloud.unknown
             }
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            WeatherForFiveDaysResponse.unknown
+            WeatherForFiveDaysResponseCloud.unknown
         }
     }
 }
