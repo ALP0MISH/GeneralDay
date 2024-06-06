@@ -1,4 +1,4 @@
-package com.example.general.day.data.service
+package com.example.general.day.data.cloud.service
 
 import com.example.general.day.data.cloud.models.CurrentWeatherResponse
 import com.example.general.day.data.cloud.models.WeatherForFiveDaysResponse

@@ -1,10 +1,7 @@
 package com.example.general.day.data.models
 
-import com.example.general.day.data.local.models.LocalCity
-import com.example.general.day.data.local.models.LocalCoord
-
-data class City(
-    val localCoord: LocalCoord,
+data class CityData(
+    val coordinates: CoordinatesData,
     val country: String,
     val id: Int,
     val name: String,
@@ -12,8 +9,8 @@ data class City(
     val sunset: Int,
 ) {
     companion object {
-        val unknown = LocalCity(
-            localCoord = LocalCoord(lat = 0.0, lon = 0.0),
+        val unknown = CityData(
+            coordinates = CoordinatesData(lat = 0.0, lon = 0.0),
             country = String(),
             id = -1,
             name = String(),

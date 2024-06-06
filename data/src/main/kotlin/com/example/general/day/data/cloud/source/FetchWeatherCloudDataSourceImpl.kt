@@ -1,10 +1,9 @@
 package com.example.general.day.data.cloud.source
 
-import com.example.general.day.data.cloud.source.FetchWeatherCloudDataSource
 import com.example.general.day.data.cloud.models.CurrentWeatherResponse
 import com.example.general.day.data.cloud.models.WeatherForFiveDaysResponse
-import com.example.general.day.data.service.CityWeatherService
-import com.example.general.day.data.service.WeatherService
+import com.example.general.day.data.cloud.service.CityWeatherService
+import com.example.general.day.data.cloud.service.WeatherService
 import java.util.concurrent.CancellationException
 import javax.inject.Inject
 

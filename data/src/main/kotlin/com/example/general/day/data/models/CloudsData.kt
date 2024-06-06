@@ -1,5 +1,5 @@
 package com.example.general.day.data.models
 
-data class Clouds(
+data class CloudsData(
     val all: Int
 )
