@@ -7,9 +7,9 @@ data class WeatherForFiveDaysResponse(
     @SerializedName("city")
     val city: City,
     @SerializedName("cnt")
-    val cnt: Int,
+    val timeCount: Int,
     @SerializedName("cod")
-    val cod: String,
+    val code: String,
     @SerializedName("list")
     val list: List<WeatherForFiveDaysResultCloud>,
     @SerializedName("message")
@@ -18,8 +18,8 @@ data class WeatherForFiveDaysResponse(
     companion object {
         val unknown = WeatherForFiveDaysResponse(
             city = City.unknown,
-            cod = String(),
-            cnt = -1,
+            code = String(),
+            timeCount = -1,
             list = emptyList(),
             message = -1
         )

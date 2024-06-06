@@ -1,5 +1,5 @@
 package com.example.general.day.data.models
 
-data class Sys(
+data class WeatherSystemInformationData(
     val pod: String
 )

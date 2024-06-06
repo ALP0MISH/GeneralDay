@@ -9,19 +9,19 @@ data class CurrentWeatherResponse(
     @SerializedName("clouds")
     val clouds: Clouds,
     @SerializedName("cod")
-    val cod: Int,
+    val code: Int,
     @SerializedName("coord")
-    val coord: Coord,
+    val coordinates: Coordinates,
     @SerializedName("dt")
-    val dt: Int,
+    val time: Int,
     @SerializedName("id")
     val id: Int,
     @SerializedName("main")
-    val main: Main,
+    val main: WeatherTemperature,
     @SerializedName("name")
     val name: String,
     @SerializedName("sys")
-    val sys: Sys,
+    val systemInformation: WeatherSystemInformation,
     @SerializedName("weather")
     val weather: List<Weather>,
     @SerializedName("wind")
@@ -31,15 +31,15 @@ data class CurrentWeatherResponse(
         val unknown = CurrentWeatherResponse(
             base = String(),
             clouds = Clouds(all = -1),
-            cod = -1,
+            code = -1,
             id = -1,
-            main = Main.unknown,
+            main = WeatherTemperature.unknown,
             name = String(),
-            sys = Sys(pod = String()),
+            systemInformation = WeatherSystemInformation(pod = String()),
             weather = emptyList(),
-            wind = Wind(deg = -1, speed = 0.0),
-            coord = Coord(lat = 0.0, lon = 0.0),
-            dt = -1
+            wind = Wind(degrees = -1, speed = 0.0),
+            coordinates = Coordinates(lat = 0.0, lon = 0.0),
+            time = -1
         )
     }
 }

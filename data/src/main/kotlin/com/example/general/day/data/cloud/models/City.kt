@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class City(
     @SerializedName("coord")
-    val coord: Coord,
+    val coordinates: Coordinates,
     @SerializedName("country")
     val country: String,
     @SerializedName("id")
@@ -19,7 +19,7 @@ data class City(
 ){
     companion object {
         val unknown = City(
-            coord = Coord(lat = 0.0, lon = 0.0),
+            coordinates = Coordinates(lat = 0.0, lon = 0.0),
             country = String(),
             id = -1,
             name = String(),

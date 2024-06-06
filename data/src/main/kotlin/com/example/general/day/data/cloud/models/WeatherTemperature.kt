@@ -3,7 +3,7 @@ package com.example.general.day.data.cloud.models
 
 import com.google.gson.annotations.SerializedName
 
-data class Main(
+data class WeatherTemperature(
     @SerializedName("feels_like")
     val feelsLike: Double,
     @SerializedName("temp")
@@ -14,7 +14,7 @@ data class Main(
     val tempMin: Double
 ) {
     companion object {
-        val unknown = Main(
+        val unknown = WeatherTemperature(
             feelsLike = 0.0,
             temp = 0.0,
             tempMin = 0.0,

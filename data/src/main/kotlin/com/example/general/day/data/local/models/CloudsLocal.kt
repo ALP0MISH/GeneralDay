@@ -1,5 +1,5 @@
 package com.example.general.day.data.local.models
 
-data class LocalRainAndSnow(
-    val h: Double
+data class CloudsLocal(
+    val all: Int
 )

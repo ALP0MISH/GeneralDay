@@ -7,19 +7,19 @@ data class WeatherForFiveDaysResultCloud(
     @SerializedName("clouds")
     val clouds: Clouds,
     @SerializedName("dt")
-    val dt: Int,
+    val time: Int,
     @SerializedName("dt_txt")
-    val dtTxt: String,
+    val timeText: String,
     @SerializedName("main")
-    val main: Main,
+    val main: WeatherTemperature,
     @SerializedName("pop")
-    val pop: Double,
+    val probabilityOfPrecipitation: Double,
     @SerializedName("rain")
-    val rainAndSnow: RainAndSnow,
+    val rainAndSnow: ForRainOrSnow,
     @SerializedName("snow")
-    val snow: RainAndSnow,
+    val snow: ForRainOrSnow,
     @SerializedName("sys")
-    val sys: Sys,
+    val systemInformation: WeatherSystemInformation,
     @SerializedName("visibility")
     val visibility: Int,
     @SerializedName("weather")
@@ -30,16 +30,16 @@ data class WeatherForFiveDaysResultCloud(
     companion object {
         val unknown = WeatherForFiveDaysResultCloud(
             clouds = Clouds(all = -1),
-            dt = -1,
-            dtTxt = String(),
-            main = Main.unknown,
-            pop = 0.0,
-            rainAndSnow = RainAndSnow(h = 0.0),
-            snow = RainAndSnow(h = 0.0),
-            sys = Sys(pod = String()),
+            time = -1,
+            timeText = String(),
+            main = WeatherTemperature.unknown,
+            probabilityOfPrecipitation = 0.0,
+            rainAndSnow = ForRainOrSnow(h = 0.0),
+            snow = ForRainOrSnow(h = 0.0),
+            systemInformation = WeatherSystemInformation(pod = String()),
             visibility = -1,
             weather = emptyList(),
-            wind = Wind(deg = -1, speed = 0.0)
+            wind = Wind(degrees = -1, speed = 0.0)
         )
     }
 }

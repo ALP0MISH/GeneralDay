@@ -1,6 +1,6 @@
 package com.example.general.day.data.models
 
-data class Wind(
-    val deg: Int,
+data class WindData(
+    val degrees: Int,
     val speed: Double
 )
