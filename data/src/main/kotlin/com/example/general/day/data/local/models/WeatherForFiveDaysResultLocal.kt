@@ -4,7 +4,11 @@ data class WeatherForFiveDaysResultLocal(
     val localClouds: CloudsLocal,
     val time: Int,
     val timeText: String,
+<<<<<<< HEAD
     val localWeatherTemperature: WeatherTemperatureLocal,
+=======
+    val localMain: WeatherTemperatureLocal,
+>>>>>>> origin/change_package_and_classes_of_data_module
     val probabilityOfPrecipitation: Double,
     val localRainAndSnow: ForRainOrSnowLocal,
     val snow: ForRainOrSnowLocal,
@@ -18,7 +22,11 @@ data class WeatherForFiveDaysResultLocal(
             localClouds = CloudsLocal(all = -1),
             time = -1,
             timeText = String(),
+<<<<<<< HEAD
             localWeatherTemperature = WeatherTemperatureLocal.unknown,
+=======
+            localMain = WeatherTemperatureLocal.unknown,
+>>>>>>> origin/change_package_and_classes_of_data_module
             probabilityOfPrecipitation = 0.0,
             localRainAndSnow = ForRainOrSnowLocal(h = 0.0),
             snow = ForRainOrSnowLocal(h = 0.0),

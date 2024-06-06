@@ -4,7 +4,11 @@ data class WeatherForFiveDaysResultData(
     val clouds: CloudsData,
     val time: Int,
     val timeText: String,
+<<<<<<< HEAD
     val weatherTemperature: WeatherTemperatureData,
+=======
+    val main: WeatherTemperatureData,
+>>>>>>> origin/change_package_and_classes_of_data_module
     val probabilityOfPrecipitation: Double,
     val rainAndSnow: ForRainOrSnowData,
     val snow: ForRainOrSnowData,
@@ -18,7 +22,11 @@ data class WeatherForFiveDaysResultData(
             clouds = CloudsData(all = -1),
             time = -1,
             timeText = String(),
+<<<<<<< HEAD
             weatherTemperature = WeatherTemperatureData.unknown,
+=======
+            main = WeatherTemperatureData.unknown,
+>>>>>>> origin/change_package_and_classes_of_data_module
             probabilityOfPrecipitation = 0.0,
             rainAndSnow = ForRainOrSnowData(h = 0.0),
             snow = ForRainOrSnowData(h = 0.0),
