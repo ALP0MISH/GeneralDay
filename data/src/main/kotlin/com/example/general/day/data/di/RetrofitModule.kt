@@ -1,7 +1,7 @@
 package com.example.general.day.data.di
 
-import com.example.general.day.data.service.CityWeatherService
-import com.example.general.day.data.service.WeatherService
+import com.example.general.day.data.cloud.service.CityWeatherService
+import com.example.general.day.data.cloud.service.WeatherService
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
