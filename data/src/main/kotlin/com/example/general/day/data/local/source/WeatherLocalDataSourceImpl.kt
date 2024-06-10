@@ -17,7 +17,7 @@ class WeatherLocalDataSourceImpl @Inject constructor(
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            throw e
+            throw IllegalArgumentException("Failed to save current weather local", e)
         }
     }
 
@@ -27,7 +27,7 @@ class WeatherLocalDataSourceImpl @Inject constructor(
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            throw e
+            throw IllegalArgumentException("Failed to observe current weather local", e)
         }
     }
 }
