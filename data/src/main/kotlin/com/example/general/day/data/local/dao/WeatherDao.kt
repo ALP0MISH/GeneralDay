@@ -14,5 +14,5 @@ interface WeatherDao {
     suspend fun saveCurrentWeatherLocal(currentWeatherLocal: CurrentWeatherLocal)
 
     @Query("SELECT * FROM current_weather_entity")
-    fun fetchCurrentWeatherLocal(): Flow<List<CurrentWeatherLocal>>
+    fun observeCurrentWeather(): Flow<List<CurrentWeatherLocal>>
 }
