@@ -16,4 +16,14 @@ data class CurrentWeatherLocal(
     @ColumnInfo("localCoordinates") val localCoordinates: CoordinatesLocal,
     @ColumnInfo("localWeatherTemperature") val localWeatherTemperature: WeatherTemperatureLocal,
     @ColumnInfo("name") val name: String,
-)
+) {
+    companion object {
+        val unknown = CurrentWeatherLocal(
+            id = -1,
+            code = -1,
+            localCoordinates = CoordinatesLocal(lat = 0.0, lon = 0.0),
+            localWeatherTemperature = WeatherTemperatureLocal.unknown,
+            name = String()
+        )
+    }
+}

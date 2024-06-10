@@ -5,9 +5,11 @@ import androidx.room.RoomDatabase
 import com.example.general.day.data.local.dao.WeatherDao
 import com.example.general.day.data.local.models.CurrentWeatherLocal
 
+private const val DATA_BASE_VERSION = 1
+
 @Database(
     entities = [CurrentWeatherLocal::class],
-    version = 1
+    version = DATA_BASE_VERSION
 )
 abstract class WeatherDataBase : RoomDatabase() {
 

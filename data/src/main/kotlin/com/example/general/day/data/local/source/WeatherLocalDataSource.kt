@@ -7,5 +7,5 @@ interface WeatherLocalDataSource {
 
     suspend fun saveCurrentWeatherLocal(currentWeatherLocal: CurrentWeatherLocal)
 
-    fun fetchCurrentWeatherLocal(): Flow<List<CurrentWeatherLocal>>
+    fun observeCurrentWeather(): Flow<List<CurrentWeatherLocal>>
 }
