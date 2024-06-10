@@ -30,6 +30,7 @@ class FetchWeatherCloudDataSourceImpl @Inject constructor(
         }
     }
 
+
     override suspend fun fetchWeatherForFiveDays(
         latitude: Double,
         longitude: Double
