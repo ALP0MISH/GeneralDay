@@ -17,6 +17,8 @@ android {
     }
 }
 dependencies {
+    implementation(projects.domain)
+
     /** Coroutines **/
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
