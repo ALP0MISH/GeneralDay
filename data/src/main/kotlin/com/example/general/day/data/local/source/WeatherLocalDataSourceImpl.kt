@@ -1,6 +1,5 @@
 package com.example.general.day.data.local.source
 
-import android.util.Log
 import com.example.general.day.data.local.dao.WeatherDao
 import com.example.general.day.data.local.models.CurrentWeatherLocal
 import kotlinx.coroutines.CancellationException
