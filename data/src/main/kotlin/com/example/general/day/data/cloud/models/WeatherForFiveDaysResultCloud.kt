@@ -15,7 +15,7 @@ data class WeatherForFiveDaysResultCloud(
     @SerializedName("pop")
     val probabilityOfPrecipitation: Double,
     @SerializedName("rain")
-    val rainAndSnow: ForRainOrSnowCloud,
+    val rain: ForRainOrSnowCloud,
     @SerializedName("snow")
     val snow: ForRainOrSnowCloud,
     @SerializedName("sys")
@@ -34,7 +34,7 @@ data class WeatherForFiveDaysResultCloud(
             timeText = String(),
             weatherTemperature = WeatherTemperatureCloud.unknown,
             probabilityOfPrecipitation = 0.0,
-            rainAndSnow = ForRainOrSnowCloud(hour = 0.0),
+            rain = ForRainOrSnowCloud(hour = 0.0),
             snow = ForRainOrSnowCloud(hour = 0.0),
             systemInformation = WeatherSystemInformationCloud(partOfDay = String()),
             visibility = -1,

@@ -1,24 +1,24 @@
 package com.example.general.day.data.cloud.source
 
-import com.example.general.day.data.cloud.models.CurrentWeatherResponseCloud
-import com.example.general.day.data.cloud.models.WeatherForFiveDaysResponseCloud
+import com.example.general.day.data.models.CurrentWeatherData
+import com.example.general.day.data.models.WeatherForFiveDaysData
 
 interface FetchWeatherCloudDataSource {
     suspend fun fetchCurrentWeather(
         latitude: Double,
         longitude: Double,
-    ): CurrentWeatherResponseCloud
+    ): CurrentWeatherData
 
     suspend fun fetchWeatherForFiveDays(
         latitude: Double,
         longitude: Double,
-    ): WeatherForFiveDaysResponseCloud
+    ): WeatherForFiveDaysData
 
     suspend fun fetchCurrentCityWeather(
         cityName: String,
-    ): CurrentWeatherResponseCloud
+    ): CurrentWeatherData
 
     suspend fun fetchWeatherCityForFiveDays(
         cityName: String,
-    ): WeatherForFiveDaysResponseCloud
+    ): WeatherForFiveDaysData
 }

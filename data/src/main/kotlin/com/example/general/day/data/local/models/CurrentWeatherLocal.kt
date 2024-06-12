@@ -13,7 +13,11 @@ data class CurrentWeatherLocal(
     @PrimaryKey
     @ColumnInfo("id") val id: Int,
     @ColumnInfo("code") val code: Int,
-    @ColumnInfo("localCoordinates") val localCoordinates: CoordinatesLocal,
-    @ColumnInfo("localWeatherTemperature") val localWeatherTemperature: WeatherTemperatureLocal,
+    @ColumnInfo("lat") val lat: Double,
+    @ColumnInfo("lon") val lon: Double,
+    @ColumnInfo("feelsLike") val feelsLike: Double,
+    @ColumnInfo("temperature")  val temperature: Double,
+    @ColumnInfo("tempMax")  val tempMax: Double,
+    @ColumnInfo("tempMin") val tempMin: Double,
     @ColumnInfo("name") val name: String,
 )

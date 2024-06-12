@@ -17,7 +17,7 @@ data class CurrentWeatherResponseCloud(
     @SerializedName("id")
     val id: Int,
     @SerializedName("main")
-    val main: WeatherTemperatureCloud,
+    val weatherTemperature: WeatherTemperatureCloud,
     @SerializedName("name")
     val name: String,
     @SerializedName("sys")
@@ -33,7 +33,7 @@ data class CurrentWeatherResponseCloud(
             clouds = CloudsCloud(all = -1),
             code = -1,
             id = -1,
-            main = WeatherTemperatureCloud.unknown,
+            weatherTemperature = WeatherTemperatureCloud.unknown,
             name = String(),
             systemInformation = WeatherSystemInformationCloud(partOfDay = String()),
             weather = emptyList(),
