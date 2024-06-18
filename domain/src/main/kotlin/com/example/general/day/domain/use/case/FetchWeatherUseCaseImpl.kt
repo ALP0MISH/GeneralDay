@@ -2,19 +2,23 @@ package com.example.general.day.domain.use.case
 
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.models.WeatherForFiveDaysDomain
+import com.example.general.day.domain.repository.WeatherRepositoryCloud
+import javax.inject.Inject
 
-class FetchWeatherUseCaseImpl:FetchWeatherUseCase {
+class FetchWeatherUseCaseImpl @Inject constructor(
+    private val repositoryCloud: WeatherRepositoryCloud,
+) : FetchWeatherUseCase {
     override suspend fun fetchCurrentWeather(
         latitude: Double,
         longitude: Double
     ): CurrentWeatherDomain {
-        TODO("Not yet implemented")
+        return repositoryCloud.fetchCurrentWeather(latitude, longitude)
     }
 
     override suspend fun fetchWeatherForFiveDays(
         latitude: Double,
         longitude: Double
     ): WeatherForFiveDaysDomain {
-        TODO("Not yet implemented")
+        return repositoryCloud.fetchWeatherForFiveDays(latitude, longitude)
     }
 }

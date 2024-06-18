@@ -1,9 +1,9 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlin)
-    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.kapt)
 }
+
 android {
     namespace = "com.example.general.day.data"
     compileSdk = libs.versions.compileSdk.get().toInt()
@@ -18,6 +18,7 @@ android {
 }
 dependencies {
     implementation(projects.domain)
+    implementation(projects.core)
 
     /** Coroutines **/
     implementation(libs.kotlinx.coroutines.core)

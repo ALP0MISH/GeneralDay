@@ -1,10 +1,10 @@
 [versions]
 
-agp-version = "8.2.0"
-androidxLifecycle = "2.8.0"
+agp-version = "8.2.2"
+androidxLifecycle = "2.8.2"
 androidxActivity = "1.9.0"
-androidxComposeBom = "2024.05.00"
-androidGradlePlugin = "8.2.0"
+androidxComposeBom = "2024.06.00"
+androidGradlePlugin = "8.2.2"
 converter-gson = "2.9.0"
 coil-compose = "2.6.0"
 compileSdk = "34"
