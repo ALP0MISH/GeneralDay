@@ -1,7 +1,6 @@
 package com.example.general.day.data.repository
 
 import com.example.general.day.data.local.source.WeatherLocalDataSource
-import com.example.general.day.data.mappers.CurrentWeatherDomainToCurrentWeatherDataMapper
 import com.example.general.day.data.mappers.CurrentWeatherLocalDataToCurrentWeatherLocalDomainMapper
 import com.example.general.day.domain.models.CurrentWeatherLocalDomain
 import com.example.general.day.domain.repository.WeatherRepositoryLocal

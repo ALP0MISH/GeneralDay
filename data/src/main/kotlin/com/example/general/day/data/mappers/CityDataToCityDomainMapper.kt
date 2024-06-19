@@ -6,7 +6,7 @@ import com.example.general.day.domain.models.CityDomain
 import javax.inject.Inject
 
 class CityDataToCityDomainMapper @Inject constructor(
-    private val coordinatesDataToCoordinatesDomain: CoordinatesDataToCoordinatesDomainMapper
+    private val coordinatesDataToCoordinatesDomain: CoordinatesDataToDomainMapper
 ) : Mapper<CityData, CityDomain> {
     override fun map(from: CityData): CityDomain = from.run {
         CityDomain(

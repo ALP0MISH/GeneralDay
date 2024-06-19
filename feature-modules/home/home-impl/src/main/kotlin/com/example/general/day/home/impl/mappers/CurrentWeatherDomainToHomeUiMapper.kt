@@ -1,0 +1,34 @@
+package com.example.general.day.home.impl.mappers
+
+import com.example.general.day.core.Mapper
+import com.example.general.day.domain.models.CurrentWeatherDomain
+import com.example.general.day.home.impl.models.CurrentWeatherHomeUi
+import javax.inject.Inject
+
+class CurrentWeatherDomainToHomeUiMapper @Inject constructor(
+    private val coordinatesDomainToHomeUi: CoordinatesDomainToHomeUiMapper,
+    private val cloudsDomainToCloudsHomeUi: CloudsDomainToHomeUiMapper,
+    private val weatherTemperatureDomainToHomeUi: WeatherTemperatureDomainToHomeUiMapper,
+    private val weatherSystemInformationDomainToHomeUi: WeatherSystemInformationDomainToHomeUiMapper,
+    private val weatherDomainToWeatherHomeUI: WeatherDomainToWeatherHomeUiMapper,
+    private val windDomainToWindHomeUi: WindDomainToWindHomeUiMapper,
+) : Mapper<CurrentWeatherDomain, CurrentWeatherHomeUi> {
+
+    override fun map(from: CurrentWeatherDomain): CurrentWeatherHomeUi = from.run {
+        CurrentWeatherHomeUi(
+            base = base,
+            clouds = cloudsDomainToCloudsHomeUi.map(clouds),
+            cod = cod,
+            coordinates = coordinatesDomainToHomeUi.map(coordinates),
+            time = time,
+            id = id,
+            weatherTemperature = weatherTemperatureDomainToHomeUi.map(
+                weatherTemperature
+            ),
+            name = name,
+            systemInformation = weatherSystemInformationDomainToHomeUi.map(systemInformation),
+            weather = weather.map(weatherDomainToWeatherHomeUI::map),
+            wind = windDomainToWindHomeUi.map(wind)
+        )
+    }
+}

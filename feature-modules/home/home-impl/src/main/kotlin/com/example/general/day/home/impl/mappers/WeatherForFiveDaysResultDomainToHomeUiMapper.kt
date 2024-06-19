@@ -1,21 +1,21 @@
-package com.example.general.day.data.mappers
+package com.example.general.day.home.impl.mappers
 
 import com.example.general.day.core.Mapper
-import com.example.general.day.data.models.WeatherForFiveDaysResultData
 import com.example.general.day.domain.models.WeatherForFiveDaysResultDomain
+import com.example.general.day.home.impl.models.WeatherForFiveDaysResultHomeUi
 import javax.inject.Inject
 
-class WeatherForFiveDaysResultDataToDomainMapper @Inject constructor(
-    private val cloudsCloudToCloudsDomain: CloudsDataToDomainMapper,
-    private val weatherTemperatureCloudToWeatherTemperatureDomain: WeatherTemperatureDataToDomainMapper,
-    private val weatherSystemInformationCloudToWeatherSystemInformationDomain: WeatherSystemInformationDataToDomainMapper,
-    private val weatherDataToDomainMapper: WeatherDataToDomainMapper,
-    private val windCloudToWindDomain: WindDataToWindDomainMapper,
-    private val forRainOrSnowCloudToForRainOrSnowDomain: ForRainOrSnowDataToDomainMapper,
-) : Mapper<WeatherForFiveDaysResultData, WeatherForFiveDaysResultDomain> {
-    override fun map(from: WeatherForFiveDaysResultData): WeatherForFiveDaysResultDomain =
+class WeatherForFiveDaysResultDomainToHomeUiMapper @Inject constructor(
+    private val cloudsCloudToCloudsDomain: CloudsDomainToHomeUiMapper,
+    private val weatherTemperatureCloudToWeatherTemperatureDomain: WeatherTemperatureDomainToHomeUiMapper,
+    private val weatherSystemInformationCloudToWeatherSystemInformationDomain: WeatherSystemInformationDomainToHomeUiMapper,
+    private val weatherDataToDomainMapper: WeatherDomainToWeatherHomeUiMapper,
+    private val windCloudToWindDomain: WindDomainToWindHomeUiMapper,
+    private val forRainOrSnowCloudToForRainOrSnowDomain: ForRainOrSnowDomainToHomeUiMapper,
+) : Mapper<WeatherForFiveDaysResultDomain, WeatherForFiveDaysResultHomeUi> {
+    override fun map(from: WeatherForFiveDaysResultDomain): WeatherForFiveDaysResultHomeUi =
         from.run {
-            WeatherForFiveDaysResultDomain(
+            WeatherForFiveDaysResultHomeUi(
                 clouds = cloudsCloudToCloudsDomain.map(clouds),
                 time = time,
                 timeText = timeText,

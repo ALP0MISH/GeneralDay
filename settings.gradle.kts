@@ -16,7 +16,13 @@ dependencyResolutionManagement {
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "General-Day"
-include(":app")
-include(":data")
-include(":domain")
-include(":core")
+include(
+    ":app",
+    ":data",
+    ":domain",
+    ":core",
+    ":ui-core",
+    ":feature-modules",
+    ":feature-modules:home:home-api",
+    ":feature-modules:home:home-impl",
+)

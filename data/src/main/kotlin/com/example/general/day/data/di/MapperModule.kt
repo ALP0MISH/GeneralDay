@@ -13,31 +13,14 @@ import com.example.general.day.data.cloud.models.WeatherSystemInformationCloud
 import com.example.general.day.data.cloud.models.WeatherTemperatureCloud
 import com.example.general.day.data.cloud.models.WindCloud
 import com.example.general.day.data.local.models.CurrentWeatherLocal
-import com.example.general.day.data.cloud.mapper.CityCloudToCityDataMapper
-import com.example.general.day.data.cloud.mapper.CloudsCloudToCloudsDataMapper
 import com.example.general.day.data.cloud.mapper.CoordinatesCloudToCoordinatesDataMapper
 import com.example.general.day.data.cloud.mapper.CurrentWeatherCloudToCurrentWeatherDataMapper
 import com.example.general.day.data.cloud.mapper.ForRainOrSnowCloudToForRainOrSnowDataMapper
 import com.example.general.day.data.cloud.mapper.WeatherCloudToWeatherDataMapper
-import com.example.general.day.data.cloud.mapper.WeatherForFiveDaysResponseCloudToWeatherForFiveDaysDataMapper
 import com.example.general.day.data.cloud.mapper.WeatherForFiveDaysResultCloudToWeatherForFiveDaysDataMapper
-import com.example.general.day.data.cloud.mapper.WeatherSystemInformationCloudToWeatherSystemInformationDataMapper
-import com.example.general.day.data.cloud.mapper.WeatherTemperatureCloudToWeatherTemperatureDataMapper
-import com.example.general.day.data.cloud.mapper.WindCloudToWindDataMapper
-import com.example.general.day.data.local.mapper.CurrentWeatherLocalDataToCurrentWeatherLocalMapper
 import com.example.general.day.data.mappers.CityDataToCityDomainMapper
-import com.example.general.day.data.mappers.CloudsDataToCloudsDomainMapper
-import com.example.general.day.data.mappers.CoordinatesDataToCoordinatesDomainMapper
-import com.example.general.day.data.mappers.CurrentWeatherDataToCurrentWeatherDomainMapper
-import com.example.general.day.data.mappers.ForRainOrSnowDataToForRainOrSnowDomainMapper
-import com.example.general.day.data.mappers.WeatherDataToWeatherDomainMapper
-import com.example.general.day.data.mappers.WeatherForFiveDaysResponseDataToWeatherForFiveDaysDomainMapper
-import com.example.general.day.data.mappers.WeatherForFiveDaysResultDataToWeatherForFiveDaysDomainMapper
-import com.example.general.day.data.mappers.WeatherSystemInformationDataToWeatherSystemInformationDomainMapper
-import com.example.general.day.data.mappers.WeatherTemperatureDataToWeatherTemperatureDomainMapper
+import com.example.general.day.data.mappers.CloudsDataToDomainMapper
 import com.example.general.day.data.mappers.WindDataToWindDomainMapper
-import com.example.general.day.data.mappers.CurrentWeatherDomainToCurrentWeatherDataMapper
-import com.example.general.day.data.local.mapper.CurrentWeatherLocalToCurrentWeatherDataMapper
 import com.example.general.day.data.mappers.CurrentWeatherLocalDataToCurrentWeatherLocalDomainMapper
 import com.example.general.day.data.models.CityData
 import com.example.general.day.data.models.CloudsData
@@ -131,7 +114,7 @@ interface MapperModule {
 
     @Binds
     fun bindsCloudsDataToCloudsDomainMapper(
-        implementation: CloudsDataToCloudsDomainMapper
+        implementation: CloudsDataToDomainMapper
     ): Mapper<CloudsData, CloudsDomain>
 
     @Binds
