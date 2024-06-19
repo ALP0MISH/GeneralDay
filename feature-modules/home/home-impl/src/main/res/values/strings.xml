@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_screen_rout">Home screen rout</string>
+    <string name="home_destination_rout">Home destination title</string>
+</resources>

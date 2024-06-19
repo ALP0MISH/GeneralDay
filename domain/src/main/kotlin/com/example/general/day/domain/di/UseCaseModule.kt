@@ -1,9 +1,13 @@
 package com.example.general.day.domain.di
 
-import com.example.general.day.domain.use.case.FetchWeatherByCity
-import com.example.general.day.domain.use.case.FetchWeatherByCityImpl
-import com.example.general.day.domain.use.case.FetchWeatherUseCase
-import com.example.general.day.domain.use.case.FetchWeatherUseCaseImpl
+import com.example.general.day.domain.use.case.FetchCurrentCityWeatherUseCase
+import com.example.general.day.domain.use.case.FetchCurrentCityWeatherUseCaseImpl
+import com.example.general.day.domain.use.case.FetchCurrentWeatherUseCase
+import com.example.general.day.domain.use.case.FetchCurrentWeatherUseCaseImpl
+import com.example.general.day.domain.use.case.FetchWeatherCityForFiveDaysUseCase
+import com.example.general.day.domain.use.case.FetchWeatherCityForFiveDaysUseCaseImpl
+import com.example.general.day.domain.use.case.FetchWeatherForFiveDaysUseCase
+import com.example.general.day.domain.use.case.FetchWeatherForFiveDaysUseCaseImpl
 import com.example.general.day.domain.use.case.ObserveCurrentWeatherUseCase
 import com.example.general.day.domain.use.case.ObserveCurrentWeatherUseCaseImpl
 import com.example.general.day.domain.use.case.SaveCurrentWeatherUseCase
@@ -16,13 +20,13 @@ interface UseCaseModule {
 
     @Binds
     fun provideFetchWeatherByCity(
-        implementation: FetchWeatherByCityImpl,
-    ): FetchWeatherByCity
+        implementation: FetchWeatherCityForFiveDaysUseCaseImpl,
+    ): FetchWeatherCityForFiveDaysUseCase
 
     @Binds
     fun provideFetchWeatherUseCase(
-        implementation: FetchWeatherUseCaseImpl,
-    ): FetchWeatherUseCase
+        implementation: FetchWeatherForFiveDaysUseCaseImpl,
+    ): FetchWeatherForFiveDaysUseCase
 
     @Binds
     fun provideObserveCurrentWeatherUseCase(
@@ -33,4 +37,14 @@ interface UseCaseModule {
     fun provideSaveCurrentWeatherUseCase(
         implementation: SaveCurrentWeatherUseCaseImpl,
     ): SaveCurrentWeatherUseCase
+
+    @Binds
+    fun provideFetchCurrentCityWeatherUseCase(
+        implementation: FetchCurrentCityWeatherUseCaseImpl,
+    ): FetchCurrentCityWeatherUseCase
+
+    @Binds
+    fun provideFetchCurrentWeatherUseCase(
+        implementation: FetchCurrentWeatherUseCaseImpl,
+    ): FetchCurrentWeatherUseCase
 }

@@ -21,13 +21,13 @@ dependencies {
     /** Coroutines **/
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
-    
+
     /** Dagger **/
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
 
     /** Location Services **/
-    implementation (libs.services.location)
+    implementation (libs.play.services.location)
 
     /** Navigation **/
     implementation(libs.navigation.compose)
