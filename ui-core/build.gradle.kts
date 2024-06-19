@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.general.day.ui-core"
+    namespace = "com.example.general.day.ui.core"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {

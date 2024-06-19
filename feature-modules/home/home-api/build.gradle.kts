@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.general.day.feature-modules.home.api"
+    namespace = "com.example.general.day.home.api"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {

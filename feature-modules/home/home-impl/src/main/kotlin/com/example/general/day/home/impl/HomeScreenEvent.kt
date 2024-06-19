@@ -1,7 +1,6 @@
 package com.example.general.day.home.impl
 
 sealed class HomeScreenEvent {
-
     data object DoRefreshAllData : HomeScreenEvent()
     data object DoNavigateToDetailScreen : HomeScreenEvent()
     data object DoNavigateToMapScreen : HomeScreenEvent()

@@ -9,6 +9,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.example.general.day.home.impl.HomeScreenEvent.DoNavigateToDetailScreen
+import com.example.general.day.home.impl.HomeScreenEvent.DoNavigateToFavoriteScreen
+import com.example.general.day.home.impl.HomeScreenEvent.DoNavigateToMapScreen
+import com.example.general.day.home.impl.HomeScreenEvent.DoNavigateToSearchScreen
+import com.example.general.day.home.impl.HomeScreenEvent.DoRefreshAllData
 
 class HomeViewModel @Inject constructor(
     private val fetchCurrentWeatherUseCase: FetchCurrentWeatherUseCase,
@@ -24,11 +29,11 @@ class HomeViewModel @Inject constructor(
 
     fun onEvent(event: HomeScreenEvent) {
         when (event) {
-            HomeScreenEvent.DoNavigateToDetailScreen -> TODO()
-            HomeScreenEvent.DoNavigateToFavoriteScreen -> TODO()
-            HomeScreenEvent.DoNavigateToMapScreen -> TODO()
-            HomeScreenEvent.DoNavigateToSearchScreen -> TODO()
-            HomeScreenEvent.DoRefreshAllData -> TODO()
+            DoNavigateToDetailScreen -> TODO()
+            DoNavigateToFavoriteScreen -> TODO()
+            DoNavigateToMapScreen -> TODO()
+            DoNavigateToSearchScreen -> TODO()
+            DoRefreshAllData -> TODO()
         }
     }
 

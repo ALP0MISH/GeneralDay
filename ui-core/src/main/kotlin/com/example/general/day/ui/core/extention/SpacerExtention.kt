@@ -1,4 +1,4 @@
-package com.example.general.day.presentation.extention
+package com.example.general.day.ui.core.extention
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope

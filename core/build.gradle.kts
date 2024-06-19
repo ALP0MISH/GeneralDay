@@ -21,7 +21,7 @@ dependencies {
     /** Coroutines **/
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
-    
+
     /** Dagger **/
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
