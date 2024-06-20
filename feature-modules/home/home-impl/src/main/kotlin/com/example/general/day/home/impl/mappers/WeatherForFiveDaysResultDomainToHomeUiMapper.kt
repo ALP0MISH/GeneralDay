@@ -9,8 +9,8 @@ class WeatherForFiveDaysResultDomainToHomeUiMapper @Inject constructor(
     private val cloudsCloudToCloudsDomain: CloudsDomainToHomeUiMapper,
     private val weatherTemperatureCloudToWeatherTemperatureDomain: WeatherTemperatureDomainToHomeUiMapper,
     private val weatherSystemInformationCloudToWeatherSystemInformationDomain: WeatherSystemInformationDomainToHomeUiMapper,
-    private val weatherDataToDomainMapper: WeatherDomainToWeatherHomeUiMapper,
-    private val windCloudToWindDomain: WindDomainToWindHomeUiMapper,
+    private val weatherDataToDomainMapper: WeatherDomainToHomeUiMapper,
+    private val windCloudToWindDomain: WindDomainToHomeUIMapper,
     private val forRainOrSnowCloudToForRainOrSnowDomain: ForRainOrSnowDomainToHomeUiMapper,
 ) : Mapper<WeatherForFiveDaysResultDomain, WeatherForFiveDaysResultHomeUi> {
     override fun map(from: WeatherForFiveDaysResultDomain): WeatherForFiveDaysResultHomeUi =

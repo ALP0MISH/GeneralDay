@@ -1,6 +1,17 @@
 package com.example.general.day.data.di
 
 import com.example.general.day.core.Mapper
+import com.example.general.day.data.cloud.mapper.CityCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.CloudsCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.CoordinatesCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.CurrentWeatherCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.ForRainOrSnowCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.WeatherCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.WeatherForFiveDaysResponseCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.WeatherForFiveDaysResultCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.WeatherSystemInformationCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.WeatherTemperatureCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.WindCloudToDataMapper
 import com.example.general.day.data.cloud.models.CityCloud
 import com.example.general.day.data.cloud.models.CloudsCloud
 import com.example.general.day.data.cloud.models.CoordinatesCloud
@@ -12,16 +23,21 @@ import com.example.general.day.data.cloud.models.WeatherForFiveDaysResultCloud
 import com.example.general.day.data.cloud.models.WeatherSystemInformationCloud
 import com.example.general.day.data.cloud.models.WeatherTemperatureCloud
 import com.example.general.day.data.cloud.models.WindCloud
+import com.example.general.day.data.local.mapper.CurrentWeatherLocalToDataMapper
 import com.example.general.day.data.local.models.CurrentWeatherLocal
-import com.example.general.day.data.cloud.mapper.CoordinatesCloudToCoordinatesDataMapper
-import com.example.general.day.data.cloud.mapper.CurrentWeatherCloudToCurrentWeatherDataMapper
-import com.example.general.day.data.cloud.mapper.ForRainOrSnowCloudToForRainOrSnowDataMapper
-import com.example.general.day.data.cloud.mapper.WeatherCloudToWeatherDataMapper
-import com.example.general.day.data.cloud.mapper.WeatherForFiveDaysResultCloudToWeatherForFiveDaysDataMapper
 import com.example.general.day.data.mappers.CityDataToCityDomainMapper
 import com.example.general.day.data.mappers.CloudsDataToDomainMapper
+import com.example.general.day.data.mappers.CoordinatesDataToDomainMapper
+import com.example.general.day.data.mappers.CurrentWeatherDataToDomainMapper
+import com.example.general.day.data.mappers.CurrentWeatherDomainToDataMapper
+import com.example.general.day.data.mappers.CurrentWeatherLocalDataToDomainMapper
+import com.example.general.day.data.mappers.ForRainOrSnowDataToDomainMapper
+import com.example.general.day.data.mappers.WeatherDataToDomainMapper
+import com.example.general.day.data.mappers.WeatherForFiveDaysDataToDomainMapper
+import com.example.general.day.data.mappers.WeatherForFiveDaysResultDataToDomainMapper
+import com.example.general.day.data.mappers.WeatherSystemInformationDataToDomainMapper
+import com.example.general.day.data.mappers.WeatherTemperatureDataToDomainMapper
 import com.example.general.day.data.mappers.WindDataToWindDomainMapper
-import com.example.general.day.data.mappers.CurrentWeatherLocalDataToCurrentWeatherLocalDomainMapper
 import com.example.general.day.data.models.CityData
 import com.example.general.day.data.models.CloudsData
 import com.example.general.day.data.models.CoordinatesData
@@ -53,58 +69,58 @@ import dagger.Module
 interface MapperModule {
 
     @Binds
-    fun bindsCityCloudToCityDataMapper(
-        implementation: CityCloudToCityDataMapper
+    fun bindsCityCloudToDataMapper(
+        implementation: CityCloudToDataMapper
     ): Mapper<CityCloud, CityData>
 
     @Binds
-    fun bindsCloudsCloudToCloudsDataMapper(
-        implementation: CloudsCloudToCloudsDataMapper
+    fun bindsCloudsCloudToDataMapper(
+        implementation: CloudsCloudToDataMapper
     ): Mapper<CloudsCloud, CloudsData>
 
     @Binds
-    fun bindsCoordinatesCloudToCoordinatesDataMapper(
-        implementation: CoordinatesCloudToCoordinatesDataMapper
+    fun bindsCoordinatesCloudToDataMapper(
+        implementation: CoordinatesCloudToDataMapper
     ): Mapper<CoordinatesCloud, CoordinatesData>
 
     @Binds
-    fun bindsCurrentWeatherCloudToCurrentWeatherDataMapper(
-        implementation: CurrentWeatherCloudToCurrentWeatherDataMapper
+    fun bindsCurrentWeatherCloudToDataMapper(
+        implementation: CurrentWeatherCloudToDataMapper
     ): Mapper<CurrentWeatherResponseCloud, CurrentWeatherData>
 
     @Binds
-    fun bindsForRainOrSnowCloudToForRainOrSnowDataMapper(
-        implementation: ForRainOrSnowCloudToForRainOrSnowDataMapper
+    fun bindsForRainOrSnowCloudToDataMapper(
+        implementation: ForRainOrSnowCloudToDataMapper
     ): Mapper<ForRainOrSnowCloud, ForRainOrSnowData>
 
     @Binds
-    fun bindsWeatherCloudToWeatherDataMapper(
-        implementation: WeatherCloudToWeatherDataMapper
+    fun bindsWeatherCloudToDataMapper(
+        implementation: WeatherCloudToDataMapper
     ): Mapper<WeatherCloud, WeatherData>
 
     @Binds
-    fun bindsWeatherForFiveDaysResponseCloudToWeatherForFiveDaysDataMapper(
-        implementation: WeatherForFiveDaysResponseCloudToWeatherForFiveDaysDataMapper
+    fun bindsWeatherForFiveDaysResponseCloudToDataMapper(
+        implementation: WeatherForFiveDaysResponseCloudToDataMapper
     ): Mapper<WeatherForFiveDaysResponseCloud, WeatherForFiveDaysData>
 
     @Binds
-    fun bindsWeatherForFiveDaysResultCloudToWeatherForFiveDaysDataMapper(
-        implementation: WeatherForFiveDaysResultCloudToWeatherForFiveDaysDataMapper
+    fun bindsWeatherForFiveDaysResultCloudToDataMapper(
+        implementation: WeatherForFiveDaysResultCloudToDataMapper
     ): Mapper<WeatherForFiveDaysResultCloud, WeatherForFiveDaysResultData>
 
     @Binds
-    fun bindsWeatherSystemInformationCloudToWeatherSystemInformationDataMapper(
-        implementation: WeatherSystemInformationCloudToWeatherSystemInformationDataMapper
+    fun bindsWeatherSystemInformationCloudToDataMapper(
+        implementation: WeatherSystemInformationCloudToDataMapper
     ): Mapper<WeatherSystemInformationCloud, WeatherSystemInformationData>
 
     @Binds
-    fun bindsWeatherTemperatureCloudToWeatherTemperatureDataMapper(
-        implementation: WeatherTemperatureCloudToWeatherTemperatureDataMapper
+    fun bindsWeatherTemperatureCloudToDataMapper(
+        implementation: WeatherTemperatureCloudToDataMapper
     ): Mapper<WeatherTemperatureCloud, WeatherTemperatureData>
 
     @Binds
-    fun bindsWindCloudToWindDataMapper(
-        implementation: WindCloudToWindDataMapper
+    fun bindsWindCloudToDataMapper(
+        implementation: WindCloudToDataMapper
     ): Mapper<WindCloud, WindData>
 
     @Binds
@@ -118,48 +134,48 @@ interface MapperModule {
     ): Mapper<CloudsData, CloudsDomain>
 
     @Binds
-    fun bindsCoordinatesDataToCoordinatesDomainMapper(
-        implementation: CoordinatesDataToCoordinatesDomainMapper
+    fun bindsCoordinatesDataToDomainMapper(
+        implementation: CoordinatesDataToDomainMapper
     ): Mapper<CoordinatesData, CoordinatesDomain>
 
     @Binds
-    fun bindsCurrentWeatherDataToCurrentWeatherDomainMapper(
-        implementation: CurrentWeatherDataToCurrentWeatherDomainMapper
+    fun bindsCurrentWeatherDataToDomainMapper(
+        implementation: CurrentWeatherDataToDomainMapper
     ): Mapper<CurrentWeatherData, CurrentWeatherDomain>
 
     @Binds
-    fun bindsCurrentWeatherLocalDataToCurrentWeatherLocalDomainMapper(
-        implementation: CurrentWeatherLocalDataToCurrentWeatherLocalDomainMapper
+    fun bindsCurrentWeatherLocalDataToDomainMapper(
+        implementation: CurrentWeatherLocalDataToDomainMapper
     ): Mapper<CurrentWeatherLocalData, CurrentWeatherLocalDomain>
 
     @Binds
     fun bindsForRainOrSnowDataToForRainOrSnowDomainMapper(
-        implementation: ForRainOrSnowDataToForRainOrSnowDomainMapper
+        implementation: ForRainOrSnowDataToDomainMapper
     ): Mapper<ForRainOrSnowData, ForRainOrSnowDomain>
 
     @Binds
-    fun bindsWeatherDataToWeatherDomainMapper(
-        implementation: WeatherDataToWeatherDomainMapper
+    fun bindsWeatherDataToDomainMapper(
+        implementation: WeatherDataToDomainMapper
     ): Mapper<WeatherData, WeatherDomain>
 
     @Binds
-    fun bindsWeatherForFiveDaysResponseDataToWeatherForFiveDaysDomainMapper(
-        implementation: WeatherForFiveDaysResponseDataToWeatherForFiveDaysDomainMapper
+    fun bindsWeatherForFiveDaysResponseDataToDomainMapper(
+        implementation: WeatherForFiveDaysDataToDomainMapper
     ): Mapper<WeatherForFiveDaysData, WeatherForFiveDaysDomain>
 
     @Binds
-    fun bindsWeatherForFiveDaysResultDataToWeatherForFiveDaysDomainMapper(
-        implementation: WeatherForFiveDaysResultDataToWeatherForFiveDaysDomainMapper
+    fun bindsWeatherForFiveDaysResultDataToDomainMapper(
+        implementation: WeatherForFiveDaysResultDataToDomainMapper
     ): Mapper<WeatherForFiveDaysResultData, WeatherForFiveDaysResultDomain>
 
     @Binds
-    fun bindsWeatherSystemInformationDataToWeatherSystemInformationDomainMapper(
-        implementation: WeatherSystemInformationDataToWeatherSystemInformationDomainMapper
+    fun bindsWeatherSystemInformationDataToDomainMapper(
+        implementation: WeatherSystemInformationDataToDomainMapper
     ): Mapper<WeatherSystemInformationData, WeatherSystemInformationDomain>
 
     @Binds
-    fun bindsWeatherTemperatureDataToWeatherTemperatureDomainMapper(
-        implementation: WeatherTemperatureDataToWeatherTemperatureDomainMapper
+    fun bindsWeatherTemperatureDataToDomainMapper(
+        implementation: WeatherTemperatureDataToDomainMapper
     ): Mapper<WeatherTemperatureData, WeatherTemperatureDomain>
 
     @Binds
@@ -168,12 +184,12 @@ interface MapperModule {
     ): Mapper<WindData, WindDomain>
 
     @Binds
-    fun bindsCurrentWeatherDomainToCurrentWeatherDataMapper(
-        implementation: CurrentWeatherDomainToCurrentWeatherDataMapper
+    fun bindsCurrentWeatherDomainToDataMapper(
+        implementation: CurrentWeatherDomainToDataMapper
     ): Mapper<CurrentWeatherLocalDomain, CurrentWeatherLocalData>
 
     @Binds
     fun bindsCurrentWeatherLocalToCurrentWeatherDataMapper(
-        implementation: CurrentWeatherLocalToCurrentWeatherDataMapper
+        implementation: CurrentWeatherLocalToDataMapper
     ): Mapper<CurrentWeatherLocal, CurrentWeatherLocalData>
 }

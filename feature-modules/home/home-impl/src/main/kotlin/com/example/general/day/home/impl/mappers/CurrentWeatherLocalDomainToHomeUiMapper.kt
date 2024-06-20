@@ -18,7 +18,6 @@ class CurrentWeatherLocalDomainToHomeUiMapper @Inject constructor() :
             tempMax = tempMax,
             tempMin = tempMin,
             name = name,
-
-            )
+        )
     }
 }
