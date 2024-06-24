@@ -7,11 +7,11 @@ import javax.inject.Inject
 
 class WeatherForFiveDaysResultDataToDomainMapper @Inject constructor(
     private val cloudsCloudToCloudsDomain: CloudsDataToDomainMapper,
-    private val weatherTemperatureCloudToWeatherTemperatureDomain: WeatherTemperatureDataToDomainMapper,
-    private val weatherSystemInformationCloudToWeatherSystemInformationDomain: WeatherSystemInformationDataToDomainMapper,
+    private val weatherTemperatureCloudToDomain: WeatherTemperatureDataToDomainMapper,
+    private val weatherSystemInformationCloudToDomain: WeatherSystemInformationDataToDomainMapper,
     private val weatherDataToDomainMapper: WeatherDataToDomainMapper,
     private val windCloudToWindDomain: WindDataToWindDomainMapper,
-    private val forRainOrSnowCloudToForRainOrSnowDomain: ForRainOrSnowDataToDomainMapper,
+    private val forRainOrSnowCloudToDomain: ForRainOrSnowDataToDomainMapper,
 ) : Mapper<WeatherForFiveDaysResultData, WeatherForFiveDaysResultDomain> {
     override fun map(from: WeatherForFiveDaysResultData): WeatherForFiveDaysResultDomain =
         from.run {
@@ -19,13 +19,13 @@ class WeatherForFiveDaysResultDataToDomainMapper @Inject constructor(
                 clouds = cloudsCloudToCloudsDomain.map(clouds),
                 time = time,
                 timeText = timeText,
-                weatherTemperature = weatherTemperatureCloudToWeatherTemperatureDomain.map(
+                weatherTemperature = weatherTemperatureCloudToDomain.map(
                     weatherTemperature
                 ),
                 probabilityOfPrecipitation = probabilityOfPrecipitation,
-                rain = forRainOrSnowCloudToForRainOrSnowDomain.map(rain),
-                snow = forRainOrSnowCloudToForRainOrSnowDomain.map(snow),
-                systemInformation = weatherSystemInformationCloudToWeatherSystemInformationDomain.map(
+                rain = forRainOrSnowCloudToDomain.map(rain),
+                snow = forRainOrSnowCloudToDomain.map(snow),
+                systemInformation = weatherSystemInformationCloudToDomain.map(
                     systemInformation
                 ),
                 visibility = visibility,

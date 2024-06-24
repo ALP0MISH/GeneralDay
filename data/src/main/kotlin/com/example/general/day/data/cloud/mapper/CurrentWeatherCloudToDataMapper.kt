@@ -8,8 +8,8 @@ import javax.inject.Inject
  class CurrentWeatherCloudToDataMapper @Inject constructor(
      private val coordinatesLocalToCoordinatesDomain: CoordinatesCloudToDataMapper,
      private val cloudsCloudToCloudsDomain: CloudsCloudToDataMapper,
-     private val weatherTemperatureCloudToWeatherTemperatureDomain: WeatherTemperatureCloudToDataMapper,
-     private val weatherSystemInformationCloudToWeatherSystemInformationDomain: WeatherSystemInformationCloudToDataMapper,
+     private val weatherTemperatureCloudToDomain: WeatherTemperatureCloudToDataMapper,
+     private val weatherSystemInformationCloudToDomain: WeatherSystemInformationCloudToDataMapper,
      private val weatherCloudToWeatherDomain: WeatherCloudToDataMapper,
      private val windCloudToWindDomain: WindCloudToDataMapper,
 ) : Mapper<CurrentWeatherResponseCloud, CurrentWeatherData> {
@@ -21,11 +21,11 @@ import javax.inject.Inject
             coordinates = coordinatesLocalToCoordinatesDomain.map(coordinates),
             time = time,
             id = id,
-            weatherTemperature = weatherTemperatureCloudToWeatherTemperatureDomain.map(
+            weatherTemperature = weatherTemperatureCloudToDomain.map(
                 weatherTemperature
             ),
             name = name,
-            systemInformation = weatherSystemInformationCloudToWeatherSystemInformationDomain.map(
+            systemInformation = weatherSystemInformationCloudToDomain.map(
                 systemInformation
             ),
             weather = weather.map(weatherCloudToWeatherDomain::map),

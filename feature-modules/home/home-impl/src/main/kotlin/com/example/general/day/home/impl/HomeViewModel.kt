@@ -15,31 +15,31 @@ class HomeViewModel @Inject constructor(
     private val fetchCurrentWeatherToHomeUi: CurrentWeatherDomainToHomeUiMapper
 ) : ViewModel() {
 
-    private val mutableState = MutableStateFlow(HomeUiState.Loading)
-    val state: StateFlow<HomeUiState> = mutableState.asStateFlow()
+    private val _uiState = MutableStateFlow(HomeUiState.Loading)
+    val state: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
     init {
         fetchWeather()
+    }
+
+    fun onEvent(event: HomeScreenEvent) {
+        when (event) {
+            HomeScreenEvent.DoNavigateToDetailScreen -> TODO()
+            HomeScreenEvent.DoNavigateToFavoriteScreen -> TODO()
+            HomeScreenEvent.DoNavigateToMapScreen -> TODO()
+            HomeScreenEvent.DoNavigateToSearchScreen -> TODO()
+            HomeScreenEvent.DoRefreshAllData -> TODO()
+        }
     }
 
     private fun fetchWeather() {
         viewModelScope.launch {
             val response = fetchCurrentWeatherUseCase.invoke(latitude = 0.0, longitude = 0.0)
             response.let { result ->
-                mutableState.tryEmit(
+                _uiState.tryEmit(
                     HomeUiState.Loaded(weather = result.let { fetchCurrentWeatherToHomeUi::map })
                 )
             }
-        }
-    }
-
-    fun onEvent(event: HomeScreenEvent) {
-        when (event) {
-            HomeScreenEvent.OnNavigateToDetailScreen -> TODO()
-            HomeScreenEvent.OnNavigateToFavoriteScreen -> TODO()
-            HomeScreenEvent.OnNavigateToMapScreen -> TODO()
-            HomeScreenEvent.OnNavigateToSearchScreen -> TODO()
-            HomeScreenEvent.RefreshAllData -> TODO()
         }
     }
 }
