@@ -5,5 +5,5 @@ import com.example.general.day.core.IdResourceString
 
 interface HomeFeatureApi : FeatureApi {
 
-    val homeRoute: IdResourceString
+    val homeRoute: String
 }

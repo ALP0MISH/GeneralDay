@@ -2,10 +2,14 @@ package com.example.general.day.home.impl
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.general.day.core.extantions.createMutableSharedFlowAsSingleLiveEvent
+import com.example.general.day.core.managers.LocationTrackerManager
 import com.example.general.day.domain.use.case.FetchCurrentWeatherUseCase
 import com.example.general.day.home.impl.mappers.CurrentWeatherDomainToHomeUiMapper
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,11 +33,11 @@ class HomeViewModel @Inject constructor(
 
     fun onEvent(event: HomeScreenEvent) {
         when (event) {
-            DoNavigateToDetailScreen -> TODO()
-            DoNavigateToFavoriteScreen -> TODO()
-            DoNavigateToMapScreen -> TODO()
-            DoNavigateToSearchScreen -> TODO()
-            DoRefreshAllData -> TODO()
+            DoNavigateToDetailScreen -> onNavigateToDetailScreen()
+            DoNavigateToFavoriteScreen -> onNavigateToFavoriteScreen()
+            DoNavigateToMapScreen -> onNavigateToMapScreen()
+            DoNavigateToSearchScreen -> onNavigateToSearchScreen()
+            DoRefreshAllData -> onRefreshAllData()
         }
     }
 
@@ -46,5 +50,25 @@ class HomeViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    private fun onNavigateToDetailScreen() {
+
+    }
+
+    private fun onNavigateToFavoriteScreen() {
+
+    }
+
+    private fun onNavigateToMapScreen() {
+
+    }
+
+    private fun onNavigateToSearchScreen() {
+
+    }
+
+    private fun onRefreshAllData() {
+
     }
 }

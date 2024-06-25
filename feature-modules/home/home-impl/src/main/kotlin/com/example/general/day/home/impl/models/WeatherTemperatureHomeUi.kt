@@ -1,5 +1,8 @@
 package com.example.general.day.home.impl.models
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 data class WeatherTemperatureHomeUi(
     val feelsLike: Double,
     val temperature: Double,

@@ -1,5 +1,10 @@
 package com.example.general.day.home.impl.models
 
+import androidx.compose.runtime.Immutable
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+
+@Immutable
 data class CurrentWeatherHomeUi(
     val base: String,
     val clouds: CloudsHomeUi,
@@ -10,7 +15,7 @@ data class CurrentWeatherHomeUi(
     val weatherTemperature: WeatherTemperatureHomeUi,
     val name: String,
     val systemInformation: WeatherSystemInformationHomeUi,
-    val weather: List<WeatherHomeUi>,
+    val weather: ImmutableList<WeatherHomeUi>,
     val wind: WindHomeUi,
 ) {
     companion object {
@@ -22,7 +27,7 @@ data class CurrentWeatherHomeUi(
             weatherTemperature = WeatherTemperatureHomeUi.unknown,
             name = String(),
             systemInformation = WeatherSystemInformationHomeUi(partOfDay = String()),
-            weather = emptyList(),
+            weather = persistentListOf(),
             wind = WindHomeUi(degrees = -1, speed = 0.0),
             coordinates = CoordinatesHomeUi(lat = 0.0, lon = 0.0),
             time = -1

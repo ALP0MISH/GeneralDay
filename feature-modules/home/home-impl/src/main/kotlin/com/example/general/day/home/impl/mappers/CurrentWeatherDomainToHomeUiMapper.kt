@@ -3,6 +3,7 @@ package com.example.general.day.home.impl.mappers
 import com.example.general.day.core.Mapper
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.home.impl.models.CurrentWeatherHomeUi
+import kotlinx.collections.immutable.toImmutableList
 import javax.inject.Inject
 
 class CurrentWeatherDomainToHomeUiMapper @Inject constructor(
@@ -27,7 +28,7 @@ class CurrentWeatherDomainToHomeUiMapper @Inject constructor(
             ),
             name = name,
             systemInformation = weatherSystemInformationDomainToHomeUi.map(systemInformation),
-            weather = weather.map(weatherDomainToWeatherHomeUI::map),
+            weather = weather.map(weatherDomainToWeatherHomeUI::map).toImmutableList(),
             wind = windDomainToWindHomeUi.map(wind)
         )
     }

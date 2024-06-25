@@ -77,9 +77,6 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 # Location Services
 services-location = { module = "com.google.android.gms:play-services-location", version.ref = "services-location-version" }
 
-#Navigation
-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
-
 [plugins]
 
 android-application = { id = "com.android.application", version.ref = "agp-version" }

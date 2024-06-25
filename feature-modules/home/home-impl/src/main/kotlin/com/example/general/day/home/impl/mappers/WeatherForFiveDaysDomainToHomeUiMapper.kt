@@ -4,6 +4,7 @@ import com.example.general.day.core.Mapper
 import com.example.general.day.domain.models.WeatherForFiveDaysDomain
 import com.example.general.day.home.impl.models.WeatherForFiveDaysHomeUi
 import com.example.general.day.home.impl.models.WeatherForFiveDaysResultHomeUi
+import kotlinx.collections.immutable.toImmutableList
 import javax.inject.Inject
 
 class WeatherForFiveDaysDomainToHomeUiMapper @Inject constructor(
@@ -15,7 +16,7 @@ class WeatherForFiveDaysDomainToHomeUiMapper @Inject constructor(
             city = cityDataToCityDomain.map(city),
             timeCount = timeCount,
             code = code,
-            list = list.map(weatherForFiveDaysResultDataToDomain::map),
+            list = list.map(weatherForFiveDaysResultDataToDomain::map).toImmutableList(),
             message = message
         )
     }

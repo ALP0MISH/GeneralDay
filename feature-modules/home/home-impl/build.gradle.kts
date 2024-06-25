@@ -26,7 +26,7 @@ dependencies {
     /** Navigation **/
     implementation(libs.navigation.compose)
 
-    /** Navigation **/
+    /** Immutable collections **/
     implementation(libs.kotlinx.collections.immutable)
 
     /** Coroutines **/
