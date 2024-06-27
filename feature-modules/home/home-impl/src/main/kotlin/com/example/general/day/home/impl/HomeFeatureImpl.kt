@@ -7,10 +7,6 @@ import androidx.navigation.compose.composable
 import com.example.general.day.home.api.HomeFeatureApi
 
 private const val baseRoute = "home"
-private const val scenarioABRoute = "$baseRoute/scenario"
-private const val screenBRoute = "$scenarioABRoute/B"
-private const val screenARoute = "$scenarioABRoute/A"
-private const val argumentKey = "arg"
 
 object HomeFeatureImpl : HomeFeatureApi {
 
@@ -22,7 +18,10 @@ object HomeFeatureImpl : HomeFeatureApi {
         modifier: Modifier
     ) {
         navGraphBuilder.composable(homeRoute) {
-            HomeScreen()
+            Home(
+                onEvent = viewModel::onEvent,
+                uiStateFlow = viewModel.state
+            )
         }
     }
 }

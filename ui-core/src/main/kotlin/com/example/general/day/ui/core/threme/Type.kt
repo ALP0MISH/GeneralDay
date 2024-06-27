@@ -6,9 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.example.general.day.`ui-core`.R
-
-val INTER_FONT = FontFamily(Font(R.font.inter))
+import com.example.general.day.ui.core.R
 
 val HK_GROTEST_FONT = FontFamily(
     Font(R.font.hk_grotesk_regular, FontWeight.Normal),
@@ -18,8 +16,8 @@ val HK_GROTEST_FONT = FontFamily(
     Font(R.font.hk_grotesk_italic, FontWeight.Thin),
     Font(R.font.hk_grotesk_light, FontWeight.Light)
 )
-val Typography = Typography(
 
+val Typography = Typography(
     headlineLarge = TextStyle(
         fontFamily = HK_GROTEST_FONT,
         fontWeight = FontWeight.Normal,
@@ -78,6 +76,6 @@ val Typography = Typography(
     labelSmall = TextStyle(
         fontFamily = HK_GROTEST_FONT,
         fontWeight = FontWeight.Normal,
-        fontSize = 2.sp
+        fontSize =6.sp
     )
 )

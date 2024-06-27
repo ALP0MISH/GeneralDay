@@ -9,8 +9,10 @@ private const val DATA_BASE_VERSION = 1
 
 @Database(
     entities = [CurrentWeatherLocal::class],
-    version = DATA_BASE_VERSION
+    version = DATA_BASE_VERSION,
+    exportSchema = false
 )
+
 abstract class WeatherDataBase : RoomDatabase() {
 
     abstract fun weatherDao(): WeatherDao

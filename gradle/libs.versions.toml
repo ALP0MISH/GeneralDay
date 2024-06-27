@@ -5,6 +5,8 @@ androidxLifecycle = "2.8.2"
 androidxActivity = "1.9.0"
 androidxComposeBom = "2024.06.00"
 androidGradlePlugin = "8.2.2"
+assistedInjectAnnotationsDagger2Version = "0.8.1"
+assistedInjectProcessorDagger2Version = "0.8.1"
 services-location-version = "21.3.0"
 converter-gson = "2.9.0"
 coil-compose = "2.6.0"
@@ -61,6 +63,8 @@ kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collec
 #Dagger
 dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "daggerCompiler" }
+assisted-inject-annotations-dagger2 = { module = "com.squareup.inject:assisted-inject-annotations-dagger2", version.ref = "assistedInjectAnnotationsDagger2Version" }
+assisted-inject-processor-dagger2 = { module = "com.squareup.inject:assisted-inject-processor-dagger2", version.ref = "assistedInjectProcessorDagger2Version" }
 
 #Room
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocationVersion" }

@@ -36,6 +36,8 @@ dependencies {
     /** Dagger **/
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
+    implementation (libs.assisted.inject.annotations.dagger2)
+    kapt (libs.assisted.inject.processor.dagger2)
 
     /** Compose **/
     implementation(platform(libs.androidx.compose.bom))

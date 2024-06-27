@@ -1,6 +1,16 @@
 package com.example.general.day.data.di
 
 import com.example.general.day.core.Mapper
+import com.example.general.day.data.cloud.mapper.CloudsCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.CoordinatesCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.CurrentWeatherCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.ForRainOrSnowCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.WeatherCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.WeatherForFiveDaysResponseCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.WeatherForFiveDaysResultCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.WeatherSystemInformationCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.WeatherTemperatureCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.WindCloudToDataMapper
 import com.example.general.day.data.cloud.models.CityCloud
 import com.example.general.day.data.cloud.models.CloudsCloud
 import com.example.general.day.data.cloud.models.CoordinatesCloud
@@ -58,9 +68,9 @@ import dagger.Module
 interface MapperModule {
 
     @Binds
-    fun bindsCityCloudToDataMapper(
-        implementation: CityCloudToDataMapper
-    ): Mapper<CityCloud, CityData>
+    fun bindsCityDataToCityDomainMapper(
+        implementation: CityDataToCityDomainMapper
+    ): Mapper<CityData, CityDomain>
 
     @Binds
     fun bindsCloudsCloudToDataMapper(
@@ -111,11 +121,6 @@ interface MapperModule {
     fun bindsWindCloudToDataMapper(
         implementation: WindCloudToDataMapper
     ): Mapper<WindCloud, WindData>
-
-    @Binds
-    fun bindsCityDataToCityDomainMapper(
-        implementation: CityDataToCityDomainMapper
-    ): Mapper<CityData, CityDomain>
 
     @Binds
     fun bindsCloudsDataToCloudsDomainMapper(

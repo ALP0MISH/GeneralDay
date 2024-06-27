@@ -21,7 +21,7 @@ import com.example.general.day.ui.core.threme.dp16
 import com.example.general.day.ui.core.threme.dp32
 
 @Composable
-fun HomeScreenTopItem(
+fun HomeScreenTop(
     modifier: Modifier = Modifier,
     cityName: String,
     onEvent: (HomeScreenEvent) -> Unit,
@@ -73,7 +73,7 @@ fun HomeScreenTopItem(
 @Composable
 fun HomeScreenTopItemPreview() {
     MaterialTheme {
-        HomeScreenTopItem(
+        HomeScreenTop(
             cityName = String(),
             onEvent = {}
         )

@@ -55,6 +55,8 @@ dependencies {
     implementation(projects.domain)
     implementation(projects.core)
     implementation(projects.uiCore)
+    implementation(projects.featureModules.home.homeImpl)
+    implementation(projects.featureModules.home.homeApi)
 
     /** Coroutines **/
     implementation(libs.kotlinx.coroutines.core)
