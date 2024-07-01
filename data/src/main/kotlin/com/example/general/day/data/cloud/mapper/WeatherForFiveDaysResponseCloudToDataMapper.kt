@@ -7,14 +7,14 @@ import javax.inject.Inject
 
 class WeatherForFiveDaysResponseCloudToDataMapper @Inject constructor(
     private val cityCloudToCityDomain: CityCloudToDataMapper,
-    private val weatherForFiveDaysResultCloudToWeatherForFiveDaysDomain: WeatherForFiveDaysResultCloudToDataMapper,
+    private val weatherForFiveDaysResultCloudToDomain: WeatherForFiveDaysResultCloudToDataMapper,
 ) : Mapper<WeatherForFiveDaysResponseCloud, WeatherForFiveDaysData> {
     override fun map(from: WeatherForFiveDaysResponseCloud): WeatherForFiveDaysData = from.run {
         WeatherForFiveDaysData(
             city = cityCloudToCityDomain.map(city),
             timeCount = timeCount,
             code = code,
-            list = list.map(weatherForFiveDaysResultCloudToWeatherForFiveDaysDomain::map),
+            list = list.map(weatherForFiveDaysResultCloudToDomain::map),
             message = message
         )
     }
