@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlin)
 }
 
 android {
@@ -17,4 +18,5 @@ android {
 
 dependencies {
     implementation(projects.core)
+    implementation(libs.androidx.core.ktx)
 }

@@ -6,6 +6,7 @@ import com.example.general.day.home.impl.models.WeatherForFiveDaysHomeUi
 
 @Immutable
 sealed class HomeUiState {
+
     data object Loading : HomeUiState()
 
     data class Loaded(

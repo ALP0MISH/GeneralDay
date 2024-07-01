@@ -1,6 +1,5 @@
 package com.example.general.day.home.impl
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.general.day.core.extantions.createMutableSharedFlowAsSingleLiveEvent
@@ -9,9 +8,6 @@ import com.example.general.day.domain.use.case.FetchCurrentWeatherUseCase
 import com.example.general.day.domain.use.case.FetchWeatherForFiveDaysUseCase
 import com.example.general.day.home.impl.mappers.CurrentWeatherDomainToHomeUiMapper
 import com.example.general.day.home.impl.mappers.WeatherForFiveDaysDomainToHomeUiMapper
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow

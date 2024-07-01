@@ -10,6 +10,7 @@ private const val baseRoute = "home"
 
 object HomeFeatureImpl : HomeFeatureApi {
 
+    private lateinit var viewModel: HomeViewModel
     override val homeRoute = baseRoute
 
     override fun registerGraph(
