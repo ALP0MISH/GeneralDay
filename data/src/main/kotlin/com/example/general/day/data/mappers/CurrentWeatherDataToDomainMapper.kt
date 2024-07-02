@@ -6,26 +6,27 @@ import com.example.general.day.domain.models.CurrentWeatherDomain
 import javax.inject.Inject
 
 class CurrentWeatherDataToDomainMapper @Inject constructor(
-    private val coordinatesDataToCoordinatesDomain: CoordinatesDataToDomainMapper,
+    private val coordinatesDataToDomain: CoordinatesDataToDomainMapper,
     private val cloudsDataToCloudsDomain: CloudsDataToDomainMapper,
-    private val weatherTemperatureDataToWeatherTemperatureDomain: WeatherTemperatureDataToDomainMapper,
-    private val weatherSystemInformationDataToWeatherSystemInformationDomain: WeatherSystemInformationDataToDomainMapper,
+    private val weatherTemperatureDataToDomain: WeatherTemperatureDataToDomainMapper,
+    private val weatherSystemInformationDataToDomain: WeatherSystemInformationDataToDomainMapper,
     private val weatherDataToWeatherDomain: WeatherDataToDomainMapper,
     private val windDataToWindDomain: WindDataToDomainMapper,
 ) : Mapper<CurrentWeatherData, CurrentWeatherDomain> {
+
     override fun map(from: CurrentWeatherData): CurrentWeatherDomain = from.run {
         CurrentWeatherDomain(
             base = base,
             clouds = cloudsDataToCloudsDomain.map(clouds),
             cod = cod,
-            coordinates = coordinatesDataToCoordinatesDomain.map(coordinates),
+            coordinates = coordinatesDataToDomain.map(coordinates),
             time = time,
             id = id,
-            weatherTemperature = weatherTemperatureDataToWeatherTemperatureDomain.map(
+            weatherTemperature = weatherTemperatureDataToDomain.map(
                 weatherTemperature
             ),
             name = name,
-            systemInformation = weatherSystemInformationDataToWeatherSystemInformationDomain.map(
+            systemInformation = weatherSystemInformationDataToDomain.map(
                 systemInformation
             ),
             weather = weather.map(weatherDataToWeatherDomain::map),

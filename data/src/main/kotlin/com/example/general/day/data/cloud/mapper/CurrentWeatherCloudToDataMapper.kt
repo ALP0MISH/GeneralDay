@@ -6,11 +6,11 @@ import com.example.general.day.data.models.CurrentWeatherData
 import javax.inject.Inject
 
  class CurrentWeatherCloudToDataMapper @Inject constructor(
-     private val coordinatesLocalToCoordinatesDomain: CoordinatesCloudToDataMapper,
+     private val coordinatesLocalToDomain: CoordinatesCloudToDataMapper,
      private val cloudsCloudToCloudsDomain: CloudsCloudToDataMapper,
-     private val weatherTemperatureCloudToWeatherTemperatureDomain: WeatherTemperatureCloudToDataMapper,
-     private val weatherSystemInformationCloudToWeatherSystemInformationDomain: WeatherSystemInformationCloudToDataMapper,
-     private val weatherCloudToWeatherDomain: WeatherCloudToDataMapper,
+     private val weatherTemperatureCloudToDomain: WeatherTemperatureCloudToDataMapper,
+     private val weatherSystemInformationCloudToDomain: WeatherSystemInformationCloudToDataMapper,
+     private val weatherCloudToDomain: WeatherCloudToDataMapper,
      private val windCloudToWindDomain: WindCloudToDataMapper,
 ) : Mapper<CurrentWeatherResponseCloud, CurrentWeatherData> {
     override fun map(from: CurrentWeatherResponseCloud): CurrentWeatherData = from.run {
@@ -18,17 +18,17 @@ import javax.inject.Inject
             base = base,
             clouds = cloudsCloudToCloudsDomain.map(clouds),
             cod = code,
-            coordinates = coordinatesLocalToCoordinatesDomain.map(coordinates),
+            coordinates = coordinatesLocalToDomain.map(coordinates),
             time = time,
             id = id,
-            weatherTemperature = weatherTemperatureCloudToWeatherTemperatureDomain.map(
+            weatherTemperature = weatherTemperatureCloudToDomain.map(
                 weatherTemperature
             ),
             name = name,
-            systemInformation = weatherSystemInformationCloudToWeatherSystemInformationDomain.map(
+            systemInformation = weatherSystemInformationCloudToDomain.map(
                 systemInformation
             ),
-            weather = weather.map(weatherCloudToWeatherDomain::map),
+            weather = weather.map(weatherCloudToDomain::map),
             wind = windCloudToWindDomain.map(wind)
         )
     }
