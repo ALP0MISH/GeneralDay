@@ -10,7 +10,9 @@ class WeatherSystemInformationCloudToDataMapper @Inject constructor() :
     override fun map(from: WeatherSystemInformationCloud): WeatherSystemInformationData =
         from.run {
             WeatherSystemInformationData(
-                partOfDay = partOfDay
+                partOfDay = partOfDay,
+                sunset = sunset,
+                sunrise = sunrise
             )
         }
 }
