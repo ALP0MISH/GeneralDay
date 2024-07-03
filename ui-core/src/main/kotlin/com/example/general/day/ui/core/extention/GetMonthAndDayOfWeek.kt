@@ -8,11 +8,13 @@ import java.util.Locale
 @SuppressLint("SimpleDateFormat")
 fun getMonthAndDayOfWeekLong(timestamp: Long): String {
     val date = Date(timestamp * 1000)
+    val dayFormat = SimpleDateFormat("d", Locale("ru"))
     val monthFormat = SimpleDateFormat("MMMM", Locale("ru"))
-    val dayOfWeekFormat = SimpleDateFormat("EEEE", Locale("ru"))
+    val dayOfWeekFormat = SimpleDateFormat("EE", Locale("ru"))
+    val day = dayFormat.format(date)
     val month = monthFormat.format(date)
     val dayOfWeek = dayOfWeekFormat.format(date)
-    return "$month, $dayOfWeek"
+    return "$day $month, $dayOfWeek"
 }
 
 @SuppressLint("SimpleDateFormat")
