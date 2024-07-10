@@ -10,7 +10,9 @@ class WeatherSystemInformationDataToDomainMapper @Inject constructor() :
     override fun map(from: WeatherSystemInformationData): WeatherSystemInformationDomain =
         from.run {
             WeatherSystemInformationDomain(
-                partOfDay = partOfDay
+                partOfDay = partOfDay,
+                sunset = sunset,
+                sunrise = sunrise
             )
         }
 }
