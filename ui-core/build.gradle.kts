@@ -21,6 +21,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.uiComponents)
+
     /** Async Image **/
     implementation(libs.coil.compose)
 

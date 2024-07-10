@@ -35,7 +35,11 @@ data class CurrentWeatherResponseCloud(
             id = -1,
             weatherTemperature = WeatherTemperatureCloud.unknown,
             name = String(),
-            systemInformation = WeatherSystemInformationCloud(partOfDay = String()),
+            systemInformation = WeatherSystemInformationCloud(
+                partOfDay = String(),
+                sunset = 0,
+                sunrise = 0
+            ),
             weather = emptyList(),
             wind = WindCloud(degrees = -1, speed = 0.0),
             coordinates = CoordinatesCloud(lat = 0.0, lon = 0.0),

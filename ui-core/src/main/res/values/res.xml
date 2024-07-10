@@ -1,3 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="save_city">добавить город</string>
+    <string name="сancel">Отменить</string>
+    <string name="add">Добавить</string>
+    <string name="search_sity">Поиск города</string>
 </resources>

@@ -10,6 +10,8 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val IconTintColor = Color(0xFFF3F5F8)
+val IconTintColorDark = Color(0xFF26272C)
 val EachThreeTimeColor = Color(0xFF8F96A1)
 val LightGray = Color(0xFFF3F5F8)
 val DividerColor = Color(0xFFD9E0EA)
+val AddCityColor = Color(0xFF3599FF)

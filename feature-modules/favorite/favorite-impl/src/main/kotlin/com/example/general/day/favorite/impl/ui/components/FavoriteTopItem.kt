@@ -1,6 +1,7 @@
 package com.example.general.day.favorite.impl.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -22,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.general.day.favorite.impl.ui.FavoriteEvent
 import com.example.general.day.ui.core.R.drawable
 import com.example.general.day.ui.core.theme.IconTintColor
 import com.example.general.day.ui.core.theme.dp17
@@ -32,6 +34,7 @@ import com.example.general.day.ui.core.theme.dp9
 @Composable
 internal fun FavoriteTopItem(
     cityName: String,
+    onEvent: (FavoriteEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -45,7 +48,8 @@ internal fun FavoriteTopItem(
             modifier = Modifier
                 .size(dp32)
                 .clip(RoundedCornerShape(dp8))
-                .background(IconTintColor),
+                .background(IconTintColor)
+                .clickable { onEvent(FavoriteEvent.DoNavigateToBack) },
             contentAlignment = Alignment.Center
         ) {
             Icon(
@@ -63,7 +67,8 @@ internal fun FavoriteTopItem(
             modifier = Modifier
                 .size(dp32)
                 .clip(RoundedCornerShape(dp8))
-                .background(IconTintColor),
+                .background(IconTintColor)
+                .clickable { onEvent(FavoriteEvent.DoNavigateToSun) },
             contentAlignment = Alignment.Center
         ) {
             Icon(
@@ -80,6 +85,7 @@ fun FavoriteTopItemPreview() {
     MaterialTheme {
         FavoriteTopItem(
             cityName = "Osh",
+            onEvent = {}
         )
     }
 }

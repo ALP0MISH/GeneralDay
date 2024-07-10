@@ -16,7 +16,8 @@ data class ConvertedWeather(
     val feelsLikeTemperature: String,
     val weatherIcon: ImmutableList<Int>,
     val currentWeatherIcon: Int,
-    val weatherBackgroundImage:  Int,
+    val weatherBackgroundImage: Int,
+    val cityWeather: String
 ) {
     companion object {
         val preview = ConvertedWeather(
@@ -30,7 +31,8 @@ data class ConvertedWeather(
             weatherBackgroundImage = 324343,
             currentTemperature = "30",
             currentWeatherIcon = 2,
-            currentMonthAndDay = "monday"
+            currentMonthAndDay = "monday",
+            cityWeather = "Osh"
         )
     }
 }

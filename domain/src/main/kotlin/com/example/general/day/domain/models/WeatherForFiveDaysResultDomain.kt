@@ -22,7 +22,7 @@ data class WeatherForFiveDaysResultDomain(
             probabilityOfPrecipitation = 0.0,
             rain = ForRainOrSnowDomain(hour = 0.0),
             snow = ForRainOrSnowDomain(hour = 0.0),
-            systemInformation = WeatherSystemInformationDomain(partOfDay = String()),
+            systemInformation = WeatherSystemInformationDomain(partOfDay = String(), sunrise = 0, sunset = 0),
             visibility = -1,
             weather = emptyList(),
             wind = WindDomain(degrees = -1, speed = 0.0)

@@ -1,4 +1,4 @@
-package com.example.general.day.home.impl.ui
+package com.example.general.day.ui.core.factories
 
 import com.example.general.day.ui.core.R.drawable
 import com.example.general.day.ui.components.models.CurrentWeatherHomeUi

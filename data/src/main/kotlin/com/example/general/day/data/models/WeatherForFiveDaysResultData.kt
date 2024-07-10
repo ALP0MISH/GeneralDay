@@ -22,7 +22,11 @@ data class WeatherForFiveDaysResultData(
             probabilityOfPrecipitation = 0.0,
             rain = ForRainOrSnowData(hour = 0.0),
             snow = ForRainOrSnowData(hour = 0.0),
-            systemInformation = WeatherSystemInformationData(partOfDay = String()),
+            systemInformation = WeatherSystemInformationData(
+                partOfDay = String(),
+                sunset = 0,
+                sunrise = 0
+            ),
             visibility = -1,
             weather = emptyList(),
             wind = WindData(degrees = -1, speed = 0.0)
