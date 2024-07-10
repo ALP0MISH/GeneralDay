@@ -22,6 +22,7 @@ include(
     ":domain",
     ":core",
     ":ui-core",
+    ":ui-components",
     ":feature-modules",
     ":feature-modules:home:home-api",
     ":feature-modules:home:home-impl",

@@ -37,7 +37,7 @@ import com.example.general.day.data.mappers.WeatherForFiveDaysDataToDomainMapper
 import com.example.general.day.data.mappers.WeatherForFiveDaysResultDataToDomainMapper
 import com.example.general.day.data.mappers.WeatherSystemInformationDataToDomainMapper
 import com.example.general.day.data.mappers.WeatherTemperatureDataToDomainMapper
-import com.example.general.day.data.mappers.WindDataToWindDomainMapper
+import com.example.general.day.data.mappers.WindDataToDomainMapper
 import com.example.general.day.data.models.CityData
 import com.example.general.day.data.models.CloudsData
 import com.example.general.day.data.models.CoordinatesData
@@ -180,7 +180,7 @@ interface MapperModule {
 
     @Binds
     fun bindsWindDataToWindDomainMapper(
-        implementation: WindDataToWindDomainMapper
+        implementation: WindDataToDomainMapper
     ): Mapper<WindData, WindDomain>
 
     @Binds
