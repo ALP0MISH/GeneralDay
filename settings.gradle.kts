@@ -28,4 +28,6 @@ include(
     ":feature-modules:home:home-impl",
     ":feature-modules:favorite:favorite-api",
     ":feature-modules:favorite:favorite-impl",
+    ":feature-modules:map:map-api",
+    ":feature-modules:map:map-impl",
 )
