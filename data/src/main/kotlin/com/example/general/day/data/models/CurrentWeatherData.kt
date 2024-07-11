@@ -21,7 +21,11 @@ data class CurrentWeatherData(
             id = -1,
             weatherTemperature = WeatherTemperatureData.unknown,
             name = String(),
-            systemInformation = WeatherSystemInformationData(partOfDay = String()),
+            systemInformation = WeatherSystemInformationData(
+                partOfDay = String(),
+                sunset = 0,
+                sunrise = 0
+            ),
             weather = emptyList(),
             wind = WindData(degrees = -1, speed = 0.0),
             coordinates = CoordinatesData(lat = 0.0, lon = 0.0),

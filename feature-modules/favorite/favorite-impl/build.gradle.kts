@@ -1,11 +1,12 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlin)
+    alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.compose)
 }
 
 android {
-    namespace = "com.example.general.day.ui.core"
+    namespace = "com.example.general.day.favorite.impl"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -21,10 +22,25 @@ android {
 }
 
 dependencies {
+    implementation(projects.core)
+    implementation(projects.uiCore)
+    implementation(projects.domain)
     implementation(projects.uiComponents)
+    implementation(projects.featureModules.favorite.favoriteApi)
 
-    /** Async Image **/
-    implementation(libs.coil.compose)
+    /** Navigation **/
+    implementation(libs.navigation.compose)
+
+    /** Immutable collections **/
+    implementation(libs.kotlinx.collections.immutable)
+
+    /** Coroutines **/
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
+    /** Dagger **/
+    implementation(libs.dagger)
+    kapt(libs.dagger.compiler)
 
     /** Compose **/
     implementation(platform(libs.androidx.compose.bom))

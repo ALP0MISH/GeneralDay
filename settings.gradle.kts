@@ -26,4 +26,6 @@ include(
     ":feature-modules",
     ":feature-modules:home:home-api",
     ":feature-modules:home:home-impl",
+    ":feature-modules:favorite:favorite-api",
+    ":feature-modules:favorite:favorite-impl",
 )

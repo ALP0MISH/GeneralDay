@@ -17,7 +17,8 @@ class CurrentWeatherDomainToDataMapper @Inject constructor() :
             tempMax = tempMax,
             tempMin = tempMin,
             name = name,
-            temperature = temperature
+            temperature = temperature,
+            weatherIcon = weatherIcon
         )
     }
 }

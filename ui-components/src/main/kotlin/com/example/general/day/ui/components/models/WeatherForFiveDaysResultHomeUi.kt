@@ -27,7 +27,11 @@ data class WeatherForFiveDaysResultHomeUi(
             probabilityOfPrecipitation = 0.0,
             rain = ForRainOrSnowHomeUi(hour = 0.0),
             snow = ForRainOrSnowHomeUi(hour = 0.0),
-            systemInformation = WeatherSystemInformationHomeUi(partOfDay = String()),
+            systemInformation = WeatherSystemInformationHomeUi(
+                partOfDay = String(),
+                sunset = 0,
+                sunrise =0
+            ),
             visibility = -1,
             weather = persistentListOf(
                 WeatherHomeUi(

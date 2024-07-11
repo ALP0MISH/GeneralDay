@@ -16,8 +16,9 @@ class CurrentWeatherHomeUiToDomainMapper @Inject constructor() :
             feelsLike = feelsLike,
             tempMax = tempMax,
             tempMin = tempMin,
-            name = name,
-            temperature = temperature
+            cityName = name,
+            temperature = temperature,
+            weatherIcon = weatherIcon,
         )
     }
 }

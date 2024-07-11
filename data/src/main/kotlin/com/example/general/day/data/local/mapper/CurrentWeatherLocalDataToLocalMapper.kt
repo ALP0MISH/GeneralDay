@@ -18,6 +18,7 @@ class CurrentWeatherLocalDataToLocalMapper @Inject constructor() :
             tempMax = tempMax,
             tempMin = tempMin,
             name = name,
+            weatherIcon = weatherIcon
         )
     }
 }

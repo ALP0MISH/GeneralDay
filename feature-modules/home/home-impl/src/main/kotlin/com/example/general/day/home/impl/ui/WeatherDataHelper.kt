@@ -3,6 +3,8 @@ package com.example.general.day.home.impl.ui
 import com.example.general.day.ui.components.models.ConvertedWeather
 import com.example.general.day.ui.components.models.CurrentWeatherHomeUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysResultHomeUi
+import com.example.general.day.ui.core.factories.DateTimeHelper
+import com.example.general.day.ui.core.factories.WeatherIconHelper
 import kotlinx.collections.immutable.toImmutableList
 
 private const val CURRENT_TIME_MILLS = 1000
@@ -50,7 +52,8 @@ class WeatherDataHelper {
                 weatherBackgroundImage = background,
                 currentWeatherIcon = weatherIcon,
                 currentTemperature = temperature,
-                currentMonthAndDay = time.toString()
+                currentMonthAndDay = time.toString(),
+                cityWeather = currentWeatherResult.name
             )
         )
     }

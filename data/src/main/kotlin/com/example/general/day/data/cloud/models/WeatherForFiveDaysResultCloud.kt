@@ -36,7 +36,11 @@ data class WeatherForFiveDaysResultCloud(
             probabilityOfPrecipitation = 0.0,
             rain = ForRainOrSnowCloud(hour = 0.0),
             snow = ForRainOrSnowCloud(hour = 0.0),
-            systemInformation = WeatherSystemInformationCloud(partOfDay = String()),
+            systemInformation = WeatherSystemInformationCloud(
+                partOfDay = String(),
+                sunset = 0,
+                sunrise = 0
+            ),
             visibility = -1,
             weather = emptyList(),
             wind = WindCloud(degrees = -1, speed = 0.0)

@@ -4,8 +4,6 @@ import com.example.general.day.core.Mapper
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.ui.components.models.CurrentWeatherHomeUi
 import kotlinx.collections.immutable.toImmutableList
-import com.example.general.day.ui.components.models.CurrentWeatherHomeUi
-import kotlinx.collections.immutable.toImmutableList
 import javax.inject.Inject
 
 class CurrentWeatherDomainToHomeUiMapper @Inject constructor(

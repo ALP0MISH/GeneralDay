@@ -8,9 +8,10 @@ data class CurrentWeatherLocalHomeUi(
     val code: Int,
     val lat: Double,
     val lon: Double,
-    val feelsLike: Double,
-    val temperature: Double,
-    val tempMax: Double,
-    val tempMin: Double,
-    val name: String,
+    val feelsLike: String,
+    val temperature: String,
+    val tempMax: String,
+    val tempMin: String,
+    val cityName: String,
+    val weatherIcon: Int
 )

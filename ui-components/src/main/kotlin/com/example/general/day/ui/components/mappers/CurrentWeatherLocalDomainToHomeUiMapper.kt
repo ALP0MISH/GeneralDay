@@ -17,7 +17,8 @@ class CurrentWeatherLocalDomainToHomeUiMapper @Inject constructor() :
             temperature = temperature,
             tempMax = tempMax,
             tempMin = tempMin,
-            name = name,
+            name = cityName,
+            weatherIcon = weatherIcon
         )
     }
 }
