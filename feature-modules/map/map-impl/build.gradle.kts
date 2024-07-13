@@ -44,11 +44,13 @@ dependencies {
     kapt(libs.dagger.compiler)
 
     /** Google maps **/
-    implementation (libs.play.services.maps)
-    implementation (libs.services.location)
-
+    implementation(libs.play.services.maps)
+    implementation(libs.services.location)
+    /** Google maps Utility **/
+    implementation(libs.maps.ktx)
+    implementation(libs.maps.utils.ktx)
     /** Google maps for compose **/
-    implementation (libs.maps.compose)
+    implementation(libs.maps.compose)
 
     /** Compose **/
     implementation(platform(libs.androidx.compose.bom))
