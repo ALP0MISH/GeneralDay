@@ -1,6 +1,7 @@
 package com.example.general.day.domain.repository
 
 import com.example.general.day.domain.models.CurrentWeatherDomain
+import com.example.general.day.domain.models.SearchWeatherDomain
 import com.example.general.day.domain.models.WeatherForFiveDaysDomain
 
 interface WeatherRepositoryCloud {
@@ -21,4 +22,8 @@ interface WeatherRepositoryCloud {
     suspend fun fetchWeatherCityForFiveDays(
         cityName: String,
     ): WeatherForFiveDaysDomain
+
+    suspend fun fetchSearchWeatherCity(
+        cityName: String,
+    ): List<SearchWeatherDomain>
 }

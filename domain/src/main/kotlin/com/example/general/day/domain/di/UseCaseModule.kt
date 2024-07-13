@@ -8,6 +8,8 @@ import com.example.general.day.domain.use.case.ObserveCurrentWeatherUseCase
 import com.example.general.day.domain.use.case.ObserveCurrentWeatherUseCaseImpl
 import com.example.general.day.domain.use.case.SaveCurrentWeatherUseCase
 import com.example.general.day.domain.use.case.SaveCurrentWeatherUseCaseImpl
+import com.example.general.day.domain.use.case.SearchWeatherByCity
+import com.example.general.day.domain.use.case.SearchWeatherByCityImpl
 import dagger.Binds
 import dagger.Module
 
@@ -33,4 +35,9 @@ interface UseCaseModule {
     fun provideSaveCurrentWeatherUseCase(
         implementation: SaveCurrentWeatherUseCaseImpl,
     ): SaveCurrentWeatherUseCase
+
+    @Binds
+    fun provideSearchWeatherByCity(
+        implementation: SearchWeatherByCityImpl,
+    ): SearchWeatherByCity
 }

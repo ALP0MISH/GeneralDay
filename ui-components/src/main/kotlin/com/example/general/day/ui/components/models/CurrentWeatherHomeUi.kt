@@ -15,7 +15,7 @@ data class CurrentWeatherHomeUi(
     val weatherTemperature: WeatherTemperatureHomeUi,
     val name: String,
     val systemInformation: WeatherSystemInformationHomeUi,
-    val weather: ImmutableList<WeatherHomeUi>,
+    val weather: List<WeatherHomeUi>,
     val wind: WindHomeUi,
 ) {
     companion object {
@@ -29,7 +29,7 @@ data class CurrentWeatherHomeUi(
             systemInformation = WeatherSystemInformationHomeUi(partOfDay = String(),
                 sunrise = 1720396672,
                 sunset = 1720396672),
-            weather = persistentListOf(),
+            weather = listOf(),
             wind = WindHomeUi(degrees = -1, speed = 0.0),
             coordinates = CoordinatesHomeUi(lat = 0.0, lon = 0.0),
             time = -1
