@@ -13,8 +13,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.general.day.presentation.theme.WeatherTestAppTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (application as App).appComponent.inject(this)
         setContent {
             WeatherTestAppTheme {
                 // A surface container using the 'background' color from the theme

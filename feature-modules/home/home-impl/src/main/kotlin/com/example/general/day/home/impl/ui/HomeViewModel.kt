@@ -2,6 +2,7 @@ package com.example.general.day.home.impl.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.Navigation.findNavController
 import com.example.general.day.core.managers.LocationTrackerManager
 import com.example.general.day.domain.use.case.FetchWeatherUseCase
 import com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToDetailScreen
@@ -71,12 +72,21 @@ class HomeViewModel @Inject constructor(
     }
 
     fun onEvent(event: HomeScreenEvent) {
+        val navController = findNavController()
         when (event) {
-            DoNavigateToDetailScreen -> NavigationHelper().navigateToDetailScreen()
-            DoNavigateToFavoriteScreen -> NavigationHelper().navigateToFavoriteScreen()
-            DoNavigateToMapScreen -> NavigationHelper().navigateToMapScreen()
-            DoNavigateToSearchScreen -> NavigationHelper().navigateToSearchScreen()
-            DoRefreshAllData -> NavigationHelper().refreshAllData()
+            HomeScreenEvent.DoNavigateToDetailScreen -> {
+                val weatherId = "12345" // Example weatherId, replace with actual data
+                NavigationHelper(DependencyProvider.homeFeatureDependencies()).navigateToDetailScreen(navController, weatherId)
+            }
+            HomeScreenEvent.DoNavigateToFavoriteScreen -> {
+                NavigationHelper(DependencyProvider.homeFeatureDependencies()).navigateToFavoriteScreen(navController)
+            }
+            HomeScreenEvent.DoNavigateToMapScreen -> {
+                NavigationHelper(DependencyProvider.homeFeatureDependencies()).navigateToMapScreen(navController)
+            }
+            HomeScreenEvent.DoRefreshAllData -> {
+                NavigationHelper(DependencyProvider.homeFeatureDependencies()).refreshAllData()
+            }
         }
     }
 }

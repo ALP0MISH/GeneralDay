@@ -15,7 +15,7 @@ data class CurrentWeatherHomeUi(
     val weatherTemperature: WeatherTemperatureHomeUi,
     val name: String,
     val systemInformation: WeatherSystemInformationHomeUi,
-    val weather: ImmutableList<WeatherHomeUi>,
+    val weather: List<WeatherHomeUi>,
     val wind: WindHomeUi,
 ) {
     companion object {

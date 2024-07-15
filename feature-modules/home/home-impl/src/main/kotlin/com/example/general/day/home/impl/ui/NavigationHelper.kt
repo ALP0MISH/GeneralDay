@@ -1,21 +1,20 @@
 package com.example.general.day.home.impl.ui
 
-class NavigationHelper {
+import androidx.navigation.NavHostController
+import com.example.general.day.home.impl.ui.di.HomeFeatureDependencies
 
-    fun navigateToDetailScreen() {
+class NavigationHelper(private val homeFeatureDependencies: HomeFeatureDependencies){
 
+    fun navigateToDetailScreen(navHostController: NavHostController, weatherId: String) {
+        navHostController.navigate(homeFeatureDependencies.getDetailRoute(weatherId))
     }
 
-    fun navigateToFavoriteScreen() {
-
+    fun navigateToFavoriteScreen(navHostController: NavHostController) {
+        navHostController.navigate(homeFeatureDependencies.getFavoriteRoute())
     }
 
-    fun navigateToMapScreen() {
-
-    }
-
-    fun navigateToSearchScreen() {
-
+    fun navigateToMapScreen(navHostController: NavHostController) {
+        navHostController.navigate(homeFeatureDependencies.getMapRoute())
     }
 
     fun refreshAllData() {

@@ -4,5 +4,5 @@ import com.example.general.day.core.FeatureApi
 
 interface FavoriteFeatureApi : FeatureApi {
 
-    val homeRoute: String
+    val favoriteRoute: String
 }
