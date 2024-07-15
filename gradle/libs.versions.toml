@@ -6,6 +6,8 @@ androidxActivity = "1.9.0"
 androidxComposeBom = "2024.06.00"
 androidGradlePlugin = "8.2.2"
 mapsComposeVersion = "2.8.0"
+mapsKtxVersion = "3.2.1"
+mapsUtilsKtxVersion = "3.2.1"
 playServicesMapsVersion = "19.0.0"
 services-location-version = "21.3.0"
 converter-gson = "2.9.0"
@@ -75,6 +77,8 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 #Google Map
 maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsComposeVersion" }
 play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMapsVersion" }
+maps-ktx = { module = "com.google.maps.android:maps-ktx", version.ref = "mapsKtxVersion" }
+maps-utils-ktx = { module = "com.google.maps.android:maps-utils-ktx", version.ref = "mapsUtilsKtxVersion" }
 
 # Location Services
 services-location = { module = "com.google.android.gms:play-services-location", version.ref = "services-location-version" }
