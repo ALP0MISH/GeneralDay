@@ -12,7 +12,8 @@ object WeatherIconHelper {
         isDayTime: Boolean
     ): List<Int> {
         val weatherIcon =
-            getWeatherFromString(weatherForFiveDaysUiModel.weather.firstOrNull()?.main ?: String())
+            getWeatherFromString(weatherForFiveDaysUiModel.
+            weather.firstOrNull()?.main ?: String())
         val icon = when (weatherIcon) {
             WeatherSealedComponent.Snow -> if (isDayTime) drawable.light else drawable.light
             WeatherSealedComponent.Rain -> if (isDayTime) drawable.light else drawable.light

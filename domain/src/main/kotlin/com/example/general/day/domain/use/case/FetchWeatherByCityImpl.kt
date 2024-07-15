@@ -8,6 +8,7 @@ import javax.inject.Inject
 class FetchWeatherByCityImpl @Inject constructor(
     private val repositoryCloud: WeatherRepositoryCloud,
 ) : FetchWeatherByCity {
+
     override suspend fun fetchCurrentCityWeather(cityName: String): CurrentWeatherDomain {
         return repositoryCloud.fetchCurrentCityWeather(cityName)
     }

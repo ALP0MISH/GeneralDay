@@ -1,7 +1,6 @@
 package com.example.general.day.favorite.impl.ui.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,7 +15,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -28,10 +26,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -48,14 +42,13 @@ import com.example.general.day.ui.core.theme.dp8
 
 @Composable
 fun AddCityDialog(
-    cityName: String,
+    value: String,
     onEvent: (FavoriteEvent) -> Unit,
-    onDismissRequest: () -> Unit,
     onAddClick: () -> Unit,
+    onDismissRequest: () -> Unit,
+    uiState: FavoriteUIState.Loaded,
     modifier: Modifier = Modifier,
 ) {
-    val filteredCities = listOf("Москва", "Минск", "Мурманск", "Моршанск")
-
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -67,7 +60,7 @@ fun AddCityDialog(
             .padding(dp16)
     ) {
         BasicTextField(
-            value = cityName,
+            value = value,
             onValueChange = { onEvent(FavoriteEvent.GetCityName(it)) },
             modifier = Modifier
                 .fillMaxWidth()
@@ -91,7 +84,7 @@ fun AddCityDialog(
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Box(Modifier.weight(1f)) {
-                        if (cityName.isEmpty()) {
+                        if (value.isEmpty()) {
                             Text(
                                 text = stringResource(id = string.search_sity),
                                 color = MaterialTheme.colorScheme.onBackground,
@@ -100,9 +93,9 @@ fun AddCityDialog(
                         }
                         innerTextField()
                     }
-                    if (cityName.isNotEmpty()) {
+                    if (value.isNotEmpty()) {
                         IconButton(
-                            onClick = { onEvent(FavoriteEvent.GetCityName(""),) },
+                            onClick = { onEvent(FavoriteEvent.GetCityName("")) },
                         ) {
                             Icon(
                                 modifier = Modifier.size(dp22),
@@ -116,22 +109,24 @@ fun AddCityDialog(
         )
         Spacer(modifier = Modifier.height(16.dp))
         LazyRow {
-            items(filteredCities) { city ->
-                Text(
-                    text = city,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
-                        .clickable {
-                            onEvent(FavoriteEvent.GetCityName(city))
-                        }
-                        .background(
-                            MaterialTheme.colorScheme.secondary,
-                            shape = MaterialTheme.shapes.small
-                        ),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
+            if (uiState.query.isNotEmpty()) {
+                items(uiState.searchWeather) { city ->
+                    Text(
+                        text = city.name,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp)
+                            .clickable {
+                                onEvent(FavoriteEvent.GetCityName(city.name))
+                            }
+                            .background(
+                                MaterialTheme.colorScheme.secondary,
+                                shape = MaterialTheme.shapes.small
+                            ),
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                }
             }
         }
 
@@ -154,7 +149,11 @@ fun AddCityDialog(
                 )
             }
             Button(
-                onClick = { onAddClick() },
+                modifier = Modifier.clickable { onAddClick() },
+                onClick = {
+                    onAddClick()
+                    onEvent(FavoriteEvent.DoFetchCityName)
+                },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = AddCityColor
                 )

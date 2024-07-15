@@ -13,5 +13,5 @@ data class CurrentWeatherLocalHomeUi(
     val tempMax: String,
     val tempMin: String,
     val cityName: String,
-    val weatherIcon: Int
+    val weatherIcon: Int,
 )

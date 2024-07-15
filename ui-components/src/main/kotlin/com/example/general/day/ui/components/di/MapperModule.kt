@@ -7,6 +7,7 @@ import com.example.general.day.domain.models.CoordinatesDomain
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.models.CurrentWeatherLocalDomain
 import com.example.general.day.domain.models.ForRainOrSnowDomain
+import com.example.general.day.domain.models.SearchWeatherDomain
 import com.example.general.day.domain.models.WeatherDomain
 import com.example.general.day.domain.models.WeatherForFiveDaysDomain
 import com.example.general.day.domain.models.WeatherForFiveDaysResultDomain
@@ -20,6 +21,7 @@ import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToHomeU
 import com.example.general.day.ui.components.mappers.CurrentWeatherHomeUiToDomainMapper
 import com.example.general.day.ui.components.mappers.CurrentWeatherLocalDomainToHomeUiMapper
 import com.example.general.day.ui.components.mappers.ForRainOrSnowDomainToHomeUiMapper
+import com.example.general.day.ui.components.mappers.SearchWeatherDomainToUiMapper
 import com.example.general.day.ui.components.mappers.WeatherDomainToHomeUiMapper
 import com.example.general.day.ui.components.mappers.WeatherForFiveDaysDomainToHomeUiMapper
 import com.example.general.day.ui.components.mappers.WeatherForFiveDaysResultDomainToHomeUiMapper
@@ -32,6 +34,7 @@ import com.example.general.day.ui.components.models.CoordinatesHomeUi
 import com.example.general.day.ui.components.models.CurrentWeatherHomeUi
 import com.example.general.day.ui.components.models.CurrentWeatherLocalHomeUi
 import com.example.general.day.ui.components.models.ForRainOrSnowHomeUi
+import com.example.general.day.ui.components.models.SearchWeatherUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysHomeUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysResultHomeUi
 import com.example.general.day.ui.components.models.WeatherHomeUi
@@ -109,4 +112,9 @@ interface MapperModule {
     fun bindsWindDomainToHomeUIMapper(
         implementation: WindDomainToHomeUIMapper
     ): Mapper<WindDomain, WindHomeUi>
+
+    @Binds
+    fun bindsSearchWeatherDomainToUiMapper(
+        implementation: SearchWeatherDomainToUiMapper
+    ): Mapper<SearchWeatherDomain, SearchWeatherUi>
 }

@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -34,6 +35,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.general.day.favorite.impl.ui.components.AddCityDialog
 import com.example.general.day.favorite.impl.ui.components.FavoriteContentItem
 import com.example.general.day.favorite.impl.ui.components.FavoriteTopItem
+import com.example.general.day.favorite.impl.ui.components.SearchComponent
+import com.example.general.day.ui.components.models.SearchWeatherUi
 import com.example.general.day.ui.core.R.string
 import com.example.general.day.ui.core.extention.SpacerWidth
 import com.example.general.day.ui.core.theme.AddCityColor
@@ -56,7 +59,8 @@ internal fun FavoriteScreen(
         is FavoriteUIState.Error -> Unit
         is FavoriteUIState.Loaded -> Favorite(
             uiState = uiState as FavoriteUIState.Loaded,
-            onEvent = onEvent
+            onEvent = onEvent,
+
         )
         FavoriteUIState.Loading -> Unit
     }
@@ -84,8 +88,12 @@ internal fun Favorite(
         ) {
             item {
                 FavoriteTopItem(
-                    cityName = uiState.savedWeather.firstOrNull()?.cityName ?: "osh",
+                    cityName = uiState.savedWeather.firstOrNull()?.cityName ?: String(),
                     onEvent = onEvent
+                )
+                SearchComponent(
+                    onEvent = onEvent,
+                    value = uiState.query,
                 )
             }
             items(uiState.savedWeather) { weather ->
@@ -125,7 +133,7 @@ internal fun Favorite(
                     .background(MaterialTheme.colorScheme.secondary)
                     .clickable { onEvent(FavoriteEvent.DoNavigateToMapScreen) },
                 contentAlignment = Alignment.Center
-                ) {
+            ) {
                 Icon(
                     modifier = Modifier,
                     painter = painterResource(id = com.example.general.day.ui.core.R.drawable.location),
@@ -140,11 +148,10 @@ internal fun Favorite(
         Dialog(onDismissRequest = { showDialog = false }) {
             AddCityDialog(
                 onDismissRequest = { showDialog = false },
-                onAddClick = {
-                    showDialog = false
-                },
+                onAddClick = { showDialog = false },
                 onEvent = onEvent,
-                cityName = uiState.cityName
+                value = uiState.query,
+                uiState = uiState,
             )
         }
     }
@@ -156,10 +163,40 @@ fun FavoriteScreenPreview() {
     MaterialTheme {
         Favorite(
             uiState = FavoriteUIState.Loaded(
-                cityName = "Osh",
-                savedWeather = persistentListOf()
+                savedWeather = persistentListOf(),
+                searchWeather = persistentListOf(
+                    SearchWeatherUi(
+                        name = "Лондон",
+                        country = "",
+                        lat = 0.0,
+                        lon = 0.0,
+                        state = ""
+                    ),
+                    SearchWeatherUi(name = "Лондо", country = "", lat = 0.0, lon = 0.0, state = ""),
+                    SearchWeatherUi(
+                        name = "Moscow",
+                        country = "",
+                        lat = 0.0,
+                        lon = 0.0,
+                        state = ""
+                    ),
+                    SearchWeatherUi(
+                        name = "London",
+                        country = "",
+                        lat = 0.0,
+                        lon = 0.0,
+                        state = ""
+                    ),
+                    SearchWeatherUi(
+                        name = "New York",
+                        country = "",
+                        lat = 0.0,
+                        lon = 0.0,
+                        state = ""
+                    )
+                )
             ),
-            onEvent = {}
+            onEvent = {},
         )
     }
 }

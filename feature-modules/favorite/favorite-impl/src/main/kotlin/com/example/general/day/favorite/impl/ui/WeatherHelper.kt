@@ -4,6 +4,8 @@ import com.example.general.day.ui.components.models.CurrentWeatherHomeUi
 import com.example.general.day.ui.components.models.CurrentWeatherLocalHomeUi
 import com.example.general.day.ui.core.factories.DateTimeHelper
 import com.example.general.day.ui.core.factories.WeatherIconHelper
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 
 class WeatherHelper {
 
@@ -40,5 +42,19 @@ class WeatherHelper {
 
     private fun kelvinToCelsius(kelvin: Double): Int {
         return (kelvin - 273.15).toInt()
+    }
+
+    fun filterMenuByQuery(
+        menu: ImmutableList<CurrentWeatherLocalHomeUi>,
+        query: String
+    ): ImmutableList<CurrentWeatherLocalHomeUi> {
+        return filterMenuListByQuery(menu, query)
+    }
+
+    private fun filterMenuListByQuery(
+        menuList: ImmutableList<CurrentWeatherLocalHomeUi>,
+        query: String
+    ): ImmutableList<CurrentWeatherLocalHomeUi> {
+        return menuList.filter { it.cityName.contains(query, ignoreCase = true) }.toImmutableList()
     }
 }

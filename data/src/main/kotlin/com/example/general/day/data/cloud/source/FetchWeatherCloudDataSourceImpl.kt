@@ -3,10 +3,13 @@ package com.example.general.day.data.cloud.source
 import com.example.general.day.core.dispatchers.CoroutineDispatchers
 import com.example.general.day.core.extantions.callSafe
 import com.example.general.day.data.cloud.mapper.CurrentWeatherCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.SearchWeatherCloudToDataMapper
 import com.example.general.day.data.cloud.mapper.WeatherForFiveDaysResponseCloudToDataMapper
+import com.example.general.day.data.cloud.models.SearchWeatherCloud
 import com.example.general.day.data.cloud.service.CityWeatherService
 import com.example.general.day.data.cloud.service.WeatherService
 import com.example.general.day.data.models.CurrentWeatherData
+import com.example.general.day.data.models.SearchWeatherData
 import com.example.general.day.data.models.WeatherForFiveDaysData
 import javax.inject.Inject
 
@@ -16,6 +19,7 @@ class FetchWeatherCloudDataSourceImpl @Inject constructor(
     private val coroutineDispatchers: CoroutineDispatchers,
     private val currentWeatherCloudToDataMapper: CurrentWeatherCloudToDataMapper,
     private val weatherForFiveDaysToDataMapper: WeatherForFiveDaysResponseCloudToDataMapper,
+    private val searchWeatherCloudToDataMapper: SearchWeatherCloudToDataMapper
 ) : FetchWeatherCloudDataSource {
 
     override suspend fun fetchCurrentWeather(
@@ -68,6 +72,16 @@ class FetchWeatherCloudDataSourceImpl @Inject constructor(
                 } ?: WeatherForFiveDaysData.unknown
             } else {
                 WeatherForFiveDaysData.unknown
+            }
+        }
+
+    override suspend fun fetchSearchWeatherCity(cityName: String): List<SearchWeatherData> =
+        callSafe(coroutineDispatchers.io) {
+            val response = serviceCity.fetchSearchWeatherCity(cityName)
+            if (response.isSuccessful) {
+                response.body()?.map(searchWeatherCloudToDataMapper::map) ?: emptyList()
+            } else {
+                emptyList()
             }
         }
 }

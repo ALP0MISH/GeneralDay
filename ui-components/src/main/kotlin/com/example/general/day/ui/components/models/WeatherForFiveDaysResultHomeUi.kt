@@ -15,7 +15,7 @@ data class WeatherForFiveDaysResultHomeUi(
     val snow: ForRainOrSnowHomeUi,
     val systemInformation: WeatherSystemInformationHomeUi,
     val visibility: Int,
-    val weather: ImmutableList<WeatherHomeUi>,
+    val weather: List<WeatherHomeUi>,
     val wind: WindHomeUi,
 ) {
     companion object {
@@ -33,7 +33,7 @@ data class WeatherForFiveDaysResultHomeUi(
                 sunrise =0
             ),
             visibility = -1,
-            weather = persistentListOf(
+            weather = listOf(
                 WeatherHomeUi(
                     description = "Cloudy",
                     "frverаvgere",
