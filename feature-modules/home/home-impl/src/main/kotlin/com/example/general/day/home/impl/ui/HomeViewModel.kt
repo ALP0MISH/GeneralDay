@@ -2,12 +2,19 @@ package com.example.general.day.home.impl.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.general.day.location.api.LocationTrackerManager
 import com.example.general.day.domain.use.case.FetchWeatherUseCase
-import com.example.general.day.ui.core.R.string
+import com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToDetailScreen
+import com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToFavoriteScreen
+import com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToMapScreen
+import com.example.general.day.home.impl.ui.di.HomeFeatureDependencies
+import com.example.general.day.location.api.LocationTrackerManager
 import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToHomeUiMapper
 import com.example.general.day.ui.components.mappers.WeatherForFiveDaysDomainToHomeUiMapper
 import com.example.general.day.ui.components.models.WeatherForFiveDaysResultHomeUi
+import com.example.general.day.ui.core.R.string
+import com.example.general.day.ui.core.communication.NavigationRouteFlowCommunication
+import com.example.general.day.ui.core.communication.navigationParams
+import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,6 +30,8 @@ class HomeViewModel @Inject constructor(
     private val fetchWeatherDomainToHomeUiMapper: WeatherForFiveDaysDomainToHomeUiMapper,
     private val locationTrackerManager: LocationTrackerManager,
     private val weatherDataHelper: WeatherDataHelper,
+    private val homeFeatureDependencies: HomeFeatureDependencies,
+    private val navigationCommunication: NavigationRouteFlowCommunication,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
@@ -72,11 +81,25 @@ class HomeViewModel @Inject constructor(
 
     fun onEvent(event: HomeScreenEvent) {
         when (event) {
-            HomeScreenEvent.DoNavigateToDetailScreen -> TODO()
-            HomeScreenEvent.DoNavigateToFavoriteScreen -> TODO()
-            HomeScreenEvent.DoNavigateToMapScreen -> TODO()
-            HomeScreenEvent.DoRefreshAllData -> TODO()
+            DoNavigateToFavoriteScreen -> navigationCommunication.emit(
+                navigationParams(
+                    homeFeatureDependencies.getFavoriteRoute()
+                )
+            )
+
+            DoNavigateToMapScreen -> navigationCommunication.emit(
+                navigationParams(
+                    homeFeatureDependencies.getMapRoute()
+                )
+            )
+
+            is DoNavigateToDetailScreen -> navigationCommunication.emit(
+                navigationParams(
+                    homeFeatureDependencies.getDetailRoute(event.weatherId)
+                )
+            )
             HomeScreenEvent.DoChangeTheme -> TODO()
+            HomeScreenEvent.DoRefreshAllData -> TODO()
         }
     }
 }

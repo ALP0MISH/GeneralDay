@@ -1,4 +1,4 @@
-package com.example.general.day.domain.di
+package com.example.general.day.data.di
 
 import com.example.general.day.domain.use.case.FetchWeatherByCity
 import com.example.general.day.domain.use.case.FetchWeatherByCityImpl

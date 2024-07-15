@@ -55,7 +55,7 @@ fun HomeScreenBottom(
             .padding(bottom = dp8)
             .clip(RoundedCornerShape(dp16))
             .background(Color.Black)
-            .clickable { onEvent(HomeScreenEvent.DoNavigateToDetailScreen) },
+//            .clickable { onEvent(HomeScreenEvent.DoNavigateToDetailScreen) },
     ) {
         Column(
             modifier = Modifier

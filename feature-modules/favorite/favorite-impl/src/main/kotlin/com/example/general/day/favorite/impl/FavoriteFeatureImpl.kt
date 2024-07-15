@@ -17,7 +17,7 @@ class FavoriteFeatureImpl : FavoriteFeatureApi {
     override val favoriteRoute = "favorite"
 
     @Inject
-    lateinit var mapViewModelFactory: FavoriteViewModelFactory
+    lateinit var favoriteModelFactory: FavoriteViewModelFactory
 
     override fun registerGraph(
         navGraphBuilder: NavGraphBuilder,
@@ -26,7 +26,7 @@ class FavoriteFeatureImpl : FavoriteFeatureApi {
     ) {
         navGraphBuilder.composable(favoriteRoute) {
             val viewModel: FavoriteViewModel = viewModel(
-                factory = mapViewModelFactory
+                factory = favoriteModelFactory
             )
             FavoriteScreen(
                 uiStateFlow = viewModel.uiState,
