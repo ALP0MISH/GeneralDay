@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin)
@@ -20,8 +22,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        manifestPlaceholders["GOOGLE_MAPS_API_KEY"] = getLocalProperty("GOOGLE_MAPS_API_KEY")
     }
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -55,8 +57,13 @@ dependencies {
     implementation(projects.domain)
     implementation(projects.core)
     implementation(projects.uiCore)
+    implementation(projects.uiComponents)
     implementation(projects.featureModules.home.homeImpl)
     implementation(projects.featureModules.home.homeApi)
+    implementation(projects.featureModules.favorite.favoriteApi)
+    implementation(projects.featureModules.favorite.favoriteImpl)
+    implementation(projects.featureModules.map.mapApi)
+    implementation(projects.featureModules.map.mapImpl)
 
     /** Coroutines **/
     implementation(libs.kotlinx.coroutines.core)
@@ -86,4 +93,13 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.testManifest)
     androidTestImplementation(libs.androidx.compose.ui.test)
+}
+
+fun getLocalProperty(propertyName: String): String {
+    val properties = Properties()
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.inputStream().use { properties.load(it) }
+    }
+    return properties.getProperty(propertyName) ?: ""
 }
