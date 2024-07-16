@@ -1,6 +1,6 @@
 package com.example.general.day.ui.core.weather.helpers
 
-import com.example.general.day.ui.components.models.WeatherSystemInformationHomeUi
+import com.example.general.day.ui.components.models.WeatherSystemInformationUi
 import com.example.general.day.ui.core.weather.helpers.TimeOfDayEnum.DawnDusk
 import com.example.general.day.ui.core.weather.helpers.TimeOfDayEnum.Day
 import com.example.general.day.ui.core.weather.helpers.TimeOfDayEnum.Night
@@ -21,7 +21,7 @@ class DetermineTimeOfDayImpl : DetermineTimeOfDay {
 
     override fun determineTimeOfDay(
         timestamp: Long,
-        weatherSystemInfo: WeatherSystemInformationHomeUi
+        weatherSystemInfo: WeatherSystemInformationUi
     ): String {
         val calendar = Calendar.getInstance().apply { timeInMillis = timestamp * Timestamp }
         val currentTime = calendar.timeInMillis

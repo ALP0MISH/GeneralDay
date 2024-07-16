@@ -2,12 +2,12 @@ package com.example.general.day.ui.components.mappers
 
 import com.example.general.day.core.Mapper
 import com.example.general.day.domain.models.CurrentWeatherLocalDomain
-import com.example.general.day.ui.components.models.CurrentWeatherLocalHomeUi
+import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
 import javax.inject.Inject
 
-class CurrentWeatherLocalDomainToHomeUiMapper @Inject constructor() :
-    Mapper<CurrentWeatherLocalHomeUi, CurrentWeatherLocalDomain> {
-    override fun map(from: CurrentWeatherLocalHomeUi): CurrentWeatherLocalDomain = from.run {
+class CurrentWeatherLocalDomainToUiMapper @Inject constructor() :
+    Mapper<CurrentWeatherLocalUi, CurrentWeatherLocalDomain> {
+    override fun map(from: CurrentWeatherLocalUi): CurrentWeatherLocalDomain = from.run {
         CurrentWeatherLocalDomain(
             id = id,
             code = code,
