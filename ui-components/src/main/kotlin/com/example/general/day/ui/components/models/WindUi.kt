@@ -3,6 +3,7 @@ package com.example.general.day.ui.components.models
 import androidx.compose.runtime.Immutable
 
 @Immutable
-data class ForRainOrSnowHomeUi(
-    val hour: Double
+data class WindUi(
+    val degrees: Int,
+    val speed: Double
 )

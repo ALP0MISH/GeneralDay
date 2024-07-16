@@ -2,21 +2,21 @@ package com.example.general.day.ui.components.mappers
 
 import com.example.general.day.core.Mapper
 import com.example.general.day.domain.models.WeatherForFiveDaysResultDomain
-import com.example.general.day.ui.components.models.WeatherForFiveDaysResultHomeUi
+import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
 import kotlinx.collections.immutable.toImmutableList
 import javax.inject.Inject
 
-class WeatherForFiveDaysResultDomainToHomeUiMapper @Inject constructor(
-    private val cloudsCloudToCloudsDomain: CloudsDomainToHomeUiMapper,
-    private val weatherTemperatureCloudToDomain: WeatherTemperatureDomainToHomeUiMapper,
-    private val weatherSystemInformationCloudToDomain: WeatherSystemInformationDomainToHomeUiMapper,
-    private val weatherDataToDomainMapper: WeatherDomainToHomeUiMapper,
-    private val windCloudToWindDomain: WindDomainToHomeUIMapper,
-    private val forRainOrSnowCloudToDomain: ForRainOrSnowDomainToHomeUiMapper,
-) : Mapper<WeatherForFiveDaysResultDomain, WeatherForFiveDaysResultHomeUi> {
-    override fun map(from: WeatherForFiveDaysResultDomain): WeatherForFiveDaysResultHomeUi =
+class WeatherForFiveDaysResultDomainToUiMapper @Inject constructor(
+    private val cloudsCloudToCloudsDomain: CloudsDomainToUiMapper,
+    private val weatherTemperatureCloudToDomain: WeatherTemperatureDomainToUiMapper,
+    private val weatherSystemInformationCloudToDomain: WeatherSystemInformationDomainToUiMapper,
+    private val weatherDataToDomainMapper: WeatherDomainToUiMapper,
+    private val windCloudToWindDomain: WindDomainToUIMapper,
+    private val forRainOrSnowCloudToDomain: ForRainOrSnowDomainToUiMapper,
+) : Mapper<WeatherForFiveDaysResultDomain, WeatherForFiveDaysResultUi> {
+    override fun map(from: WeatherForFiveDaysResultDomain): WeatherForFiveDaysResultUi =
         from.run {
-            WeatherForFiveDaysResultHomeUi(
+            WeatherForFiveDaysResultUi(
                 clouds = cloudsCloudToCloudsDomain.map(clouds),
                 time = time,
                 timeText = timeText,
