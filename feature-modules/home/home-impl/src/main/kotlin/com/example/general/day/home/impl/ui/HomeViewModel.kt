@@ -2,13 +2,12 @@ package com.example.general.day.home.impl.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.general.day.core.managers.LocationTrackerManager
+import com.example.general.day.location.api.LocationTrackerManager
 import com.example.general.day.domain.use.case.FetchWeatherUseCase
 import com.example.general.day.ui.core.R.string
 import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToHomeUiMapper
 import com.example.general.day.ui.components.mappers.WeatherForFiveDaysDomainToHomeUiMapper
 import com.example.general.day.ui.components.models.WeatherForFiveDaysResultHomeUi
-import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow

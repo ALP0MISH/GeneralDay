@@ -1,6 +1,6 @@
 package com.example.general.day.presentation.di
 
-import com.example.general.day.core.managers.LocationTrackerManager
+import com.example.general.day.location.api.LocationTrackerManager
 import com.example.general.day.core.managers.ShowToastManager
 import com.example.general.day.domain.use.case.FetchWeatherByCity
 import com.example.general.day.domain.use.case.FetchWeatherUseCase
@@ -44,10 +44,10 @@ class ViewModelModule {
     @Provides
     @Singleton
     fun provideHomeViewModelFactory(
-         fetchWeatherUseCase: FetchWeatherUseCase,
-         fetchCurrentWeatherToHomeUi: CurrentWeatherDomainToHomeUiMapper,
-       fetchWeatherDomainToHomeUiMapper: WeatherForFiveDaysDomainToHomeUiMapper,
-         locationTrackerManager: LocationTrackerManager,
+        fetchWeatherUseCase: FetchWeatherUseCase,
+        fetchCurrentWeatherToHomeUi: CurrentWeatherDomainToHomeUiMapper,
+        fetchWeatherDomainToHomeUiMapper: WeatherForFiveDaysDomainToHomeUiMapper,
+        locationTrackerManager: com.example.general.day.location.api.LocationTrackerManager,
     ): HomeViewModelFactory {
         return HomeViewModelFactory(
             fetchWeatherUseCase,

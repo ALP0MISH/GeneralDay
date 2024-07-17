@@ -1,23 +1,22 @@
-package com.example.general.day.core.managers
+package com.example.general.location.impl
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.pm.PackageManager
 import android.location.Location
-import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.example.general.day.core.managers.ShowToastManager
+import com.example.general.day.location.api.LocationTrackerManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.Task
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.coroutines.resume
 
-private const val LOCATION_MESSAGE = "Needed Location Permission!"
+private const val LOCATION_MESSAGE = "Требуется разрешение на определение местоположения!"
 
 class LocationTrackerManagerImpl @Inject constructor(
     private val locationClient: FusedLocationProviderClient,
