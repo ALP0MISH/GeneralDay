@@ -5,4 +5,5 @@ sealed class HomeScreenEvent {
     data object DoNavigateToDetailScreen : HomeScreenEvent()
     data object DoNavigateToMapScreen : HomeScreenEvent()
     data object DoNavigateToFavoriteScreen : HomeScreenEvent()
+    data object DoChangeTheme : HomeScreenEvent()
 }

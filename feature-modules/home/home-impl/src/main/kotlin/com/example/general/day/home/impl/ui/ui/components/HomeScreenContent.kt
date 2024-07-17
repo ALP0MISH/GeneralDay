@@ -22,7 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.general.day.home.impl.ui.HomeScreenEvent
-import com.example.general.day.ui.components.models.ConvertedWeather
+import com.example.general.day.ui.components.models.CurrentConvertedWeather
 import com.example.general.day.ui.core.theme.dp100
 import com.example.general.day.ui.core.theme.dp24
 import com.example.general.day.ui.core.theme.sp48
@@ -30,7 +30,7 @@ import com.example.general.day.ui.core.theme.sp48
 @Composable
 internal fun HomeScreenContent(
     modifier: Modifier = Modifier,
-    convertedWeather: ConvertedWeather,
+    convertedWeather: CurrentConvertedWeather,
     onEvent: (HomeScreenEvent) -> Unit,
 ) {
     Box(
@@ -41,7 +41,7 @@ internal fun HomeScreenContent(
             .clickable { onEvent(HomeScreenEvent.DoNavigateToDetailScreen) },
     ) {
         Image(
-            painter = painterResource(id = convertedWeather.currentWeatherIcon),
+            painter = painterResource(id = convertedWeather.weatherBackgroundImage),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
@@ -60,7 +60,7 @@ internal fun HomeScreenContent(
             Image(
                 modifier = Modifier
                     .size(dp100),
-                painter = painterResource(id = com.example.general.day.ui.core.R.drawable.light),
+                painter = painterResource(id = convertedWeather.currentWeatherIcon),
                 contentDescription = null,
             )
             Text(
@@ -85,7 +85,7 @@ internal fun HomeScreenContent(
 fun HomeScreenContentPreview() {
     MaterialTheme {
         HomeScreenContent(
-            convertedWeather = ConvertedWeather.preview,
+            convertedWeather = CurrentConvertedWeather.preview,
             onEvent = {}
         )
     }

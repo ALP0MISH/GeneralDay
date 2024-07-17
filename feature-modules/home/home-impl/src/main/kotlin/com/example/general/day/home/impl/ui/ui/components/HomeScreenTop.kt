@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import com.example.general.day.ui.core.R.drawable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -40,7 +41,7 @@ internal fun HomeScreenTop(
             modifier = Modifier.size(dp32),
         ) {
             Icon(
-                painter = painterResource(com.example.general.day.ui.core.R.drawable.light),
+                painter = painterResource(drawable.location),
                 contentDescription = null,
             )
         }
@@ -58,18 +59,18 @@ internal fun HomeScreenTop(
             modifier = Modifier.size(dp32),
         ) {
             Icon(
-                painter = painterResource(com.example.general.day.ui.core.R.drawable.light),
+                painter = painterResource(drawable.loader),
                 contentDescription = null,
             )
         }
         SpacerWidth(size = dp8)
         IconButton(
-            onClick = { onEvent(HomeScreenEvent.DoNavigateToSearchScreen) },
+            onClick = { onEvent(HomeScreenEvent.DoChangeTheme) },
             colors = IconButtonDefaults.iconButtonColors(containerColor = IconTintColor),
             modifier = Modifier.size(dp32),
         ) {
             Icon(
-                painter = painterResource(com.example.general.day.ui.core.R.drawable.light),
+                painter = painterResource(drawable.search),
                 contentDescription = null,
             )
         }

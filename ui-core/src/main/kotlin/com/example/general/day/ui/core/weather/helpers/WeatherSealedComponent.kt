@@ -1,4 +1,4 @@
-package com.example.general.day.ui.core.factories
+package com.example.general.day.ui.core.weather.helpers
 
 sealed class WeatherSealedComponent {
     data object Snow : WeatherSealedComponent()

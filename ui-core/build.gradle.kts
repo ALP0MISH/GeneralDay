@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlin)
+    alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.compose)
 }
 
@@ -25,6 +26,13 @@ dependencies {
 
     /** Async Image **/
     implementation(libs.coil.compose)
+
+    /** Immutable collections **/
+    implementation(libs.kotlinx.collections.immutable)
+
+    /** Dagger **/
+    implementation(libs.dagger)
+    kapt(libs.dagger.compiler)
 
     /** Compose **/
     implementation(platform(libs.androidx.compose.bom))

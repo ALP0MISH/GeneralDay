@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -21,19 +20,14 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.example.general.day.home.impl.R
 import com.example.general.day.home.impl.ui.HomeScreenEvent
-import com.example.general.day.ui.components.models.ConvertedWeather
-import com.example.general.day.ui.components.models.WeatherForFiveDaysResultHomeUi
+import com.example.general.day.ui.components.models.ConvertedWeatherForFiveDays
 import com.example.general.day.ui.core.extention.SpacerHeight
 import com.example.general.day.ui.core.extention.SpacerWidth
 import com.example.general.day.ui.core.theme.dp10
@@ -46,11 +40,11 @@ import com.example.general.day.ui.core.theme.dp73
 import com.example.general.day.ui.core.theme.dp8
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.collections.immutable.persistentMapOf
 
 @Composable
 fun HomeScreenBottom(
-    convertedWeather: ImmutableList<ConvertedWeather>,
+    convertedWeather: ConvertedWeatherForFiveDays,
+    weatherForFiveDays: ImmutableList<ConvertedWeatherForFiveDays>,
     onEvent: (HomeScreenEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -74,26 +68,26 @@ fun HomeScreenBottom(
             ) {
                 Text(
                     modifier = Modifier,
-                    text = convertedWeather.firstOrNull()?.eachThreeTime.toString(),
+                    text = convertedWeather.eachThreeTime,
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
-                    text = convertedWeather.firstOrNull()?.temperatureMax ?: String(),
+                    text = convertedWeather.temperatureMax,
                     style = MaterialTheme.typography.bodyLarge,
                     color = Color.Black,
                 )
                 SpacerWidth(dp8)
                 Text(
-                    text = convertedWeather.firstOrNull()?.temperatureMin ?: String(),
+                    text = convertedWeather.temperatureMin,
                     style = MaterialTheme.typography.bodyLarge,
                     color = Color.Black,
                 )
                 SpacerWidth(dp16)
                 Image(
                     modifier = Modifier.size(dp32),
-                    painter = painterResource(id = com.example.general.day.ui.core.R.drawable.light),
+                    painter = painterResource(id = convertedWeather.weatherIcon),
                     contentDescription = null,
                 )
             }
@@ -110,12 +104,12 @@ fun HomeScreenBottom(
                 .align(Alignment.BottomStart),
         ) {
             items(
-                items = convertedWeather,
+                items = weatherForFiveDays,
             ) { item ->
                 BottomItem(
-                    time = item.eachThreeTime.firstOrNull().orEmpty(),
-                    temperature = item.temperature.firstOrNull().orEmpty(),
-                    image = item.weatherIcon.firstOrNull()?.toInt() ?: 0
+                    time = item.eachThreeTime,
+                    temperature = item.temperature,
+                    image = item.weatherIcon
                 )
             }
         }
@@ -165,7 +159,8 @@ fun HomeScreenBottomPreview() {
     MaterialTheme {
         HomeScreenBottom(
             onEvent = {},
-            convertedWeather = persistentListOf(),
+            convertedWeather = ConvertedWeatherForFiveDays.preview,
+            weatherForFiveDays = persistentListOf()
 
         )
     }
