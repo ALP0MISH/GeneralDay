@@ -66,7 +66,7 @@ class HomeViewModel @Inject constructor(
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                _uiState.tryEmit(HomeUiState.Error("${string.failed_to_fetch_weather} ${e.message}"))
+                _uiState.tryEmit(HomeUiState.Error("${string.failed_to_fetch_weather}"))
             }
         }
     }
