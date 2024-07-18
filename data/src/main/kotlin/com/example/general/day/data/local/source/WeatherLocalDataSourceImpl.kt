@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+private const val FailedToSaveCurrentWeather = "Не удалось сохранить текущую местную погоду"
+
 class WeatherLocalDataSourceImpl @Inject constructor(
     private val weatherDao: WeatherDao,
     private val coroutineDispatchers: CoroutineDispatchers,
@@ -21,11 +23,15 @@ class WeatherLocalDataSourceImpl @Inject constructor(
     override suspend fun saveCurrentWeatherLocal(currentWeatherLocal: CurrentWeatherLocalData) =
         withContext(coroutineDispatchers.io) {
             try {
-                weatherDao.saveCurrentWeatherLocal(currentWeatherDataToLocalMapper.map(currentWeatherLocal))
+                weatherDao.saveCurrentWeatherLocal(
+                    currentWeatherDataToLocalMapper.map(
+                        currentWeatherLocal
+                    )
+                )
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                throw IllegalArgumentException("Failed to save current weather local", e)
+                throw IllegalArgumentException(FailedToSaveCurrentWeather, e)
             }
         }
 
@@ -37,7 +43,7 @@ class WeatherLocalDataSourceImpl @Inject constructor(
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            throw IllegalArgumentException("Failed to observe current weather local", e)
+            throw IllegalArgumentException(FailedToSaveCurrentWeather, e)
         }
     }
 }

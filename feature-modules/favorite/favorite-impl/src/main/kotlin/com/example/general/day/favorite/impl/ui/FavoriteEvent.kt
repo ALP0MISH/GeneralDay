@@ -8,7 +8,8 @@ sealed class FavoriteEvent {
     data class DoOnValueChange(val value: String) : FavoriteEvent()
     data class DoSavedWeatherOnValueChange(val value: String) : FavoriteEvent()
     data object DoNavigateToBack : FavoriteEvent()
-    data object DoNavigateToSun : FavoriteEvent()
+    data object DoChangeTheme : FavoriteEvent()
     data object DoNavigateToMapScreen : FavoriteEvent()
     data object DoFetchCityName : FavoriteEvent()
+    data object DoRefreshData : FavoriteEvent()
 }

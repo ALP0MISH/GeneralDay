@@ -15,6 +15,8 @@ import kotlin.coroutines.cancellation.CancellationException
  * @throws CancellationException if the coroutine is canceled during execution.
  */
 
+private const val ErrorAPICall = "Ошибка во время вызова API"
+
 suspend fun <T> callSafe(
     dispatcher: CoroutineDispatcher,
     block: suspend () -> T
@@ -25,7 +27,7 @@ suspend fun <T> callSafe(
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            throw IllegalArgumentException("Error during API call: ${e.message}", e)
+            throw IllegalArgumentException("$ErrorAPICall:${e.message}", e)
         }
     }
 }

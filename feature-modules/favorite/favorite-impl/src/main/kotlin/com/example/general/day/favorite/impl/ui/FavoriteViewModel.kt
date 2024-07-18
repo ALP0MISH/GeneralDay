@@ -12,15 +12,14 @@ import com.example.general.day.ui.components.mappers.CurrentWeatherHomeUiToDomai
 import com.example.general.day.ui.components.mappers.CurrentWeatherLocalDomainToHomeUiMapper
 import com.example.general.day.ui.components.mappers.SearchWeatherDomainToUiMapper
 import com.example.general.day.ui.components.models.CurrentWeatherLocalHomeUi
-import com.example.general.day.ui.components.models.SearchWeatherUi
+import com.example.general.day.ui.core.R.string
+import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -29,8 +28,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException
 
-private const val SUCCESS_MESSAGE = "Город успешно добавлен"
-private const val ERROR_MESSAGE = "К сожелению такого горада нет"
+private const val DebounceTime = 300L
 
 class FavoriteViewModel @Inject constructor(
     private val fetchWeatherByCity: FetchWeatherByCity,
@@ -42,13 +40,14 @@ class FavoriteViewModel @Inject constructor(
     private val searchWeatherByCity: SearchWeatherByCity,
     private val searchWeatherDomainToUiMapper: SearchWeatherDomainToUiMapper,
     private val showToastManager: ShowToastManager,
+    private val weatherDataHelper: WeatherDataHelper,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<FavoriteUIState>(FavoriteUIState.Loading)
     val uiState: StateFlow<FavoriteUIState> = _uiState.asStateFlow()
 
-    private val searchQueryFlow = MutableStateFlow("")
-    private val savedWeatherSearchQueryFlow = MutableStateFlow("")
+    private val searchQueryFlow = MutableStateFlow(String())
+    private val savedWeatherSearchQueryFlow = MutableStateFlow(String())
 
     init {
         searchQueryFlow.onEach { query ->
@@ -57,7 +56,7 @@ class FavoriteViewModel @Inject constructor(
                     query = query, isLoading = true
                 )
             )
-        }.debounce(300).onEach {
+        }.debounce(DebounceTime).onEach {
             search(it)
         }.launchIn(viewModelScope)
 
@@ -67,25 +66,23 @@ class FavoriteViewModel @Inject constructor(
                     query = query, isLoading = true
                 )
             )
-        }.debounce(300).onEach {
+        }.debounce(DebounceTime).onEach {
             searchSavedWeather(it)
         }.launchIn(viewModelScope)
     }
 
     private fun searchSavedWeather(query: String) {
-        viewModelScope.launch {
-            observeCurrentWeatherUseCase.invoke()
-                .map { weatherList -> weatherList.map(currentWeatherHomeUiToDomainMapper::map) }
-                .collect { savedWeather ->
-                    val filteredMenu =
-                        WeatherHelper().filterMenuByQuery(savedWeather.toImmutableList(), query)
-                    _uiState.tryEmit(
-                        FavoriteUIState.Loaded(
-                            savedWeather = filteredMenu
-                        )
+        observeCurrentWeatherUseCase.invoke()
+            .map { weatherList -> weatherList.map(currentWeatherHomeUiToDomainMapper::map) }
+            .onEach { savedWeather ->
+                val filteredMenu =
+                   filterMenuByQuery(savedWeather.toImmutableList(), query)
+                _uiState.tryEmit(
+                    FavoriteUIState.Loaded(
+                        savedWeather = filteredMenu
                     )
-                }
-        }
+                )
+            }.launchIn(viewModelScope)
     }
 
     private fun search(query: String) {
@@ -101,8 +98,8 @@ class FavoriteViewModel @Inject constructor(
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                _uiState.tryEmit(FavoriteUIState.Error("Failed to fetch weather: ${e.message}"))
-                showToastManager.showToast(ERROR_MESSAGE)
+                _uiState.tryEmit(FavoriteUIState.Error("${string.failed_to_fetch_weather}"))
+                showToastManager.showToast("${string.error_message}")
             }
         }
     }
@@ -111,45 +108,49 @@ class FavoriteViewModel @Inject constructor(
         when (event) {
             FavoriteEvent.DoNavigateToBack -> onNavigateToBack()
             FavoriteEvent.DoNavigateToMapScreen -> onNavigateToMapScreen()
-            FavoriteEvent.DoNavigateToSun -> onNavigateToSun()
+            FavoriteEvent.DoChangeTheme -> onChangeTheme()
             is FavoriteEvent.GetCityName -> onGetCityName(event.cityName)
             is FavoriteEvent.DoOnValueChange -> onValueChange(event.value)
             is FavoriteEvent.DoSavedWeatherOnValueChange -> onSavedWeatherOnValueChange(event.value)
             FavoriteEvent.DoFetchCityName -> onFetchCityName()
+            FavoriteEvent.DoRefreshData -> onRefreshData()
         }
     }
 
     private fun onFetchCityName() {
         viewModelScope.launch {
             try {
-                val state = uiState.value as FavoriteUIState.Loaded
+                val state = uiState.value as? FavoriteUIState.Loaded ?: return@launch
                 val currentWeatherDeferred =
-                    async { fetchWeatherByCity.fetchCurrentCityWeather(cityName = state.query) }
-                val currentWeather = currentWeatherDeferred.await()
-                val weather = WeatherHelper().convertWeatherData(
-                    currentWeatherDomainToHomeUiMapper.map(currentWeather)
+                    fetchWeatherByCity.fetchCurrentCityWeather(cityName = state.query)
+                val weather = weatherDataHelper.convertSavedWeather(
+                    currentWeatherDomainToHomeUiMapper.map(currentWeatherDeferred)
                 )
                 saveCurrentWeatherUseCase(currentWeatherLocalDomainToHomeUiMapper.map(weather))
-                showToastManager.showToast(SUCCESS_MESSAGE)
+                showToastManager.showToast("${string.success_message}")
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                _uiState.tryEmit(FavoriteUIState.Error("Failed to fetch weather: ${e.message}"))
-                showToastManager.showToast(ERROR_MESSAGE)
+                _uiState.tryEmit(FavoriteUIState.Error("${string.failed_to_fetch_weather}"))
+                showToastManager.showToast("${string.error_message}")
             }
         }
     }
 
     private fun onNavigateToBack() {
-
+        // TODO()
     }
 
     private fun onNavigateToMapScreen() {
-
+        // TODO()
     }
 
-    private fun onNavigateToSun() {
+    private fun onChangeTheme() {
+        // TODO()
+    }
 
+    private fun onRefreshData() {
+        // TODO()
     }
 
     private fun onGetCityName(value: String) {
@@ -166,5 +167,13 @@ class FavoriteViewModel @Inject constructor(
 
     private fun onSavedWeatherOnValueChange(value: String) {
         savedWeatherSearchQueryFlow.tryEmit(value)
+    }
+
+    private fun filterMenuByQuery(
+        menu: ImmutableList<CurrentWeatherLocalHomeUi>,
+        query: String
+    ): ImmutableList<CurrentWeatherLocalHomeUi> {
+        val menuList = menu.filter { it.cityName.contains(query, ignoreCase = true) }.toImmutableList()
+        return menuList
     }
 }
