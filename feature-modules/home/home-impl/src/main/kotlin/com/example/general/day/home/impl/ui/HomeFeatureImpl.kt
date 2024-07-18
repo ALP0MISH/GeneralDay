@@ -9,11 +9,9 @@ import com.example.general.day.home.api.HomeFeatureApi
 import com.example.general.day.home.impl.ui.di.HomeViewModelFactory
 import javax.inject.Inject
 
-const val baseRoute = "home"
-
 class HomeFeatureImpl : HomeFeatureApi {
 
-    override val homeRoute = baseRoute
+    override val homeRoute = "home"
 
     @Inject
     lateinit var homeViewModelFactory: HomeViewModelFactory
@@ -27,7 +25,7 @@ class HomeFeatureImpl : HomeFeatureApi {
             val viewModel: HomeViewModel = viewModel(
                 factory = homeViewModelFactory
             )
-            Home(
+            HomeScreen(
                 uiStateFlow = viewModel.state,
                 onEvent = viewModel::onEvent
             )

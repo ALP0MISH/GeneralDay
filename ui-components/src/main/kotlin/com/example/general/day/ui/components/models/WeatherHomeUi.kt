@@ -8,4 +8,13 @@ data class WeatherHomeUi(
     val icon: String,
     val id: Int,
     val main: String
-)
+) {
+    companion object {
+        val unknown = WeatherHomeUi(
+            description = String(),
+            id = 0,
+            main = String(),
+            icon = String()
+        )
+    }
+}

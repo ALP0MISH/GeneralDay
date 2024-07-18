@@ -16,34 +16,34 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.general.day.home.impl.ui.ui.components.HomeScreenBottom
 import com.example.general.day.home.impl.ui.ui.components.HomeScreenContent
 import com.example.general.day.home.impl.ui.ui.components.HomeScreenTop
-import com.example.general.day.ui.components.models.ConvertedWeather
-import com.example.general.day.ui.components.models.CurrentWeatherHomeUi
-import com.example.general.day.ui.components.models.WeatherForFiveDaysHomeUi
+import com.example.general.day.ui.components.models.CurrentConvertedWeather
+import com.example.general.day.ui.core.components.LoadingScreen
 import com.example.general.day.ui.core.theme.dp16
 import com.example.general.day.ui.core.theme.dp20
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.coroutines.flow.StateFlow
 
- @Composable
-internal fun Home(
+@Composable
+internal fun HomeScreen(
     uiStateFlow: StateFlow<HomeUiState>,
     onEvent: (HomeScreenEvent) -> Unit,
 ) {
     val uiState by uiStateFlow.collectAsStateWithLifecycle()
 
     when (uiState) {
-        is HomeUiState.Error -> Unit
-        is HomeUiState.Loaded -> HomeScreen(
-            uiState = uiState as HomeUiState.Loaded,
+        is HomeUiState.Error -> {
+            // todo ErrorScreen
+        }
+        is HomeUiState.Loaded -> HomeScreenItem(
+            uiState = uiState as? HomeUiState.Loaded ?: return,
             onEvent = onEvent
         )
-        HomeUiState.Loading -> Unit
+        HomeUiState.Loading -> LoadingScreen()
     }
 }
 
 @Composable
-internal fun HomeScreen(
+internal fun HomeScreenItem(
     modifier: Modifier = Modifier,
     uiState: HomeUiState.Loaded,
     onEvent: (HomeScreenEvent) -> Unit,
@@ -58,25 +58,27 @@ internal fun HomeScreen(
                 modifier = modifier,
             ) {
                 HomeScreenTop(
-                    cityName = uiState.currentWeather.name,
+                    cityName = uiState.currentWeather.cityName,
                     onEvent = onEvent
                 )
                 Spacer(modifier = Modifier.height(dp20))
                 HomeScreenContent(
-                    convertedWeather = uiState.convertedWeather.firstOrNull() ?: ConvertedWeather.preview,
+                    convertedWeather = uiState.currentWeather,
                     onEvent = onEvent
                 )
             }
             Spacer(modifier = Modifier.height(dp20))
-            this@LazyColumn.items(
-                items = uiState.weatherForFiveDays.list
-            ) {
-                HomeScreenBottom(
-                   convertedWeather = uiState.convertedWeather,
-                    onEvent = onEvent
-                )
-            }
         }
+        items(
+            items = uiState.weatherForFiveDays
+        ) { weather ->
+            HomeScreenBottom(
+                convertedWeather = weather,
+                onEvent = onEvent,
+                weatherForFiveDays = uiState.weatherForFiveDays
+            )
+        }
+
     }
 }
 
@@ -84,11 +86,10 @@ internal fun HomeScreen(
 @Composable
 fun HomeScreenPreview() {
     MaterialTheme {
-        HomeScreen(
+        HomeScreenItem(
             uiState = HomeUiState.Loaded(
-                weatherForFiveDays = WeatherForFiveDaysHomeUi.unknown,
-                currentWeather = CurrentWeatherHomeUi.unknown,
-                convertedWeather = persistentListOf()
+                weatherForFiveDays = persistentListOf(),
+                currentWeather = CurrentConvertedWeather.preview,
             ),
             onEvent = {}
         )
