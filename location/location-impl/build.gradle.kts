@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.general.day.core"
+    namespace = "com.example.general.location.impl"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -18,14 +18,13 @@ android {
 }
 
 dependencies {
-    /** Coroutines **/
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.coroutines.android)
-    
+    implementation(projects.location.locationApi)
+    implementation(projects.core)
+
     /** Dagger **/
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
 
-    /** Navigation **/
-    implementation(libs.navigation.compose)
+    /** Location Services **/
+    implementation (libs.services.location)
 }

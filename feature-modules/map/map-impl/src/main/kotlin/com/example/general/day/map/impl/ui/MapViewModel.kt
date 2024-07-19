@@ -6,7 +6,7 @@ import android.location.Location
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.general.day.map.impl.ui.components.ZoneClusterManager
-import com.example.general.day.core.managers.LocationTrackerManager
+import com.example.general.day.location.api.LocationTrackerManager
 import com.example.general.day.domain.use.case.FetchWeatherUseCase
 import com.example.general.day.map.impl.ui.components.calculateCameraViewPoints
 import com.example.general.day.map.impl.ui.components.getCenterOfPolygon
@@ -23,7 +23,7 @@ import kotlin.coroutines.cancellation.CancellationException
 
 class MapViewModel @Inject constructor(
     private val fetchWeatherUseCase: FetchWeatherUseCase,
-    private val fetchLocationTrackerManager: LocationTrackerManager,
+    private val fetchLocationTrackerManager: com.example.general.day.location.api.LocationTrackerManager,
     private val currentWeatherDomainToHomeUiMapper: CurrentWeatherDomainToHomeUiMapper,
 ) : ViewModel() {
 
