@@ -32,7 +32,7 @@ fun FavoriteContentItem(
     cityName: String,
     temperatureMin: String,
     temperatureMax: String,
-    weatherIcon: Painter = painterResource(id = com.example.general.day.ui.core.R.drawable.location),
+    weatherIcon: Int,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -45,7 +45,11 @@ fun FavoriteContentItem(
     ) {
         Text(
             modifier = Modifier
-                .padding(start = dp20, top = dp16, bottom = dp16),
+                .padding(
+                    start = dp20,
+                    top = dp16,
+                    bottom = dp16
+                ),
             text = cityName,
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onBackground
@@ -67,7 +71,7 @@ fun FavoriteContentItem(
             modifier = Modifier
                 .padding(end = dp16)
                 .size(dp30),
-            painter = weatherIcon,
+            painter = painterResource(id = weatherIcon),
             contentDescription = null
         )
     }
@@ -78,10 +82,10 @@ fun FavoriteContentItem(
 fun FavoriteContentItemPreview() {
     MaterialTheme {
         FavoriteContentItem(
-            cityName = "Osh",
-            temperatureMin = "12",
-            temperatureMax = "17",
-            weatherIcon = painterResource(id = com.example.general.day.ui.core.R.drawable.location)
+            cityName = String(),
+            temperatureMin = String(),
+            temperatureMax = String(),
+            weatherIcon = 0
         )
     }
 }

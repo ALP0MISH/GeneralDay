@@ -95,7 +95,9 @@ fun AddCityDialog(
                     }
                     if (value.isNotEmpty()) {
                         IconButton(
-                            onClick = { onEvent(FavoriteEvent.GetCityName("")) },
+                            onClick = {
+                                // todo
+                            },
                         ) {
                             Icon(
                                 modifier = Modifier.size(dp22),
@@ -149,7 +151,6 @@ fun AddCityDialog(
                 )
             }
             Button(
-                modifier = Modifier.clickable { onAddClick() },
                 onClick = {
                     onAddClick()
                     onEvent(FavoriteEvent.DoFetchCityName)

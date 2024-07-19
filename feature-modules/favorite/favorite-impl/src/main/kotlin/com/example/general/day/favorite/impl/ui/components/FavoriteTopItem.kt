@@ -12,8 +12,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,7 +24,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.general.day.favorite.impl.ui.FavoriteEvent
 import com.example.general.day.ui.core.R.drawable
 import com.example.general.day.ui.core.theme.IconTintColor
-import com.example.general.day.ui.core.theme.dp17
 import com.example.general.day.ui.core.theme.dp32
 import com.example.general.day.ui.core.theme.dp8
 import com.example.general.day.ui.core.theme.dp9
@@ -68,7 +65,7 @@ internal fun FavoriteTopItem(
                 .size(dp32)
                 .clip(RoundedCornerShape(dp8))
                 .background(IconTintColor)
-                .clickable { onEvent(FavoriteEvent.DoNavigateToSun) },
+                .clickable { onEvent(FavoriteEvent.DoChangeTheme) },
             contentAlignment = Alignment.Center
         ) {
             Icon(
@@ -84,7 +81,7 @@ internal fun FavoriteTopItem(
 fun FavoriteTopItemPreview() {
     MaterialTheme {
         FavoriteTopItem(
-            cityName = "Osh",
+            cityName = String(),
             onEvent = {}
         )
     }

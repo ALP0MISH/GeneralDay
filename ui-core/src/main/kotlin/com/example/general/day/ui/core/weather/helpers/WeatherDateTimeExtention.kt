@@ -22,11 +22,11 @@ fun String.getFormattedTime(): String {
     return dateTime?.time.toString()
 }
 
-fun kelvinToCelsius(kelvin: Double): Int {
-    return (kelvin - CONVERT_KELVIN_TO_CELSIUS).toInt()
+fun Double.kelvinToCelsius(): Int {
+    return (this - CONVERT_KELVIN_TO_CELSIUS).toInt()
 }
 
 fun Double.formatTemperature(): String {
-    val tempInCelsius = kelvinToCelsius(this )
+    val tempInCelsius = this.kelvinToCelsius()
     return "$tempInCelsius°"
 }

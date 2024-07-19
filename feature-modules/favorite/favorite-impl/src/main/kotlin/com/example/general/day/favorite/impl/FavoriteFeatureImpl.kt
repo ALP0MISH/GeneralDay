@@ -12,11 +12,9 @@ import com.example.general.day.favorite.impl.ui.FavoriteScreen
 import com.example.general.day.favorite.impl.ui.FavoriteViewModel
 import javax.inject.Inject
 
-private const val baseRoute = "favorite"
+class FavoriteFeatureImpl : FavoriteFeatureApi {
 
-class FavoriteFeatureImpl() : FavoriteFeatureApi {
-
-    override val favoriteRoute = baseRoute
+    override val favoriteRoute = "favorite"
 
     @Inject
     lateinit var mapViewModelFactory: FavoriteViewModelFactory
@@ -26,7 +24,7 @@ class FavoriteFeatureImpl() : FavoriteFeatureApi {
         navController: NavHostController,
         modifier: Modifier
     ) {
-        navGraphBuilder.composable(baseRoute) {
+        navGraphBuilder.composable(favoriteRoute) {
             val viewModel: FavoriteViewModel = viewModel(
                 factory = mapViewModelFactory
             )

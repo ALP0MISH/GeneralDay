@@ -6,10 +6,14 @@ import com.example.general.day.core.managers.ShowToastManager
 import com.example.general.day.domain.use.case.FetchWeatherByCity
 import com.example.general.day.domain.use.case.ObserveCurrentWeatherUseCase
 import com.example.general.day.domain.use.case.SaveCurrentWeatherUseCase
+import com.example.general.day.domain.use.case.SearchWeatherByCity
+import com.example.general.day.ui.core.R.string
 import com.example.general.day.favorite.impl.ui.FavoriteViewModel
 import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToHomeUiMapper
 import com.example.general.day.ui.components.mappers.CurrentWeatherHomeUiToDomainMapper
 import com.example.general.day.ui.components.mappers.CurrentWeatherLocalDomainToHomeUiMapper
+import com.example.general.day.ui.components.mappers.SearchWeatherDomainToUiMapper
+import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
 import javax.inject.Inject
 
 class FavoriteViewModelFactory @Inject constructor(
@@ -19,7 +23,10 @@ class FavoriteViewModelFactory @Inject constructor(
     private val currentWeatherDomainToHomeUiMapper: CurrentWeatherDomainToHomeUiMapper,
     private val currentWeatherHomeUiToDomainMapper: CurrentWeatherHomeUiToDomainMapper,
     private val observeCurrentWeatherUseCase: ObserveCurrentWeatherUseCase,
+    private val searchWeatherByCity: SearchWeatherByCity,
+    private val searchWeatherDomainToUiMapper: SearchWeatherDomainToUiMapper,
     private val showToastManager: ShowToastManager,
+    private val weatherDataHelper: WeatherDataHelper,
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(FavoriteViewModel::class.java)) {
@@ -32,8 +39,11 @@ class FavoriteViewModelFactory @Inject constructor(
                 currentWeatherHomeUiToDomainMapper,
                 observeCurrentWeatherUseCase,
                 showToastManager,
+                searchWeatherDomainToUiMapper,
+                weatherDataHelper,
+                searchWeatherByCity
             ) as T
         }
-        throw IllegalArgumentException("Unknown ViewModel class")
+        throw IllegalArgumentException("${string.error_message}")
     }
 }

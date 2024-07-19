@@ -5,7 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -36,7 +35,7 @@ import com.example.general.day.favorite.impl.ui.components.AddCityDialog
 import com.example.general.day.favorite.impl.ui.components.FavoriteContentItem
 import com.example.general.day.favorite.impl.ui.components.FavoriteTopItem
 import com.example.general.day.favorite.impl.ui.components.SearchComponent
-import com.example.general.day.ui.components.models.SearchWeatherUi
+import com.example.general.day.ui.core.R.drawable
 import com.example.general.day.ui.core.R.string
 import com.example.general.day.ui.core.extention.SpacerWidth
 import com.example.general.day.ui.core.theme.AddCityColor
@@ -56,18 +55,23 @@ internal fun FavoriteScreen(
     val uiState by uiStateFlow.collectAsStateWithLifecycle()
 
     when (uiState) {
-        is FavoriteUIState.Error -> Unit
-        is FavoriteUIState.Loaded -> Favorite(
-            uiState = uiState as FavoriteUIState.Loaded,
-            onEvent = onEvent,
+        is FavoriteUIState.Error -> {
+            // todo
+        }
 
+        is FavoriteUIState.Loaded -> FavoriteScreenItem(
+            uiState = uiState as? FavoriteUIState.Loaded ?: return,
+            onEvent = onEvent,
         )
-        FavoriteUIState.Loading -> Unit
+
+        FavoriteUIState.Loading -> {
+            // todo
+        }
     }
 }
 
 @Composable
-internal fun Favorite(
+internal fun FavoriteScreenItem(
     uiState: FavoriteUIState.Loaded,
     onEvent: (FavoriteEvent) -> Unit,
     modifier: Modifier = Modifier,
@@ -101,6 +105,7 @@ internal fun Favorite(
                     temperatureMax = weather.tempMax,
                     temperatureMin = weather.tempMin,
                     cityName = weather.cityName,
+                    weatherIcon = weather.weatherIcon
                 )
             }
         }
@@ -136,7 +141,7 @@ internal fun Favorite(
             ) {
                 Icon(
                     modifier = Modifier,
-                    painter = painterResource(id = com.example.general.day.ui.core.R.drawable.location),
+                    painter = painterResource(id = drawable.location),
                     contentDescription = null,
                     tint = Color.LightGray
                 )
@@ -161,40 +166,10 @@ internal fun Favorite(
 @Composable
 fun FavoriteScreenPreview() {
     MaterialTheme {
-        Favorite(
+        FavoriteScreenItem(
             uiState = FavoriteUIState.Loaded(
                 savedWeather = persistentListOf(),
-                searchWeather = persistentListOf(
-                    SearchWeatherUi(
-                        name = "Лондон",
-                        country = "",
-                        lat = 0.0,
-                        lon = 0.0,
-                        state = ""
-                    ),
-                    SearchWeatherUi(name = "Лондо", country = "", lat = 0.0, lon = 0.0, state = ""),
-                    SearchWeatherUi(
-                        name = "Moscow",
-                        country = "",
-                        lat = 0.0,
-                        lon = 0.0,
-                        state = ""
-                    ),
-                    SearchWeatherUi(
-                        name = "London",
-                        country = "",
-                        lat = 0.0,
-                        lon = 0.0,
-                        state = ""
-                    ),
-                    SearchWeatherUi(
-                        name = "New York",
-                        country = "",
-                        lat = 0.0,
-                        lon = 0.0,
-                        state = ""
-                    )
-                )
+                searchWeather = persistentListOf()
             ),
             onEvent = {},
         )
