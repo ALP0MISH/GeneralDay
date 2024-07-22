@@ -1,4 +1,4 @@
-package com.example.general.day.domain.use.case
+package com.example.general.day.domain.usecase
 
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.models.WeatherForFiveDaysDomain

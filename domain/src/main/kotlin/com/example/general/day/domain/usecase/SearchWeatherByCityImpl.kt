@@ -1,4 +1,4 @@
-package com.example.general.day.domain.use.case
+package com.example.general.day.domain.usecase
 
 import com.example.general.day.domain.models.SearchWeatherDomain
 import com.example.general.day.domain.repository.WeatherRepositoryCloud

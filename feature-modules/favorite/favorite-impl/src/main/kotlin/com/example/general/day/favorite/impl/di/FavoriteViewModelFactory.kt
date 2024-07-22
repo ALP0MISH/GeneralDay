@@ -3,10 +3,10 @@ package com.example.general.day.favorite.impl.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.general.day.core.managers.ShowToastManager
-import com.example.general.day.domain.use.case.FetchWeatherByCity
-import com.example.general.day.domain.use.case.ObserveCurrentWeatherUseCase
-import com.example.general.day.domain.use.case.SaveCurrentWeatherUseCase
-import com.example.general.day.domain.use.case.SearchWeatherByCity
+import com.example.general.day.domain.usecase.FetchWeatherByCity
+import com.example.general.day.domain.usecase.ObserveCurrentWeatherUseCase
+import com.example.general.day.domain.usecase.SaveCurrentWeatherUseCase
+import com.example.general.day.domain.usecase.SearchWeatherByCity
 import com.example.general.day.ui.core.R.string
 import com.example.general.day.favorite.impl.ui.FavoriteViewModel
 import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToHomeUiMapper
@@ -38,12 +38,13 @@ class FavoriteViewModelFactory @Inject constructor(
                 currentWeatherDomainToHomeUiMapper = currentWeatherDomainToHomeUiMapper,
                 currentWeatherHomeUiToDomainMapper = currentWeatherHomeUiToDomainMapper,
                 observeCurrentWeatherUseCase = observeCurrentWeatherUseCase,
+                searchWeatherByCity = searchWeatherByCity,
                 showToastManager = showToastManager,
-                searchWeatherDomainToUiMapper = searchWeatherDomainToUiMapper,
                 weatherDataHelper = weatherDataHelper,
-                searchWeatherByCity = searchWeatherByCity
+                searchWeatherDomainToUiMapper = searchWeatherDomainToUiMapper
             ) as T
+        } else {
+            throw IllegalArgumentException("${string.error_message}")
         }
-        throw IllegalArgumentException("${string.error_message}")
     }
 }

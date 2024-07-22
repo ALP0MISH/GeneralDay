@@ -6,8 +6,7 @@ import android.location.Location
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.general.day.map.impl.ui.components.ZoneClusterManager
-import com.example.general.day.location.api.LocationTrackerManager
-import com.example.general.day.domain.use.case.FetchWeatherUseCase
+import com.example.general.day.domain.usecase.FetchWeatherUseCase
 import com.example.general.day.map.impl.ui.components.calculateCameraViewPoints
 import com.example.general.day.map.impl.ui.components.getCenterOfPolygon
 import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToHomeUiMapper

@@ -25,6 +25,7 @@ dependencies {
     implementation(projects.core)
     implementation(projects.uiCore)
     implementation(projects.domain)
+    implementation(projects.data)
     implementation(projects.uiComponents)
     implementation(projects.featureModules.favorite.favoriteApi)
 

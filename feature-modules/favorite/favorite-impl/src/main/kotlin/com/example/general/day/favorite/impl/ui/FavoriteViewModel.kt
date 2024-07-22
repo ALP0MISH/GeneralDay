@@ -3,10 +3,10 @@ package com.example.general.day.favorite.impl.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.general.day.core.managers.ShowToastManager
-import com.example.general.day.domain.use.case.FetchWeatherByCity
-import com.example.general.day.domain.use.case.ObserveCurrentWeatherUseCase
-import com.example.general.day.domain.use.case.SaveCurrentWeatherUseCase
-import com.example.general.day.domain.use.case.SearchWeatherByCity
+import com.example.general.day.domain.usecase.FetchWeatherByCity
+import com.example.general.day.domain.usecase.ObserveCurrentWeatherUseCase
+import com.example.general.day.domain.usecase.SaveCurrentWeatherUseCase
+import com.example.general.day.domain.usecase.SearchWeatherByCity
 import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToHomeUiMapper
 import com.example.general.day.ui.components.mappers.CurrentWeatherHomeUiToDomainMapper
 import com.example.general.day.ui.components.mappers.CurrentWeatherLocalDomainToHomeUiMapper

@@ -44,6 +44,7 @@ import kotlinx.collections.immutable.persistentListOf
 @Composable
 fun HomeScreenBottom(
     convertedWeather: ConvertedWeatherForFiveDays,
+    cityName: String,
     weatherForFiveDays: ImmutableList<ConvertedWeatherForFiveDays>,
     onEvent: (HomeScreenEvent) -> Unit,
     modifier: Modifier = Modifier,
@@ -55,7 +56,7 @@ fun HomeScreenBottom(
             .padding(bottom = dp8)
             .clip(RoundedCornerShape(dp16))
             .background(Color.Black)
-//            .clickable { onEvent(HomeScreenEvent.DoNavigateToDetailScreen) },
+            .clickable { onEvent(HomeScreenEvent.DoNavigateToDetailScreen(cityName)) },
     ) {
         Column(
             modifier = Modifier
@@ -160,8 +161,8 @@ fun HomeScreenBottomPreview() {
         HomeScreenBottom(
             onEvent = {},
             convertedWeather = ConvertedWeatherForFiveDays.preview,
-            weatherForFiveDays = persistentListOf()
-
+            weatherForFiveDays = persistentListOf(),
+            cityName = String()
         )
     }
 }
