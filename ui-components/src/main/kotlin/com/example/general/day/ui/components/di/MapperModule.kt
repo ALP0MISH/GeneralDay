@@ -14,104 +14,103 @@ import com.example.general.day.domain.models.WeatherForFiveDaysResultDomain
 import com.example.general.day.domain.models.WeatherSystemInformationDomain
 import com.example.general.day.domain.models.WeatherTemperatureDomain
 import com.example.general.day.domain.models.WindDomain
-import com.example.general.day.ui.components.mappers.CityDomainToCityHomeUiMapper
-import com.example.general.day.ui.components.mappers.CloudsDomainToHomeUiMapper
-import com.example.general.day.ui.components.mappers.CoordinatesDomainToHomeUiMapper
-import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToHomeUiMapper
-import com.example.general.day.ui.components.mappers.CurrentWeatherHomeUiToDomainMapper
-import com.example.general.day.ui.components.mappers.CurrentWeatherLocalDomainToHomeUiMapper
-import com.example.general.day.ui.components.mappers.ForRainOrSnowDomainToHomeUiMapper
+import com.example.general.day.ui.components.mappers.CityDomainToCityUiMapper
+import com.example.general.day.ui.components.mappers.CloudsDomainToUiMapper
+import com.example.general.day.ui.components.mappers.CoordinatesDomainToUiMapper
+import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToUiMapper
+import com.example.general.day.ui.components.mappers.CurrentWeatherLocalDomainToUiMapper
+import com.example.general.day.ui.components.mappers.CurrentWeatherUiToDomainMapper
+import com.example.general.day.ui.components.mappers.ForRainOrSnowDomainToUiMapper
 import com.example.general.day.ui.components.mappers.SearchWeatherDomainToUiMapper
-import com.example.general.day.ui.components.mappers.WeatherDomainToHomeUiMapper
-import com.example.general.day.ui.components.mappers.WeatherForFiveDaysDomainToHomeUiMapper
-import com.example.general.day.ui.components.mappers.WeatherForFiveDaysResultDomainToHomeUiMapper
-import com.example.general.day.ui.components.mappers.WeatherSystemInformationDomainToHomeUiMapper
-import com.example.general.day.ui.components.mappers.WeatherTemperatureDomainToHomeUiMapper
-import com.example.general.day.ui.components.mappers.WindDomainToHomeUIMapper
-import com.example.general.day.ui.components.models.CityHomeUi
-import com.example.general.day.ui.components.models.CloudsHomeUi
-import com.example.general.day.ui.components.models.CoordinatesHomeUi
-import com.example.general.day.ui.components.models.CurrentWeatherHomeUi
-import com.example.general.day.ui.components.models.CurrentWeatherLocalHomeUi
-import com.example.general.day.ui.components.models.ForRainOrSnowHomeUi
+import com.example.general.day.ui.components.mappers.WeatherDomainToUiMapper
+import com.example.general.day.ui.components.mappers.WeatherForFiveDaysDomainToUiMapper
+import com.example.general.day.ui.components.mappers.WeatherForFiveDaysResultDomainToUiMapper
+import com.example.general.day.ui.components.mappers.WeatherSystemInformationDomainToUiMapper
+import com.example.general.day.ui.components.mappers.WeatherTemperatureDomainToUiMapper
+import com.example.general.day.ui.components.mappers.WindDomainToUIMapper
+import com.example.general.day.ui.components.models.CityUi
+import com.example.general.day.ui.components.models.CloudsUi
+import com.example.general.day.ui.components.models.CoordinatesUi
+import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
+import com.example.general.day.ui.components.models.CurrentWeatherUi
+import com.example.general.day.ui.components.models.ForRainOrSnowUi
 import com.example.general.day.ui.components.models.SearchWeatherUi
-import com.example.general.day.ui.components.models.WeatherForFiveDaysHomeUi
-import com.example.general.day.ui.components.models.WeatherForFiveDaysResultHomeUi
-import com.example.general.day.ui.components.models.WeatherHomeUi
-import com.example.general.day.ui.components.models.WeatherSystemInformationHomeUi
-import com.example.general.day.ui.components.models.WeatherTemperatureHomeUi
-import com.example.general.day.ui.components.models.WindHomeUi
-
+import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
+import com.example.general.day.ui.components.models.WeatherForFiveDaysUi
+import com.example.general.day.ui.components.models.WeatherSystemInformationUi
+import com.example.general.day.ui.components.models.WeatherTemperatureUi
+import com.example.general.day.ui.components.models.WeatherUi
+import com.example.general.day.ui.components.models.WindUi
 import dagger.Binds
 import dagger.Module
 
-@Module
+    @Module
 interface MapperModule {
 
     @Binds
-    fun bindsCityDomainToCityHomeUiMapper(
-        implementation: CityDomainToCityHomeUiMapper
-    ): Mapper<CityDomain, CityHomeUi>
+    fun bindsCityDomainToCityUiMapper(
+        implementation: CityDomainToCityUiMapper
+    ): Mapper<CityDomain, CityUi>
 
     @Binds
-    fun bindsCloudsDomainToHomeUiMapper(
-        implementation: CloudsDomainToHomeUiMapper
-    ): Mapper<CloudsDomain, CloudsHomeUi>
+    fun bindsCloudsDomainToUiMapper(
+        implementation: CloudsDomainToUiMapper
+    ): Mapper<CloudsDomain, CloudsUi>
 
     @Binds
-    fun bindsCoordinatesDomainToHomeUiMapper(
-        implementation: CoordinatesDomainToHomeUiMapper
-    ): Mapper<CoordinatesDomain, CoordinatesHomeUi>
+    fun bindsCoordinatesDomainToUiMapper(
+        implementation: CoordinatesDomainToUiMapper
+    ): Mapper<CoordinatesDomain, CoordinatesUi>
 
     @Binds
-    fun bindsCurrentWeatherDomainToHomeUiMapper(
-        implementation: CurrentWeatherDomainToHomeUiMapper
-    ): Mapper<CurrentWeatherDomain, CurrentWeatherHomeUi>
+    fun bindsCurrentWeatherDomainToUiMapper(
+        implementation: CurrentWeatherDomainToUiMapper
+    ): Mapper<CurrentWeatherDomain, CurrentWeatherUi>
 
     @Binds
-    fun bindsCurrentWeatherHomeUiToDomainMapper(
-        implementation: CurrentWeatherHomeUiToDomainMapper
-    ): Mapper<CurrentWeatherLocalDomain, CurrentWeatherLocalHomeUi>
+    fun bindsCurrentWeatherUiToDomainMapper(
+        implementation: CurrentWeatherUiToDomainMapper
+    ): Mapper<CurrentWeatherLocalDomain, CurrentWeatherLocalUi>
 
     @Binds
-    fun bindsCurrentWeatherLocalDomainToHomeUiMapper(
-        implementation: CurrentWeatherLocalDomainToHomeUiMapper
-    ): Mapper<CurrentWeatherLocalHomeUi, CurrentWeatherLocalDomain>
+    fun bindsCurrentWeatherLocalDomainToUiMapper(
+        implementation: CurrentWeatherLocalDomainToUiMapper
+    ): Mapper<CurrentWeatherLocalUi, CurrentWeatherLocalDomain>
 
     @Binds
-    fun bindsForRainOrSnowDomainToHomeUiMapper(
-        implementation: ForRainOrSnowDomainToHomeUiMapper
-    ): Mapper<ForRainOrSnowDomain, ForRainOrSnowHomeUi>
+    fun bindsForRainOrSnowDomainToUiMapper(
+        implementation: ForRainOrSnowDomainToUiMapper
+    ): Mapper<ForRainOrSnowDomain, ForRainOrSnowUi>
 
     @Binds
-    fun bindsWeatherDomainToHomeUiMapper(
-        implementation: WeatherDomainToHomeUiMapper
-    ): Mapper<WeatherDomain, WeatherHomeUi>
+    fun bindsWeatherDomainToUiMapper(
+        implementation: WeatherDomainToUiMapper
+    ): Mapper<WeatherDomain, WeatherUi>
 
     @Binds
-    fun bindsWeatherForFiveDaysDomainToHomeUiMapper(
-        implementation: WeatherForFiveDaysDomainToHomeUiMapper
-    ): Mapper<WeatherForFiveDaysDomain, WeatherForFiveDaysHomeUi>
+    fun bindsWeatherForFiveDaysDomainToUiMapper(
+        implementation: WeatherForFiveDaysDomainToUiMapper
+    ): Mapper<WeatherForFiveDaysDomain, WeatherForFiveDaysUi>
 
     @Binds
-    fun bindsWeatherForFiveDaysResultDomainToHomeUiMapper(
-        implementation: WeatherForFiveDaysResultDomainToHomeUiMapper
-    ): Mapper<WeatherForFiveDaysResultDomain, WeatherForFiveDaysResultHomeUi>
+    fun bindsWeatherForFiveDaysResultDomainToUiMapper(
+        implementation: WeatherForFiveDaysResultDomainToUiMapper
+    ): Mapper<WeatherForFiveDaysResultDomain, WeatherForFiveDaysResultUi>
 
     @Binds
-    fun bindsWeatherSystemInformationDomainToHomeUiMapper(
-        implementation: WeatherSystemInformationDomainToHomeUiMapper
-    ): Mapper<WeatherSystemInformationDomain, WeatherSystemInformationHomeUi>
+    fun bindsWeatherSystemInformationDomainToUiMapper(
+        implementation: WeatherSystemInformationDomainToUiMapper
+    ): Mapper<WeatherSystemInformationDomain, WeatherSystemInformationUi>
 
     @Binds
-    fun bindsWeatherTemperatureDomainToHomeUiMapper(
-        implementation: WeatherTemperatureDomainToHomeUiMapper
-    ): Mapper<WeatherTemperatureDomain, WeatherTemperatureHomeUi>
+    fun bindsWeatherTemperatureDomainToUiMapper(
+        implementation: WeatherTemperatureDomainToUiMapper
+    ): Mapper<WeatherTemperatureDomain, WeatherTemperatureUi>
 
     @Binds
-    fun bindsWindDomainToHomeUIMapper(
-        implementation: WindDomainToHomeUIMapper
-    ): Mapper<WindDomain, WindHomeUi>
+    fun bindsWindDomainToUIMapper(
+        implementation: WindDomainToUIMapper
+    ): Mapper<WindDomain, WindUi>
 
     @Binds
     fun bindsSearchWeatherDomainToUiMapper(

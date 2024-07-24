@@ -3,7 +3,7 @@ package com.example.general.day.ui.components.models
 import androidx.compose.runtime.Immutable
 
 @Immutable
-data class ConvertedWeatherForFiveDays(
+data class ConvertedWeatherForFiveDaysUI(
     val dayMonthAndWeek: String,
     val temperature: String,
     val temperatureMin: String,
@@ -13,7 +13,7 @@ data class ConvertedWeatherForFiveDays(
     val eachThreeTime: String,
 ) {
     companion object {
-        val preview = ConvertedWeatherForFiveDays(
+        val preview = ConvertedWeatherForFiveDaysUI(
             temperatureMax = "20",
             temperatureMin = "20",
             feelsLikeTemperature = "20",

@@ -1,7 +1,7 @@
 package com.example.general.day.ui.core.weather.helpers
 
-import com.example.general.day.ui.components.models.WeatherHomeUi
-import com.example.general.day.ui.components.models.WeatherSystemInformationHomeUi
+import com.example.general.day.ui.components.models.WeatherUi
+import com.example.general.day.ui.components.models.WeatherSystemInformationUi
 import com.example.general.day.ui.core.R
 import com.example.general.day.ui.core.weather.helpers.TimeOfDayEnum.DawnDusk
 import com.example.general.day.ui.core.weather.helpers.TimeOfDayEnum.Day
@@ -12,7 +12,7 @@ class WeatherIconHelperImpl(
     private val determineTimeOfDay: DetermineTimeOfDay,
 ) : WeatherIconHelper {
 
-    override fun fetchWeatherIcon(weatherHomeUi: WeatherHomeUi, isDayTime: Boolean): Int {
+    override fun fetchWeatherIcon(weatherHomeUi: WeatherUi, isDayTime: Boolean): Int {
         return when (getWeatherFromString.getWeatherFromString(weatherHomeUi.main)) {
             WeatherSealedComponent.Snow -> if (isDayTime) R.drawable.snow_light else R.drawable.snow_night
             WeatherSealedComponent.Rain -> if (isDayTime) R.drawable.rain_light else R.drawable.rain_night
@@ -27,7 +27,7 @@ class WeatherIconHelperImpl(
 
     override fun fetchBackgroundForTimeOfDay(
         timeOfDay: Long,
-        weatherSystemInfo: WeatherSystemInformationHomeUi
+        weatherSystemInfo: WeatherSystemInformationUi
     ): Int {
         return when (determineTimeOfDay.determineTimeOfDay(timeOfDay, weatherSystemInfo)) {
             Day.name -> R.drawable.light

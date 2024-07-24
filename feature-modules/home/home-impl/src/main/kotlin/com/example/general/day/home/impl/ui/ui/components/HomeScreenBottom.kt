@@ -27,7 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.general.day.home.impl.ui.HomeScreenEvent
-import com.example.general.day.ui.components.models.ConvertedWeatherForFiveDays
+import com.example.general.day.ui.components.models.ConvertedWeatherForFiveDaysUI
 import com.example.general.day.ui.core.extention.SpacerHeight
 import com.example.general.day.ui.core.extention.SpacerWidth
 import com.example.general.day.ui.core.theme.dp10
@@ -43,9 +43,9 @@ import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun HomeScreenBottom(
-    convertedWeather: ConvertedWeatherForFiveDays,
+    convertedWeather: ConvertedWeatherForFiveDaysUI,
+    weatherForFiveDays: ImmutableList<ConvertedWeatherForFiveDaysUI>,
     cityName: String,
-    weatherForFiveDays: ImmutableList<ConvertedWeatherForFiveDays>,
     onEvent: (HomeScreenEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -160,7 +160,7 @@ fun HomeScreenBottomPreview() {
     MaterialTheme {
         HomeScreenBottom(
             onEvent = {},
-            convertedWeather = ConvertedWeatherForFiveDays.preview,
+            convertedWeather = ConvertedWeatherForFiveDaysUI.preview,
             weatherForFiveDays = persistentListOf(),
             cityName = String()
         )

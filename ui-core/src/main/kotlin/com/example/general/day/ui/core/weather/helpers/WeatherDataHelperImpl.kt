@@ -1,11 +1,11 @@
 package com.example.general.day.ui.core.weather.helpers
 
-import com.example.general.day.ui.components.models.ConvertedWeatherForFiveDays
+import com.example.general.day.ui.components.models.ConvertedWeatherForFiveDaysUI
 import com.example.general.day.ui.components.models.CurrentConvertedWeather
 import com.example.general.day.ui.components.models.CurrentWeatherHomeUi
 import com.example.general.day.ui.components.models.CurrentWeatherLocalHomeUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysResultHomeUi
-import com.example.general.day.ui.components.models.WeatherHomeUi
+import com.example.general.day.ui.components.models.WeatherUi
 
 class WeatherDataHelperImpl(
     private val weatherIconHelper: WeatherIconHelper,
@@ -22,7 +22,7 @@ class WeatherDataHelperImpl(
                 currentWeatherResult.systemInformation
             ),
             currentWeatherIcon = weatherIconHelper.fetchWeatherIcon(
-                currentWeatherResult.weather.firstOrNull() ?: WeatherHomeUi.unknown,
+                currentWeatherResult.weather.firstOrNull() ?: WeatherUi.unknown,
                 determineTimeOfDay.isDayOrNight(currentWeatherResult.time.toLong())
             ),
             currentTemperature = currentWeatherResult.weatherTemperature.temperature.formatTemperature(),
@@ -31,12 +31,12 @@ class WeatherDataHelperImpl(
         )
     }
 
-    override fun convertedWeatherForFiveDays(weatherForFiveDaysResultUi: WeatherForFiveDaysResultHomeUi): List<ConvertedWeatherForFiveDays> {
+    override fun convertedWeatherForFiveDays(weatherForFiveDaysResultUi: WeatherForFiveDaysResultHomeUi): List<ConvertedWeatherForFiveDaysUI> {
         return listOf(
-            ConvertedWeatherForFiveDays(
+            ConvertedWeatherForFiveDaysUI(
                 feelsLikeTemperature = weatherForFiveDaysResultUi.weatherTemperature.feelsLike.formatTemperature(),
                 weatherIcon = weatherIconHelper.fetchWeatherIcon(
-                    weatherForFiveDaysResultUi.weather.firstOrNull() ?: WeatherHomeUi.unknown,
+                    weatherForFiveDaysResultUi.weather.firstOrNull() ?: WeatherUi.unknown,
                     determineTimeOfDay.isDayOrNight(weatherForFiveDaysResultUi.time.toLong())
                 ),
                 temperature = weatherForFiveDaysResultUi.weatherTemperature.temperature.formatTemperature(),

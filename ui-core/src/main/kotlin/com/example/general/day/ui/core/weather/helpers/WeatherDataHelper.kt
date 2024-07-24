@@ -1,23 +1,23 @@
 package com.example.general.day.ui.core.weather.helpers
 
-import com.example.general.day.ui.components.models.ConvertedWeatherForFiveDays
+import com.example.general.day.ui.components.models.ConvertedWeatherForFiveDaysUI
 import com.example.general.day.ui.components.models.CurrentConvertedWeather
-import com.example.general.day.ui.components.models.CurrentWeatherHomeUi
-import com.example.general.day.ui.components.models.CurrentWeatherLocalHomeUi
-import com.example.general.day.ui.components.models.WeatherForFiveDaysResultHomeUi
+import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
+import com.example.general.day.ui.components.models.CurrentWeatherUi
+import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
 
 
 interface WeatherDataHelper {
 
     fun currentConvertedWeather(
-        currentWeatherResult: CurrentWeatherHomeUi,
+        currentWeatherResult: CurrentWeatherUi,
     ): CurrentConvertedWeather
 
     fun convertedWeatherForFiveDays(
-        weatherForFiveDaysResultUi: WeatherForFiveDaysResultHomeUi
-    ): List<ConvertedWeatherForFiveDays>
+        weatherForFiveDaysResultUi: WeatherForFiveDaysResultUi
+    ): List<ConvertedWeatherForFiveDaysUI>
 
     fun convertSavedWeather(
-        currentWeatherResult: CurrentWeatherHomeUi,
-    ): CurrentWeatherLocalHomeUi
+        currentWeatherResult: CurrentWeatherUi,
+    ): CurrentWeatherLocalUi
 }

@@ -3,7 +3,7 @@ package com.example.general.day.ui.components.models
 import androidx.compose.runtime.Immutable
 
 @Immutable
-data class CurrentWeatherLocalHomeUi(
+data class CurrentWeatherLocalUi(
     val id: Int,
     val code: Int,
     val lat: Double,

@@ -33,9 +33,9 @@ private const val DebounceTime = 300L
 class FavoriteViewModel @Inject constructor(
     private val fetchWeatherByCity: FetchWeatherByCity,
     private val saveCurrentWeatherUseCase: SaveCurrentWeatherUseCase,
-    private val currentWeatherLocalDomainToHomeUiMapper: CurrentWeatherLocalDomainToHomeUiMapper,
-    private val currentWeatherDomainToHomeUiMapper: CurrentWeatherDomainToHomeUiMapper,
-    private val currentWeatherHomeUiToDomainMapper: CurrentWeatherHomeUiToDomainMapper,
+    private val currentWeatherLocalDomainToHomeUiMapper: CurrentWeatherLocalDomainToUiMapper,
+    private val currentWeatherDomainToUiMapper: CurrentWeatherDomainToUiMapper,
+    private val currentWeatherHomeUiToDomainMapper: CurrentWeatherUiToDomainMapper,
     private val observeCurrentWeatherUseCase: ObserveCurrentWeatherUseCase,
     private val searchWeatherByCity: SearchWeatherByCity,
     private val searchWeatherDomainToUiMapper: SearchWeatherDomainToUiMapper,
