@@ -1,4 +1,4 @@
-    package com.example.general.day.ui.components.di
+package com.example.general.day.ui.components.di
 
 import com.example.general.day.core.Mapper
 import com.example.general.day.domain.models.CityDomain
@@ -44,7 +44,7 @@ import com.example.general.day.ui.components.models.WindUi
 import dagger.Binds
 import dagger.Module
 
-    @Module
+@Module
 interface MapperModule {
 
     @Binds

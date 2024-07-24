@@ -7,15 +7,15 @@ import com.example.general.day.domain.usecase.FetchWeatherUseCase
 import com.example.general.day.home.impl.ui.HomeFeatureDependencies
 import com.example.general.day.home.impl.ui.HomeViewModel
 import com.example.general.day.location.api.LocationTrackerManager
-import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToHomeUiMapper
-import com.example.general.day.ui.components.mappers.WeatherForFiveDaysDomainToHomeUiMapper
+import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToUiMapper
+import com.example.general.day.ui.components.mappers.WeatherForFiveDaysDomainToUiMapper
 import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
 import javax.inject.Inject
 
 class HomeViewModelFactory @Inject constructor(
     private val fetchWeatherUseCase: FetchWeatherUseCase,
-    private val fetchCurrentWeatherToHomeUi: CurrentWeatherDomainToHomeUiMapper,
-    private val fetchWeatherDomainToHomeUiMapper: WeatherForFiveDaysDomainToHomeUiMapper,
+    private val fetchCurrentWeatherToHomeUi: CurrentWeatherDomainToUiMapper,
+    private val fetchWeatherDomainToHomeUiMapper: WeatherForFiveDaysDomainToUiMapper,
     private val locationTrackerManager: LocationTrackerManager,
     private val weatherDataHelper: WeatherDataHelper,
     private val homeFeatureDependencies: HomeFeatureDependencies,

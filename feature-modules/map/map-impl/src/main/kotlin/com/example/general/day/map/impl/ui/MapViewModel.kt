@@ -1,7 +1,6 @@
 package com.example.general.day.map.impl.ui
 
 import android.content.Context
-import android.graphics.Color
 import android.location.Location
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,7 +8,7 @@ import com.example.general.day.map.impl.ui.components.ZoneClusterManager
 import com.example.general.day.domain.usecase.FetchWeatherUseCase
 import com.example.general.day.map.impl.ui.components.calculateCameraViewPoints
 import com.example.general.day.map.impl.ui.components.getCenterOfPolygon
-import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToHomeUiMapper
+import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToUiMapper
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
@@ -23,10 +22,10 @@ import kotlin.coroutines.cancellation.CancellationException
 class MapViewModel @Inject constructor(
     private val fetchWeatherUseCase: FetchWeatherUseCase,
     private val fetchLocationTrackerManager: com.example.general.day.location.api.LocationTrackerManager,
-    private val currentWeatherDomainToHomeUiMapper: CurrentWeatherDomainToHomeUiMapper,
+    private val currentWeatherDomainToHomeUiMapper: CurrentWeatherDomainToUiMapper,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<MapState>(MapState())
+    private val _uiState = MutableStateFlow(MapState())
     val state: StateFlow<MapState> = _uiState.asStateFlow()
 
 
@@ -88,13 +87,8 @@ class MapViewModel @Inject constructor(
     }
 
     fun calculateZoneLatLngBounds(): LatLngBounds {
-        // Get all the points from all the polygons and calculate the camera view that will show them all.
         val latLngs = state.value.clusterItems.map { it.polygonOptions }
             .map { it.points.map { LatLng(it.latitude, it.longitude) } }.flatten()
         return latLngs.calculateCameraViewPoints().getCenterOfPolygon()
-    }
-
-    companion object {
-        private val POLYGON_FILL_COLOR = Color.parseColor("#ABF44336")
     }
 }

@@ -7,11 +7,11 @@ import com.example.general.day.domain.usecase.FetchWeatherByCity
 import com.example.general.day.domain.usecase.ObserveCurrentWeatherUseCase
 import com.example.general.day.domain.usecase.SaveCurrentWeatherUseCase
 import com.example.general.day.domain.usecase.SearchWeatherByCity
-import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToHomeUiMapper
-import com.example.general.day.ui.components.mappers.CurrentWeatherHomeUiToDomainMapper
-import com.example.general.day.ui.components.mappers.CurrentWeatherLocalDomainToHomeUiMapper
+import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToUiMapper
+import com.example.general.day.ui.components.mappers.CurrentWeatherLocalDomainToUiMapper
+import com.example.general.day.ui.components.mappers.CurrentWeatherUiToDomainMapper
 import com.example.general.day.ui.components.mappers.SearchWeatherDomainToUiMapper
-import com.example.general.day.ui.components.models.CurrentWeatherLocalHomeUi
+import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
 import com.example.general.day.ui.core.R.string
 import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
 import kotlinx.collections.immutable.ImmutableList
@@ -124,7 +124,7 @@ class FavoriteViewModel @Inject constructor(
                 val currentWeatherDeferred =
                     fetchWeatherByCity.fetchCurrentCityWeather(cityName = state.query)
                 val weather = weatherDataHelper.convertSavedWeather(
-                    currentWeatherDomainToHomeUiMapper.map(currentWeatherDeferred)
+                    currentWeatherDomainToUiMapper.map(currentWeatherDeferred)
                 )
                 saveCurrentWeatherUseCase(currentWeatherLocalDomainToHomeUiMapper.map(weather))
                 showToastManager.showToast("${string.success_message}")
@@ -170,9 +170,9 @@ class FavoriteViewModel @Inject constructor(
     }
 
     private fun filterMenuByQuery(
-        menu: ImmutableList<CurrentWeatherLocalHomeUi>,
+        menu: ImmutableList<CurrentWeatherLocalUi>,
         query: String
-    ): ImmutableList<CurrentWeatherLocalHomeUi> {
+    ): ImmutableList<CurrentWeatherLocalUi> {
         val menuList = menu.filter { it.cityName.contains(query, ignoreCase = true) }.toImmutableList()
         return menuList
     }

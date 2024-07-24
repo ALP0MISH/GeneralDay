@@ -1,14 +1,14 @@
 package com.example.general.day.map.impl.ui
 
 import com.example.general.day.map.impl.ui.components.ZoneClusterItem
-import com.example.general.day.ui.components.models.CurrentWeatherHomeUi
+import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.ktx.model.polygonOptions
 
 class MapWeatherHelper {
 
     fun convertWeatherData(
-        currentWeatherResult: CurrentWeatherHomeUi,
+        currentWeatherResult: CurrentWeatherUi,
         latitude: Double,
         longitude: Double
     ): ZoneClusterItem {
