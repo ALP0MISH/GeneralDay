@@ -1,8 +1,8 @@
-package com.example.general.day.presentation.di
+package com.example.general.day.presentation.di.modules
 
 import com.example.general.day.favorite.api.FavoriteFeatureApi
 import com.example.general.day.favorite.impl.FavoriteFeatureImpl
-import com.example.general.day.home.api.HomeFeatureApi
+import com.example.general.day.home.api.HomeFeatureUiApi
 import com.example.general.day.home.impl.ui.HomeFeatureImpl
 import com.example.general.day.home.impl.ui.di.HomeComponent
 import dagger.Module
@@ -14,7 +14,7 @@ class HomeFeatureModule {
 
     @Provides
     @Singleton
-    fun provideHomeFeatureApi(homeComponentFactory: HomeComponent.Factory): HomeFeatureApi {
+    fun provideHomeFeatureApi(homeComponentFactory: HomeComponent.Factory): HomeFeatureUiApi {
         return HomeFeatureImpl(homeComponentFactory)
     }
 

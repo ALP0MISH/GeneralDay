@@ -1,6 +1,6 @@
 package com.example.general.day.presentation.feature.depency
 
-import com.example.general.day.home.impl.ui.HomeFeatureDependencies
+import com.example.general.day.home.impl.ui.di.HomeFeatureDependencies
 import com.example.general.day.presentation.di.DependencyProvider
 import javax.inject.Inject
 

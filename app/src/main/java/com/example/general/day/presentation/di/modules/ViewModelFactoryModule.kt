@@ -1,4 +1,4 @@
-package com.example.general.day.presentation.di
+package com.example.general.day.presentation.di.modules
 
 import androidx.lifecycle.ViewModelProvider
 import com.example.general.day.core.viewModel.component.DaggerViewModelFactory

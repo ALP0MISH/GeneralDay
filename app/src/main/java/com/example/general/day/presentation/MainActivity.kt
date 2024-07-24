@@ -12,11 +12,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import com.example.general.day.core.FeatureApi
+import com.example.general.day.presentation.di.modules.FeatureApiModule
 import com.example.general.day.presentation.navigation.AppNavGraph
 import com.example.general.day.ui.core.theme.WeatherTestAppTheme
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var featureApi: List<FeatureApi>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +39,8 @@ class MainActivity : ComponentActivity() {
 
                     AppNavGraph(
                         navController = navController,
-                        dependencyProvider = dependencyProvider
+                        dependencyProvider = dependencyProvider,
+                        featureApi = featureApi
                     )
                 }
             }

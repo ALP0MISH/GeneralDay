@@ -22,7 +22,6 @@ class App : Application() {
             .appModule(AppModule(this))
             .build()
         favoriteComponent = appComponent.favoriteComponent().create()
-        homeComponent = appComponent.homeComponent().create()
     }
 
     companion object {
