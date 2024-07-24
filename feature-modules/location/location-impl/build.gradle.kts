@@ -18,7 +18,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.location.locationApi)
+    implementation(projects.featureModules.location.locationApi)
     implementation(projects.core)
 
     /** Dagger **/

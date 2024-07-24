@@ -61,8 +61,8 @@ dependencies {
     implementation(projects.featureModules.favorite.favoriteImpl)
     implementation(projects.featureModules.map.mapApi)
     implementation(projects.featureModules.map.mapImpl)
-    implementation(projects.location.locationApi)
-    implementation(projects.location.locationImpl)
+    implementation(projects.featureModules.location.locationApi)
+    implementation(projects.featureModules.location.locationImpl)
 
     /** Coroutines **/
     implementation(libs.kotlinx.coroutines.core)

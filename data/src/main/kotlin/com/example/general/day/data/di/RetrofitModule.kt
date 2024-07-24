@@ -17,8 +17,7 @@ class RetrofitModule {
 
     @Singleton
     @Provides
-    @DataScope
-    fun createRetrofit(): Retrofit {
+    fun provideRetrofit(): Retrofit {
         return Retrofit.Builder().baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(
@@ -31,11 +30,9 @@ class RetrofitModule {
 
     @Singleton
     @Provides
-    @DataScope
     fun provideWeatherService(retrofit: Retrofit): WeatherService = retrofit.create(WeatherService::class.java)
 
     @Singleton
     @Provides
-    @DataScope
     fun provideCityService(retrofit: Retrofit): CityWeatherService = retrofit.create(CityWeatherService::class.java)
 }

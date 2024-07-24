@@ -34,6 +34,9 @@ dependencies {
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
 
+    /** Navigation **/
+    implementation(libs.navigation.compose)
+
     /** Compose **/
     implementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(platform(libs.androidx.compose.bom))

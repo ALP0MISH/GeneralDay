@@ -28,7 +28,7 @@ dependencies {
     implementation(projects.data)
     implementation(projects.uiComponents)
     implementation(projects.featureModules.home.homeApi)
-    implementation(projects.location.locationApi)
+    implementation(projects.featureModules.location.locationApi)
 
     /** Navigation **/
     implementation(libs.navigation.compose)

@@ -9,9 +9,9 @@ import com.example.general.day.domain.usecase.SaveCurrentWeatherUseCase
 import com.example.general.day.domain.usecase.SearchWeatherByCity
 import com.example.general.day.ui.core.R.string
 import com.example.general.day.favorite.impl.ui.FavoriteViewModel
-import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToHomeUiMapper
-import com.example.general.day.ui.components.mappers.CurrentWeatherHomeUiToDomainMapper
-import com.example.general.day.ui.components.mappers.CurrentWeatherLocalDomainToHomeUiMapper
+import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToUiMapper
+import com.example.general.day.ui.components.mappers.CurrentWeatherLocalDomainToUiMapper
+import com.example.general.day.ui.components.mappers.CurrentWeatherUiToDomainMapper
 import com.example.general.day.ui.components.mappers.SearchWeatherDomainToUiMapper
 import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
 import javax.inject.Inject
@@ -19,9 +19,9 @@ import javax.inject.Inject
 class FavoriteViewModelFactory @Inject constructor(
     private val fetchWeatherByCity: FetchWeatherByCity,
     private val saveCurrentWeatherUseCase: SaveCurrentWeatherUseCase,
-    private val currentWeatherLocalDomainToHomeUiMapper: CurrentWeatherLocalDomainToHomeUiMapper,
-    private val currentWeatherDomainToHomeUiMapper: CurrentWeatherDomainToHomeUiMapper,
-    private val currentWeatherHomeUiToDomainMapper: CurrentWeatherHomeUiToDomainMapper,
+    private val currentWeatherLocalDomainToUiMapper: CurrentWeatherLocalDomainToUiMapper,
+    private val currentWeatherDomainToUiMapper: CurrentWeatherDomainToUiMapper,
+    private val currentWeatherUiToDomainMapper: CurrentWeatherUiToDomainMapper,
     private val observeCurrentWeatherUseCase: ObserveCurrentWeatherUseCase,
     private val searchWeatherByCity: SearchWeatherByCity,
     private val searchWeatherDomainToUiMapper: SearchWeatherDomainToUiMapper,
@@ -34,14 +34,14 @@ class FavoriteViewModelFactory @Inject constructor(
             return FavoriteViewModel(
                 fetchWeatherByCity = fetchWeatherByCity,
                 saveCurrentWeatherUseCase = saveCurrentWeatherUseCase,
-                currentWeatherLocalDomainToHomeUiMapper = currentWeatherLocalDomainToHomeUiMapper,
-                currentWeatherDomainToHomeUiMapper = currentWeatherDomainToHomeUiMapper,
-                currentWeatherHomeUiToDomainMapper = currentWeatherHomeUiToDomainMapper,
+                currentWeatherLocalDomainToHomeUiMapper = currentWeatherLocalDomainToUiMapper,
+                currentWeatherHomeUiToDomainMapper = currentWeatherUiToDomainMapper,
                 observeCurrentWeatherUseCase = observeCurrentWeatherUseCase,
                 searchWeatherByCity = searchWeatherByCity,
                 showToastManager = showToastManager,
                 weatherDataHelper = weatherDataHelper,
-                searchWeatherDomainToUiMapper = searchWeatherDomainToUiMapper
+                searchWeatherDomainToUiMapper = searchWeatherDomainToUiMapper,
+                currentWeatherDomainToUiMapper = currentWeatherDomainToUiMapper
             ) as T
         } else {
             throw IllegalArgumentException("${string.error_message}")

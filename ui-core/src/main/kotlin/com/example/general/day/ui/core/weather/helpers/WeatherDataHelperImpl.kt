@@ -2,9 +2,9 @@ package com.example.general.day.ui.core.weather.helpers
 
 import com.example.general.day.ui.components.models.ConvertedWeatherForFiveDaysUI
 import com.example.general.day.ui.components.models.CurrentConvertedWeather
-import com.example.general.day.ui.components.models.CurrentWeatherHomeUi
-import com.example.general.day.ui.components.models.CurrentWeatherLocalHomeUi
-import com.example.general.day.ui.components.models.WeatherForFiveDaysResultHomeUi
+import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
+import com.example.general.day.ui.components.models.CurrentWeatherUi
+import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
 import com.example.general.day.ui.components.models.WeatherUi
 
 class WeatherDataHelperImpl(
@@ -13,7 +13,7 @@ class WeatherDataHelperImpl(
 ) : WeatherDataHelper {
 
     override fun currentConvertedWeather(
-        currentWeatherResult: CurrentWeatherHomeUi,
+        currentWeatherResult: CurrentWeatherUi,
     ): CurrentConvertedWeather {
         return CurrentConvertedWeather(
             feelsLikeTemperature = currentWeatherResult.weatherTemperature.feelsLike.formatTemperature(),
@@ -31,7 +31,7 @@ class WeatherDataHelperImpl(
         )
     }
 
-    override fun convertedWeatherForFiveDays(weatherForFiveDaysResultUi: WeatherForFiveDaysResultHomeUi): List<ConvertedWeatherForFiveDaysUI> {
+    override fun convertedWeatherForFiveDays(weatherForFiveDaysResultUi: WeatherForFiveDaysResultUi): List<ConvertedWeatherForFiveDaysUI> {
         return listOf(
             ConvertedWeatherForFiveDaysUI(
                 feelsLikeTemperature = weatherForFiveDaysResultUi.weatherTemperature.feelsLike.formatTemperature(),
@@ -48,8 +48,8 @@ class WeatherDataHelperImpl(
         )
     }
 
-    override fun convertSavedWeather(currentWeatherResult: CurrentWeatherHomeUi): CurrentWeatherLocalHomeUi {
-        return CurrentWeatherLocalHomeUi(
+    override fun convertSavedWeather(currentWeatherResult: CurrentWeatherUi): CurrentWeatherLocalUi {
+        return CurrentWeatherLocalUi(
             id = currentWeatherResult.id,
             code = currentWeatherResult.cod,
             lat = currentWeatherResult.coordinates.lat,
@@ -60,7 +60,7 @@ class WeatherDataHelperImpl(
             tempMin = currentWeatherResult.weatherTemperature.tempMin.formatTemperature(),
             cityName = currentWeatherResult.name,
             weatherIcon = weatherIconHelper.fetchWeatherIcon(
-                currentWeatherResult.weather.firstOrNull() ?: WeatherHomeUi.unknown,
+                currentWeatherResult.weather.firstOrNull() ?: WeatherUi.unknown,
                 determineTimeOfDay.isDayOrNight(currentWeatherResult.time.toLong())
             ),
         )

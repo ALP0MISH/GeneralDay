@@ -4,12 +4,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.general.day.core.communication.NavigationRouteFlowCommunication
 import com.example.general.day.core.communication.navigationParams
-import com.example.general.day.location.api.LocationTrackerManager
 import com.example.general.day.domain.usecase.FetchWeatherUseCase
+import com.example.general.day.home.impl.ui.HomeScreenEvent.DoChangeTheme
+import com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToDetailScreen
+import com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToFavoriteScreen
+import com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToMapScreen
+import com.example.general.day.home.impl.ui.HomeScreenEvent.DoRefreshAllData
+import com.example.general.day.location.api.LocationTrackerManager
+import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToUiMapper
+import com.example.general.day.ui.components.mappers.WeatherForFiveDaysDomainToUiMapper
+import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
 import com.example.general.day.ui.core.R.string
-import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToHomeUiMapper
-import com.example.general.day.ui.components.mappers.WeatherForFiveDaysDomainToHomeUiMapper
-import com.example.general.day.ui.components.models.WeatherForFiveDaysResultHomeUi
 import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
@@ -18,17 +23,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import  com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToMapScreen
-import  com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToDetailScreen
-import  com.example.general.day.home.impl.ui.HomeScreenEvent.DoChangeTheme
-import  com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToFavoriteScreen
-import  com.example.general.day.home.impl.ui.HomeScreenEvent.DoRefreshAllData
 import kotlin.coroutines.cancellation.CancellationException
 
 class HomeViewModel @Inject constructor(
     private val fetchWeatherUseCase: FetchWeatherUseCase,
-    private val fetchCurrentWeatherToHomeUi: CurrentWeatherDomainToHomeUiMapper,
-    private val fetchWeatherDomainToHomeUiMapper: WeatherForFiveDaysDomainToHomeUiMapper,
+    private val fetchCurrentWeatherToHomeUi: CurrentWeatherDomainToUiMapper,
+    private val fetchWeatherDomainToHomeUiMapper: WeatherForFiveDaysDomainToUiMapper,
     private val locationTrackerManager: LocationTrackerManager,
     private val weatherDataHelper: WeatherDataHelper,
     private val homeFeatureDependencies: HomeFeatureDependencies,
@@ -61,7 +61,7 @@ class HomeViewModel @Inject constructor(
 
                 val currentWeatherResult = weatherDataHelper.convertedWeatherForFiveDays(
                     mapWeatherForFiveDaysUiModel.list.firstOrNull()
-                        ?: WeatherForFiveDaysResultHomeUi.unknown
+                        ?: WeatherForFiveDaysResultUi.unknown
                 )
                 val weatherForFiveDaysUiModelResult = weatherDataHelper.currentConvertedWeather(
                     mapCurrentWeather

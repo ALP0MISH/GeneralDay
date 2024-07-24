@@ -1,7 +1,7 @@
 package com.example.general.day.favorite.impl.ui
 
 import androidx.compose.runtime.Immutable
-import com.example.general.day.ui.components.models.CurrentWeatherLocalHomeUi
+import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
 import com.example.general.day.ui.components.models.SearchWeatherUi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -21,6 +21,6 @@ sealed class FavoriteUIState {
         val searchWeather: ImmutableList<SearchWeatherUi> = persistentListOf(),
         val isLoading: Boolean = false,
         val query: String = String(),
-        val savedWeather: ImmutableList<CurrentWeatherLocalHomeUi> = persistentListOf(),
+        val savedWeather: ImmutableList<CurrentWeatherLocalUi> = persistentListOf(),
     ) : FavoriteUIState()
 }
