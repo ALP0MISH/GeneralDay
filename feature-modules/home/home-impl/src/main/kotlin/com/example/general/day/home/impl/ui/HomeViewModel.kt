@@ -10,6 +10,7 @@ import com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToDetailSc
 import com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToFavoriteScreen
 import com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToMapScreen
 import com.example.general.day.home.impl.ui.HomeScreenEvent.DoRefreshAllData
+import com.example.general.day.home.impl.ui.di.HomeFeatureDependencies
 import com.example.general.day.location.api.LocationTrackerManager
 import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToUiMapper
 import com.example.general.day.ui.components.mappers.WeatherForFiveDaysDomainToUiMapper

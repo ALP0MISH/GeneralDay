@@ -1,22 +1,23 @@
 package com.example.general.day.home.impl.ui.di
 
-import com.example.general.day.core.viewModel.component.DaggerViewModelFactory
-import com.example.general.day.home.impl.ui.HomeFeatureImpl
-import dagger.Subcomponent
-import javax.inject.Scope
+import com.example.general.day.home.api.HomeFeatureApi
+import com.example.general.day.home.impl.ui.di.modules.HomeFeatureModule
+import com.example.general.day.home.impl.ui.di.modules.HomeViewModelModule
+import dagger.Component
 
-@Scope
-@Retention(AnnotationRetention.RUNTIME)
-annotation class HomeScope
+@Component(
+    modules = [
+        HomeViewModelModule::class,
+        HomeFeatureModule::class,
+    ],
+    dependencies = [HomeFeatureDependencies::class]
+)
+interface HomeComponent : HomeFeatureApi {
 
-@Subcomponent
-@HomeScope
-interface HomeComponent  {
-
-    @Subcomponent.Factory
-    interface Factory {
-        fun create(): HomeComponent
+    companion object {
+        fun initAndGet(dependencies: HomeFeatureDependencies): HomeComponent =
+            DaggerHomeComponent.builder()
+                .homeFeatureDependencies(dependencies)
+                .build()
     }
-
-    fun inject(homeFeatureImpl: HomeFeatureImpl)
 }

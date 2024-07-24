@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.general.day.core.communication.NavigationRouteFlowCommunication
 import com.example.general.day.domain.usecase.FetchWeatherUseCase
-import com.example.general.day.home.impl.ui.HomeFeatureDependencies
 import com.example.general.day.home.impl.ui.HomeViewModel
 import com.example.general.day.location.api.LocationTrackerManager
 import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToUiMapper

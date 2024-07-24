@@ -1,4 +1,4 @@
-package com.example.general.day.home.impl.ui.di
+package com.example.general.day.home.impl.ui.di.modules
 
 import androidx.lifecycle.ViewModel
 import com.example.general.day.core.viewModel.component.ViewModelKey

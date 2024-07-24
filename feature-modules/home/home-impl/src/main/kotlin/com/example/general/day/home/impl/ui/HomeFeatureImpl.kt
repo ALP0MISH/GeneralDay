@@ -7,22 +7,19 @@ import androidx.navigation.compose.composable
 import com.example.general.day.core.viewModel.component.DaggerViewModelFactory
 import com.example.general.day.core.viewModel.component.Inject
 import com.example.general.day.core.viewModel.component.daggerViewModel
-import com.example.general.day.home.api.HomeFeatureApi
-import com.example.general.day.home.impl.ui.di.HomeComponent
+import com.example.general.day.home.api.HomeFeatureUiApi
+import com.example.general.day.home.api.HomeRouteProvider
+import com.example.general.day.home.impl.ui.di.modules.HomeRoute
 import javax.inject.Inject
 
-class HomeFeatureImpl @Inject constructor(
-    private val homeComponentFactory: HomeComponent.Factory
-) : HomeFeatureApi {
+class HomeFeatureImpl constructor(
+    private val route: HomeRoute,
+    private val viewModelFactory: DaggerViewModelFactory
+) : HomeFeatureUiApi {
 
-    override val homeRoute = "home"
+    override val homeRouteProvider: HomeRouteProvider = object : HomeRouteProvider {
+        override fun getRoute(): String = route
 
-    @Inject
-    lateinit var viewModelFactory: DaggerViewModelFactory
-
-    init {
-        val homeComponent = homeComponentFactory.create()
-        homeComponent.inject(this)
     }
 
     override fun registerGraph(
@@ -30,7 +27,7 @@ class HomeFeatureImpl @Inject constructor(
         navController: NavHostController,
         modifier: Modifier
     ) {
-        navGraphBuilder.composable(homeRoute) {
+        navGraphBuilder.composable(route) {
             Inject(viewModelFactory = viewModelFactory) {
                 val viewModel: HomeViewModel = daggerViewModel()
                 HomeScreen(
