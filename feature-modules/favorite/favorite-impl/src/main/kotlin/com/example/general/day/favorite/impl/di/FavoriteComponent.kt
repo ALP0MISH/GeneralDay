@@ -12,11 +12,11 @@ annotation class FavoriteScope
 @Subcomponent
 @FavoriteScope
 interface FavoriteComponent {
+
     @Subcomponent.Factory
     interface Factory {
         fun create(): FavoriteComponent
     }
-    fun inject(mapViewModel: FavoriteViewModel)
 
     fun inject(featureImpl: FavoriteFeatureImpl)
 }

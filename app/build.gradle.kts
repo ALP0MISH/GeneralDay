@@ -1,5 +1,3 @@
-import java.util.Properties
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin)
@@ -22,7 +20,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        manifestPlaceholders["GOOGLE_MAPS_API_KEY"] = getLocalProperty("GOOGLE_MAPS_API_KEY")
     }
     buildTypes {
         release {
@@ -64,6 +61,8 @@ dependencies {
     implementation(projects.featureModules.favorite.favoriteImpl)
     implementation(projects.featureModules.map.mapApi)
     implementation(projects.featureModules.map.mapImpl)
+    implementation(projects.location.locationApi)
+    implementation(projects.location.locationImpl)
 
     /** Coroutines **/
     implementation(libs.kotlinx.coroutines.core)
@@ -81,6 +80,15 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
 
+    /** Retrofit **/
+    implementation(libs.retrofit)
+    implementation(libs.logging.interceptor)
+    implementation(libs.converter.gson)
+    implementation (libs.gson)
+
+    /** Navigation **/
+    implementation(libs.navigation.compose)
+
     /** Compose **/
     implementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -95,13 +103,4 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.testManifest)
     androidTestImplementation(libs.androidx.compose.ui.test)
-}
-
-fun getLocalProperty(propertyName: String): String {
-    val properties = Properties()
-    val localPropertiesFile = rootProject.file("local.properties")
-    if (localPropertiesFile.exists()) {
-        localPropertiesFile.inputStream().use { properties.load(it) }
-    }
-    return properties.getProperty(propertyName) ?: ""
 }

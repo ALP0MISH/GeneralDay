@@ -1,4 +1,4 @@
-package com.example.general.day.home.impl.ui.di
+package com.example.general.day.home.impl.ui
 
 interface HomeFeatureDependencies {
 

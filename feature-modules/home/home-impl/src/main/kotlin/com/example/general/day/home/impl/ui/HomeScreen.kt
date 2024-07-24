@@ -75,7 +75,8 @@ internal fun HomeScreenItem(
             HomeScreenBottom(
                 convertedWeather = weather,
                 onEvent = onEvent,
-                weatherForFiveDays = uiState.weatherForFiveDays
+                weatherForFiveDays = uiState.weatherForFiveDays,
+                cityName = uiState.currentWeather.cityName
             )
         }
 

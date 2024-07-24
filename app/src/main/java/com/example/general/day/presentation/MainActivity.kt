@@ -9,18 +9,18 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.general.day.presentation.navigation.AppNavGraph
 import com.example.general.day.ui.core.theme.WeatherTestAppTheme
+import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (application as App).appComponent.inject(this)
-        val dataModuleSubComponent = appComponent.dataModuleSubComponent().create()
-        dataModuleSubComponent.inject(this)
         setContent {
             WeatherTestAppTheme {
                 // A surface container using the 'background' color from the theme
@@ -29,7 +29,13 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    AppNavGraph(navController = navController)
+                    val appComponent = (LocalContext.current.applicationContext as App).appComponent
+                    val dependencyProvider = appComponent.dependencyProvider()
+
+                    AppNavGraph(
+                        navController = navController,
+                        dependencyProvider = dependencyProvider
+                    )
                 }
             }
         }

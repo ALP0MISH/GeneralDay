@@ -5,17 +5,18 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.example.general.day.core.FeatureApi
+import com.example.general.day.map.api.MapFeatureApi
 
-private const val baseRoute = "map"
+class MapFeatureImpl : MapFeatureApi {
 
-class MapFeatureImpl: FeatureApi {
+    override val homeRoute: String = "map"
 
     override fun registerGraph(
         navGraphBuilder: NavGraphBuilder,
         navController: NavHostController,
         modifier: Modifier
     ) {
-        navGraphBuilder.composable(baseRoute) {
+        navGraphBuilder.composable(homeRoute) {
 
         }
     }

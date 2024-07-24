@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class CoroutineDispatcherModule {
+class CoroutineDispatchersModule {
 
     @Provides
     fun provideCoroutineDispatchers(): CoroutineDispatchers = CoroutineDispatchersImpl()
