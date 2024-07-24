@@ -32,16 +32,16 @@ class FavoriteViewModelFactory @Inject constructor(
         if (modelClass.isAssignableFrom(FavoriteViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return FavoriteViewModel(
-                fetchWeatherByCity,
-                saveCurrentWeatherUseCase,
-                currentWeatherLocalDomainToHomeUiMapper,
-                currentWeatherDomainToHomeUiMapper,
-                currentWeatherHomeUiToDomainMapper,
-                observeCurrentWeatherUseCase,
-                showToastManager,
-                searchWeatherDomainToUiMapper,
-                weatherDataHelper,
-                searchWeatherByCity
+                fetchWeatherByCity = fetchWeatherByCity,
+                saveCurrentWeatherUseCase = saveCurrentWeatherUseCase,
+                currentWeatherLocalDomainToHomeUiMapper = currentWeatherLocalDomainToHomeUiMapper,
+                currentWeatherDomainToHomeUiMapper = currentWeatherDomainToHomeUiMapper,
+                currentWeatherHomeUiToDomainMapper = currentWeatherHomeUiToDomainMapper,
+                observeCurrentWeatherUseCase = observeCurrentWeatherUseCase,
+                showToastManager = showToastManager,
+                searchWeatherDomainToUiMapper = searchWeatherDomainToUiMapper,
+                weatherDataHelper = weatherDataHelper,
+                searchWeatherByCity = searchWeatherByCity
             ) as T
         }
         throw IllegalArgumentException("${string.error_message}")

@@ -38,7 +38,7 @@ internal fun HomeScreenContent(
             .fillMaxWidth()
             .fillMaxHeight(0.36f)
             .clip(RoundedCornerShape(dp24))
-            .clickable { onEvent(HomeScreenEvent.DoNavigateToDetailScreen) },
+//            .clickable { onEvent(HomeScreenEvent.DoNavigateToDetailScreen) },
     ) {
         Image(
             painter = painterResource(id = convertedWeather.weatherBackgroundImage),

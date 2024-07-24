@@ -1,15 +1,15 @@
 package com.example.general.day.presentation.di
 
+import com.example.general.day.favorite.api.FavoriteFeatureApi
 import com.example.general.day.favorite.impl.FavoriteFeatureImpl
+import com.example.general.day.home.api.HomeFeatureApi
 import com.example.general.day.home.impl.ui.HomeFeatureImpl
 
 object DependencyProvider {
 
-    fun favoriteScreen(): String = FavoriteFeatureImpl().favoriteRoute
+    private lateinit var appComponent: AppComponent
 
-    fun mapScreen(): String = ""
+    fun homeFeature(): HomeFeatureApi = appComponent.provideHomeFeatureApi()
 
-    fun homeFeature(): String = HomeFeatureImpl().homeRoute
-
-    fun detailScreen(): String = ""
+    fun favoriteFeatureApi(): FavoriteFeatureApi = appComponent.provideFavoriteFeatureApi()
 }
