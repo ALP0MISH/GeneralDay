@@ -1,22 +1,23 @@
 package com.example.general.day.favorite.impl.di
 
-import com.example.general.day.favorite.impl.FavoriteFeatureImpl
-import com.example.general.day.favorite.impl.ui.FavoriteViewModel
-import dagger.Subcomponent
-import javax.inject.Scope
+import com.example.general.day.favorite.api.FavoriteFeatureApi
+import com.example.general.day.favorite.impl.di.modules.FavoriteFeatureModule
+import com.example.general.day.favorite.impl.di.modules.FavoriteViewModelModule
+import dagger.Component
 
-@Scope
-@Retention(AnnotationRetention.RUNTIME)
-annotation class FavoriteScope
+@Component(
+    modules = [
+        FavoriteViewModelModule::class,
+        FavoriteFeatureModule::class,
+    ],
+    dependencies = [FavoriteFeatureDependencies::class]
+)
+interface FavoriteComponent : FavoriteFeatureApi {
 
-@Subcomponent
-@FavoriteScope
-interface FavoriteComponent {
-
-    @Subcomponent.Factory
-    interface Factory {
-        fun create(): FavoriteComponent
+    companion object {
+        fun initAndGet(dependencies: FavoriteFeatureDependencies): FavoriteComponent =
+            DaggerFavoriteComponent.builder()
+                .favoriteFeatureDependencies(dependencies)
+                .build()
     }
-
-    fun inject(featureImpl: FavoriteFeatureImpl)
 }

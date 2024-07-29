@@ -1,7 +1,6 @@
 package com.example.general.day.home.impl.ui.di
 
 import com.example.general.day.home.api.HomeFeatureApi
-import com.example.general.day.home.api.HomeFeatureUiApi
 import javax.inject.Provider
 
 object HomeComponentHolder {

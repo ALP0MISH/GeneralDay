@@ -20,11 +20,16 @@ android {
 dependencies {
     implementation(projects.featureModules.location.locationApi)
     implementation(projects.core)
+    implementation(projects.uiCore)
 
     /** Dagger **/
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
 
+    /** Coroutines **/
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
     /** Location Services **/
-    implementation (libs.services.location)
+    implementation(libs.services.location)
 }

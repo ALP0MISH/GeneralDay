@@ -20,7 +20,6 @@ inline fun <reified T : ViewModel> daggerViewModel(): T =
     with(LocalViewModelFactory.current) { viewModel { create(T::class.java) } }
 
 
-//TODO: ADD docs
 val LocalViewModelFactory = compositionLocalOf<ViewModelProvider.Factory>() {
     error("Никакая ViewModelFactory не была предоставлена через локальную ViewModelFactory")
 }

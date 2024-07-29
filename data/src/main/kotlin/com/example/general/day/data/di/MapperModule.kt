@@ -134,7 +134,7 @@ interface MapperModule {
     ): Mapper<CityData, CityDomain>
 
     @Binds
-    fun bindsCloudsDataToCloudsDomainMapper(
+    fun bindsCloudsDataToDomainMapper(
         implementation: CloudsDataToDomainMapper
     ): Mapper<CloudsData, CloudsDomain>
 
@@ -154,7 +154,7 @@ interface MapperModule {
     ): Mapper<CurrentWeatherLocalData, CurrentWeatherLocalDomain>
 
     @Binds
-    fun bindsForRainOrSnowDataToForRainOrSnowDomainMapper(
+    fun bindsForRainOrSnowDataToDomainMapper(
         implementation: ForRainOrSnowDataToDomainMapper
     ): Mapper<ForRainOrSnowData, ForRainOrSnowDomain>
 
@@ -164,7 +164,7 @@ interface MapperModule {
     ): Mapper<WeatherData, WeatherDomain>
 
     @Binds
-    fun bindsWeatherForFiveDaysResponseDataToDomainMapper(
+    fun bindsWeatherForFiveDaysDataToDomainMapper(
         implementation: WeatherForFiveDaysDataToDomainMapper
     ): Mapper<WeatherForFiveDaysData, WeatherForFiveDaysDomain>
 
@@ -184,7 +184,7 @@ interface MapperModule {
     ): Mapper<WeatherTemperatureData, WeatherTemperatureDomain>
 
     @Binds
-    fun bindsWindDataToWindDomainMapper(
+    fun bindsWindDataToDomainMapper(
         implementation: WindDataToDomainMapper
     ): Mapper<WindData, WindDomain>
 
@@ -194,7 +194,7 @@ interface MapperModule {
     ): Mapper<CurrentWeatherLocalDomain, CurrentWeatherLocalData>
 
     @Binds
-    fun bindsCurrentWeatherLocalToCurrentWeatherDataMapper(
+    fun bindsCurrentWeatherLocalToDataMapper(
         implementation: CurrentWeatherLocalToDataMapper
     ): Mapper<CurrentWeatherLocal, CurrentWeatherLocalData>
 

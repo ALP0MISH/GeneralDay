@@ -2,11 +2,14 @@ package com.example.general.day.favorite.impl.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.general.day.core.communication.NavigationRouteFlowCommunication
+import com.example.general.day.core.communication.navigationParams
 import com.example.general.day.core.managers.ShowToastManager
 import com.example.general.day.domain.usecase.FetchWeatherByCity
 import com.example.general.day.domain.usecase.ObserveCurrentWeatherUseCase
 import com.example.general.day.domain.usecase.SaveCurrentWeatherUseCase
 import com.example.general.day.domain.usecase.SearchWeatherByCity
+import com.example.general.day.favorite.impl.di.FavoriteFeatureDependencies
 import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToUiMapper
 import com.example.general.day.ui.components.mappers.CurrentWeatherLocalDomainToUiMapper
 import com.example.general.day.ui.components.mappers.CurrentWeatherUiToDomainMapper
@@ -32,15 +35,17 @@ private const val DebounceTime = 300L
 
 class FavoriteViewModel @Inject constructor(
     private val fetchWeatherByCity: FetchWeatherByCity,
+    private val weatherDataHelper: WeatherDataHelper,
+    private val searchWeatherByCity: SearchWeatherByCity,
+    private val navigationRouteFlowCommunication: NavigationRouteFlowCommunication,
     private val saveCurrentWeatherUseCase: SaveCurrentWeatherUseCase,
+    private val showToastManager: ShowToastManager,
+    private val observeCurrentWeatherUseCase: ObserveCurrentWeatherUseCase,
     private val currentWeatherLocalDomainToHomeUiMapper: CurrentWeatherLocalDomainToUiMapper,
     private val currentWeatherDomainToUiMapper: CurrentWeatherDomainToUiMapper,
     private val currentWeatherHomeUiToDomainMapper: CurrentWeatherUiToDomainMapper,
-    private val observeCurrentWeatherUseCase: ObserveCurrentWeatherUseCase,
-    private val searchWeatherByCity: SearchWeatherByCity,
     private val searchWeatherDomainToUiMapper: SearchWeatherDomainToUiMapper,
-    private val showToastManager: ShowToastManager,
-    private val weatherDataHelper: WeatherDataHelper,
+    private val favoriteFeatureDependencies:FavoriteFeatureDependencies
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<FavoriteUIState>(FavoriteUIState.Loading)
@@ -76,7 +81,7 @@ class FavoriteViewModel @Inject constructor(
             .map { weatherList -> weatherList.map(currentWeatherHomeUiToDomainMapper::map) }
             .onEach { savedWeather ->
                 val filteredMenu =
-                   filterMenuByQuery(savedWeather.toImmutableList(), query)
+                    filterMenuByQuery(savedWeather.toImmutableList(), query)
                 _uiState.tryEmit(
                     FavoriteUIState.Loaded(
                         savedWeather = filteredMenu
@@ -126,7 +131,7 @@ class FavoriteViewModel @Inject constructor(
                 val weather = weatherDataHelper.convertSavedWeather(
                     currentWeatherDomainToUiMapper.map(currentWeatherDeferred)
                 )
-                saveCurrentWeatherUseCase(currentWeatherLocalDomainToHomeUiMapper.map(weather))
+                saveCurrentWeatherUseCase.invoke(currentWeatherLocalDomainToHomeUiMapper.map(weather))
                 showToastManager.showToast("${string.success_message}")
             } catch (e: CancellationException) {
                 throw e
@@ -142,7 +147,9 @@ class FavoriteViewModel @Inject constructor(
     }
 
     private fun onNavigateToMapScreen() {
-        // TODO()
+        navigationRouteFlowCommunication.emit(
+            navigationParams(favoriteFeatureDependencies.getMapRoute().getRoute())
+        )
     }
 
     private fun onChangeTheme() {
@@ -173,7 +180,8 @@ class FavoriteViewModel @Inject constructor(
         menu: ImmutableList<CurrentWeatherLocalUi>,
         query: String
     ): ImmutableList<CurrentWeatherLocalUi> {
-        val menuList = menu.filter { it.cityName.contains(query, ignoreCase = true) }.toImmutableList()
+        val menuList =
+            menu.filter { it.cityName.contains(query, ignoreCase = true) }.toImmutableList()
         return menuList
     }
 }

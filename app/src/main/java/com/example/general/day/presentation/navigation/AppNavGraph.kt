@@ -16,7 +16,7 @@ fun AppNavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = dependencyProvider.homeFeatureApi().homeRoute
+        startDestination = dependencyProvider.homeFeatureApi().homeRouteProvider.getRoute()
     ) {
         featureApi.forEach { api ->
             api.registerGraph(
