@@ -1,4 +1,4 @@
-package com.example.general.day.favorite.impl.di
+package com.example.general.day.favorite.impl.di.modules
 
 import androidx.lifecycle.ViewModel
 import com.example.general.day.core.viewModel.component.ViewModelKey
@@ -6,7 +6,6 @@ import com.example.general.day.favorite.impl.ui.FavoriteViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-
 
 @Module
 interface FavoriteViewModelModule {

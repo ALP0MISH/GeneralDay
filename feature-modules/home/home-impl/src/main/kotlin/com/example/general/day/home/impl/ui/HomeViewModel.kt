@@ -27,13 +27,13 @@ import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException
 
 class HomeViewModel @Inject constructor(
-    private val fetchWeatherUseCase: FetchWeatherUseCase,
     private val fetchCurrentWeatherToHomeUi: CurrentWeatherDomainToUiMapper,
     private val fetchWeatherDomainToHomeUiMapper: WeatherForFiveDaysDomainToUiMapper,
-    private val locationTrackerManager: LocationTrackerManager,
-    private val weatherDataHelper: WeatherDataHelper,
-    private val homeFeatureDependencies: HomeFeatureDependencies,
-    private val navigationCommunication: NavigationRouteFlowCommunication,
+    private val dependencies: HomeFeatureDependencies,
+    private val getFetchWeatherUseCase: FetchWeatherUseCase,
+    private val getLocationTrackerManager: LocationTrackerManager,
+    private val getWeatherDataHelper: WeatherDataHelper,
+    private val getNavigationRouteFlowCommunication: NavigationRouteFlowCommunication
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
@@ -42,31 +42,39 @@ class HomeViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             try {
-                val location = locationTrackerManager.fetchCurrentLocation()
+                val location =
+                    getLocationTrackerManager.fetchCurrentLocation()
                 val latitude = location?.latitude
                 val longitude = location?.longitude
 
                 if (latitude == null || longitude == null) return@launch
 
                 val currentWeatherDeferred =
-                    async { fetchWeatherUseCase.fetchCurrentWeather(latitude, longitude) }
+                    async {
+                        getFetchWeatherUseCase
+                            .fetchCurrentWeather(latitude, longitude)
+                    }
                 val weatherForFiveDaysDeferred =
-                    async { fetchWeatherUseCase.fetchWeatherForFiveDays(latitude, longitude) }
+                    async {
+                        getFetchWeatherUseCase
+                            .fetchWeatherForFiveDays(latitude, longitude)
+                    }
 
                 val awaitCurrentWeather = currentWeatherDeferred.await()
                 val awaitWeatherForFiveDays = weatherForFiveDaysDeferred.await()
 
                 val mapCurrentWeather = fetchCurrentWeatherToHomeUi.map(awaitCurrentWeather)
-                val mapWeatherForFiveDaysUiModel =
-                    fetchWeatherDomainToHomeUiMapper.map(awaitWeatherForFiveDays)
+                val mapWeatherForFiveDaysUiModel = fetchWeatherDomainToHomeUiMapper.map(awaitWeatherForFiveDays)
 
-                val currentWeatherResult = weatherDataHelper.convertedWeatherForFiveDays(
-                    mapWeatherForFiveDaysUiModel.list.firstOrNull()
-                        ?: WeatherForFiveDaysResultUi.unknown
-                )
-                val weatherForFiveDaysUiModelResult = weatherDataHelper.currentConvertedWeather(
-                    mapCurrentWeather
-                )
+                val currentWeatherResult =
+                    getWeatherDataHelper.convertedWeatherForFiveDays(
+                        mapWeatherForFiveDaysUiModel.list.firstOrNull()
+                            ?: WeatherForFiveDaysResultUi.unknown
+                    )
+                val weatherForFiveDaysUiModelResult =
+                    getWeatherDataHelper.currentConvertedWeather(
+                        mapCurrentWeather
+                    )
                 _uiState.tryEmit(
                     HomeUiState.Loaded(
                         weatherForFiveDays = currentWeatherResult.toImmutableList(),
@@ -83,24 +91,21 @@ class HomeViewModel @Inject constructor(
 
     fun onEvent(event: HomeScreenEvent) {
         when (event) {
-            DoNavigateToFavoriteScreen -> navigationCommunication.emit(
-                navigationParams(
-                    homeFeatureDependencies.getFavoriteRoute()
+            DoNavigateToFavoriteScreen -> getNavigationRouteFlowCommunication
+                .emit(
+                    navigationParams(
+                        dependencies.getFavoriteRoute().getRoute()
+                    )
                 )
-            )
 
-            DoNavigateToMapScreen -> navigationCommunication.emit(
-                navigationParams(
-                    homeFeatureDependencies.getMapRoute()
+            DoNavigateToMapScreen -> getNavigationRouteFlowCommunication
+                .emit(
+                    navigationParams(
+                        dependencies.getMapRoute().getRoute()
+                    )
                 )
-            )
 
-            is DoNavigateToDetailScreen -> navigationCommunication.emit(
-                navigationParams(
-                    homeFeatureDependencies.getDetailRoute(event.weatherId)
-                )
-            )
-
+            is DoNavigateToDetailScreen -> TODO()
             DoRefreshAllData -> TODO()
             DoChangeTheme -> TODO()
         }

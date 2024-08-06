@@ -1,6 +1,7 @@
 package com.example.general.day.home.impl.ui
 
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -12,14 +13,14 @@ import com.example.general.day.home.api.HomeRouteProvider
 import com.example.general.day.home.impl.ui.di.modules.HomeRoute
 import javax.inject.Inject
 
-class HomeFeatureImpl constructor(
+class HomeFeatureImpl @Inject constructor(
     private val route: HomeRoute,
-    private val viewModelFactory: DaggerViewModelFactory
+        private val viewModelFactory: DaggerViewModelFactory
 ) : HomeFeatureUiApi {
+
 
     override val homeRouteProvider: HomeRouteProvider = object : HomeRouteProvider {
         override fun getRoute(): String = route
-
     }
 
     override fun registerGraph(

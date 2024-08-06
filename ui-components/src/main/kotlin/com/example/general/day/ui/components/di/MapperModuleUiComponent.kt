@@ -16,7 +16,6 @@ import com.example.general.day.domain.models.WeatherTemperatureDomain
 import com.example.general.day.domain.models.WindDomain
 import com.example.general.day.ui.components.mappers.CityDomainToCityUiMapper
 import com.example.general.day.ui.components.mappers.CloudsDomainToUiMapper
-import com.example.general.day.ui.components.mappers.CoordinatesDomainToUiMapper
 import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToUiMapper
 import com.example.general.day.ui.components.mappers.CurrentWeatherLocalDomainToUiMapper
 import com.example.general.day.ui.components.mappers.CurrentWeatherUiToDomainMapper
@@ -43,77 +42,92 @@ import com.example.general.day.ui.components.models.WeatherUi
 import com.example.general.day.ui.components.models.WindUi
 import dagger.Binds
 import dagger.Module
+import javax.inject.Singleton
 
 @Module
-interface MapperModule {
+interface MapperModuleUiComponent {
 
     @Binds
-    fun bindsCityDomainToCityUiMapper(
+    @Singleton
+    fun bindCityDomainToCityUiMapper(
         implementation: CityDomainToCityUiMapper
     ): Mapper<CityDomain, CityUi>
 
     @Binds
-    fun bindsCloudsDomainToUiMapper(
+    @Singleton
+    fun bindCloudsDomainToUiMapper(
         implementation: CloudsDomainToUiMapper
     ): Mapper<CloudsDomain, CloudsUi>
 
-    @Binds
-    fun bindsCoordinatesDomainToUiMapper(
-        implementation: CoordinatesDomainToUiMapper
-    ): Mapper<CoordinatesDomain, CoordinatesUi>
+//    @Binds
+//    @Singleton
+//    fun bindCoordinatesDomainToUiMapper(
+//        implementation: CoordinatesDomainToUiMapper
+//    ): Mapper<CoordinatesDomain, CoordinatesUi>
 
     @Binds
-    fun bindsCurrentWeatherDomainToUiMapper(
+    @Singleton
+    fun bindCurrentWeatherDomainToUiMapper(
         implementation: CurrentWeatherDomainToUiMapper
     ): Mapper<CurrentWeatherDomain, CurrentWeatherUi>
 
     @Binds
-    fun bindsCurrentWeatherUiToDomainMapper(
-        implementation: CurrentWeatherUiToDomainMapper
-    ): Mapper<CurrentWeatherLocalDomain, CurrentWeatherLocalUi>
-
-    @Binds
-    fun bindsCurrentWeatherLocalDomainToUiMapper(
+    @Singleton
+    fun bindCurrentWeatherLocalDomainToUiMapper(
         implementation: CurrentWeatherLocalDomainToUiMapper
     ): Mapper<CurrentWeatherLocalUi, CurrentWeatherLocalDomain>
 
     @Binds
-    fun bindsForRainOrSnowDomainToUiMapper(
+    @Singleton
+    fun bindCurrentWeatherUiToDomainMapper(
+        implementation: CurrentWeatherUiToDomainMapper
+    ): Mapper<CurrentWeatherLocalDomain, CurrentWeatherLocalUi>
+
+    @Binds
+    @Singleton
+    fun bindForRainOrSnowDomainToUiMapper(
         implementation: ForRainOrSnowDomainToUiMapper
     ): Mapper<ForRainOrSnowDomain, ForRainOrSnowUi>
 
     @Binds
-    fun bindsWeatherDomainToUiMapper(
+    @Singleton
+    fun bindSearchWeatherDomainToUiMapper(
+        implementation: SearchWeatherDomainToUiMapper
+    ): Mapper<SearchWeatherDomain, SearchWeatherUi>
+
+    @Binds
+    @Singleton
+    fun bindWeatherDomainToUiMapper(
         implementation: WeatherDomainToUiMapper
     ): Mapper<WeatherDomain, WeatherUi>
 
     @Binds
-    fun bindsWeatherForFiveDaysDomainToUiMapper(
+    @Singleton
+    fun bindWeatherForFiveDaysDomainToUiMapper(
         implementation: WeatherForFiveDaysDomainToUiMapper
     ): Mapper<WeatherForFiveDaysDomain, WeatherForFiveDaysUi>
 
     @Binds
-    fun bindsWeatherForFiveDaysResultDomainToUiMapper(
+    @Singleton
+    fun bindWeatherForFiveDaysResultDomainToUiMapper(
         implementation: WeatherForFiveDaysResultDomainToUiMapper
     ): Mapper<WeatherForFiveDaysResultDomain, WeatherForFiveDaysResultUi>
 
     @Binds
-    fun bindsWeatherSystemInformationDomainToUiMapper(
+    @Singleton
+    fun bindWeatherSystemInformationDomainToUiMapper(
         implementation: WeatherSystemInformationDomainToUiMapper
     ): Mapper<WeatherSystemInformationDomain, WeatherSystemInformationUi>
 
     @Binds
-    fun bindsWeatherTemperatureDomainToUiMapper(
+    @Singleton
+    fun bindWeatherTemperatureDomainToUiMapper(
         implementation: WeatherTemperatureDomainToUiMapper
     ): Mapper<WeatherTemperatureDomain, WeatherTemperatureUi>
 
     @Binds
-    fun bindsWindDomainToUIMapper(
+    @Singleton
+    fun bindWindDomainToUIMapper(
         implementation: WindDomainToUIMapper
     ): Mapper<WindDomain, WindUi>
-
-    @Binds
-    fun bindsSearchWeatherDomainToUiMapper(
-        implementation: SearchWeatherDomainToUiMapper
-    ): Mapper<SearchWeatherDomain, SearchWeatherUi>
 }

@@ -72,8 +72,6 @@ dependencies {
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
 
-    implementation(libs.navigation.compose)
-
     /** Room **/
     kapt(libs.room.compiler)
     kapt(libs.room.ktx.compiler)

@@ -4,11 +4,15 @@ import android.content.Context
 import android.location.Location
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.general.day.core.communication.NavigationRouteFlowCommunication
 import com.example.general.day.map.impl.ui.components.ZoneClusterManager
 import com.example.general.day.domain.usecase.FetchWeatherUseCase
+import com.example.general.day.location.api.LocationFeatureApi
+import com.example.general.day.map.impl.di.MapFeatureDependencies
 import com.example.general.day.map.impl.ui.components.calculateCameraViewPoints
 import com.example.general.day.map.impl.ui.components.getCenterOfPolygon
 import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToUiMapper
+import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
@@ -20,14 +24,14 @@ import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException
 
 class MapViewModel @Inject constructor(
-    private val fetchWeatherUseCase: FetchWeatherUseCase,
-    private val fetchLocationTrackerManager: com.example.general.day.location.api.LocationTrackerManager,
     private val currentWeatherDomainToHomeUiMapper: CurrentWeatherDomainToUiMapper,
+    private val fetchWeatherUseCase: FetchWeatherUseCase,
+    private val dependencies: MapFeatureDependencies,
+    private val weatherDataHelper: WeatherDataHelper,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MapState())
     val state: StateFlow<MapState> = _uiState.asStateFlow()
-
 
     fun getWeatherForLocation(location: LatLng) {
         val latitude = location.latitude
@@ -63,7 +67,7 @@ class MapViewModel @Inject constructor(
     fun getDeviceLocation() {
         viewModelScope.launch {
             try {
-                val location = fetchLocationTrackerManager.fetchCurrentLocation()
+                val location = dependencies.getLocationTrackerManager().fetchCurrentLocation()
                 if (location != null) {
                     _uiState.value = _uiState.value.copy(
                         lastKnownLocation = location,

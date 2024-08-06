@@ -28,6 +28,7 @@ dependencies {
     implementation(projects.data)
     implementation(projects.uiComponents)
     implementation(projects.featureModules.favorite.favoriteApi)
+    implementation(projects.featureModules.map.mapApi)
 
     /** Navigation **/
     implementation(libs.navigation.compose)

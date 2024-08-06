@@ -8,4 +8,5 @@
     <string name="failed_to_fetch_weather">Не удалось получить прогноз погоды</string>
     <string name="error_message">К сожелению такого горада нет</string>
     <string name="success_message">Город успешно добавлен</string>
+    <string name="location_message">Требуется разрешение на определение местоположения!</string>
 </resources>
