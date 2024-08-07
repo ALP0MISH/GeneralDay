@@ -6,7 +6,7 @@ import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
 import javax.inject.Inject
 
 class CurrentWeatherLocalDomainToUiMapper @Inject constructor() :
-    Mapper<CurrentWeatherLocalUi, CurrentWeatherLocalDomain> {
+    Mapper<@JvmSuppressWildcards CurrentWeatherLocalUi, @JvmSuppressWildcards CurrentWeatherLocalDomain> {
     override fun map(from: CurrentWeatherLocalUi): CurrentWeatherLocalDomain = from.run {
         CurrentWeatherLocalDomain(
             id = id,

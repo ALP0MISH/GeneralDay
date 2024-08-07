@@ -16,6 +16,7 @@ import com.example.general.day.domain.models.WeatherTemperatureDomain
 import com.example.general.day.domain.models.WindDomain
 import com.example.general.day.ui.components.mappers.CityDomainToCityUiMapper
 import com.example.general.day.ui.components.mappers.CloudsDomainToUiMapper
+import com.example.general.day.ui.components.mappers.CoordinatesDomainToUiMapper
 import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToUiMapper
 import com.example.general.day.ui.components.mappers.CurrentWeatherLocalDomainToUiMapper
 import com.example.general.day.ui.components.mappers.CurrentWeatherUiToDomainMapper
@@ -59,11 +60,11 @@ interface MapperModuleUiComponent {
         implementation: CloudsDomainToUiMapper
     ): Mapper<CloudsDomain, CloudsUi>
 
-//    @Binds
-//    @Singleton
-//    fun bindCoordinatesDomainToUiMapper(
-//        implementation: CoordinatesDomainToUiMapper
-//    ): Mapper<CoordinatesDomain, CoordinatesUi>
+    @Binds
+    @Singleton
+    fun bindCoordinatesDomainToUiMapper(
+        implementation: CoordinatesDomainToUiMapper
+    ): Mapper<CoordinatesDomain, CoordinatesUi>
 
     @Binds
     @Singleton

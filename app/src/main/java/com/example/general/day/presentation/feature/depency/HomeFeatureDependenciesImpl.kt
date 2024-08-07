@@ -1,6 +1,9 @@
 package com.example.general.day.presentation.feature.depency
 
+import com.example.general.day.core.Mapper
 import com.example.general.day.core.communication.NavigationRouteFlowCommunication
+import com.example.general.day.domain.models.CurrentWeatherDomain
+import com.example.general.day.domain.models.WeatherForFiveDaysDomain
 import com.example.general.day.domain.usecase.FetchWeatherUseCase
 import com.example.general.day.favorite.api.FavoriteRouteProvider
 import com.example.general.day.home.impl.ui.di.HomeFeatureDependencies
@@ -10,6 +13,8 @@ import com.example.general.day.map.api.MapRouteProvider
 import com.example.general.day.presentation.di.DependencyProvider
 import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToUiMapper
 import com.example.general.day.ui.components.mappers.WeatherForFiveDaysDomainToUiMapper
+import com.example.general.day.ui.components.models.CurrentWeatherUi
+import com.example.general.day.ui.components.models.WeatherForFiveDaysUi
 import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
 import javax.inject.Inject
 
@@ -19,8 +24,8 @@ class HomeFeatureDependenciesImpl @Inject constructor(
     private val locationFeatureApi: LocationFeatureApi,
     private val weatherDataHelper: WeatherDataHelper,
     private val navigationRouteFlowCommunication: NavigationRouteFlowCommunication,
-    private val getCurrentWeatherToHomeUi: CurrentWeatherDomainToUiMapper,
-    private val getWeatherDomainToHomeUiMapper: WeatherForFiveDaysDomainToUiMapper,
+    private val currentWeatherToHomeUi: @JvmSuppressWildcards Mapper<CurrentWeatherDomain, CurrentWeatherUi>,
+    private val weatherDomainToHomeUiMapper: @JvmSuppressWildcards Mapper<WeatherForFiveDaysDomain, WeatherForFiveDaysUi>,
 ) : HomeFeatureDependencies {
 
     override fun getFavoriteRoute(): FavoriteRouteProvider {
@@ -47,11 +52,11 @@ class HomeFeatureDependenciesImpl @Inject constructor(
         return navigationRouteFlowCommunication
     }
 
-    override fun getCurrentWeatherToHomeUi(): CurrentWeatherDomainToUiMapper {
-        return getCurrentWeatherToHomeUi
+    override fun getCurrentWeatherToHomeUi(): Mapper<CurrentWeatherDomain, CurrentWeatherUi> {
+        return currentWeatherToHomeUi
     }
 
-    override fun getWeatherDomainToHomeUiMapper(): WeatherForFiveDaysDomainToUiMapper {
-        return getWeatherDomainToHomeUiMapper
+    override fun getWeatherDomainToHomeUiMapper(): Mapper<WeatherForFiveDaysDomain, WeatherForFiveDaysUi> {
+        return weatherDomainToHomeUiMapper
     }
 }

@@ -1,6 +1,7 @@
 package com.example.general.day.favorite.impl.ui
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.general.day.core.communication.NavigationRouteFlowCommunication
 import com.example.general.day.core.communication.navigationParams
@@ -29,6 +30,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Provider
 import kotlin.coroutines.cancellation.CancellationException
 
 private const val DebounceTime = 300L
@@ -183,5 +185,15 @@ class FavoriteViewModel @Inject constructor(
         val menuList =
             menu.filter { it.cityName.contains(query, ignoreCase = true) }.toImmutableList()
         return menuList
+    }
+}
+
+@Suppress("UNCHECKED_CAST")
+class FavoriteViewModelFactory @Inject constructor(
+    private val viewModelProvider: Provider<FavoriteViewModel>
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        require(modelClass == FavoriteViewModel::class.java)
+        return viewModelProvider.get() as T
     }
 }

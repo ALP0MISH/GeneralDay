@@ -2,14 +2,10 @@ package com.example.general.day.favorite.impl.di
 
 import com.example.general.day.favorite.api.FavoriteFeatureApi
 import com.example.general.day.favorite.impl.di.modules.FavoriteFeatureModule
-import com.example.general.day.favorite.impl.di.modules.FavoriteViewModelModule
 import dagger.Component
 
 @Component(
-    modules = [
-        FavoriteViewModelModule::class,
-        FavoriteFeatureModule::class,
-    ],
+    modules = [FavoriteFeatureModule::class],
     dependencies = [FavoriteFeatureDependencies::class]
 )
 interface FavoriteComponent : FavoriteFeatureApi {

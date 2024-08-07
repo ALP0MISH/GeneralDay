@@ -6,7 +6,7 @@ import com.example.general.day.data.models.CoordinatesData
 import javax.inject.Inject
 
 class CoordinatesCloudToDataMapper @Inject constructor() :
-    Mapper<CoordinatesCloud, CoordinatesData> {
+    Mapper<@JvmSuppressWildcards CoordinatesCloud, @JvmSuppressWildcards CoordinatesData> {
     override fun map(from: CoordinatesCloud): CoordinatesData = from.run {
         CoordinatesData(
             lon = lon,

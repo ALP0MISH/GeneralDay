@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.example.general.day.data.local.database.WeatherDataBase
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 private const val WEATHER_DATABASE = "weather_database"
 
@@ -12,6 +13,7 @@ private const val WEATHER_DATABASE = "weather_database"
 class DataBaseModule {
 
     @Provides
+    @Singleton
     fun provideWeatherDatabase(context: Context): WeatherDataBase {
         return Room.databaseBuilder(
             context.applicationContext,

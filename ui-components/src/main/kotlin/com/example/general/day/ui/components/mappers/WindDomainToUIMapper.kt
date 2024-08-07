@@ -5,7 +5,8 @@ import com.example.general.day.domain.models.WindDomain
 import com.example.general.day.ui.components.models.WindUi
 import javax.inject.Inject
 
-class WindDomainToUIMapper @Inject constructor() : Mapper<WindDomain, WindUi> {
+class WindDomainToUIMapper @Inject constructor() :
+    Mapper<@JvmSuppressWildcards WindDomain, @JvmSuppressWildcards WindUi> {
     override fun map(from: WindDomain): WindUi = from.run {
         WindUi(
             degrees = degrees,
