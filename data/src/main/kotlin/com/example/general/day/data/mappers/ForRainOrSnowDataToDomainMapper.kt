@@ -6,11 +6,10 @@ import com.example.general.day.domain.models.ForRainOrSnowDomain
 import javax.inject.Inject
 
 class ForRainOrSnowDataToDomainMapper @Inject constructor() :
-    Mapper<ForRainOrSnowData, ForRainOrSnowDomain> {
+    Mapper<@JvmSuppressWildcards ForRainOrSnowData, @JvmSuppressWildcards ForRainOrSnowDomain> {
     override fun map(from: ForRainOrSnowData): ForRainOrSnowDomain = from.run {
         ForRainOrSnowDomain(
             hour = hour
         )
     }
-
 }

@@ -16,7 +16,6 @@ import com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToMapScree
 import com.example.general.day.home.impl.ui.HomeScreenEvent.DoRefreshAllData
 import com.example.general.day.home.impl.ui.di.HomeFeatureDependencies
 import com.example.general.day.location.api.LocationTrackerManager
-import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToUiMapper
 import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysUi

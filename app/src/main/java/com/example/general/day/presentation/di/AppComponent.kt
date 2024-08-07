@@ -1,7 +1,6 @@
 package com.example.general.day.presentation.di
 
 import android.content.Context
-import com.example.general.day.core.di.AllOnInitAppSet
 import com.example.general.day.core.di.CommunicationModule
 import com.example.general.day.core.di.CoroutineDispatchersModule
 import com.example.general.day.core.di.OnInitApp

@@ -6,7 +6,7 @@ import com.example.general.day.domain.models.WeatherSystemInformationDomain
 import javax.inject.Inject
 
 class WeatherSystemInformationDataToDomainMapper @Inject constructor() :
-        Mapper<WeatherSystemInformationData, WeatherSystemInformationDomain> {
+    Mapper<@JvmSuppressWildcards WeatherSystemInformationData, @JvmSuppressWildcards WeatherSystemInformationDomain> {
     override fun map(from: WeatherSystemInformationData): WeatherSystemInformationDomain =
         from.run {
             WeatherSystemInformationDomain(
