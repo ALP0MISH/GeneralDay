@@ -7,7 +7,7 @@ import com.example.general.day.domain.models.CoordinatesDomain
 import javax.inject.Inject
 
 class CoordinatesDataToDomainMapper @Inject constructor() :
-    Mapper<CoordinatesData, CoordinatesDomain> {
+    Mapper<@JvmSuppressWildcards CoordinatesData, @JvmSuppressWildcards CoordinatesDomain> {
     override fun map(from: CoordinatesData): CoordinatesDomain = from.run {
         CoordinatesDomain(
             lon = lon,

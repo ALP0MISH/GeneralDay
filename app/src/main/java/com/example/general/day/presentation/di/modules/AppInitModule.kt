@@ -5,6 +5,8 @@ import com.example.general.day.favorite.impl.di.FavoriteComponentHolder
 import com.example.general.day.favorite.impl.di.FavoriteFeatureDependencies
 import com.example.general.day.home.impl.ui.di.HomeComponentHolder
 import com.example.general.day.home.impl.ui.di.HomeFeatureDependencies
+import com.example.general.day.map.impl.di.MapComponentHolder
+import com.example.general.day.map.impl.di.MapFeatureDependencies
 import com.example.general.location.impl.LocationComponentHolder
 import com.example.general.location.impl.LocationFeatureDependencies
 import dagger.Module
@@ -33,5 +35,12 @@ class AppInitModule {
     fun initLocationFeatureModule(dependencyProvider: Provider<LocationFeatureDependencies>) =
         OnInitApp {
             LocationComponentHolder.setDependencyProvider(dependencyProvider)
+        }
+
+    @Provides
+    @IntoSet
+    fun initMapFeatureModule(dependencyProvider: Provider<MapFeatureDependencies>) =
+        OnInitApp {
+            MapComponentHolder.setDependencyProvider(dependencyProvider)
         }
 }

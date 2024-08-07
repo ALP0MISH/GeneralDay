@@ -3,9 +3,13 @@ package com.example.general.day.favorite.impl.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.general.day.core.Mapper
 import com.example.general.day.core.communication.NavigationRouteFlowCommunication
 import com.example.general.day.core.communication.navigationParams
 import com.example.general.day.core.managers.ShowToastManager
+import com.example.general.day.domain.models.CurrentWeatherDomain
+import com.example.general.day.domain.models.CurrentWeatherLocalDomain
+import com.example.general.day.domain.models.SearchWeatherDomain
 import com.example.general.day.domain.usecase.FetchWeatherByCity
 import com.example.general.day.domain.usecase.ObserveCurrentWeatherUseCase
 import com.example.general.day.domain.usecase.SaveCurrentWeatherUseCase
@@ -16,6 +20,8 @@ import com.example.general.day.ui.components.mappers.CurrentWeatherLocalDomainTo
 import com.example.general.day.ui.components.mappers.CurrentWeatherUiToDomainMapper
 import com.example.general.day.ui.components.mappers.SearchWeatherDomainToUiMapper
 import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
+import com.example.general.day.ui.components.models.CurrentWeatherUi
+import com.example.general.day.ui.components.models.SearchWeatherUi
 import com.example.general.day.ui.core.R.string
 import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
 import kotlinx.collections.immutable.ImmutableList
@@ -43,11 +49,11 @@ class FavoriteViewModel @Inject constructor(
     private val saveCurrentWeatherUseCase: SaveCurrentWeatherUseCase,
     private val showToastManager: ShowToastManager,
     private val observeCurrentWeatherUseCase: ObserveCurrentWeatherUseCase,
-    private val currentWeatherLocalDomainToHomeUiMapper: CurrentWeatherLocalDomainToUiMapper,
-    private val currentWeatherDomainToUiMapper: CurrentWeatherDomainToUiMapper,
-    private val currentWeatherHomeUiToDomainMapper: CurrentWeatherUiToDomainMapper,
-    private val searchWeatherDomainToUiMapper: SearchWeatherDomainToUiMapper,
-    private val favoriteFeatureDependencies:FavoriteFeatureDependencies
+    private val currentWeatherLocalDomainToHomeUiMapper: @JvmSuppressWildcards Mapper<CurrentWeatherLocalUi, CurrentWeatherLocalDomain>,
+    private val currentWeatherDomainToUiMapper: @JvmSuppressWildcards Mapper<CurrentWeatherDomain, CurrentWeatherUi>,
+    private val currentWeatherHomeUiToDomainMapper: @JvmSuppressWildcards Mapper<CurrentWeatherLocalDomain, CurrentWeatherLocalUi>,
+    private val searchWeatherDomainToUiMapper: @JvmSuppressWildcards Mapper<SearchWeatherDomain, SearchWeatherUi>,
+    private val favoriteFeatureDependencies: FavoriteFeatureDependencies
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<FavoriteUIState>(FavoriteUIState.Loading)

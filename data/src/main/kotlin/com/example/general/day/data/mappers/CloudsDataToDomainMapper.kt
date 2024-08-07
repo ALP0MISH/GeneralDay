@@ -5,8 +5,8 @@ import com.example.general.day.data.models.CloudsData
 import com.example.general.day.domain.models.CloudsDomain
 import javax.inject.Inject
 
-class CloudsDataToDomainMapper @Inject constructor() : Mapper<CloudsData, CloudsDomain> {
-
+class CloudsDataToDomainMapper @Inject constructor() :
+    Mapper<@JvmSuppressWildcards CloudsData, @JvmSuppressWildcards CloudsDomain> {
     override fun map(from: CloudsData): CloudsDomain = from.run {
         CloudsDomain(
             all = all
