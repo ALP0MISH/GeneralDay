@@ -6,7 +6,7 @@ import com.example.general.day.ui.components.models.ForRainOrSnowUi
 import javax.inject.Inject
 
 class ForRainOrSnowDomainToUiMapper @Inject constructor() :
-    Mapper<ForRainOrSnowDomain, ForRainOrSnowUi> {
+    Mapper<@JvmSuppressWildcards ForRainOrSnowDomain, @JvmSuppressWildcards ForRainOrSnowUi> {
     override fun map(from: ForRainOrSnowDomain): ForRainOrSnowUi = from.run {
         ForRainOrSnowUi(
             hour = hour

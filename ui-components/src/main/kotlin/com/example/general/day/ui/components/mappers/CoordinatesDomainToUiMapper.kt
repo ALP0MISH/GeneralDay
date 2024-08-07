@@ -6,9 +6,9 @@ import com.example.general.day.ui.components.models.CoordinatesUi
 import javax.inject.Inject
 
 class CoordinatesDomainToUiMapper @Inject constructor() :
-    Mapper<CoordinatesDomain, CoordinatesUi> {
+    Mapper<@JvmSuppressWildcards CoordinatesDomain, @JvmSuppressWildcards CoordinatesUi> {
     override fun map(from: CoordinatesDomain): CoordinatesUi = from.run {
-       CoordinatesUi(
+        CoordinatesUi(
             lon = lon,
             lat = lat,
         )

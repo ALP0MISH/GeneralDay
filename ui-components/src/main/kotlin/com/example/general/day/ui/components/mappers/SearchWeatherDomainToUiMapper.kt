@@ -6,7 +6,7 @@ import com.example.general.day.ui.components.models.SearchWeatherUi
 import javax.inject.Inject
 
 class SearchWeatherDomainToUiMapper @Inject constructor() :
-    Mapper<SearchWeatherDomain, SearchWeatherUi> {
+    Mapper<@JvmSuppressWildcards SearchWeatherDomain, @JvmSuppressWildcards SearchWeatherUi> {
     override fun map(from: SearchWeatherDomain): SearchWeatherUi = from.run {
         SearchWeatherUi(
             country = country,

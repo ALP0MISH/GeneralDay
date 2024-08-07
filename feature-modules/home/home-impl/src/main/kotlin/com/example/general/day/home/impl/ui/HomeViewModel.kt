@@ -1,9 +1,13 @@
 package com.example.general.day.home.impl.ui
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.general.day.core.Mapper
 import com.example.general.day.core.communication.NavigationRouteFlowCommunication
 import com.example.general.day.core.communication.navigationParams
+import com.example.general.day.domain.models.CurrentWeatherDomain
+import com.example.general.day.domain.models.WeatherForFiveDaysDomain
 import com.example.general.day.domain.usecase.FetchWeatherUseCase
 import com.example.general.day.home.impl.ui.HomeScreenEvent.DoChangeTheme
 import com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToDetailScreen
@@ -13,8 +17,9 @@ import com.example.general.day.home.impl.ui.HomeScreenEvent.DoRefreshAllData
 import com.example.general.day.home.impl.ui.di.HomeFeatureDependencies
 import com.example.general.day.location.api.LocationTrackerManager
 import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToUiMapper
-import com.example.general.day.ui.components.mappers.WeatherForFiveDaysDomainToUiMapper
+import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
+import com.example.general.day.ui.components.models.WeatherForFiveDaysUi
 import com.example.general.day.ui.core.R.string
 import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
 import kotlinx.collections.immutable.toImmutableList
@@ -24,16 +29,17 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Provider
 import kotlin.coroutines.cancellation.CancellationException
 
 class HomeViewModel @Inject constructor(
-    private val fetchCurrentWeatherToHomeUi: CurrentWeatherDomainToUiMapper,
-    private val fetchWeatherDomainToHomeUiMapper: WeatherForFiveDaysDomainToUiMapper,
     private val dependencies: HomeFeatureDependencies,
     private val getFetchWeatherUseCase: FetchWeatherUseCase,
     private val getLocationTrackerManager: LocationTrackerManager,
     private val getWeatherDataHelper: WeatherDataHelper,
-    private val getNavigationRouteFlowCommunication: NavigationRouteFlowCommunication
+    private val getNavigationRouteFlowCommunication: NavigationRouteFlowCommunication,
+    private val fetchCurrentWeatherToHomeUi: @JvmSuppressWildcards Mapper<CurrentWeatherDomain, CurrentWeatherUi>,
+    private val fetchWeatherDomainToHomeUiMapper: @JvmSuppressWildcards Mapper<WeatherForFiveDaysDomain, WeatherForFiveDaysUi>,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
@@ -64,7 +70,8 @@ class HomeViewModel @Inject constructor(
                 val awaitWeatherForFiveDays = weatherForFiveDaysDeferred.await()
 
                 val mapCurrentWeather = fetchCurrentWeatherToHomeUi.map(awaitCurrentWeather)
-                val mapWeatherForFiveDaysUiModel = fetchWeatherDomainToHomeUiMapper.map(awaitWeatherForFiveDays)
+                val mapWeatherForFiveDaysUiModel =
+                    fetchWeatherDomainToHomeUiMapper.map(awaitWeatherForFiveDays)
 
                 val currentWeatherResult =
                     getWeatherDataHelper.convertedWeatherForFiveDays(
@@ -109,5 +116,15 @@ class HomeViewModel @Inject constructor(
             DoRefreshAllData -> TODO()
             DoChangeTheme -> TODO()
         }
+    }
+}
+
+@Suppress("UNCHECKED_CAST")
+class HomeViewModelFactory @Inject constructor(
+    private val viewModelProvider: Provider<HomeViewModel>
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        require(modelClass == HomeViewModel::class.java)
+        return viewModelProvider.get() as T
     }
 }

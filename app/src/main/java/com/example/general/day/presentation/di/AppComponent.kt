@@ -1,8 +1,10 @@
 package com.example.general.day.presentation.di
 
 import android.content.Context
+import com.example.general.day.core.di.AllOnInitAppSet
 import com.example.general.day.core.di.CommunicationModule
 import com.example.general.day.core.di.CoroutineDispatchersModule
+import com.example.general.day.core.di.OnInitApp
 import com.example.general.day.core.di.ShowToastManagerModule
 import com.example.general.day.data.di.DataModule
 import com.example.general.day.favorite.api.FavoriteFeatureApi
@@ -12,11 +14,10 @@ import com.example.general.day.home.impl.ui.di.modules.HomeFeatureModule
 import com.example.general.day.map.api.MapFeatureApi
 import com.example.general.day.map.impl.di.modules.MapFeatureModule
 import com.example.general.day.presentation.MainActivity
+import com.example.general.day.presentation.di.modules.AppInitModule
 import com.example.general.day.presentation.di.modules.FeatureApiModule
 import com.example.general.day.presentation.di.modules.FeatureDependencyModule
 import com.example.general.day.presentation.di.modules.ProvideComponentHolderModule
-import com.example.general.day.presentation.di.modules.ViewModelFactoryModule
-import com.example.general.day.presentation.di.modules.ViewModelMapModule
 import com.example.general.day.ui.components.di.MapperModuleUiComponent
 import com.example.general.day.ui.core.di.WeatherHelperModule
 import dagger.BindsInstance
@@ -26,7 +27,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
-        ViewModelFactoryModule::class,
+        AppInitModule::class,
         AppModule::class,
         CoroutineDispatchersModule::class,
         WeatherHelperModule::class,
@@ -36,12 +37,11 @@ import javax.inject.Singleton
         DependencyProviderModule::class,
         FeatureDependencyModule::class,
         CommunicationModule::class,
-        ViewModelMapModule::class,
         FeatureApiModule::class,
         HomeFeatureModule::class,
         FavoriteFeatureModule::class,
         MapFeatureModule::class,
-        MapperModuleUiComponent::class
+        MapperModuleUiComponent::class,
     ]
 )
 
@@ -51,6 +51,8 @@ interface AppComponent {
     fun homeFeatureApi(): HomeFeatureApi
     fun favoriteFeatureApi(): FavoriteFeatureApi
     fun mapFeatureApi(): MapFeatureApi
+
+    fun onAllInitAppSet(): Set<OnInitApp>
 
     @Component.Builder
     interface Builder {

@@ -6,7 +6,7 @@ import com.example.general.day.ui.components.models.WeatherTemperatureUi
 import javax.inject.Inject
 
 class WeatherTemperatureDomainToUiMapper @Inject constructor() :
-    Mapper<WeatherTemperatureDomain, WeatherTemperatureUi> {
+    Mapper<@JvmSuppressWildcards WeatherTemperatureDomain, @JvmSuppressWildcards WeatherTemperatureUi> {
     override fun map(from: WeatherTemperatureDomain): WeatherTemperatureUi = from.run {
         WeatherTemperatureUi(
             feelsLike = feelsLike,

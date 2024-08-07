@@ -28,8 +28,7 @@ object HomeComponentHolder {
     fun init() {
         synchronized(this) {
             if (component == null) {
-                component =
-                    HomeComponent.initAndGet(checkNotNull(dependencyProvider).get())
+                component = HomeComponent.initAndGet(checkNotNull(dependencyProvider).get())
             }
         }
     }

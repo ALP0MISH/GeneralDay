@@ -18,6 +18,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // TODO: Убрать каст
         (application as App).appComponent.inject(this)
         setContent {
             WeatherTestAppTheme {
@@ -26,6 +27,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
+                    // TODO: Убрать каст
                     val appComponent = (LocalContext.current.applicationContext as App).appComponent
                     val dependencyProvider = appComponent.dependencyProvider()
                     val featureApi: List<FeatureApi> = listOf(appComponent.homeFeatureApi().provideHomeFeatureUiApi(), appComponent.favoriteFeatureApi().provideFavoriteFeatureUiApi())
