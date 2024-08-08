@@ -14,11 +14,7 @@ interface DetermineTimeOfDay {
         timestamp: Long,
     ): Boolean
 
-    fun currentDay(
-        weatherForFiveDaysResultUi: List<WeatherForFiveDaysResultUi>
-    ): List<String>
-
-    fun fetchEachThreeTime(
-        day: List<WeatherForFiveDaysResultUi>
-    ): List<String>
+    fun getUniqueDatesWithForecasts(
+        list: List<WeatherForFiveDaysResultUi>
+    ): List<Pair<String, List<WeatherForFiveDaysResultUi>>>
 }

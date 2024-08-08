@@ -1,6 +1,7 @@
 package com.example.general.day.home.impl.ui.di
 
 import com.example.general.day.core.Mapper
+import com.example.general.day.core.ToastNotificationManger
 import com.example.general.day.core.communication.NavigationRouteFlowCommunication
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.models.WeatherForFiveDaysDomain
@@ -29,4 +30,6 @@ interface HomeFeatureDependencies {
     fun getCurrentWeatherToHomeUi(): Mapper<CurrentWeatherDomain, CurrentWeatherUi>
 
     fun getWeatherDomainToHomeUiMapper(): Mapper<WeatherForFiveDaysDomain, WeatherForFiveDaysUi>
+
+    fun getToastDecorator(): ToastNotificationManger
 }

@@ -7,12 +7,11 @@ import com.example.general.day.ui.core.weather.helpers.TimeOfDayEnum.Day
 import com.example.general.day.ui.core.weather.helpers.TimeOfDayEnum.Night
 import java.text.SimpleDateFormat
 import java.time.Instant
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
 
@@ -57,35 +56,12 @@ class DetermineTimeOfDayImpl @Inject constructor() : DetermineTimeOfDay {
         )
     }
 
-    override fun currentDay(weatherForFiveDaysResultUi: List<WeatherForFiveDaysResultUi>): List<String> {
-        val dateTimeFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+    override fun getUniqueDatesWithForecasts(list: List<WeatherForFiveDaysResultUi>): List<Pair<String, List<WeatherForFiveDaysResultUi>>> {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-
-        val sortedBy = weatherForFiveDaysResultUi.sortedBy { it.timeText }
-        val outputFormat = SimpleDateFormat("dd MMMM", Locale.getDefault())
-
-        val uniqueDates = sortedBy
-            .map { timestamp ->
-                dateTimeFormat.parse(timestamp.timeText)?.let { date ->
-                    dateFormat.format(date)
-                }
-            }
-        val sortedDates = uniqueDates
-
-        return sortedDates.map { date ->
-            outputFormat.format(dateFormat.parse(date ?: String()) ?: String())
-        }
-    }
-
-    override fun fetchEachThreeTime(day: List<WeatherForFiveDaysResultUi>): List<String> {
-        val time = day.map { it.timeText }
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-        val dateTimeObjects = time.map { LocalDateTime.parse(it, formatter) }
-        val dateToTimes = dateTimeObjects.groupBy { it.toLocalDate() }
-        val targetDate = LocalDate.parse("2024-08-20")
-        val timesForDate = dateToTimes[targetDate]?.map {
-            it.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"))
-        } ?: emptyList()
-        return timesForDate
+        val groupedByDate = list.groupBy { dateFormat.format(Date(it.time.toLong() * 1000)) }
+        return groupedByDate.entries
+            .sortedBy { it.key }
+            .take(8)
+            .map { it.key to it.value }
     }
 }

@@ -12,12 +12,11 @@ interface WeatherDataHelper {
 
     fun currentConvertedWeather(
         currentWeatherResult: CurrentWeatherUi,
-        weatherForFiveDaysResultUi: WeatherForFiveDaysUi
     ): CurrentConvertedWeather
 
     fun convertedWeatherForFiveDays(
         weatherForFiveDaysResultUi: WeatherForFiveDaysUi
-    ): Set<ConvertedWeatherForFiveDaysUI>
+    ): List<ConvertedWeatherForFiveDaysUI>
 
     fun convertSavedWeather(
         currentWeatherResult: CurrentWeatherUi,

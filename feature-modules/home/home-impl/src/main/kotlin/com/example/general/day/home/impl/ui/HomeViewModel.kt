@@ -4,20 +4,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.general.day.core.Mapper
+import com.example.general.day.core.ToastNotificationManger
 import com.example.general.day.core.communication.NavigationRouteFlowCommunication
 import com.example.general.day.core.communication.navigationParams
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.models.WeatherForFiveDaysDomain
 import com.example.general.day.domain.usecase.FetchWeatherUseCase
-import com.example.general.day.home.impl.ui.HomeScreenEvent.DoChangeTheme
 import com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToDetailScreen
 import com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToFavoriteScreen
 import com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToMapScreen
-import com.example.general.day.home.impl.ui.HomeScreenEvent.DoRefreshAllData
 import com.example.general.day.home.impl.ui.di.HomeFeatureDependencies
 import com.example.general.day.location.api.LocationTrackerManager
 import com.example.general.day.ui.components.models.CurrentWeatherUi
-import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysUi
 import com.example.general.day.ui.core.R.string
 import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
@@ -39,12 +37,17 @@ class HomeViewModel @Inject constructor(
     private val getNavigationRouteFlowCommunication: NavigationRouteFlowCommunication,
     private val fetchCurrentWeatherToHomeUi: @JvmSuppressWildcards Mapper<CurrentWeatherDomain, CurrentWeatherUi>,
     private val fetchWeatherDomainToHomeUiMapper: @JvmSuppressWildcards Mapper<WeatherForFiveDaysDomain, WeatherForFiveDaysUi>,
+    private val getToastNotificationManger: ToastNotificationManger
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     val state: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
     init {
+        fetchWeather()
+    }
+
+    fun fetchWeather() {
         viewModelScope.launch {
             try {
                 val location =
@@ -69,18 +72,20 @@ class HomeViewModel @Inject constructor(
                 val awaitWeatherForFiveDays = weatherForFiveDaysDeferred.await()
 
                 val mapCurrentWeather = fetchCurrentWeatherToHomeUi.map(awaitCurrentWeather)
+
                 val mapWeatherForFiveDaysUiModel =
                     fetchWeatherDomainToHomeUiMapper.map(awaitWeatherForFiveDays)
 
                 val currentWeatherResult =
                     getWeatherDataHelper.convertedWeatherForFiveDays(
-                        mapWeatherForFiveDaysUiModel.list.firstOrNull()
-                            ?: WeatherForFiveDaysResultUi.unknown
+                        mapWeatherForFiveDaysUiModel
                     )
+
                 val weatherForFiveDaysUiModelResult =
                     getWeatherDataHelper.currentConvertedWeather(
                         mapCurrentWeather
                     )
+
                 _uiState.tryEmit(
                     HomeUiState.Loaded(
                         weatherForFiveDays = currentWeatherResult.toImmutableList(),
@@ -90,7 +95,11 @@ class HomeViewModel @Inject constructor(
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                _uiState.tryEmit(HomeUiState.Error("${string.failed_to_fetch_weather} ${e.message}"))
+                _uiState.tryEmit(
+                    HomeUiState.Error(
+                        getToastNotificationManger.getString(string.failed_to_fetch_weather),
+                    )
+                )
             }
         }
     }
@@ -112,8 +121,6 @@ class HomeViewModel @Inject constructor(
                 )
 
             is DoNavigateToDetailScreen -> TODO()
-            DoRefreshAllData -> TODO()
-            DoChangeTheme -> TODO()
         }
     }
 }

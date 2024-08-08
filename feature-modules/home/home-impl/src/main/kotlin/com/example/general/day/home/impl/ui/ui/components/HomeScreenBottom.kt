@@ -50,7 +50,6 @@ fun HomeScreenBottom(
     convertedWeather: ConvertedWeatherForFiveDaysUI,
     weatherForFiveDays: ImmutableList<ConvertedWeatherForFiveDaysUI>,
     cityName: String,
-    dayMonthAndWeek: String,
     onEvent: (HomeScreenEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -73,7 +72,7 @@ fun HomeScreenBottom(
             ) {
                 Text(
                     modifier = Modifier,
-                    text = dayMonthAndWeek,
+                    text = convertedWeather.eachThreeTime,
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
@@ -168,7 +167,6 @@ fun HomeScreenBottomPreview() {
             convertedWeather = ConvertedWeatherForFiveDaysUI.preview,
             weatherForFiveDays = persistentListOf(),
             cityName = String(),
-            dayMonthAndWeek = String()
         )
     }
 }

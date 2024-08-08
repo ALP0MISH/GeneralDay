@@ -4,7 +4,7 @@ import android.content.Context
 import com.example.general.day.core.di.CommunicationModule
 import com.example.general.day.core.di.CoroutineDispatchersModule
 import com.example.general.day.core.di.OnInitApp
-import com.example.general.day.core.di.ShowToastManagerModule
+import com.example.general.day.core.di.ContextDecoratorModule
 import com.example.general.day.data.di.DataModule
 import com.example.general.day.detail.api.DetailFeatureApi
 import com.example.general.day.favorite.api.FavoriteFeatureApi
@@ -33,7 +33,7 @@ import javax.inject.Singleton
         WeatherHelperModule::class,
         DataModule::class,
         ProvideComponentHolderModule::class,
-        ShowToastManagerModule::class,
+        ContextDecoratorModule::class,
         DependencyProviderModule::class,
         FeatureDependencyModule::class,
         CommunicationModule::class,
@@ -52,7 +52,6 @@ interface AppComponent {
     fun favoriteFeatureApi(): FavoriteFeatureApi
     fun detailFeatureApi(): DetailFeatureApi
     fun mapFeatureApi(): MapFeatureApi
-
     fun onAllInitAppSet(): Set<OnInitApp>
 
     @Component.Builder
