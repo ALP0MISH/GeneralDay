@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class CurrentWeatherLocalUi(
-    val id: Int,
+    val id: String,
     val code: Int,
     val lat: Double,
     val lon: Double,

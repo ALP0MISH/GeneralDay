@@ -5,17 +5,19 @@ import com.example.general.day.ui.components.models.CurrentConvertedWeather
 import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
 import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
+import com.example.general.day.ui.components.models.WeatherForFiveDaysUi
 
 
 interface WeatherDataHelper {
 
     fun currentConvertedWeather(
         currentWeatherResult: CurrentWeatherUi,
+        weatherForFiveDaysResultUi: WeatherForFiveDaysUi
     ): CurrentConvertedWeather
 
     fun convertedWeatherForFiveDays(
-        weatherForFiveDaysResultUi: WeatherForFiveDaysResultUi
-    ): List<ConvertedWeatherForFiveDaysUI>
+        weatherForFiveDaysResultUi: WeatherForFiveDaysUi
+    ): Set<ConvertedWeatherForFiveDaysUI>
 
     fun convertSavedWeather(
         currentWeatherResult: CurrentWeatherUi,

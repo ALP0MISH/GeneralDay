@@ -37,6 +37,9 @@ dependencies {
     /** Navigation **/
     implementation(libs.navigation.compose)
 
+    /** Lottie **/
+    implementation(libs.lottie.compose)
+
     /** Compose **/
     implementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(platform(libs.androidx.compose.bom))

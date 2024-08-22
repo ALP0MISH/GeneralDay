@@ -6,6 +6,7 @@ import com.example.general.day.core.managers.ShowToastManager
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.models.CurrentWeatherLocalDomain
 import com.example.general.day.domain.models.SearchWeatherDomain
+import com.example.general.day.domain.usecase.DeleteWeatherById
 import com.example.general.day.domain.usecase.FetchWeatherByCity
 import com.example.general.day.domain.usecase.ObserveCurrentWeatherUseCase
 import com.example.general.day.domain.usecase.SaveCurrentWeatherUseCase
@@ -17,7 +18,7 @@ import com.example.general.day.ui.components.mappers.CurrentWeatherUiToDomainMap
 import com.example.general.day.ui.components.mappers.SearchWeatherDomainToUiMapper
 import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
 import com.example.general.day.ui.components.models.CurrentWeatherUi
-import com.example.general.day.ui.components.models.SearchWeatherUi
+import com.example.general.day.ui.components.models.SearchWeatherResultUi
 import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
 
 interface FavoriteFeatureDependencies {
@@ -42,7 +43,9 @@ interface FavoriteFeatureDependencies {
 
     fun getCurrentWeatherDomainToUiMapper(): Mapper<CurrentWeatherDomain, CurrentWeatherUi>
 
-    fun getSearchWeatherDomainToUiMapper(): Mapper<SearchWeatherDomain, SearchWeatherUi>
+    fun getSearchWeatherDomainToUiMapper(): Mapper<SearchWeatherDomain, SearchWeatherResultUi>
 
     fun getCurrentWeatherHomeUiToDomainMapper(): Mapper<CurrentWeatherLocalDomain, CurrentWeatherLocalUi>
+
+    fun deleteWeatherById(): DeleteWeatherById
 }

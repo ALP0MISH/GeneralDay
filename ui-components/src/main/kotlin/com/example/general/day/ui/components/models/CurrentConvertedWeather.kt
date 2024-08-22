@@ -1,6 +1,7 @@
 package com.example.general.day.ui.components.models
 
 import androidx.compose.runtime.Immutable
+import kotlinx.collections.immutable.persistentListOf
 
 @Immutable
 data class CurrentConvertedWeather(
@@ -9,7 +10,7 @@ data class CurrentConvertedWeather(
     val feelsLikeTemperature: String,
     val currentWeatherIcon: Int,
     val weatherBackgroundImage: Int,
-    val cityName: String
+    val cityName: String,
 ) {
     companion object {
         val preview = CurrentConvertedWeather(
@@ -18,7 +19,7 @@ data class CurrentConvertedWeather(
             currentTemperature = "30",
             currentWeatherIcon = 2,
             currentMonthAndDay = "monday",
-            cityName = "Osh"
+            cityName = "Osh",
         )
     }
 }

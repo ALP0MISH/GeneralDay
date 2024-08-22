@@ -6,6 +6,7 @@ import com.example.general.day.core.managers.ShowToastManager
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.models.CurrentWeatherLocalDomain
 import com.example.general.day.domain.models.SearchWeatherDomain
+import com.example.general.day.domain.usecase.DeleteWeatherById
 import com.example.general.day.domain.usecase.FetchWeatherByCity
 import com.example.general.day.domain.usecase.ObserveCurrentWeatherUseCase
 import com.example.general.day.domain.usecase.SaveCurrentWeatherUseCase
@@ -19,7 +20,7 @@ import com.example.general.day.ui.components.mappers.CurrentWeatherUiToDomainMap
 import com.example.general.day.ui.components.mappers.SearchWeatherDomainToUiMapper
 import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
 import com.example.general.day.ui.components.models.CurrentWeatherUi
-import com.example.general.day.ui.components.models.SearchWeatherUi
+import com.example.general.day.ui.components.models.SearchWeatherResultUi
 import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
 import javax.inject.Inject
 
@@ -35,7 +36,8 @@ class FavoriteFeatureDependenciesImpl @Inject constructor(
     private val currentWeatherLocalDomainToHomeUiMapper: @JvmSuppressWildcards Mapper<CurrentWeatherLocalUi, CurrentWeatherLocalDomain>,
     private val currentWeatherDomainToUiMapper: @JvmSuppressWildcards Mapper<CurrentWeatherDomain, CurrentWeatherUi>,
     private val currentWeatherHomeUiToDomainMapper: @JvmSuppressWildcards Mapper<CurrentWeatherLocalDomain, CurrentWeatherLocalUi>,
-    private val searchWeatherDomainToUiMapper: @JvmSuppressWildcards Mapper<SearchWeatherDomain, SearchWeatherUi>,
+    private val searchWeatherDomainToUiMapper: @JvmSuppressWildcards Mapper<SearchWeatherDomain, SearchWeatherResultUi>,
+    private val deleteWeatherById: DeleteWeatherById
 ) : FavoriteFeatureDependencies {
 
     override fun getMapRoute(): MapRouteProvider {
@@ -78,11 +80,15 @@ class FavoriteFeatureDependenciesImpl @Inject constructor(
         return currentWeatherDomainToUiMapper
     }
 
-    override fun getSearchWeatherDomainToUiMapper(): Mapper<SearchWeatherDomain, SearchWeatherUi> {
+    override fun getSearchWeatherDomainToUiMapper(): Mapper<SearchWeatherDomain, SearchWeatherResultUi> {
         return searchWeatherDomainToUiMapper
     }
 
     override fun getCurrentWeatherHomeUiToDomainMapper(): Mapper<CurrentWeatherLocalDomain, CurrentWeatherLocalUi> {
         return currentWeatherHomeUiToDomainMapper
+    }
+
+    override fun deleteWeatherById(): DeleteWeatherById {
+        return deleteWeatherById
     }
 }

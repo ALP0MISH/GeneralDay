@@ -23,7 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.general.day.favorite.impl.ui.FavoriteEvent
 import com.example.general.day.ui.core.R.drawable
-import com.example.general.day.ui.core.theme.IconTintColor
+import com.example.general.day.ui.core.theme.IconTintColorLight
 import com.example.general.day.ui.core.theme.dp32
 import com.example.general.day.ui.core.theme.dp8
 import com.example.general.day.ui.core.theme.dp9
@@ -31,13 +31,14 @@ import com.example.general.day.ui.core.theme.dp9
 @Composable
 internal fun FavoriteTopItem(
     cityName: String,
-    onEvent: (FavoriteEvent) -> Unit,
     modifier: Modifier = Modifier,
+    theme: Boolean,
+    onThemeChange: (Boolean) -> Unit,
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(bottom = dp9),
+            .padding(bottom = dp8),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -45,8 +46,7 @@ internal fun FavoriteTopItem(
             modifier = Modifier
                 .size(dp32)
                 .clip(RoundedCornerShape(dp8))
-                .background(IconTintColor)
-                .clickable { onEvent(FavoriteEvent.DoNavigateToBack) },
+                .background(IconTintColorLight),
             contentAlignment = Alignment.Center
         ) {
             Icon(
@@ -64,8 +64,8 @@ internal fun FavoriteTopItem(
             modifier = Modifier
                 .size(dp32)
                 .clip(RoundedCornerShape(dp8))
-                .background(IconTintColor)
-                .clickable { onEvent(FavoriteEvent.DoChangeTheme) },
+                .background(IconTintColorLight)
+                .clickable { onThemeChange(!theme) },
             contentAlignment = Alignment.Center
         ) {
             Icon(
@@ -82,7 +82,8 @@ fun FavoriteTopItemPreview() {
     MaterialTheme {
         FavoriteTopItem(
             cityName = String(),
-            onEvent = {}
+            theme = false,
+            onThemeChange = {}
         )
     }
 }

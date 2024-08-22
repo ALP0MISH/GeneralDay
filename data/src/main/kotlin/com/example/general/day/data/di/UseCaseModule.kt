@@ -1,5 +1,7 @@
 package com.example.general.day.data.di
 
+import com.example.general.day.domain.usecase.DeleteWeatherById
+import com.example.general.day.domain.usecase.DeleteWeatherByIdImpl
 import com.example.general.day.domain.usecase.FetchWeatherByCity
 import com.example.general.day.domain.usecase.FetchWeatherByCityImpl
 import com.example.general.day.domain.usecase.FetchWeatherUseCase
@@ -17,27 +19,32 @@ import dagger.Module
 interface UseCaseModule {
 
     @Binds
-    fun provideFetchWeatherByCity(
+    fun bindsFetchWeatherByCity(
         implementation: FetchWeatherByCityImpl,
     ): FetchWeatherByCity
 
     @Binds
-    fun provideFetchWeatherUseCase(
+    fun bindsFetchWeatherUseCase(
         implementation: FetchWeatherUseCaseImpl,
     ): FetchWeatherUseCase
 
     @Binds
-    fun provideObserveCurrentWeatherUseCase(
+    fun bindsObserveCurrentWeatherUseCase(
         implementation: ObserveCurrentWeatherUseCaseImpl,
     ): ObserveCurrentWeatherUseCase
 
     @Binds
-    fun provideSaveCurrentWeatherUseCase(
+    fun bindsSaveCurrentWeatherUseCase(
         implementation: SaveCurrentWeatherUseCaseImpl,
     ): SaveCurrentWeatherUseCase
 
     @Binds
-    fun provideSearchWeatherByCity(
+    fun bindsSearchWeatherByCity(
         implementation: SearchWeatherByCityImpl,
     ): SearchWeatherByCity
+
+    @Binds
+    fun bindsDeleteWeatherByIdImpl(
+        implementation: DeleteWeatherByIdImpl,
+    ): DeleteWeatherById
 }

@@ -1,0 +1,25 @@
+package com.example.general.day.presentation
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.general.day.core.communication.NavigationParams
+import com.example.general.day.core.communication.NavigationRouteFlowCommunication
+import kotlinx.coroutines.flow.SharedFlow
+import javax.inject.Inject
+import javax.inject.Provider
+
+class ApplicationViewModel @Inject constructor(
+    private val navigationCommunication: NavigationRouteFlowCommunication,
+) : ViewModel() {
+    val navigationRouteFlow: SharedFlow<NavigationParams> = navigationCommunication.observe()
+}
+
+@Suppress("UNCHECKED_CAST")
+class ApplicationViewModelFactory @Inject constructor(
+    private val viewModelProvider: Provider<ApplicationViewModel>
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        require(modelClass == ApplicationViewModel::class.java)
+        return viewModelProvider.get() as T
+    }
+}

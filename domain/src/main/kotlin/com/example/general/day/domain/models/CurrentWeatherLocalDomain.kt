@@ -1,7 +1,7 @@
 package com.example.general.day.domain.models
 
 data class CurrentWeatherLocalDomain(
-    val id: Int,
+    val id: String,
     val code: Int,
     val lat: Double,
     val lon: Double,

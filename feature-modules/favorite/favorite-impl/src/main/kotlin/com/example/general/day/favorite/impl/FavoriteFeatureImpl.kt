@@ -1,6 +1,7 @@
 package com.example.general.day.favorite.impl
 
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -27,14 +28,18 @@ class FavoriteFeatureImpl @Inject constructor(
     override fun registerGraph(
         navGraphBuilder: NavGraphBuilder,
         navController: NavHostController,
+        theme: Boolean,
+        onThemeChange: (Boolean) -> Unit,
         modifier: Modifier
     ) {
         navGraphBuilder.composable(route) {
             Inject(viewModelFactory = viewModelFactory.get()) {
                 val viewModel: FavoriteViewModel = daggerViewModel()
                 FavoriteScreen(
-                    uiStateFlow = viewModel.uiState,
-                    onEvent = viewModel::onEvent
+                    uiState = viewModel.uiState.collectAsStateWithLifecycle().value,
+                    onEvent = viewModel::onEvent,
+                    theme = theme,
+                    onThemeChange = onThemeChange,
                 )
             }
         }

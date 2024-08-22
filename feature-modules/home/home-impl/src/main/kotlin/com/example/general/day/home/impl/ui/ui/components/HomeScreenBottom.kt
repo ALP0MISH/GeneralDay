@@ -3,8 +3,8 @@ package com.example.general.day.home.impl.ui.ui.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,6 +30,10 @@ import com.example.general.day.home.impl.ui.HomeScreenEvent
 import com.example.general.day.ui.components.models.ConvertedWeatherForFiveDaysUI
 import com.example.general.day.ui.core.extention.SpacerHeight
 import com.example.general.day.ui.core.extention.SpacerWidth
+import com.example.general.day.ui.core.theme.EachThreeTimeColorDark
+import com.example.general.day.ui.core.theme.EachThreeTimeColorLight
+import com.example.general.day.ui.core.theme.IconTintColorDark
+import com.example.general.day.ui.core.theme.IconTintColorLight
 import com.example.general.day.ui.core.theme.dp10
 import com.example.general.day.ui.core.theme.dp12
 import com.example.general.day.ui.core.theme.dp16
@@ -46,16 +50,17 @@ fun HomeScreenBottom(
     convertedWeather: ConvertedWeatherForFiveDaysUI,
     weatherForFiveDays: ImmutableList<ConvertedWeatherForFiveDaysUI>,
     cityName: String,
+    dayMonthAndWeek: String,
     onEvent: (HomeScreenEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Box(
+    Column(
         modifier = modifier
+            .fillMaxHeight(0.14f)
             .fillMaxWidth()
-            .fillMaxHeight(0.3f)
             .padding(bottom = dp8)
             .clip(RoundedCornerShape(dp16))
-            .background(Color.Black)
+            .background(if (isSystemInDarkTheme()) IconTintColorDark else IconTintColorLight)
             .clickable { onEvent(HomeScreenEvent.DoNavigateToDetailScreen(cityName)) },
     ) {
         Column(
@@ -65,11 +70,10 @@ fun HomeScreenBottom(
         ) {
             Row(
                 modifier = Modifier,
-                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
                     modifier = Modifier,
-                    text = convertedWeather.eachThreeTime,
+                    text = dayMonthAndWeek,
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
@@ -77,13 +81,13 @@ fun HomeScreenBottom(
                 Text(
                     text = convertedWeather.temperatureMax,
                     style = MaterialTheme.typography.bodyLarge,
-                    color = Color.Black,
+                    color = MaterialTheme.colorScheme.onBackground,
                 )
                 SpacerWidth(dp8)
                 Text(
                     text = convertedWeather.temperatureMin,
                     style = MaterialTheme.typography.bodyLarge,
-                    color = Color.Black,
+                    color = Color.Gray,
                 )
                 SpacerWidth(dp16)
                 Image(
@@ -95,23 +99,25 @@ fun HomeScreenBottom(
             SpacerHeight(dp16)
             HorizontalDivider(
                 modifier = Modifier,
-                color = Color.Black
+                color = Color.Gray
             )
         }
+        SpacerHeight(dp8)
         LazyRow(
             modifier = Modifier
                 .padding(start = dp12)
-                .padding(bottom = dp10)
-                .align(Alignment.BottomStart),
+                .padding(bottom = dp10),
         ) {
             items(
                 items = weatherForFiveDays,
             ) { item ->
-                BottomItem(
-                    time = item.eachThreeTime,
-                    temperature = item.temperature,
-                    image = item.weatherIcon
-                )
+                item.eachThreeTime.map { time ->
+                    BottomItem(
+                        time = "время",
+                        temperature = item.temperature,
+                        image = item.weatherIcon
+                    )
+                }
             }
         }
     }
@@ -126,11 +132,10 @@ fun BottomItem(
 ) {
     Column(
         modifier = modifier
-            .fillMaxHeight(0.14f)
             .width(dp73)
             .padding(start = dp8)
             .clip(RoundedCornerShape(dp16))
-            .background(Color.Black),
+            .background(if (isSystemInDarkTheme()) EachThreeTimeColorDark else EachThreeTimeColorLight),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -162,7 +167,8 @@ fun HomeScreenBottomPreview() {
             onEvent = {},
             convertedWeather = ConvertedWeatherForFiveDaysUI.preview,
             weatherForFiveDays = persistentListOf(),
-            cityName = String()
+            cityName = String(),
+            dayMonthAndWeek = String()
         )
     }
 }

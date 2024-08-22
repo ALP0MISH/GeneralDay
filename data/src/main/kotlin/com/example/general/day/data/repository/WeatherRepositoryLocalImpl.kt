@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class WeatherRepositoryLocalImpl @Inject constructor (
+class WeatherRepositoryLocalImpl @Inject constructor(
     private val dataSource: WeatherLocalDataSource,
     private val dataToDomain: CurrentWeatherDomainToDataMapper,
     private val localToDomain: CurrentWeatherLocalDataToDomainMapper,
@@ -23,4 +23,8 @@ class WeatherRepositoryLocalImpl @Inject constructor (
         dataSource.observeCurrentWeather().map { weather ->
             weather.map(localToDomain::map)
         }
+
+    override suspend fun deleteWeatherById(id: String) {
+        dataSource.deleteWeatherById(id)
+    }
 }

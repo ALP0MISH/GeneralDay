@@ -8,5 +8,6 @@ sealed class WeatherSealedComponent {
     data object Thunderstorm : WeatherSealedComponent()
     data object Mist : WeatherSealedComponent()
     data object LightRain : WeatherSealedComponent()
+    data object Clouds : WeatherSealedComponent()
     data object Unknown : WeatherSealedComponent()
 }

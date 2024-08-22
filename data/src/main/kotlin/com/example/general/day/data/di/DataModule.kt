@@ -11,6 +11,7 @@ import dagger.Module
         UseCaseModule::class,
         MapperModule::class,
         RepositoryModule::class,
+        SharedPrefModule::class,
     ],
 )
 class DataModule

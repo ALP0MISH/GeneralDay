@@ -4,13 +4,13 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class ConvertedWeatherForFiveDaysUI(
-    val dayMonthAndWeek: String,
     val temperature: String,
     val temperatureMin: String,
     val temperatureMax: String,
     val feelsLikeTemperature: String,
     val weatherIcon: Int,
     val eachThreeTime: String,
+    val dayMonthAndWeek: List<String>,
 ) {
     companion object {
         val preview = ConvertedWeatherForFiveDaysUI(
@@ -19,8 +19,8 @@ data class ConvertedWeatherForFiveDaysUI(
             feelsLikeTemperature = "20",
             temperature = "30",
             weatherIcon = 2,
-            dayMonthAndWeek = "monday",
-            eachThreeTime = String()
+            eachThreeTime = "",
+            dayMonthAndWeek = listOf()
         )
     }
 }

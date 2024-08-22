@@ -5,5 +5,6 @@ data class SearchWeatherData(
     val lat: Double,
     val lon: Double,
     val name: String,
-    val state: String
+    val state: String,
+    val localNames: LocalNamesData
 )

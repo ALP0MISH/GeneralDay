@@ -46,4 +46,14 @@ class WeatherLocalDataSourceImpl @Inject constructor(
             throw IllegalArgumentException(FailedToSaveCurrentWeather, e)
         }
     }
+
+    override suspend fun deleteWeatherById(id: String) {
+        return try {
+            weatherDao.deleteWeatherById(id)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            throw IllegalArgumentException(FailedToSaveCurrentWeather, e)
+        }
+    }
 }

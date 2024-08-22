@@ -4,16 +4,19 @@ import com.example.general.day.ui.components.models.ConvertedWeatherForFiveDaysU
 import com.example.general.day.ui.components.models.CurrentConvertedWeather
 import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
 import com.example.general.day.ui.components.models.CurrentWeatherUi
-import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
+import com.example.general.day.ui.components.models.WeatherForFiveDaysUi
 import com.example.general.day.ui.components.models.WeatherUi
+import java.util.UUID
+import javax.inject.Inject
 
-class WeatherDataHelperImpl(
+class WeatherDataHelperImpl @Inject constructor(
     private val weatherIconHelper: WeatherIconHelper,
     private val determineTimeOfDay: DetermineTimeOfDay,
 ) : WeatherDataHelper {
 
     override fun currentConvertedWeather(
         currentWeatherResult: CurrentWeatherUi,
+        weatherForFiveDaysResultUi: WeatherForFiveDaysUi
     ): CurrentConvertedWeather {
         return CurrentConvertedWeather(
             feelsLikeTemperature = currentWeatherResult.weatherTemperature.feelsLike.formatTemperature(),
@@ -27,30 +30,31 @@ class WeatherDataHelperImpl(
             ),
             currentTemperature = currentWeatherResult.weatherTemperature.temperature.formatTemperature(),
             currentMonthAndDay = currentWeatherResult.time.toLong().getMonthAndDay(),
-            cityName = currentWeatherResult.name
+            cityName = currentWeatherResult.name,
         )
     }
 
-    override fun convertedWeatherForFiveDays(weatherForFiveDaysResultUi: WeatherForFiveDaysResultUi): List<ConvertedWeatherForFiveDaysUI> {
-        return listOf(
+    override fun convertedWeatherForFiveDays(weatherForFiveDaysResultUi: WeatherForFiveDaysUi): Set<ConvertedWeatherForFiveDaysUI> {
+        return weatherForFiveDaysResultUi.list.map { weather ->
             ConvertedWeatherForFiveDaysUI(
-                feelsLikeTemperature = weatherForFiveDaysResultUi.weatherTemperature.feelsLike.formatTemperature(),
+                feelsLikeTemperature = weather.weatherTemperature.feelsLike.formatTemperature(),
                 weatherIcon = weatherIconHelper.fetchWeatherIcon(
-                    weatherForFiveDaysResultUi.weather.firstOrNull() ?: WeatherUi.unknown,
-                    determineTimeOfDay.isDayOrNight(weatherForFiveDaysResultUi.time.toLong())
+                    weather.weather.firstOrNull() ?: WeatherUi.unknown,
+                    determineTimeOfDay.isDayOrNight(weather.time.toLong())
                 ),
-                temperature = weatherForFiveDaysResultUi.weatherTemperature.temperature.formatTemperature(),
-                dayMonthAndWeek = weatherForFiveDaysResultUi.time.toLong().getMonthAndDay(),
-                temperatureMax = weatherForFiveDaysResultUi.weatherTemperature.tempMax.formatTemperature(),
-                temperatureMin = weatherForFiveDaysResultUi.weatherTemperature.tempMin.formatTemperature(),
-                eachThreeTime = weatherForFiveDaysResultUi.timeText.getFormattedTime(),
+                temperature = weather.weatherTemperature.temperature.formatTemperature(),
+                temperatureMax = weather.weatherTemperature.tempMax.formatTemperature(),
+                temperatureMin = weather.weatherTemperature.tempMin.formatTemperature(),
+                eachThreeTime = determineTimeOfDay.fetchEachThreeTime(weatherForFiveDaysResultUi.list)
+                    .first(),
+                dayMonthAndWeek = determineTimeOfDay.currentDay(weatherForFiveDaysResultUi.list)
             )
-        )
+        }.toSet()
     }
 
     override fun convertSavedWeather(currentWeatherResult: CurrentWeatherUi): CurrentWeatherLocalUi {
         return CurrentWeatherLocalUi(
-            id = currentWeatherResult.id,
+            id = UUID.randomUUID().toString(),
             code = currentWeatherResult.cod,
             lat = currentWeatherResult.coordinates.lat,
             lon = currentWeatherResult.coordinates.lon,

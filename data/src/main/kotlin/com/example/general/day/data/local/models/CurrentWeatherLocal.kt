@@ -11,7 +11,7 @@ const val CURRENT_WEATHER_ENTITY = "current_weather_entity"
 )
 data class CurrentWeatherLocal(
     @PrimaryKey
-    @ColumnInfo("id") val id: Int,
+    @ColumnInfo("id") val id: String,
     @ColumnInfo("code") val code: Int,
     @ColumnInfo("lat") val lat: Double,
     @ColumnInfo("lon") val lon: Double,

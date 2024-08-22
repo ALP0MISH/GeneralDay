@@ -6,6 +6,11 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.rememberNavController
@@ -20,22 +25,27 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         App.instance.appComponent.inject(this)
         setContent {
-            WeatherTestAppTheme {
+            val appComponent = App.instance.appComponent
+            var isDarkTheme by rememberSaveable { mutableStateOf(appComponent.getSharedPrefManager().isDarkTheme) }
+            WeatherTestAppTheme(darkTheme = isDarkTheme) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    val appComponent = App.instance.appComponent
                     val dependencyProvider = appComponent.dependencyProvider()
                     val featureApi: List<FeatureApi> = listOf(
                         appComponent.homeFeatureApi().provideHomeFeatureUiApi(),
                         appComponent.favoriteFeatureApi().provideFavoriteFeatureUiApi()
                     )
+                    val viewModelFactory = appComponent.applicationViewModelFactory()
                     AppNavGraph(
                         navController = navController,
                         dependencyProvider = dependencyProvider,
-                        featureApi = featureApi
+                        featureApi = featureApi,
+                        viewModelFactory = viewModelFactory,
+                        theme = isDarkTheme,
+                        onThemeChange = { newTheme -> isDarkTheme = newTheme }
                     )
                 }
             }

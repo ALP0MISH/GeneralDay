@@ -1,9 +1,10 @@
 package com.example.general.day.data.repository
 
+import com.example.general.day.core.Mapper
 import com.example.general.day.data.cloud.source.FetchWeatherCloudDataSource
-import com.example.general.day.data.mappers.CurrentWeatherDataToDomainMapper
-import com.example.general.day.data.mappers.SearchWeatherDataToDomainMapper
-import com.example.general.day.data.mappers.WeatherForFiveDaysDataToDomainMapper
+import com.example.general.day.data.models.CurrentWeatherData
+import com.example.general.day.data.models.SearchWeatherData
+import com.example.general.day.data.models.WeatherForFiveDaysData
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.models.SearchWeatherDomain
 import com.example.general.day.domain.models.WeatherForFiveDaysDomain
@@ -12,9 +13,9 @@ import javax.inject.Inject
 
 class WeatherRepositoryCloudImpl @Inject constructor(
     private val dataSource: FetchWeatherCloudDataSource,
-    private val currentWeatherDataToDomainMapper: CurrentWeatherDataToDomainMapper,
-    private val weatherForFiveDaysResponseDataToDomainMapper: WeatherForFiveDaysDataToDomainMapper,
-    private val searchWeatherDataToDomainMapper: SearchWeatherDataToDomainMapper
+    private val currentWeatherDataToDomainMapper: @JvmSuppressWildcards Mapper<CurrentWeatherData, CurrentWeatherDomain>,
+    private val weatherForFiveDaysResponseDataToDomainMapper: @JvmSuppressWildcards Mapper<WeatherForFiveDaysData, WeatherForFiveDaysDomain>,
+    private val searchWeatherDataToDomainMapper: @JvmSuppressWildcards Mapper<SearchWeatherData, SearchWeatherDomain>
 ) : WeatherRepositoryCloud {
 
     override suspend fun fetchCurrentWeather(

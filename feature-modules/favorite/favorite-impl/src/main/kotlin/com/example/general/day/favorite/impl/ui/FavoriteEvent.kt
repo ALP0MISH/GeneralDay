@@ -5,11 +5,9 @@ import androidx.compose.runtime.Immutable
 @Immutable
 sealed class FavoriteEvent {
     data class GetCityName(val cityName: String) : FavoriteEvent()
-    data class DoOnValueChange(val value: String) : FavoriteEvent()
+    data class DoOnValueChangeCityName(val query: String) : FavoriteEvent()
     data class DoSavedWeatherOnValueChange(val value: String) : FavoriteEvent()
-    data object DoNavigateToBack : FavoriteEvent()
-    data object DoChangeTheme : FavoriteEvent()
+    data class DoDeleteWeatherById(val id: String) : FavoriteEvent()
     data object DoNavigateToMapScreen : FavoriteEvent()
     data object DoFetchCityName : FavoriteEvent()
-    data object DoRefreshData : FavoriteEvent()
 }

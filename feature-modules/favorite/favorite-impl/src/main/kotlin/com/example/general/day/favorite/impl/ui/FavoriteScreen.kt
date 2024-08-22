@@ -5,7 +5,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -30,13 +32,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.general.day.favorite.impl.ui.components.AddCityDialog
 import com.example.general.day.favorite.impl.ui.components.FavoriteContentItem
 import com.example.general.day.favorite.impl.ui.components.FavoriteTopItem
 import com.example.general.day.favorite.impl.ui.components.SearchComponent
+import com.example.general.day.ui.components.models.SavedWeatherUI
 import com.example.general.day.ui.core.R.drawable
 import com.example.general.day.ui.core.R.string
+import com.example.general.day.ui.core.components.LoadingScreen
+import com.example.general.day.ui.core.components.LottieErrorScreen
 import com.example.general.day.ui.core.extention.SpacerWidth
 import com.example.general.day.ui.core.theme.AddCityColor
 import com.example.general.day.ui.core.theme.dp12
@@ -44,37 +48,15 @@ import com.example.general.day.ui.core.theme.dp16
 import com.example.general.day.ui.core.theme.dp17
 import com.example.general.day.ui.core.theme.dp40
 import com.example.general.day.ui.core.theme.dp8
-import kotlinx.collections.immutable.persistentListOf
-import kotlinx.coroutines.flow.StateFlow
+
 
 @Composable
 internal fun FavoriteScreen(
-    uiStateFlow: StateFlow<FavoriteUIState>,
-    onEvent: (FavoriteEvent) -> Unit,
-) {
-    val uiState by uiStateFlow.collectAsStateWithLifecycle()
-
-    when (uiState) {
-        is FavoriteUIState.Error -> {
-            // todo
-        }
-
-        is FavoriteUIState.Loaded -> FavoriteScreenItem(
-            uiState = uiState as? FavoriteUIState.Loaded ?: return,
-            onEvent = onEvent,
-        )
-
-        FavoriteUIState.Loading -> {
-            // todo
-        }
-    }
-}
-
-@Composable
-internal fun FavoriteScreenItem(
-    uiState: FavoriteUIState.Loaded,
+    uiState: FavoriteUIState,
     onEvent: (FavoriteEvent) -> Unit,
     modifier: Modifier = Modifier,
+    theme: Boolean,
+    onThemeChange: (Boolean) -> Unit,
 ) {
     var showDialog by remember { mutableStateOf(false) }
     val scrollState = rememberLazyListState()
@@ -87,26 +69,32 @@ internal fun FavoriteScreenItem(
             .padding(horizontal = dp16)
     ) {
         LazyColumn(
-            state = scrollState,
-            modifier = Modifier.fillMaxSize()
+            state = scrollState, modifier = Modifier.fillMaxSize()
         ) {
             item {
                 FavoriteTopItem(
-                    cityName = uiState.savedWeather.firstOrNull()?.cityName ?: String(),
-                    onEvent = onEvent
+                    cityName = uiState.savedWeatherUI.savedWeather.firstOrNull()?.cityName
+                        ?: String(), theme = theme, onThemeChange = onThemeChange
                 )
                 SearchComponent(
-                    onEvent = onEvent,
-                    value = uiState.query,
+                    onEvent = onEvent, value = uiState.savedWeatherUI.query
                 )
-            }
-            items(uiState.savedWeather) { weather ->
-                FavoriteContentItem(
-                    temperatureMax = weather.tempMax,
-                    temperatureMin = weather.tempMin,
-                    cityName = weather.cityName,
-                    weatherIcon = weather.weatherIcon
-                )
+                Spacer(modifier = Modifier.height(dp8))
+                when {
+                    uiState.savedWeatherUI.savedWeather.isEmpty() -> LottieErrorScreen()
+                    uiState.savedWeatherUI.savedWeather.isNotEmpty() -> {
+                        this@LazyColumn.items(uiState.savedWeatherUI.savedWeather) { weather ->
+                            FavoriteContentItem(
+                                temperatureMax = weather.tempMax,
+                                temperatureMin = weather.tempMin,
+                                cityName = weather.cityName,
+                                weatherIcon = weather.weatherIcon,
+                                onEvent = onEvent,
+                                id = weather.id
+                            )
+                        }
+                    }
+                }
             }
         }
         Row(
@@ -166,12 +154,8 @@ internal fun FavoriteScreenItem(
 @Composable
 fun FavoriteScreenPreview() {
     MaterialTheme {
-        FavoriteScreenItem(
-            uiState = FavoriteUIState.Loaded(
-                savedWeather = persistentListOf(),
-                searchWeather = persistentListOf()
-            ),
-            onEvent = {},
-        )
+        FavoriteScreen(uiState = FavoriteUIState(
+            savedWeatherUI = SavedWeatherUI.unknown,
+        ), onEvent = {}, theme = false, onThemeChange = {})
     }
 }
