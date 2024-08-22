@@ -26,6 +26,8 @@ class MapFeatureImpl @Inject constructor(
     override fun registerGraph(
         navGraphBuilder: NavGraphBuilder,
         navController: NavHostController,
+        theme: Boolean,
+        onThemeChange: (Boolean) -> Unit,
         modifier: Modifier
     ) {
         navGraphBuilder.composable(route) {

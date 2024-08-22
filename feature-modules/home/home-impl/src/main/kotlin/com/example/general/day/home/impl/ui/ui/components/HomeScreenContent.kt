@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -23,8 +24,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.general.day.home.impl.ui.HomeScreenEvent
 import com.example.general.day.ui.components.models.CurrentConvertedWeather
+import com.example.general.day.ui.core.extention.SpacerHeight
 import com.example.general.day.ui.core.theme.dp100
+import com.example.general.day.ui.core.theme.dp12
+import com.example.general.day.ui.core.theme.dp120
+import com.example.general.day.ui.core.theme.dp16
 import com.example.general.day.ui.core.theme.dp24
+import com.example.general.day.ui.core.theme.dp6
 import com.example.general.day.ui.core.theme.sp48
 
 @Composable
@@ -35,8 +41,8 @@ internal fun HomeScreenContent(
 ) {
     Box(
         modifier = modifier
+            .fillMaxHeight(0.1f)
             .fillMaxWidth()
-            .fillMaxHeight(0.36f)
             .clip(RoundedCornerShape(dp24))
             .clickable { onEvent(HomeScreenEvent.DoNavigateToDetailScreen(convertedWeather.cityName)) },
     ) {
@@ -47,22 +53,24 @@ internal fun HomeScreenContent(
             modifier = Modifier.fillMaxSize()
         )
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                modifier = Modifier,
+                modifier = Modifier.padding(top = dp16),
                 text = "Сегодня, ${convertedWeather.currentMonthAndDay}",
                 style = MaterialTheme.typography.bodyMedium,
                 color = Color.White
             )
+            SpacerHeight(size = dp12)
             Image(
                 modifier = Modifier
-                    .size(dp100),
+                    .size(dp120),
                 painter = painterResource(id = convertedWeather.currentWeatherIcon),
                 contentDescription = null,
             )
+            SpacerHeight(size = dp6)
             Text(
                 modifier = Modifier,
                 text = convertedWeather.currentTemperature,
@@ -72,7 +80,7 @@ internal fun HomeScreenContent(
             )
             Text(
                 modifier = Modifier,
-                text = "Ясно, ощущается как ${convertedWeather.feelsLikeTemperature}°",
+                text = "Ясно, ощущается как ${convertedWeather.feelsLikeTemperature}",
                 style = MaterialTheme.typography.titleSmall,
                 color = Color.White,
             )

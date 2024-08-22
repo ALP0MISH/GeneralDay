@@ -13,6 +13,7 @@ class WeatherForFiveDaysDataToDomainMapper @Inject constructor(
     private val cityDataToCityDomain: @JvmSuppressWildcards Mapper<CityData, CityDomain>,
     private val weatherForFiveDaysResultDataToDomain: @JvmSuppressWildcards Mapper<WeatherForFiveDaysResultData, WeatherForFiveDaysResultDomain>,
 ) : Mapper<@JvmSuppressWildcards WeatherForFiveDaysData, @JvmSuppressWildcards WeatherForFiveDaysDomain> {
+
     override fun map(from: WeatherForFiveDaysData): WeatherForFiveDaysDomain = from.run {
         WeatherForFiveDaysDomain(
             city = cityDataToCityDomain.map(city),

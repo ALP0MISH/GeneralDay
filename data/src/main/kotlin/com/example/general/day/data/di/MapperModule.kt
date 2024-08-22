@@ -6,6 +6,7 @@ import com.example.general.day.data.cloud.mapper.CloudsCloudToDataMapper
 import com.example.general.day.data.cloud.mapper.CoordinatesCloudToDataMapper
 import com.example.general.day.data.cloud.mapper.CurrentWeatherCloudToDataMapper
 import com.example.general.day.data.cloud.mapper.ForRainOrSnowCloudToDataMapper
+import com.example.general.day.data.cloud.mapper.LocalNameCloudToDataMapper
 import com.example.general.day.data.cloud.mapper.SearchWeatherCloudToDataMapper
 import com.example.general.day.data.cloud.mapper.WeatherCloudToDataMapper
 import com.example.general.day.data.cloud.mapper.WeatherForFiveDaysResponseCloudToDataMapper
@@ -18,6 +19,7 @@ import com.example.general.day.data.cloud.models.CloudsCloud
 import com.example.general.day.data.cloud.models.CoordinatesCloud
 import com.example.general.day.data.cloud.models.CurrentWeatherResponseCloud
 import com.example.general.day.data.cloud.models.ForRainOrSnowCloud
+import com.example.general.day.data.cloud.models.LocalNamesCloud
 import com.example.general.day.data.cloud.models.SearchWeatherCloud
 import com.example.general.day.data.cloud.models.WeatherCloud
 import com.example.general.day.data.cloud.models.WeatherForFiveDaysResponseCloud
@@ -34,6 +36,7 @@ import com.example.general.day.data.mappers.CurrentWeatherDataToDomainMapper
 import com.example.general.day.data.mappers.CurrentWeatherDomainToDataMapper
 import com.example.general.day.data.mappers.CurrentWeatherLocalDataToDomainMapper
 import com.example.general.day.data.mappers.ForRainOrSnowDataToDomainMapper
+import com.example.general.day.data.mappers.LocalNameDataToDomainMapper
 import com.example.general.day.data.mappers.SearchWeatherDataToDomainMapper
 import com.example.general.day.data.mappers.WeatherDataToDomainMapper
 import com.example.general.day.data.mappers.WeatherForFiveDaysDataToDomainMapper
@@ -47,6 +50,7 @@ import com.example.general.day.data.models.CoordinatesData
 import com.example.general.day.data.models.CurrentWeatherData
 import com.example.general.day.data.models.CurrentWeatherLocalData
 import com.example.general.day.data.models.ForRainOrSnowData
+import com.example.general.day.data.models.LocalNamesData
 import com.example.general.day.data.models.SearchWeatherData
 import com.example.general.day.data.models.WeatherData
 import com.example.general.day.data.models.WeatherForFiveDaysData
@@ -60,6 +64,7 @@ import com.example.general.day.domain.models.CoordinatesDomain
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.models.CurrentWeatherLocalDomain
 import com.example.general.day.domain.models.ForRainOrSnowDomain
+import com.example.general.day.domain.models.LocalNamesDomain
 import com.example.general.day.domain.models.SearchWeatherDomain
 import com.example.general.day.domain.models.WeatherDomain
 import com.example.general.day.domain.models.WeatherForFiveDaysDomain
@@ -77,6 +82,16 @@ interface MapperModule {
     fun bindsCityCloudToDataMapper(
         implementation: CityCloudToDataMapper
     ): Mapper<CityCloud, CityData>
+
+    @Binds
+    fun bindsLocalNameCloudToDataMapper(
+        implementation: LocalNameCloudToDataMapper
+    ): Mapper<LocalNamesCloud, LocalNamesData>
+
+    @Binds
+    fun bindsLocalNameDataToDomainMapper(
+        implementation: LocalNameDataToDomainMapper
+    ): Mapper<LocalNamesData, LocalNamesDomain>
 
     @Binds
     fun bindsCloudsCloudToDataMapper(

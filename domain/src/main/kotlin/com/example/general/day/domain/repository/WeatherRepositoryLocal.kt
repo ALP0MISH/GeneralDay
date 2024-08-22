@@ -7,4 +7,6 @@ interface WeatherRepositoryLocal {
     suspend fun saveCurrentWeatherLocal(currentWeatherLocal: CurrentWeatherLocalDomain)
 
     fun observeCurrentWeather(): Flow<List<CurrentWeatherLocalDomain>>
+
+    suspend fun deleteWeatherById(id: String)
 }

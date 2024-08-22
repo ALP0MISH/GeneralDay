@@ -11,8 +11,10 @@ data class SearchWeatherCloud(
     val lon: Double,
     @SerializedName("name")
     val name: String,
+    @SerializedName("local_names")
+    val localNames: LocalNamesCloud,
     @SerializedName("state")
-    val state: String
+    val state: String,
 ) {
     companion object {
        val unknown = SearchWeatherCloud(
@@ -20,7 +22,8 @@ data class SearchWeatherCloud(
            lat = 0.0,
            lon = 0.0,
            name = String(),
-           state = String()
+           state = String(),
+           localNames = LocalNamesCloud(String())
        )
     }
 }

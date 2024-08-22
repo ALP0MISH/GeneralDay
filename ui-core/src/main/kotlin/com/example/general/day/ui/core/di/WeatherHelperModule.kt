@@ -8,33 +8,29 @@ import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
 import com.example.general.day.ui.core.weather.helpers.WeatherDataHelperImpl
 import com.example.general.day.ui.core.weather.helpers.WeatherIconHelper
 import com.example.general.day.ui.core.weather.helpers.WeatherIconHelperImpl
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 
 @Module
-class WeatherHelperModule {
+interface WeatherHelperModule {
 
-    @Provides
-    fun provideDetermineTimeOfDay(): DetermineTimeOfDay = DetermineTimeOfDayImpl()
+    @Binds
+    fun bindsDetermineTimeOfDay(
+        implementation: DetermineTimeOfDayImpl
+    ): DetermineTimeOfDay
 
-    @Provides
-    fun provideGetWeatherFromString(): GetWeatherFromString = GetWeatherFromStringImpl()
+    @Binds
+    fun bindsGetWeatherFromString(
+        implementation: GetWeatherFromStringImpl
+    ): GetWeatherFromString
 
-    @Provides
-    fun provideWeatherDataHelper(
-        weatherIconHelper: WeatherIconHelper,
-        determineTimeOfDay: DetermineTimeOfDay,
-    ): WeatherDataHelper = WeatherDataHelperImpl(
-        weatherIconHelper,
-        determineTimeOfDay
-    )
+    @Binds
+    fun bindsWeatherDataHelper(
+        implementation: WeatherDataHelperImpl
+    ): WeatherDataHelper
 
-    @Provides
-    fun provideWeatherIconHelper(
-        getWeatherFromString: GetWeatherFromString,
-        determineTimeOfDay: DetermineTimeOfDay,
-    ): WeatherIconHelper = WeatherIconHelperImpl(
-        getWeatherFromString,
-        determineTimeOfDay
-    )
+    @Binds
+    fun bindsWeatherIconHelper(
+        implementation: WeatherIconHelperImpl
+    ): WeatherIconHelper
 }

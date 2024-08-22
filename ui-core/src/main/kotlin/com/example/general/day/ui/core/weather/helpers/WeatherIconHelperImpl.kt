@@ -6,8 +6,9 @@ import com.example.general.day.ui.core.R
 import com.example.general.day.ui.core.weather.helpers.TimeOfDayEnum.DawnDusk
 import com.example.general.day.ui.core.weather.helpers.TimeOfDayEnum.Day
 import com.example.general.day.ui.core.weather.helpers.TimeOfDayEnum.Night
+import javax.inject.Inject
 
-class WeatherIconHelperImpl(
+class WeatherIconHelperImpl @Inject constructor(
     private val getWeatherFromString: GetWeatherFromString,
     private val determineTimeOfDay: DetermineTimeOfDay,
 ) : WeatherIconHelper {
@@ -21,7 +22,8 @@ class WeatherIconHelperImpl(
             WeatherSealedComponent.LightRain -> if (isDayTime) R.drawable.rain_light else R.drawable.rain_small_night
             WeatherSealedComponent.Mist -> if (isDayTime) R.drawable.mist else R.drawable.mist
             WeatherSealedComponent.Thunderstorm -> if (isDayTime) R.drawable.thunder else R.drawable.thunder
-            WeatherSealedComponent.Unknown -> if (isDayTime) R.drawable.light else R.drawable.light
+            WeatherSealedComponent.Clouds -> if (isDayTime) R.drawable.cloudy else R.drawable.cloudy
+            WeatherSealedComponent.Unknown -> if (isDayTime) R.drawable.clear_light else R.drawable.clear_night
         }
     }
 

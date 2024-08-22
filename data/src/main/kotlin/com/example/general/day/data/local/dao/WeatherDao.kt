@@ -15,4 +15,7 @@ interface WeatherDao {
 
     @Query("SELECT * FROM current_weather_entity")
     fun observeCurrentWeather(): Flow<List<CurrentWeatherLocal>>
+
+    @Query("DELETE FROM current_weather_entity WHERE id = :id")
+    suspend fun deleteWeatherById(id: String)
 }

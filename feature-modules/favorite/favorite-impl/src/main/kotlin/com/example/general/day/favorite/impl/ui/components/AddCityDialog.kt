@@ -37,7 +37,7 @@ import com.example.general.day.favorite.impl.ui.FavoriteUIState
 import com.example.general.day.ui.core.R.string
 import com.example.general.day.ui.core.theme.AddCityColor
 import com.example.general.day.ui.core.theme.dp16
-import com.example.general.day.ui.core.theme.dp22
+import com.example.general.day.ui.core.theme.dp20
 import com.example.general.day.ui.core.theme.dp8
 
 @Composable
@@ -46,7 +46,7 @@ fun AddCityDialog(
     onEvent: (FavoriteEvent) -> Unit,
     onAddClick: () -> Unit,
     onDismissRequest: () -> Unit,
-    uiState: FavoriteUIState.Loaded,
+    uiState: FavoriteUIState,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -61,15 +61,15 @@ fun AddCityDialog(
     ) {
         BasicTextField(
             value = value,
-            onValueChange = { onEvent(FavoriteEvent.GetCityName(it)) },
+            onValueChange = { onEvent(FavoriteEvent.DoOnValueChangeCityName(it)) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(dp8)
                 .background(
                     Color.Gray.copy(alpha = 0.1f),
-                    shape = MaterialTheme.shapes.small
+                    shape = MaterialTheme.shapes.medium
                 )
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+                .padding(horizontal = 16.dp, vertical = 12.dp),
             singleLine = true,
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
             decorationBox = { innerTextField ->
@@ -95,12 +95,12 @@ fun AddCityDialog(
                     }
                     if (value.isNotEmpty()) {
                         IconButton(
+                            modifier = Modifier.size(dp20),
                             onClick = {
-                                // todo
+                                onEvent(FavoriteEvent.DoOnValueChangeCityName(String()))
                             },
                         ) {
                             Icon(
-                                modifier = Modifier.size(dp22),
                                 imageVector = Icons.Default.Close,
                                 contentDescription = null
                             )
@@ -112,17 +112,17 @@ fun AddCityDialog(
         Spacer(modifier = Modifier.height(16.dp))
         LazyRow {
             if (uiState.query.isNotEmpty()) {
-                items(uiState.searchWeather) { city ->
+                items(uiState.searchResult) { city ->
                     Text(
-                        text = city.name,
+                        text = city.localNames.ru,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(8.dp)
+                            .padding(12.dp)
                             .clickable {
                                 onEvent(FavoriteEvent.GetCityName(city.name))
                             }
                             .background(
-                                MaterialTheme.colorScheme.secondary,
+                                Color.Gray.copy(alpha = 0.1f),
                                 shape = MaterialTheme.shapes.small
                             ),
                         style = MaterialTheme.typography.bodyLarge,
@@ -133,7 +133,6 @@ fun AddCityDialog(
         }
 
         Spacer(modifier = Modifier.height(16.dp))
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()

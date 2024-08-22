@@ -4,7 +4,7 @@ enum class WeatherConditionsEnum {
     Snow,
     Rain,
     Clear,
-    Cloudy,
+    Clouds,
     LightRain,
     Mist,
     Thunderstorm,

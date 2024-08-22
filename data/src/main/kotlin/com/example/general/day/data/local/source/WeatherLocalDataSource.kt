@@ -8,4 +8,6 @@ interface WeatherLocalDataSource {
     suspend fun saveCurrentWeatherLocal(currentWeatherLocal: CurrentWeatherLocalData)
 
     fun observeCurrentWeather(): Flow<List<CurrentWeatherLocalData>>
+
+    suspend fun deleteWeatherById(id: String)
 }

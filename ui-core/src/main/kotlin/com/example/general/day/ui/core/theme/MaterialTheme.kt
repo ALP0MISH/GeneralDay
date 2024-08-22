@@ -14,17 +14,23 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import androidx.compose.runtime.*
+import androidx.compose.ui.graphics.Color
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
-    secondary = IconTintColor,
-    tertiary = Pink80
+    secondary = IconTintColorDark,
+    tertiary = Pink80,
+    onSecondary = EachThreeTimeColorLight,
+    background = BackgroundDark
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Purple40,
-    secondary = IconTintColorDark,
-    tertiary = Pink40
+    secondary = IconTintColorLight,
+    tertiary = Pink40,
+    onSecondary = EachThreeTimeColorDark,
+    background = BackgroundLight
 )
 
 @Composable
@@ -46,7 +52,7 @@ fun WeatherTestAppTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
+            window.statusBarColor = colorScheme.background.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
     }
@@ -54,6 +60,26 @@ fun WeatherTestAppTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
+        content = content
+    )
+}
+
+sealed class AppTheme {
+    data object Light : AppTheme()
+    data object Dark : AppTheme()
+}
+
+@Composable
+fun AppThemeProvider(
+    appTheme: AppTheme,
+    content: @Composable () -> Unit
+) {
+    val colors = when (appTheme) {
+        is AppTheme.Light -> DarkColorScheme
+        is AppTheme.Dark -> LightColorScheme
+    }
+    MaterialTheme(
+        colorScheme = colors,
         content = content
     )
 }
