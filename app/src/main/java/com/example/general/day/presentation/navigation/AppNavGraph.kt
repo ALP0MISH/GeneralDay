@@ -33,7 +33,7 @@ fun AppNavGraph(
 
     NavHost(
         navController = navController,
-        startDestination = dependencyProvider.favoriteFeatureApi().favoriteRouteProvider.getRoute()
+        startDestination = dependencyProvider.mapFeatureApi().mapRouteProvider.getRoute()
     ) {
         featureApi.forEach { api ->
             api.registerGraph(

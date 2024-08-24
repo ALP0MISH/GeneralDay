@@ -1,4 +1,4 @@
-package com.example.general.day.map.impl.ui.components
+package com.example.general.day.ui.core.utils
 
 /**
  * A set of utility functions for centering the camera given some [LatLng] points.

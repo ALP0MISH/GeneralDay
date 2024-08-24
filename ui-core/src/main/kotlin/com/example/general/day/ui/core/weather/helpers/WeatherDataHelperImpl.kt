@@ -7,6 +7,9 @@ import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
 import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysUi
 import com.example.general.day.ui.components.models.WeatherUi
+import com.example.general.day.ui.core.utils.ZoneClusterItem
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.ktx.model.polygonOptions
 import java.util.UUID
 import javax.inject.Inject
 
@@ -68,6 +71,29 @@ class WeatherDataHelperImpl @Inject constructor(
             tempMin = currentWeatherResult.weatherTemperature.tempMin.formatTemperature(),
             cityName = currentWeatherResult.name,
             weatherIcon = weatherIconHelper.fetchWeatherIcon(
+                currentWeatherResult.weather.firstOrNull() ?: WeatherUi.unknown,
+                determineTimeOfDay.isDayOrNight(currentWeatherResult.time.toLong())
+            ),
+        )
+    }
+
+    override fun convertMapWeatherData(
+        currentWeatherResult: CurrentWeatherUi,
+        latLng: LatLng
+    ): ZoneClusterItem {
+        return ZoneClusterItem(
+            polygonOptions = polygonOptions {
+                add(
+                    LatLng(
+                        currentWeatherResult.coordinates.lat,
+                        currentWeatherResult.coordinates.lon
+                    )
+                )
+            },
+            snippet = "${currentWeatherResult.weatherTemperature.tempMax.formatTemperature()} ${currentWeatherResult.weatherTemperature.tempMin.formatTemperature()}",
+            id = UUID.randomUUID().toString(),
+            title = currentWeatherResult.name,
+            icon = weatherIconHelper.fetchWeatherIcon(
                 currentWeatherResult.weather.firstOrNull() ?: WeatherUi.unknown,
                 determineTimeOfDay.isDayOrNight(currentWeatherResult.time.toLong())
             ),

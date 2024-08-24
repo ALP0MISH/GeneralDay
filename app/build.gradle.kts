@@ -74,6 +74,14 @@ dependencies {
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
 
+    /** Google maps Utility **/
+    implementation(libs.maps.ktx)
+    implementation(libs.maps.utils.ktx)
+    implementation(libs.maps.utils)
+    /** Google maps for compose **/
+    implementation(libs.maps.compose)
+    implementation(libs.androidx.appcompat)
+
     /** Room **/
     kapt(libs.room.compiler)
     kapt(libs.room.ktx.compiler)

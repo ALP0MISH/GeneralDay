@@ -50,6 +50,7 @@ dependencies {
     /** Google maps Utility **/
     implementation(libs.maps.ktx)
     implementation(libs.maps.utils.ktx)
+    implementation(libs.maps.utils)
     /** Google maps for compose **/
     implementation(libs.maps.compose)
 

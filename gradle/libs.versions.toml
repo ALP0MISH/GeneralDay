@@ -6,10 +6,12 @@ androidxLifecycle = "2.8.4"
 androidxActivity = "1.9.1"
 androidxComposeBom = "2024.06.00"
 androidGradlePlugin = "8.2.2"
+appcompatVersion = "1.7.0"
 gsonVersion = "2.10.1"
 mapsComposeVersion = "2.8.0"
 mapsKtxVersion = "3.2.1"
 mapsUtilsKtxVersion = "3.2.1"
+mapsUtilsVersion = "2.3.0"
 playServicesMapsVersion = "19.0.0"
 services-location-version = "21.3.0"
 converter-gson = "2.9.0"
@@ -39,6 +41,7 @@ versionName = "1.0"
 
 ## Compose
 accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanistSwiperefreshVersion" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompatVersion" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
@@ -84,6 +87,7 @@ maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = 
 play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMapsVersion" }
 maps-ktx = { module = "com.google.maps.android:maps-ktx", version.ref = "mapsKtxVersion" }
 maps-utils-ktx = { module = "com.google.maps.android:maps-utils-ktx", version.ref = "mapsUtilsKtxVersion" }
+maps-utils = { module = "com.google.maps.android:android-maps-utils", version.ref = "mapsUtilsVersion" }
 
 # Location Services
 services-location = { module = "com.google.android.gms:play-services-location", version.ref = "services-location-version" }

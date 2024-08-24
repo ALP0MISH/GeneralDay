@@ -2,6 +2,7 @@ package com.example.general.day.map.impl.ui
 
 import android.content.Context
 import android.location.Location
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -9,11 +10,12 @@ import com.example.general.day.core.Mapper
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.usecase.FetchWeatherUseCase
 import com.example.general.day.map.impl.di.MapFeatureDependencies
-import com.example.general.day.map.impl.ui.components.ZoneClusterManager
-import com.example.general.day.map.impl.ui.components.calculateCameraViewPoints
-import com.example.general.day.map.impl.ui.components.getCenterOfPolygon
 import com.example.general.day.ui.components.models.CurrentWeatherUi
+import com.example.general.day.ui.core.utils.ZoneClusterManager
+import com.example.general.day.ui.core.utils.calculateCameraViewPoints
+import com.example.general.day.ui.core.utils.getCenterOfPolygon
 import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
@@ -24,6 +26,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.coroutines.cancellation.CancellationException
+
+private const val PROVIDER_NAME = "provider_name"
 
 class MapViewModel @Inject constructor(
     private val currentWeatherDomainToHomeUiMapper: @JvmSuppressWildcards Mapper<CurrentWeatherDomain, CurrentWeatherUi>,
@@ -39,21 +43,21 @@ class MapViewModel @Inject constructor(
         val latitude = location.latitude
         val longitude = location.longitude
 
-        val lastKnownLocation = Location("provider_name").apply {
+        val lastKnownLocation = Location(PROVIDER_NAME).apply {
             this.latitude = latitude
             this.longitude = longitude
         }
 
         viewModelScope.launch {
             try {
+
                 val result = fetchWeatherUseCase.fetchCurrentWeather(latitude, longitude)
-                val weatherHelper = MapWeatherHelper().convertWeatherData(
-                    currentWeatherDomainToHomeUiMapper.map(result), latitude, longitude
+                val weatherHelper = weatherDataHelper.convertMapWeatherData(
+                    currentWeatherDomainToHomeUiMapper.map(result), latLng = location
                 )
                 _uiState.tryEmit(
                     MapState(
-                        lastKnownLocation = lastKnownLocation,
-                        clusterItems = listOf(
+                        lastKnownLocation = lastKnownLocation, clusterItems = listOf(
                             weatherHelper
                         )
                     )
@@ -61,7 +65,7 @@ class MapViewModel @Inject constructor(
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                throw IllegalArgumentException("Error during API call: ${e.message}", e)
+                throw IllegalArgumentException()
             }
         }
     }
@@ -71,6 +75,7 @@ class MapViewModel @Inject constructor(
             try {
                 val location = dependencies.getLocationTrackerManager().fetchCurrentLocation()
                 if (location != null) {
+                    Log.d("Location", "Location fetched: $location")
                     _uiState.value = _uiState.value.copy(
                         lastKnownLocation = location,
                     )
@@ -78,7 +83,7 @@ class MapViewModel @Inject constructor(
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                throw IllegalArgumentException("Error during API call: ${e.message}", e)
+                throw IllegalArgumentException()
             }
         }
     }

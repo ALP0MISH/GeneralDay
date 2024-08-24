@@ -1,5 +1,6 @@
-package com.example.general.day.map.impl.ui.components
+package com.example.general.day.ui.core.utils
 
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolygonOptions
 import com.google.maps.android.clustering.ClusterItem
 
@@ -15,5 +16,5 @@ data class ZoneClusterItem(
 
     override fun getTitle() = title
 
-    override fun getPosition() = polygonOptions.points.getCenterOfPolygon().center
+    override fun getPosition(): LatLng = polygonOptions.points.getCenterOfPolygon().center
 }
