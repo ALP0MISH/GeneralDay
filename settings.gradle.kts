@@ -32,4 +32,6 @@ include(
     ":feature-modules:favorite:favorite-impl",
     ":feature-modules:map:map-api",
     ":feature-modules:map:map-impl",
+    ":feature-modules:detail:detail-api",
+    ":feature-modules:detail:detail-impl",
 )

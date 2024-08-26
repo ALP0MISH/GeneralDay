@@ -36,7 +36,8 @@ class MainActivity : ComponentActivity() {
                     val dependencyProvider = appComponent.dependencyProvider()
                     val featureApi: List<FeatureApi> = listOf(
                         appComponent.homeFeatureApi().provideHomeFeatureUiApi(),
-                        appComponent.favoriteFeatureApi().provideFavoriteFeatureUiApi()
+                        appComponent.favoriteFeatureApi().provideFavoriteFeatureUiApi(),
+                        appComponent.detailFeatureApi().provideDetailFeatureUiApi()
                     )
                     val viewModelFactory = appComponent.applicationViewModelFactory()
                     AppNavGraph(

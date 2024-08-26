@@ -1,6 +1,8 @@
 package com.example.general.day.presentation.di.modules
 
 import com.example.general.day.core.di.OnInitApp
+import com.example.general.day.detail.impl.di.DetailComponentHolder
+import com.example.general.day.detail.impl.di.DetailFeatureDependencies
 import com.example.general.day.favorite.impl.di.FavoriteComponentHolder
 import com.example.general.day.favorite.impl.di.FavoriteFeatureDependencies
 import com.example.general.day.home.impl.ui.di.HomeComponentHolder
@@ -42,5 +44,12 @@ class AppInitModule {
     fun initMapFeatureModule(dependencyProvider: Provider<MapFeatureDependencies>) =
         OnInitApp {
             MapComponentHolder.setDependencyProvider(dependencyProvider)
+        }
+
+    @Provides
+    @IntoSet
+    fun initDetailFeatureModule(dependencyProvider: Provider<DetailFeatureDependencies>) =
+        OnInitApp {
+            DetailComponentHolder.setDependencyProvider(dependencyProvider)
         }
 }

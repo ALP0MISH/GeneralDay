@@ -63,6 +63,8 @@ dependencies {
     implementation(projects.featureModules.map.mapImpl)
     implementation(projects.featureModules.location.locationApi)
     implementation(projects.featureModules.location.locationImpl)
+    implementation(projects.featureModules.detail.detailApi)
+    implementation(projects.featureModules.detail.detailImpl)
 
     /** Coroutines **/
     implementation(libs.kotlinx.coroutines.core)
@@ -82,7 +84,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.logging.interceptor)
     implementation(libs.converter.gson)
-    implementation (libs.gson)
+    implementation(libs.gson)
 
     /** Navigation **/
     implementation(libs.navigation.compose)

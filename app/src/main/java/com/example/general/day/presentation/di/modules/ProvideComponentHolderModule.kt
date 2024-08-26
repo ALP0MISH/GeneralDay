@@ -1,5 +1,7 @@
 package com.example.general.day.presentation.di.modules
 
+import com.example.general.day.detail.api.DetailFeatureApi
+import com.example.general.day.detail.impl.di.DetailComponentHolder
 import com.example.general.day.favorite.api.FavoriteFeatureApi
 import com.example.general.day.favorite.impl.di.FavoriteComponentHolder
 import com.example.general.day.home.api.HomeFeatureApi
@@ -36,5 +38,11 @@ class ProvideComponentHolderModule {
     fun provideLocationFeatureApiComponentHolder(): LocationFeatureApi {
         LocationComponentHolder.init()
         return LocationComponentHolder.getApi()
+    }
+
+    @Provides
+    fun provideDetailComponentHolderHolder(): DetailFeatureApi {
+        DetailComponentHolder.init()
+        return DetailComponentHolder.getApi()
     }
 }
