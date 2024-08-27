@@ -6,6 +6,7 @@ import com.example.general.day.core.di.CoroutineDispatchersModule
 import com.example.general.day.core.di.OnInitApp
 import com.example.general.day.core.di.ShowToastManagerModule
 import com.example.general.day.data.di.DataModule
+import com.example.general.day.detail.api.DetailFeatureApi
 import com.example.general.day.favorite.api.FavoriteFeatureApi
 import com.example.general.day.favorite.impl.di.modules.FavoriteFeatureModule
 import com.example.general.day.home.api.HomeFeatureApi
@@ -49,6 +50,7 @@ interface AppComponent {
     fun dependencyProvider(): DependencyProvider
     fun homeFeatureApi(): HomeFeatureApi
     fun favoriteFeatureApi(): FavoriteFeatureApi
+    fun detailFeatureApi(): DetailFeatureApi
     fun mapFeatureApi(): MapFeatureApi
 
     fun onAllInitAppSet(): Set<OnInitApp>

@@ -14,6 +14,6 @@ interface FavoriteComponent : FavoriteFeatureApi {
         fun initAndGet(dependencies: FavoriteFeatureDependencies): FavoriteComponent =
             DaggerFavoriteComponent.builder()
                 .favoriteFeatureDependencies(dependencies)
-                .build()
+                    .build()
     }
 }

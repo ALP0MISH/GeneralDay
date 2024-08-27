@@ -1,6 +1,7 @@
 package com.example.general.day.presentation.di.modules
 
 import com.example.general.day.core.FeatureApi
+import com.example.general.day.detail.api.DetailFeatureApi
 import com.example.general.day.favorite.api.FavoriteFeatureApi
 import com.example.general.day.home.api.HomeFeatureApi
 import com.example.general.day.location.api.LocationFeatureApi
@@ -44,6 +45,13 @@ class FeatureApiModule {
     fun providesMapFeatureApi(
         mapFeatureApi: MapFeatureApi,
     ): FeatureApi = mapFeatureApi.provideMapFeatureUiApi()
+
+    @IntoSet
+    @Provides
+    @FeatureApiSet
+    fun providesDetailFeatureApi(
+        detailFeatureApi: DetailFeatureApi
+    ): FeatureApi = detailFeatureApi.provideDetailFeatureUiApi()
 
     @Provides
     fun providesFeatureApiProvider(
