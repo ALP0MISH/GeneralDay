@@ -9,7 +9,7 @@ class ForRainOrSnowDataToDomainMapper @Inject constructor() :
     Mapper<@JvmSuppressWildcards ForRainOrSnowData, @JvmSuppressWildcards ForRainOrSnowDomain> {
     override fun map(from: ForRainOrSnowData): ForRainOrSnowDomain = from.run {
         ForRainOrSnowDomain(
-            hour = hour
+            hour = hour ?: 0.0
         )
     }
 }

@@ -1,6 +1,7 @@
 package com.example.general.day.presentation.feature.depency
 
 import com.example.general.day.core.Mapper
+import com.example.general.day.core.ToastNotificationManger
 import com.example.general.day.core.communication.NavigationRouteFlowCommunication
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.models.WeatherForFiveDaysDomain
@@ -24,6 +25,7 @@ class HomeFeatureDependenciesImpl @Inject constructor(
     private val navigationRouteFlowCommunication: NavigationRouteFlowCommunication,
     private val currentWeatherToHomeUi: @JvmSuppressWildcards Mapper<CurrentWeatherDomain, CurrentWeatherUi>,
     private val weatherDomainToHomeUiMapper: @JvmSuppressWildcards Mapper<WeatherForFiveDaysDomain, WeatherForFiveDaysUi>,
+    private val getToastNotificationManger: ToastNotificationManger
 ) : HomeFeatureDependencies {
 
     override fun getFavoriteRoute(): FavoriteRouteProvider {
@@ -56,5 +58,9 @@ class HomeFeatureDependenciesImpl @Inject constructor(
 
     override fun getWeatherDomainToHomeUiMapper(): Mapper<WeatherForFiveDaysDomain, WeatherForFiveDaysUi> {
         return weatherDomainToHomeUiMapper
+    }
+
+    override fun getToastDecorator(): ToastNotificationManger {
+        return getToastNotificationManger
     }
 }

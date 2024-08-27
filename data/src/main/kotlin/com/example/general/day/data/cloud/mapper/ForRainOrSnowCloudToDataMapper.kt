@@ -6,11 +6,10 @@ import com.example.general.day.data.models.ForRainOrSnowData
 import javax.inject.Inject
 
 class ForRainOrSnowCloudToDataMapper @Inject constructor() :
-    Mapper<ForRainOrSnowCloud, ForRainOrSnowData> {
-    override fun map(from: ForRainOrSnowCloud): ForRainOrSnowData = from.run {
+    Mapper<@JvmSuppressWildcards ForRainOrSnowCloud?, @JvmSuppressWildcards ForRainOrSnowData> {
+    override fun map(from: ForRainOrSnowCloud?): ForRainOrSnowData = from?.let {
         ForRainOrSnowData(
-            hour = hour
+            hour = it.hour ?: 0.0
         )
-    }
-
+    } ?: ForRainOrSnowData(0.0)
 }

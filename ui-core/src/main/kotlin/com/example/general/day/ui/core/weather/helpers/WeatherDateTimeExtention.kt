@@ -9,31 +9,17 @@ private const val SimpleDateFormatDataAndTime = "yyyy-MM-dd HH:mm:ss"
 private const val Language = "ru"
 private const val CONVERT_KELVIN_TO_CELSIUS = 273.15
 private const val Timestamp = 1000
-private const val time = "HH:mm"
-
 
 fun Long.getMonthAndDay(): String {
-    val date = Date(this * 1000)
-    val dateFormat = SimpleDateFormat("dd MMMM", Locale("ru"))
+    val date = Date(this * Timestamp)
+    val dateFormat = SimpleDateFormat(SimpleDateFormatTime, Locale(Language))
     return dateFormat.format(date)
 }
 
-fun Long.processTimestamp(): String? {
-    val processedDates = mutableSetOf<String>()
-    val formattedDate = this.getMonthAndDay()
-    return if (processedDates.contains(formattedDate)) {
-        null
-    } else {
-        processedDates.add(formattedDate)
-        formattedDate
-    }
-}
-
 fun String.getFormattedTime(): String {
-    val inputFormat = SimpleDateFormat(SimpleDateFormatDataAndTime, Locale.getDefault())
+    val inputFormat = SimpleDateFormat(SimpleDateFormatDataAndTime, Locale(Language))
     val dateTime: Date? = inputFormat.parse(this)
-    val outputFormat = SimpleDateFormat(time, Locale.getDefault())
-    return outputFormat.format(dateTime ?: String())
+    return dateTime?.time.toString()
 }
 
 fun Double.kelvinToCelsius(): Int {

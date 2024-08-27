@@ -4,5 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 data class ForRainOrSnowCloud(
     @SerializedName("3h")
-    val hour: Double
-)
+    val hour: Double?
+) {
+    companion object {
+        val unknown = ForRainOrSnowCloud(
+            hour = 0.0
+        )
+    }
+}

@@ -6,6 +6,7 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.general.day.core.R
 
 @Composable
 fun Inject(viewModelFactory: ViewModelProvider.Factory, content: @Composable () -> Unit) {
@@ -16,10 +17,11 @@ fun Inject(viewModelFactory: ViewModelProvider.Factory, content: @Composable () 
 }
 
 @Composable
-inline fun <reified T : ViewModel> daggerViewModel(): T =
-    with(LocalViewModelFactory.current) { viewModel { create(T::class.java) } }
-
+inline fun <reified T : ViewModel> daggerViewModel(): T {
+    val factory = LocalViewModelFactory.current
+    return viewModel { factory.create(T::class.java) }
+}
 
 val LocalViewModelFactory = compositionLocalOf<ViewModelProvider.Factory> {
-    error("Никакая ViewModelFactory не была предоставлена через локальную ViewModelFactory")
+    error(R.string.error_viewModel_provider_message)
 }

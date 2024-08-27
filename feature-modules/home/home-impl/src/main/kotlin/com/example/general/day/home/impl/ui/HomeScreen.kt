@@ -95,16 +95,12 @@ internal fun HomeScreenItem(
             items(
                 items = uiState.weatherForFiveDays,
             ) { weather ->
-                weather.dayMonthAndWeek.map { day ->
-                    HomeScreenBottom(
-                        convertedWeather = weather,
-                        onEvent = onEvent,
-                        weatherForFiveDays = uiState.weatherForFiveDays,
-                        cityName = uiState.currentWeather.cityName,
-                        dayMonthAndWeek = day
-
-                    )
-                }
+                HomeScreenBottom(
+                    convertedWeather = weather,
+                    onEvent = onEvent,
+                    weatherForFiveDays = uiState.weatherForFiveDays,
+                    cityName = uiState.currentWeather.cityName,
+                )
             }
         }
     }

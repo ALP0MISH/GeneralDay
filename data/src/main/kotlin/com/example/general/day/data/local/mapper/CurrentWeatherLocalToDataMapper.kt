@@ -6,7 +6,7 @@ import com.example.general.day.data.models.CurrentWeatherLocalData
 import javax.inject.Inject
 
 class CurrentWeatherLocalToDataMapper @Inject constructor() :
-    Mapper<CurrentWeatherLocal, CurrentWeatherLocalData> {
+    Mapper<@JvmSuppressWildcards CurrentWeatherLocal, @JvmSuppressWildcards CurrentWeatherLocalData> {
     override fun map(from: CurrentWeatherLocal): CurrentWeatherLocalData = from.run {
         CurrentWeatherLocalData(
             id = id,

@@ -6,7 +6,7 @@ import com.example.general.day.data.models.WeatherTemperatureData
 import javax.inject.Inject
 
 class WeatherTemperatureCloudToDataMapper @Inject constructor() :
-    Mapper<WeatherTemperatureCloud, WeatherTemperatureData> {
+    Mapper<@JvmSuppressWildcards WeatherTemperatureCloud, @JvmSuppressWildcards WeatherTemperatureData> {
     override fun map(from: WeatherTemperatureCloud): WeatherTemperatureData = from.run {
         WeatherTemperatureData(
             feelsLike = feelsLike,

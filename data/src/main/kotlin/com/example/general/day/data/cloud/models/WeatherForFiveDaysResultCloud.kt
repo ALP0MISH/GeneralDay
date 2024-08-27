@@ -1,7 +1,8 @@
 package com.example.general.day.data.cloud.models
 
 import com.google.gson.annotations.SerializedName
-
+import java.text.SimpleDateFormat
+import java.util.*
 
 data class WeatherForFiveDaysResultCloud(
     @SerializedName("clouds")
@@ -46,4 +47,16 @@ data class WeatherForFiveDaysResultCloud(
             wind = WindCloud(degrees = -1, speed = 0.0)
         )
     }
+}
+
+fun convertTimestampToDate(dt: Long): String {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+    val date = Date(dt * 1000)
+    return dateFormat.format(date)
+}
+
+fun main() {
+    val dt: Long = 1724706000
+    val formattedDate = convertTimestampToDate(dt)
+    println("Formatted date: $formattedDate")
 }

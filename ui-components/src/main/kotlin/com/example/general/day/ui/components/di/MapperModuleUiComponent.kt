@@ -37,7 +37,6 @@ import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
 import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.ForRainOrSnowUi
 import com.example.general.day.ui.components.models.LocalNamesUi
-import com.example.general.day.ui.components.models.SearchWeatherResultUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysUi
 import com.example.general.day.ui.components.models.WeatherSystemInformationUi
@@ -46,7 +45,6 @@ import com.example.general.day.ui.components.models.WeatherUi
 import com.example.general.day.ui.components.models.WindUi
 import dagger.Binds
 import dagger.Module
-import javax.inject.Singleton
 
 @Module
 interface MapperModuleUiComponent {

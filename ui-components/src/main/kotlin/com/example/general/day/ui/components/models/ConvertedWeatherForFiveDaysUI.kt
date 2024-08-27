@@ -10,7 +10,7 @@ data class ConvertedWeatherForFiveDaysUI(
     val feelsLikeTemperature: String,
     val weatherIcon: Int,
     val eachThreeTime: String,
-    val dayMonthAndWeek: List<String>,
+    val dayMonthAndWeek: String,
 ) {
     companion object {
         val preview = ConvertedWeatherForFiveDaysUI(
@@ -20,7 +20,7 @@ data class ConvertedWeatherForFiveDaysUI(
             temperature = "30",
             weatherIcon = 2,
             eachThreeTime = "",
-            dayMonthAndWeek = listOf()
+            dayMonthAndWeek = String()
         )
     }
 }

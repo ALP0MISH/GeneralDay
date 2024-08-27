@@ -3,10 +3,10 @@ package com.example.general.day.favorite.impl.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.general.day.core.ToastNotificationManger
 import com.example.general.day.core.Mapper
 import com.example.general.day.core.communication.NavigationRouteFlowCommunication
 import com.example.general.day.core.communication.navigationParams
-import com.example.general.day.core.managers.ShowToastManager
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.models.CurrentWeatherLocalDomain
 import com.example.general.day.domain.models.SearchWeatherDomain
@@ -15,10 +15,6 @@ import com.example.general.day.domain.usecase.ObserveCurrentWeatherUseCase
 import com.example.general.day.domain.usecase.SaveCurrentWeatherUseCase
 import com.example.general.day.domain.usecase.SearchWeatherByCity
 import com.example.general.day.favorite.impl.di.FavoriteFeatureDependencies
-import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToUiMapper
-import com.example.general.day.ui.components.mappers.CurrentWeatherLocalDomainToUiMapper
-import com.example.general.day.ui.components.mappers.CurrentWeatherUiToDomainMapper
-import com.example.general.day.ui.components.mappers.SearchWeatherDomainToUiMapper
 import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
 import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.SearchWeatherUi
@@ -47,13 +43,13 @@ class FavoriteViewModel @Inject constructor(
     private val searchWeatherByCity: SearchWeatherByCity,
     private val navigationRouteFlowCommunication: NavigationRouteFlowCommunication,
     private val saveCurrentWeatherUseCase: SaveCurrentWeatherUseCase,
-    private val showToastManager: ShowToastManager,
     private val observeCurrentWeatherUseCase: ObserveCurrentWeatherUseCase,
     private val currentWeatherLocalDomainToHomeUiMapper: @JvmSuppressWildcards Mapper<CurrentWeatherLocalUi, CurrentWeatherLocalDomain>,
     private val currentWeatherDomainToUiMapper: @JvmSuppressWildcards Mapper<CurrentWeatherDomain, CurrentWeatherUi>,
     private val currentWeatherHomeUiToDomainMapper: @JvmSuppressWildcards Mapper<CurrentWeatherLocalDomain, CurrentWeatherLocalUi>,
     private val searchWeatherDomainToUiMapper: @JvmSuppressWildcards Mapper<SearchWeatherDomain, SearchWeatherUi>,
-    private val favoriteFeatureDependencies: FavoriteFeatureDependencies
+    private val favoriteFeatureDependencies: FavoriteFeatureDependencies,
+    private val toastNotificationManger: ToastNotificationManger,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<FavoriteUIState>(FavoriteUIState.Loading)
@@ -111,8 +107,8 @@ class FavoriteViewModel @Inject constructor(
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                _uiState.tryEmit(FavoriteUIState.Error("${string.failed_to_fetch_weather}"))
-                showToastManager.showToast("${string.error_message}")
+                _uiState.tryEmit(FavoriteUIState.Error(toastNotificationManger.getString(string.failed_to_fetch_weather)))
+                toastNotificationManger.showToast(string.error_message)
             }
         }
     }
@@ -140,12 +136,16 @@ class FavoriteViewModel @Inject constructor(
                     currentWeatherDomainToUiMapper.map(currentWeatherDeferred)
                 )
                 saveCurrentWeatherUseCase.invoke(currentWeatherLocalDomainToHomeUiMapper.map(weather))
-                showToastManager.showToast("${string.success_message}")
+                toastNotificationManger.showToast(string.location_message)
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                _uiState.tryEmit(FavoriteUIState.Error("${string.failed_to_fetch_weather}"))
-                showToastManager.showToast("${string.error_message}")
+                _uiState.tryEmit(
+                    FavoriteUIState.Error(
+                        toastNotificationManger.getString(string.failed_to_fetch_weather)
+                    )
+                )
+                toastNotificationManger.showToast(string.error_message)
             }
         }
     }

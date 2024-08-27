@@ -8,7 +8,6 @@ import com.example.general.day.core.extantions.callSafe
 import com.example.general.day.data.cloud.models.CurrentWeatherResponseCloud
 import com.example.general.day.data.cloud.models.SearchWeatherCloud
 import com.example.general.day.data.cloud.models.WeatherForFiveDaysResponseCloud
-import com.example.general.day.data.cloud.models.SearchWeatherCloud
 import com.example.general.day.data.cloud.service.CityWeatherService
 import com.example.general.day.data.cloud.service.WeatherService
 import com.example.general.day.data.models.CurrentWeatherData

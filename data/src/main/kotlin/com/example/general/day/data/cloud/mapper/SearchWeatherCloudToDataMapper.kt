@@ -6,7 +6,7 @@ import com.example.general.day.data.models.SearchWeatherData
 import javax.inject.Inject
 
 class SearchWeatherCloudToDataMapper @Inject constructor(
-) : Mapper<SearchWeatherCloud, SearchWeatherData> {
+) : Mapper<@JvmSuppressWildcards SearchWeatherCloud, @JvmSuppressWildcards SearchWeatherData> {
     override fun map(from: SearchWeatherCloud): SearchWeatherData = from.run {
         SearchWeatherData(
             country = country,

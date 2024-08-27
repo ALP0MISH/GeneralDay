@@ -1,5 +1,6 @@
 package com.example.general.day.ui.core.weather.helpers
 
+import android.util.Log
 import com.example.general.day.ui.components.models.ConvertedWeatherForFiveDaysUI
 import com.example.general.day.ui.components.models.CurrentConvertedWeather
 import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
@@ -16,7 +17,6 @@ class WeatherDataHelperImpl @Inject constructor(
 
     override fun currentConvertedWeather(
         currentWeatherResult: CurrentWeatherUi,
-        weatherForFiveDaysResultUi: WeatherForFiveDaysUi
     ): CurrentConvertedWeather {
         return CurrentConvertedWeather(
             feelsLikeTemperature = currentWeatherResult.weatherTemperature.feelsLike.formatTemperature(),
@@ -34,22 +34,26 @@ class WeatherDataHelperImpl @Inject constructor(
         )
     }
 
-    override fun convertedWeatherForFiveDays(weatherForFiveDaysResultUi: WeatherForFiveDaysUi): Set<ConvertedWeatherForFiveDaysUI> {
-        return weatherForFiveDaysResultUi.list.map { weather ->
-            ConvertedWeatherForFiveDaysUI(
-                feelsLikeTemperature = weather.weatherTemperature.feelsLike.formatTemperature(),
-                weatherIcon = weatherIconHelper.fetchWeatherIcon(
-                    weather.weather.firstOrNull() ?: WeatherUi.unknown,
-                    determineTimeOfDay.isDayOrNight(weather.time.toLong())
-                ),
-                temperature = weather.weatherTemperature.temperature.formatTemperature(),
-                temperatureMax = weather.weatherTemperature.tempMax.formatTemperature(),
-                temperatureMin = weather.weatherTemperature.tempMin.formatTemperature(),
-                eachThreeTime = determineTimeOfDay.fetchEachThreeTime(weatherForFiveDaysResultUi.list)
-                    .first(),
-                dayMonthAndWeek = determineTimeOfDay.currentDay(weatherForFiveDaysResultUi.list)
-            )
-        }.toSet()
+
+    override fun convertedWeatherForFiveDays(weatherForFiveDaysResultUi: WeatherForFiveDaysUi): List<ConvertedWeatherForFiveDaysUI> {
+        return determineTimeOfDay.getUniqueDatesWithForecasts(weatherForFiveDaysResultUi.list)
+            .firstOrNull()?.second?.map { weather ->
+                Log.d("AAA", "eachThreeTime = ${weather.time}")
+                ConvertedWeatherForFiveDaysUI(
+                    feelsLikeTemperature = weather.weatherTemperature.feelsLike.formatTemperature(),
+                    weatherIcon = weatherIconHelper.fetchWeatherIcon(
+                        weather.weather.firstOrNull() ?: WeatherUi.unknown,
+                        determineTimeOfDay.isDayOrNight(weather.time.toLong())
+                    ),
+                    temperature = weather.weatherTemperature.temperature.formatTemperature(),
+                    temperatureMax = weather.weatherTemperature.tempMax.formatTemperature(),
+                    temperatureMin = weather.weatherTemperature.tempMin.formatTemperature(),
+                    dayMonthAndWeek = determineTimeOfDay.getUniqueDatesWithForecasts(
+                        weatherForFiveDaysResultUi.list
+                    ).firstOrNull()?.first ?: String(),
+                    eachThreeTime = weather.time.toString(),
+                )
+            } ?: listOf()
     }
 
     override fun convertSavedWeather(currentWeatherResult: CurrentWeatherUi): CurrentWeatherLocalUi {
