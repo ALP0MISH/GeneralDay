@@ -37,6 +37,7 @@ import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
 import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.ForRainOrSnowUi
 import com.example.general.day.ui.components.models.LocalNamesUi
+import com.example.general.day.ui.components.models.SearchWeatherUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysUi
 import com.example.general.day.ui.components.models.WeatherSystemInformationUi
@@ -92,7 +93,7 @@ interface MapperModuleUiComponent {
     @Binds
     fun bindSearchWeatherDomainToUiMapper(
         implementation: SearchWeatherDomainToUiMapper
-    ): Mapper<SearchWeatherDomain, SearchWeatherResultUi>
+    ): Mapper<SearchWeatherDomain, SearchWeatherUi>
 
     @Binds
     fun bindWeatherDomainToUiMapper(

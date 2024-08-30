@@ -8,7 +8,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -35,16 +34,20 @@ class MainActivity : ComponentActivity() {
                     val featureApi: List<FeatureApi> = listOf(
                         appComponent.homeFeatureApi().provideHomeFeatureUiApi(),
                         appComponent.favoriteFeatureApi().provideFavoriteFeatureUiApi(),
-                        appComponent.detailFeatureApi().provideDetailFeatureUiApi()
+                        appComponent.detailFeatureApi().provideDetailFeatureUiApi(),
+                        appComponent.mapFeatureApi().provideMapFeatureUiApi(),
                     )
-                    val viewModelFactory = appComponent.applicationViewModelFactory()
+                    val viewModelFactory = appComponent.getApplicationViewModel()
                     AppNavGraph(
                         navController = navController,
                         dependencyProvider = dependencyProvider,
                         featureApi = featureApi,
                         viewModelFactory = viewModelFactory,
                         theme = isDarkTheme,
-                        onThemeChange = { newTheme -> isDarkTheme = newTheme }
+                        onThemeChange = { newTheme ->
+                            isDarkTheme = newTheme
+                            appComponent.getSharedPrefManager().isDarkTheme = newTheme
+                        }
                     )
                 }
             }

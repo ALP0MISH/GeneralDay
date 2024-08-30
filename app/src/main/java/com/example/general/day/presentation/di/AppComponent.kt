@@ -6,22 +6,27 @@ import com.example.general.day.core.di.CoroutineDispatchersModule
 import com.example.general.day.core.di.OnInitApp
 import com.example.general.day.core.di.ContextDecoratorModule
 import com.example.general.day.data.di.DataModule
+import com.example.general.day.data.local.shared.pref.SharedPrefManager
 import com.example.general.day.detail.api.DetailFeatureApi
+import com.example.general.day.detail.impl.di.modules.DetailFeatureModule
 import com.example.general.day.favorite.api.FavoriteFeatureApi
 import com.example.general.day.favorite.impl.di.modules.FavoriteFeatureModule
 import com.example.general.day.home.api.HomeFeatureApi
 import com.example.general.day.home.impl.ui.di.modules.HomeFeatureModule
 import com.example.general.day.map.api.MapFeatureApi
 import com.example.general.day.map.impl.di.modules.MapFeatureModule
+import com.example.general.day.presentation.ApplicationViewModelFactory
 import com.example.general.day.presentation.MainActivity
 import com.example.general.day.presentation.di.modules.AppInitModule
+import com.example.general.day.presentation.di.modules.ConnectivityManagerModule
 import com.example.general.day.presentation.di.modules.FeatureApiModule
 import com.example.general.day.presentation.di.modules.FeatureDependencyModule
 import com.example.general.day.presentation.di.modules.ProvideComponentHolderModule
 import com.example.general.day.ui.components.di.MapperModuleUiComponent
-import com.example.general.day.ui.core.di.WeatherHelperModule
+import com.example.general.day.ui.components.di.WeatherHelperModule
 import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Provider
 import javax.inject.Singleton
 
 @Singleton
@@ -41,7 +46,9 @@ import javax.inject.Singleton
         HomeFeatureModule::class,
         FavoriteFeatureModule::class,
         MapFeatureModule::class,
+        DetailFeatureModule::class,
         MapperModuleUiComponent::class,
+        ConnectivityManagerModule::class,
     ]
 )
 
@@ -52,6 +59,8 @@ interface AppComponent {
     fun favoriteFeatureApi(): FavoriteFeatureApi
     fun detailFeatureApi(): DetailFeatureApi
     fun mapFeatureApi(): MapFeatureApi
+    fun getSharedPrefManager(): SharedPrefManager
+    fun getApplicationViewModel(): Provider<ApplicationViewModelFactory>
     fun onAllInitAppSet(): Set<OnInitApp>
 
     @Component.Builder

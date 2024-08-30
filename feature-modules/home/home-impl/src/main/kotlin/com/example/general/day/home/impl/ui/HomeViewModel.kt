@@ -1,5 +1,9 @@
 package com.example.general.day.home.impl.ui
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -7,6 +11,7 @@ import com.example.general.day.core.Mapper
 import com.example.general.day.core.ToastNotificationManger
 import com.example.general.day.core.communication.NavigationRouteFlowCommunication
 import com.example.general.day.core.communication.navigationParams
+import com.example.general.day.data.local.shared.pref.SharedPrefManager
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.models.WeatherForFiveDaysDomain
 import com.example.general.day.domain.usecase.FetchWeatherUseCase
@@ -15,11 +20,10 @@ import com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToFavorite
 import com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToMapScreen
 import com.example.general.day.home.impl.ui.di.HomeFeatureDependencies
 import com.example.general.day.location.api.LocationTrackerManager
+import com.example.general.day.ui.components.helpers.WeatherDataHelper
 import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysUi
 import com.example.general.day.ui.core.R.string
-import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
-import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -37,11 +41,16 @@ class HomeViewModel @Inject constructor(
     private val getNavigationRouteFlowCommunication: NavigationRouteFlowCommunication,
     private val fetchCurrentWeatherToHomeUi: @JvmSuppressWildcards Mapper<CurrentWeatherDomain, CurrentWeatherUi>,
     private val fetchWeatherDomainToHomeUiMapper: @JvmSuppressWildcards Mapper<WeatherForFiveDaysDomain, WeatherForFiveDaysUi>,
-    private val getToastNotificationManger: ToastNotificationManger
+    private val getToastNotificationManger: ToastNotificationManger,
+    private val connectivityManager: ConnectivityManager,
+    private val sharedPrefManager: SharedPrefManager,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     val state: StateFlow<HomeUiState> = _uiState.asStateFlow()
+
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading = _isLoading.asStateFlow()
 
     init {
         fetchWeather()
@@ -50,6 +59,11 @@ class HomeViewModel @Inject constructor(
     fun fetchWeather() {
         viewModelScope.launch {
             try {
+                if (!isInternetAvailable()) {
+                    _uiState.tryEmit(HomeUiState.Error(getToastNotificationManger.getString(string.no_internet_connection)))
+                    return@launch
+                }
+                _isLoading.value = true
                 val location =
                     getLocationTrackerManager.fetchCurrentLocation()
                 val latitude = location?.latitude
@@ -76,22 +90,24 @@ class HomeViewModel @Inject constructor(
                 val mapWeatherForFiveDaysUiModel =
                     fetchWeatherDomainToHomeUiMapper.map(awaitWeatherForFiveDays)
 
-                val currentWeatherResult =
-                    getWeatherDataHelper.convertedWeatherForFiveDays(
-                        mapWeatherForFiveDaysUiModel
-                    )
+                val savedCityName = sharedPrefManager.getSavedCityName()
 
-                val weatherForFiveDaysUiModelResult =
+                if (mapCurrentWeather.name != savedCityName) {
+                    sharedPrefManager.saveCityName(mapCurrentWeather.name)
+                }
+
+                val currentWeatherResult =
                     getWeatherDataHelper.currentConvertedWeather(
                         mapCurrentWeather
                     )
 
                 _uiState.tryEmit(
                     HomeUiState.Loaded(
-                        weatherForFiveDays = currentWeatherResult.toImmutableList(),
-                        currentWeather = weatherForFiveDaysUiModelResult
+                        weatherForFiveDays = mapWeatherForFiveDaysUiModel.list,
+                        currentWeather = currentWeatherResult
                     )
                 )
+                _isLoading.value = false
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
@@ -100,6 +116,7 @@ class HomeViewModel @Inject constructor(
                         getToastNotificationManger.getString(string.failed_to_fetch_weather),
                     )
                 )
+                _isLoading.value = false
             }
         }
     }
@@ -120,8 +137,25 @@ class HomeViewModel @Inject constructor(
                     )
                 )
 
-            is DoNavigateToDetailScreen -> TODO()
+            is DoNavigateToDetailScreen -> onNavigateToDetailScreen(weatherName = event.weatherId)
+            HomeScreenEvent.DoRetryFetchWeather -> fetchWeather()
         }
+    }
+
+    private fun onNavigateToDetailScreen(weatherName: String) {
+        getNavigationRouteFlowCommunication
+            .emit(
+                navigationParams(
+                    dependencies.getDetailRoute(weatherName).getDetailRoure()
+                )
+            )
+    }
+
+    private fun isInternetAvailable(): Boolean {
+        val activeNetwork = connectivityManager.activeNetwork ?: return false
+        val networkCapabilities =
+            connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
+        return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 }
 

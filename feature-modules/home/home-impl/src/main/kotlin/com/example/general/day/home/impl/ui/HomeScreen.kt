@@ -20,6 +20,7 @@ import com.example.general.day.home.impl.ui.ui.components.HomeScreenBottom
 import com.example.general.day.home.impl.ui.ui.components.HomeScreenContent
 import com.example.general.day.home.impl.ui.ui.components.HomeScreenTop
 import com.example.general.day.ui.components.models.CurrentConvertedWeather
+import com.example.general.day.ui.core.components.ErrorScreen
 import com.example.general.day.ui.core.components.LoadingScreen
 import com.example.general.day.ui.core.theme.dp16
 import com.example.general.day.ui.core.theme.dp20
@@ -38,9 +39,11 @@ internal fun HomeScreen(
     val uiState by uiStateFlow.collectAsStateWithLifecycle()
 
     when (uiState) {
-        is HomeUiState.Error -> {
-            // todo ErrorScreen
-        }
+
+        is HomeUiState.Error -> ErrorScreen(
+            onRetryClick = { onEvent(HomeScreenEvent.DoRetryFetchWeather) },
+            errorMessage = (uiState as? HomeUiState.Error)?.message ?: return
+        )
 
         is HomeUiState.Loaded -> HomeScreenItem(
             uiState = uiState as? HomeUiState.Loaded ?: return,
@@ -94,6 +97,7 @@ internal fun HomeScreenItem(
             }
             items(
                 items = uiState.weatherForFiveDays,
+                key = { it.weatherId }
             ) { weather ->
                 HomeScreenBottom(
                     convertedWeather = weather,

@@ -23,17 +23,15 @@ fun AppNavGraph(
     theme: Boolean,
     onThemeChange: (Boolean) -> Unit,
 ) {
-
     Inject(viewModelFactory = viewModelFactory.get()) {
         val viewModel: ApplicationViewModel = daggerViewModel()
         viewModel.navigationRouteFlow.observeWithLifecycle { (route, action) ->
             navController.navigate(route = route, builder = action)
         }
     }
-
     NavHost(
         navController = navController,
-        startDestination = dependencyProvider.mapFeatureApi().mapRouteProvider.getRoute()
+        startDestination = dependencyProvider.detailFeatureApi("london").detailFeatureRouteProvider.getDetailRoure()
     ) {
         featureApi.forEach { api ->
             api.registerGraph(

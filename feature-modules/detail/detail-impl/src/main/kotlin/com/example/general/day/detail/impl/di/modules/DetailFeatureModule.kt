@@ -2,9 +2,11 @@ package com.example.general.day.detail.impl.di.modules
 
 import com.example.general.day.detail.api.DetailFeatureUiApi
 import com.example.general.day.detail.impl.DetailFeatureImpl
+import com.example.general.day.detail.impl.ui.DetailViewModelFactory
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
+import javax.inject.Provider
 
 typealias DetailRoute = String
 
@@ -13,10 +15,14 @@ class DetailFeatureModule {
 
     @Provides
     @Named("detail")
-    fun provideHomeRoute(): DetailRoute = "DetailRoute_screen_route"
+    fun provideHomeRoute(): DetailRoute = "detailRoute_screen_route"
 
     @Provides
     fun provideHomeFeatureUiApi(
         @Named("detail") route: DetailRoute,
-    ): DetailFeatureUiApi = DetailFeatureImpl(route = route)
+        viewModelFactory: Provider<DetailViewModelFactory>
+    ): DetailFeatureUiApi = DetailFeatureImpl(
+        route = route,
+        viewModelProvider = viewModelFactory
+    )
 }

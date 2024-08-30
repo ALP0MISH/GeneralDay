@@ -30,6 +30,8 @@ fun SearchComponent(
         onValueChange = { onEvent(FavoriteEvent.DoSavedWeatherOnValueChange(it)) },
         colors = TextFieldDefaults.colors(
             disabledTextColor = MaterialTheme.colorScheme.onBackground,
+            focusedTextColor = MaterialTheme.colorScheme.onBackground,
+            unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
             focusedContainerColor = MaterialTheme.colorScheme.secondary,
             unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
             disabledContainerColor = MaterialTheme.colorScheme.secondary,
@@ -50,7 +52,7 @@ fun SearchComponent(
             Text(
                 text = stringResource(id = string.search_sity),
                 style = MaterialTheme.typography.bodySmall,
-                color = Color.LightGray
+                color = Color.Gray
             )
         },
         leadingIcon = {
@@ -58,7 +60,7 @@ fun SearchComponent(
                 modifier = Modifier,
                 imageVector = Icons.Default.Search,
                 contentDescription = null,
-                tint = Color.LightGray
+                tint = Color.Gray
             )
         },
         shape = MaterialTheme.shapes.medium,

@@ -4,20 +4,20 @@ import com.example.general.day.core.Mapper
 import com.example.general.day.domain.models.LocalNamesDomain
 import com.example.general.day.domain.models.SearchWeatherDomain
 import com.example.general.day.ui.components.models.LocalNamesUi
-import com.example.general.day.ui.components.models.SearchWeatherResultUi
+import com.example.general.day.ui.components.models.SearchWeatherUi
 import javax.inject.Inject
 
 class SearchWeatherDomainToUiMapper @Inject constructor(
     private val localNameDomainToUiMapper: @JvmSuppressWildcards Mapper<LocalNamesDomain, LocalNamesUi>
-) : Mapper<@JvmSuppressWildcards SearchWeatherDomain, @JvmSuppressWildcards SearchWeatherResultUi> {
-    override fun map(from: SearchWeatherDomain): SearchWeatherResultUi = from.run {
-        SearchWeatherResultUi(
+) : Mapper<@JvmSuppressWildcards SearchWeatherDomain, @JvmSuppressWildcards SearchWeatherUi> {
+    override fun map(from: SearchWeatherDomain): SearchWeatherUi = from.run {
+        SearchWeatherUi(
             country = country,
             lat = lat,
             lon = lon,
             name = name,
             state = state,
-            localNames = localNameDomainToUiMapper.map(localName)
+            localName = localNameDomainToUiMapper.map(localName)
         )
     }
 }
