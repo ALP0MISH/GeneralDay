@@ -1,7 +1,6 @@
-package com.example.general.day.map.impl.ui.components
+package com.example.general.day.ui.core.utils
 
 import android.content.Context
-import com.example.general.day.map.impl.ui.components.ZoneClusterItem
 import com.google.android.gms.maps.GoogleMap
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.collections.MarkerManager

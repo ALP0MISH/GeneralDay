@@ -2,26 +2,23 @@ package com.example.general.day.map.impl.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.location.Location
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.general.day.map.impl.ui.components.ZoneClusterManager
-import com.example.general.day.ui.core.theme.dp16
+import androidx.core.content.ContextCompat
+import com.example.general.day.ui.core.utils.ZoneClusterItem
+import com.example.general.day.ui.core.utils.ZoneClusterManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
-import com.google.maps.android.compose.CameraPositionState
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapEffect
 import com.google.maps.android.compose.MapProperties
@@ -39,11 +36,8 @@ fun MapScreen(
     setupClusterManager: (Context, GoogleMap) -> ZoneClusterManager,
     calculateZoneViewCenter: () -> LatLngBounds,
     onMapClicked: (LatLng) -> Unit,
-    getDeviceLocation: () -> Unit,
 ) {
-    // Set properties using MapProperties which you can use to recompose the map
     val mapProperties = MapProperties(
-        // Only enable if user has accepted location permissions.
         isMyLocationEnabled = state.lastKnownLocation != null,
     )
     val cameraPositionState = rememberCameraPositionState()
@@ -63,7 +57,7 @@ fun MapScreen(
                     map.setOnCameraIdleListener(clusterManager)
                     map.setOnMarkerClickListener(clusterManager)
                     state.clusterItems.forEach { clusterItem ->
-                        map.addPolygon(clusterItem.polygonOptions)
+                        map.addMarker(createMarkerOptions(clusterItem, context, markerSize = 170))
                     }
                     map.setOnMapLoadedCallback {
                         if (state.clusterItems.isNotEmpty()) {
@@ -96,36 +90,29 @@ fun MapScreen(
                 draggable = true
             )
         }
-        Button(
-            onClick = { getDeviceLocation()},
-            modifier = Modifier.align(Alignment.BottomCenter).padding(dp16)
-        ) {
-            Text("Get Current Location")
-        }
     }
 }
 
-/**
- * If you want to center on a specific location.
- */
-private suspend fun CameraPositionState.centerOnLocation(
-    location: Location
-) = animate(
-    update = CameraUpdateFactory.newLatLngZoom(
-        LatLng(location.latitude, location.longitude),
-        15f
-    ),
-)
+private fun createMarkerOptions(
+    clusterItem: ZoneClusterItem,
+    context: Context,
+    markerSize: Int
+): MarkerOptions {
+    val weatherIconBitmap = getBitmapFromResource(context, clusterItem.icon, markerSize, markerSize)
 
-//@Preview
-//@Composable
-//fun MapScreenPreview(){
-//    MaterialTheme {
-//        MapScreen(
-//            setupClusterManager = {},
-//            calculateZoneViewCenter = {},
-//            onMapClicked = {},
-//            state = MapState()
-//        )
-//    }
-//}
+    return MarkerOptions()
+        .position(clusterItem.position)
+        .title(clusterItem.title)
+        .snippet(clusterItem.snippet)
+        .icon(BitmapDescriptorFactory.fromBitmap(weatherIconBitmap))
+}
+
+fun getBitmapFromResource(context: Context, resourceId: Int, width: Int, height: Int): Bitmap {
+    val drawable = ContextCompat.getDrawable(context, resourceId)
+        ?: throw IllegalArgumentException()
+    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(bitmap)
+    drawable.setBounds(0, 0, width, height)
+    drawable.draw(canvas)
+    return bitmap
+}
