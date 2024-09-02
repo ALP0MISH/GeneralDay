@@ -41,8 +41,8 @@ class HomeFeatureDependenciesImpl @Inject constructor(
         return dependencyProvider.mapFeatureApi().mapRouteProvider
     }
 
-    override fun getDetailRoute(weatherId: String): DetailFeatureRouteProvider {
-        return dependencyProvider.detailFeatureApi(weatherId).detailFeatureRouteProvider
+    override fun getDetailRoute(): DetailFeatureRouteProvider {
+        return dependencyProvider.detailFeatureApi().detailFeatureRouteProvider
     }
 
     override fun getFetchWeatherUseCase(): FetchWeatherUseCase {

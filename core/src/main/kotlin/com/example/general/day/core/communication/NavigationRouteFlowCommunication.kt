@@ -1,6 +1,7 @@
 package com.example.general.day.core.communication
 
 import androidx.navigation.NavOptionsBuilder
+import javax.inject.Singleton
 
 typealias ActionAfterNavigate = NavOptionsBuilder.() -> Unit
 
@@ -18,6 +19,7 @@ data class NavigationParams(
 
 interface NavigationRouteFlowCommunication : SharedFlowCommunication<NavigationParams> {
 
+    @Singleton
     class Default : SingleLiveEventFlowCommunicationImpl<NavigationParams>(),
         NavigationRouteFlowCommunication
 }

@@ -172,12 +172,8 @@ class FavoriteViewModel @Inject constructor(
     }
 
     private fun onNavigateToDetailScreen(weatherName: String) {
-        navigationRouteFlowCommunication
-            .emit(
-                navigationParams(
-                    favoriteFeatureDependencies.getDetailRoute(weatherName).getDetailRoure()
-                )
-            )
+        val route = "${favoriteFeatureDependencies.getDetailRoute().getDetailRoute()}/$weatherName"
+        navigationRouteFlowCommunication.emit(navigationParams(route))
     }
 
     private fun onNavigateToMapScreen() {

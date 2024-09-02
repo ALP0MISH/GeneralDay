@@ -20,5 +20,5 @@ class DependencyProviderImpl @Inject constructor(
 
     override fun mapFeatureApi(): MapFeatureUiApi = mapFeatureApi
 
-    override fun detailFeatureApi(weatherName: String): DetailFeatureUiApi = detailFeatureApi
+    override fun detailFeatureApi(): DetailFeatureUiApi = detailFeatureApi
 }

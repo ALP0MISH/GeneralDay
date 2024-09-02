@@ -2,15 +2,11 @@ package com.example.general.day.detail.impl
 
 import android.annotation.SuppressLint
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import androidx.navigation.navigation
-import com.example.general.day.core.StartRequestPermission
-import com.example.general.day.core.isPermissionsGranted
 import com.example.general.day.core.viewModel.component.Inject
 import com.example.general.day.core.viewModel.component.daggerViewModel
 import com.example.general.day.detail.api.DetailFeatureRouteProvider
@@ -31,7 +27,7 @@ class DetailFeatureImpl @Inject constructor(
 
     override val detailFeatureRouteProvider: DetailFeatureRouteProvider =
         object : DetailFeatureRouteProvider {
-            override fun getDetailRoure(): String = route
+            override fun getDetailRoute(): String = route
         }
 
     @SuppressLint("ComposableDestinationInComposeScope")
@@ -56,7 +52,8 @@ class DetailFeatureImpl @Inject constructor(
                     uiStateFlow = viewModel.state,
                     onEvent = viewModel::onEvent,
                     onThemeChange = onThemeChange,
-                    isDarkTheme = theme
+                    isDarkTheme = theme,
+                    onNavigateToBack = { navController.navigateUp() }
                 )
             }
         }
