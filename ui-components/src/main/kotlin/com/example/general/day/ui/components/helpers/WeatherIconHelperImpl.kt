@@ -1,11 +1,11 @@
-package com.example.general.day.ui.core.weather.helpers
+package com.example.general.day.ui.components.helpers
 
 import com.example.general.day.ui.components.models.WeatherUi
 import com.example.general.day.ui.components.models.WeatherSystemInformationUi
 import com.example.general.day.ui.core.R
-import com.example.general.day.ui.core.weather.helpers.TimeOfDayEnum.DawnDusk
-import com.example.general.day.ui.core.weather.helpers.TimeOfDayEnum.Day
-import com.example.general.day.ui.core.weather.helpers.TimeOfDayEnum.Night
+import com.example.general.day.ui.components.helpers.TimeOfDayEnum.DawnDusk
+import com.example.general.day.ui.components.helpers.TimeOfDayEnum.Day
+import com.example.general.day.ui.components.helpers.TimeOfDayEnum.Night
 import javax.inject.Inject
 
 class WeatherIconHelperImpl @Inject constructor(

@@ -1,4 +1,4 @@
-package com.example.general.day.home.impl.ui.ui.components
+package com.example.general.day.detail.impl.ui.componets
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.general.day.home.impl.ui.HomeScreenEvent
+import com.example.general.day.detail.impl.ui.DetailEvent
 import com.example.general.day.ui.core.R.drawable
 import com.example.general.day.ui.core.extention.SpacerWidth
 import com.example.general.day.ui.core.theme.dp17
@@ -26,10 +26,10 @@ import com.example.general.day.ui.core.theme.dp32
 import com.example.general.day.ui.core.theme.dp8
 
 @Composable
-internal fun HomeScreenTop(
+internal fun DetailScreenTopItem(
     modifier: Modifier = Modifier,
     cityName: String,
-    onEvent: (HomeScreenEvent) -> Unit,
+    onEvent: (DetailEvent) -> Unit,
     isDarkTheme: Boolean,
     onThemeChange: (Boolean) -> Unit,
 ) {
@@ -41,7 +41,7 @@ internal fun HomeScreenTop(
         horizontalArrangement = Arrangement.Center
     ) {
         IconButton(
-            onClick = { onEvent(HomeScreenEvent.DoNavigateToMapScreen) },
+            onClick = { onEvent(DetailEvent.DoNavigateToMapScreen) },
             colors = IconButtonDefaults.iconButtonColors(
                 containerColor = MaterialTheme.colorScheme.secondary
             ),
@@ -74,7 +74,7 @@ internal fun HomeScreenTop(
         }
         SpacerWidth(size = dp8)
         IconButton(
-            onClick = { onEvent(HomeScreenEvent.DoNavigateToFavoriteScreen) },
+            onClick = { onEvent(DetailEvent.DoNavigateToFavoriteScreen) },
             colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.secondary),
             modifier = Modifier.size(dp32),
         ) {
@@ -91,7 +91,7 @@ internal fun HomeScreenTop(
 @Composable
 fun HomeScreenTopItemPreview() {
     MaterialTheme {
-        HomeScreenTop(
+        DetailScreenTopItem(
             cityName = "Тамбов",
             onEvent = {},
             onThemeChange = {},

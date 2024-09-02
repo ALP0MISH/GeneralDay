@@ -27,7 +27,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.general.day.home.impl.ui.HomeScreenEvent
-import com.example.general.day.ui.components.models.ConvertedWeatherForFiveDaysUI
+import com.example.general.day.ui.components.helpers.toFormattedDate
+import com.example.general.day.ui.components.helpers.toFormattedTime
+import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
 import com.example.general.day.ui.core.extention.SpacerHeight
 import com.example.general.day.ui.core.extention.SpacerWidth
 import com.example.general.day.ui.core.theme.EachThreeTimeColorDark
@@ -47,8 +49,8 @@ import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun HomeScreenBottom(
-    convertedWeather: ConvertedWeatherForFiveDaysUI,
-    weatherForFiveDays: ImmutableList<ConvertedWeatherForFiveDaysUI>,
+    convertedWeather: WeatherForFiveDaysResultUi,
+    weatherForFiveDays: ImmutableList<WeatherForFiveDaysResultUi>,
     cityName: String,
     onEvent: (HomeScreenEvent) -> Unit,
     modifier: Modifier = Modifier,
@@ -59,7 +61,7 @@ fun HomeScreenBottom(
             .fillMaxWidth()
             .padding(bottom = dp8)
             .clip(RoundedCornerShape(dp16))
-            .background(if (isSystemInDarkTheme()) IconTintColorDark else IconTintColorLight)
+            .background(MaterialTheme.colorScheme.secondary)
             .clickable { onEvent(HomeScreenEvent.DoNavigateToDetailScreen(cityName)) },
     ) {
         Column(
@@ -72,19 +74,19 @@ fun HomeScreenBottom(
             ) {
                 Text(
                     modifier = Modifier,
-                    text = convertedWeather.eachThreeTime,
+                    text = convertedWeather.time.toFormattedDate(),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
-                    text = convertedWeather.temperatureMax,
+                    text = convertedWeather.tempMax,
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
                 SpacerWidth(dp8)
                 Text(
-                    text = convertedWeather.temperatureMin,
+                    text = convertedWeather.tempMin,
                     style = MaterialTheme.typography.bodyLarge,
                     color = Color.Gray,
                 )
@@ -102,6 +104,7 @@ fun HomeScreenBottom(
             )
         }
         SpacerHeight(dp8)
+
         LazyRow(
             modifier = Modifier
                 .padding(start = dp12)
@@ -109,14 +112,13 @@ fun HomeScreenBottom(
         ) {
             items(
                 items = weatherForFiveDays,
+                key = { it.weatherId }
             ) { item ->
-                item.eachThreeTime.map { time ->
-                    BottomItem(
-                        time = "время",
-                        temperature = item.temperature,
-                        image = item.weatherIcon
-                    )
-                }
+                BottomItem(
+                    time = item.time.toFormattedTime(),
+                    temperature = item.temperature,
+                    image = item.weatherIcon
+                )
             }
         }
     }
@@ -131,10 +133,10 @@ fun BottomItem(
 ) {
     Column(
         modifier = modifier
-            .width(dp73)
-            .padding(start = dp8)
+            .padding(dp8)
             .clip(RoundedCornerShape(dp16))
-            .background(if (isSystemInDarkTheme()) EachThreeTimeColorDark else EachThreeTimeColorLight),
+            .background(MaterialTheme.colorScheme.onSecondary)
+            .padding(dp8),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -164,7 +166,7 @@ fun HomeScreenBottomPreview() {
     MaterialTheme {
         HomeScreenBottom(
             onEvent = {},
-            convertedWeather = ConvertedWeatherForFiveDaysUI.preview,
+            convertedWeather = WeatherForFiveDaysResultUi.preview,
             weatherForFiveDays = persistentListOf(),
             cityName = String(),
         )

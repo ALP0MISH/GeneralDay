@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_viewModel_provider_message">Никакая ViewModelFactory не была предоставлена через локальную ViewModelFactory</string>
+    <string name="error_message">К сожелению такого горада нет</string>
 </resources>

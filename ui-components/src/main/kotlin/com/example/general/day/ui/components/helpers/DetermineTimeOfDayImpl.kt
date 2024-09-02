@@ -1,18 +1,14 @@
-package com.example.general.day.ui.core.weather.helpers
+package com.example.general.day.ui.components.helpers
 
-import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
+import com.example.general.day.ui.components.helpers.TimeOfDayEnum.DawnDusk
+import com.example.general.day.ui.components.helpers.TimeOfDayEnum.Day
+import com.example.general.day.ui.components.helpers.TimeOfDayEnum.Night
 import com.example.general.day.ui.components.models.WeatherSystemInformationUi
-import com.example.general.day.ui.core.weather.helpers.TimeOfDayEnum.DawnDusk
-import com.example.general.day.ui.core.weather.helpers.TimeOfDayEnum.Day
-import com.example.general.day.ui.core.weather.helpers.TimeOfDayEnum.Night
-import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneOffset
 import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 import javax.inject.Inject
 
 private const val Timestamp = 1000
@@ -54,14 +50,5 @@ class DetermineTimeOfDayImpl @Inject constructor() : DetermineTimeOfDay {
         return localTime in LocalTime.of(NumberSix, NumberZero)..LocalTime.of(
             NumberSeventeen, NumberFiftyNine
         )
-    }
-
-    override fun getUniqueDatesWithForecasts(list: List<WeatherForFiveDaysResultUi>): List<Pair<String, List<WeatherForFiveDaysResultUi>>> {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val groupedByDate = list.groupBy { dateFormat.format(Date(it.time.toLong() * 1000)) }
-        return groupedByDate.entries
-            .sortedBy { it.key }
-            .take(8)
-            .map { it.key to it.value }
     }
 }

@@ -6,7 +6,12 @@
     <string name="search_sity">Поиск города</string>
     <string name="exception_message">Не опознанный ViewModel клаcc</string>
     <string name="failed_to_fetch_weather">Не удалось получить прогноз погоды</string>
+    <string name="no_internet_connection">Отсутствует подключения к интернету</string>
+    <string name="retry">Повторите попытку, пожалуйста</string>
     <string name="error_message">К сожелению такого горада нет</string>
+    <string name="wind">Ветер</string>
+    <string name="humidity">Влажность</string>
+    <string name="precipitation">Осадки</string>
     <string name="success_message">Город успешно добавлен</string>
     <string name="location_message">Требуется разрешение на определение местоположения!</string>
 </resources>

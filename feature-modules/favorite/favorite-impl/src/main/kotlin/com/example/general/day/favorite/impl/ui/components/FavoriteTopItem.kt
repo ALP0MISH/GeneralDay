@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,12 +47,13 @@ internal fun FavoriteTopItem(
             modifier = Modifier
                 .size(dp32)
                 .clip(RoundedCornerShape(dp8))
-                .background(IconTintColorLight),
+                .background(MaterialTheme.colorScheme.secondary),
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = null
+                contentDescription = null,
+                tint = Color.Gray
             )
         }
         Text(
@@ -64,13 +66,14 @@ internal fun FavoriteTopItem(
             modifier = Modifier
                 .size(dp32)
                 .clip(RoundedCornerShape(dp8))
-                .background(IconTintColorLight)
+                .background(MaterialTheme.colorScheme.secondary)
                 .clickable { onThemeChange(!theme) },
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 painter = painterResource(drawable.loader),
-                contentDescription = null
+                contentDescription = null,
+                tint = Color.Gray
             )
         }
     }

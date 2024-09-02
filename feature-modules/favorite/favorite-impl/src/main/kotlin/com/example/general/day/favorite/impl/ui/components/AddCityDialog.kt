@@ -30,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.example.general.day.favorite.impl.ui.FavoriteEvent
@@ -39,6 +40,7 @@ import com.example.general.day.ui.core.theme.AddCityColor
 import com.example.general.day.ui.core.theme.dp16
 import com.example.general.day.ui.core.theme.dp20
 import com.example.general.day.ui.core.theme.dp8
+import com.example.general.day.ui.core.theme.sp14
 
 @Composable
 fun AddCityDialog(
@@ -61,7 +63,7 @@ fun AddCityDialog(
     ) {
         BasicTextField(
             value = value,
-            onValueChange = { onEvent(FavoriteEvent.DoOnValueChangeCityName(it)) },
+            onValueChange = { onEvent(FavoriteEvent.GetCityName(it)) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(dp8)
@@ -72,6 +74,10 @@ fun AddCityDialog(
                 .padding(horizontal = 16.dp, vertical = 12.dp),
             singleLine = true,
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
+            textStyle = TextStyle(
+                color = MaterialTheme.colorScheme.onBackground,
+                fontSize = sp14
+            ),
             decorationBox = { innerTextField ->
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -97,7 +103,7 @@ fun AddCityDialog(
                         IconButton(
                             modifier = Modifier.size(dp20),
                             onClick = {
-                                onEvent(FavoriteEvent.DoOnValueChangeCityName(String()))
+                                onEvent(FavoriteEvent.GetCityName(String()))
                             },
                         ) {
                             Icon(
@@ -114,12 +120,12 @@ fun AddCityDialog(
             if (uiState.query.isNotEmpty()) {
                 items(uiState.searchResult) { city ->
                     Text(
-                        text = city.localNames.ru,
+                        text = city.localName.ru,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(12.dp)
                             .clickable {
-                                onEvent(FavoriteEvent.GetCityName(city.name))
+                                onEvent(FavoriteEvent.GetCityName(city.localName.ru))
                             }
                             .background(
                                 Color.Gray.copy(alpha = 0.1f),

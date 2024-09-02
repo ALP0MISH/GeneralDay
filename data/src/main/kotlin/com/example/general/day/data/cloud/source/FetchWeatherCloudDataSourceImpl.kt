@@ -72,9 +72,6 @@ class FetchWeatherCloudDataSourceImpl @Inject constructor(
                     currentWeatherCloudToDataMapper.map(it)
                 } ?: CurrentWeatherData.unknown
             } else {
-                withContext(coroutineDispatchers.main) {
-                    toastNotificationManger.showToast(string.error_message)
-                }
                 CurrentWeatherData.unknown
             }
         }

@@ -21,7 +21,7 @@ private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
     secondary = IconTintColorDark,
     tertiary = Pink80,
-    onSecondary = EachThreeTimeColorLight,
+    onSecondary = EachThreeTimeColorDark,
     background = BackgroundDark
 )
 
@@ -29,14 +29,14 @@ private val LightColorScheme = lightColorScheme(
     primary = Purple40,
     secondary = IconTintColorLight,
     tertiary = Pink40,
-    onSecondary = EachThreeTimeColorDark,
+    onSecondary = EachThreeTimeColorLight,
     background = BackgroundLight
 )
 
 @Composable
 fun WeatherTestAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit,
 ) {
     val colorScheme = when {
@@ -60,26 +60,6 @@ fun WeatherTestAppTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
-        content = content
-    )
-}
-
-sealed class AppTheme {
-    data object Light : AppTheme()
-    data object Dark : AppTheme()
-}
-
-@Composable
-fun AppThemeProvider(
-    appTheme: AppTheme,
-    content: @Composable () -> Unit
-) {
-    val colors = when (appTheme) {
-        is AppTheme.Light -> DarkColorScheme
-        is AppTheme.Dark -> LightColorScheme
-    }
-    MaterialTheme(
-        colorScheme = colors,
         content = content
     )
 }

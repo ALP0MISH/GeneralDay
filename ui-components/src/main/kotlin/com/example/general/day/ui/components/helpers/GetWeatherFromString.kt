@@ -1,4 +1,4 @@
-package com.example.general.day.ui.core.weather.helpers
+package com.example.general.day.ui.components.helpers
 
 interface GetWeatherFromString {
 

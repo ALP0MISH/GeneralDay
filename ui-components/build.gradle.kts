@@ -24,6 +24,7 @@ android {
 dependencies {
     implementation(projects.domain)
     implementation(projects.core)
+    implementation(projects.uiCore)
 
     /** Immutable collections **/
     implementation(libs.kotlinx.collections.immutable)
@@ -31,6 +32,13 @@ dependencies {
     /** Dagger **/
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
+
+    /** Google maps Utility **/
+    implementation(libs.maps.ktx)
+    implementation(libs.maps.utils.ktx)
+    implementation(libs.maps.utils)
+    /** Google maps for compose **/
+    implementation(libs.maps.compose)
 
     /** Compose **/
     implementation(platform(libs.androidx.compose.bom))

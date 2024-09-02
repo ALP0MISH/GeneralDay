@@ -31,6 +31,7 @@ dependencies {
     implementation(projects.featureModules.location.locationApi)
     implementation(projects.featureModules.favorite.favoriteApi)
     implementation(projects.featureModules.map.mapApi)
+    implementation(projects.featureModules.detail.detailApi)
 
     /** Navigation **/
     implementation(libs.navigation.compose)
@@ -46,8 +47,8 @@ dependencies {
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
 
+    /** Swiperefresh **/
     implementation(libs.accompanist.swiperefresh)
-
 
     /** Compose **/
     implementation(platform(libs.androidx.compose.bom))

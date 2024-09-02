@@ -2,6 +2,10 @@ package com.example.general.day.ui.core.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,9 +19,14 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.general.day.ui.core.R
+import com.example.general.day.ui.core.extention.SpacerHeight
+import com.example.general.day.ui.core.theme.AddCityColor
+import com.example.general.day.ui.core.theme.dp16
 
 @Composable
-fun LottieErrorScreen(
+fun ErrorScreen(
+    errorMessage: String,
+    onRetryClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.now_weather_saved_yet))
@@ -40,11 +49,19 @@ fun LottieErrorScreen(
                 progress = progress
             )
             Text(
-                modifier = Modifier,
-                text = stringResource(id = R.string.no_weather_saved_yet),
+                text = errorMessage,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground
             )
+            SpacerHeight(dp16)
+            Button(
+                onClick = onRetryClick,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = AddCityColor
+                )
+            ) {
+                Text(text = stringResource(id = R.string.retry))
+            }
         }
     }
 }

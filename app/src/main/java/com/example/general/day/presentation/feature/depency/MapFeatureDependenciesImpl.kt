@@ -9,7 +9,7 @@ import com.example.general.day.location.api.LocationTrackerManager
 import com.example.general.day.map.impl.di.MapFeatureDependencies
 import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToUiMapper
 import com.example.general.day.ui.components.models.CurrentWeatherUi
-import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
+import com.example.general.day.ui.components.helpers.WeatherDataHelper
 import javax.inject.Inject
 
 class MapFeatureDependenciesImpl @Inject constructor(

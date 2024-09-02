@@ -1,8 +1,11 @@
 package com.example.general.day.presentation.feature.depency
 
+import android.net.ConnectivityManager
 import com.example.general.day.core.Mapper
 import com.example.general.day.core.ToastNotificationManger
 import com.example.general.day.core.communication.NavigationRouteFlowCommunication
+import com.example.general.day.data.local.shared.pref.SharedPrefManager
+import com.example.general.day.detail.api.DetailFeatureRouteProvider
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.models.WeatherForFiveDaysDomain
 import com.example.general.day.domain.usecase.FetchWeatherUseCase
@@ -14,7 +17,7 @@ import com.example.general.day.map.api.MapRouteProvider
 import com.example.general.day.presentation.di.DependencyProvider
 import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysUi
-import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
+import com.example.general.day.ui.components.helpers.WeatherDataHelper
 import javax.inject.Inject
 
 class HomeFeatureDependenciesImpl @Inject constructor(
@@ -25,7 +28,9 @@ class HomeFeatureDependenciesImpl @Inject constructor(
     private val navigationRouteFlowCommunication: NavigationRouteFlowCommunication,
     private val currentWeatherToHomeUi: @JvmSuppressWildcards Mapper<CurrentWeatherDomain, CurrentWeatherUi>,
     private val weatherDomainToHomeUiMapper: @JvmSuppressWildcards Mapper<WeatherForFiveDaysDomain, WeatherForFiveDaysUi>,
-    private val getToastNotificationManger: ToastNotificationManger
+    private val getToastNotificationManger: ToastNotificationManger,
+    private val sharedPrefManager: SharedPrefManager,
+    private val connectivityManager: ConnectivityManager,
 ) : HomeFeatureDependencies {
 
     override fun getFavoriteRoute(): FavoriteRouteProvider {
@@ -34,6 +39,10 @@ class HomeFeatureDependenciesImpl @Inject constructor(
 
     override fun getMapRoute(): MapRouteProvider {
         return dependencyProvider.mapFeatureApi().mapRouteProvider
+    }
+
+    override fun getDetailRoute(weatherId: String): DetailFeatureRouteProvider {
+        return dependencyProvider.detailFeatureApi(weatherId).detailFeatureRouteProvider
     }
 
     override fun getFetchWeatherUseCase(): FetchWeatherUseCase {
@@ -62,5 +71,13 @@ class HomeFeatureDependenciesImpl @Inject constructor(
 
     override fun getToastDecorator(): ToastNotificationManger {
         return getToastNotificationManger
+    }
+
+    override fun getSharedPreferences(): SharedPrefManager {
+        return sharedPrefManager
+    }
+
+    override fun getConnectivityManager(): ConnectivityManager {
+        return connectivityManager
     }
 }

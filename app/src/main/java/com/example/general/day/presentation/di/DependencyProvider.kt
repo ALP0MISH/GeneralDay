@@ -13,5 +13,5 @@ interface DependencyProvider {
 
     fun mapFeatureApi(): MapFeatureUiApi
 
-    fun detailFeatureApi(): DetailFeatureUiApi
+    fun detailFeatureApi(weatherName: String): DetailFeatureUiApi
 }

@@ -7,7 +7,7 @@ import com.example.general.day.domain.usecase.FetchWeatherUseCase
 import com.example.general.day.location.api.LocationTrackerManager
 import com.example.general.day.ui.components.mappers.CurrentWeatherDomainToUiMapper
 import com.example.general.day.ui.components.models.CurrentWeatherUi
-import com.example.general.day.ui.core.weather.helpers.WeatherDataHelper
+import com.example.general.day.ui.components.helpers.WeatherDataHelper
 
 interface MapFeatureDependencies {
 

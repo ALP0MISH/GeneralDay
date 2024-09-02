@@ -1,10 +1,11 @@
-package com.example.general.day.ui.core.weather.helpers
+package com.example.general.day.ui.components.helpers
 
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 private const val SimpleDateFormatTime = "d MMMM, EE"
+private const val Time = "HH:mm"
 private const val SimpleDateFormatDataAndTime = "yyyy-MM-dd HH:mm:ss"
 private const val Language = "ru"
 private const val CONVERT_KELVIN_TO_CELSIUS = 273.15
@@ -16,14 +17,19 @@ fun Long.getMonthAndDay(): String {
     return dateFormat.format(date)
 }
 
-fun String.getFormattedTime(): String {
-    val inputFormat = SimpleDateFormat(SimpleDateFormatDataAndTime, Locale(Language))
-    val dateTime: Date? = inputFormat.parse(this)
-    return dateTime?.time.toString()
-}
+fun Date.toFormattedDate(pattern: String = "dd MMMM, EEE"): String =
+    SimpleDateFormat(pattern, Locale.getDefault()).format(this)
+
+fun Date.toFormattedTime(pattern: String = "HH:mm"): String =
+    SimpleDateFormat(pattern, Locale.getDefault()).format(this)
 
 fun Double.kelvinToCelsius(): Int {
     return (this - CONVERT_KELVIN_TO_CELSIUS).toInt()
+}
+
+fun Double.toIntegerString(): String {
+    val integerPart = this.toInt()
+    return integerPart.toString()
 }
 
 fun Double.formatTemperature(): String {

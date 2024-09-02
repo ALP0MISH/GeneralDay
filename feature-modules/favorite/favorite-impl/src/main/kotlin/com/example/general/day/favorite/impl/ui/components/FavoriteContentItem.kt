@@ -2,6 +2,7 @@ package com.example.general.day.favorite.impl.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,7 +31,7 @@ import com.example.general.day.ui.core.theme.dp8
 
 @Composable
 fun FavoriteContentItem(
-    id:String,
+    id: String,
     cityName: String,
     temperatureMin: String,
     temperatureMax: String,
@@ -43,7 +44,8 @@ fun FavoriteContentItem(
             .fillMaxWidth()
             .padding(top = dp8)
             .clip(RoundedCornerShape(dp16))
-            .background(IconTintColorLight)
+            .background(MaterialTheme.colorScheme.secondary)
+            .clickable { onEvent(FavoriteEvent.DoNavigateToDetailScreen(cityName)) }
             .pointerInput(Unit) {
                 detectTapGestures(
                     onLongPress = {

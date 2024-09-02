@@ -1,5 +1,9 @@
 package com.example.general.day.domain.models
 
+import java.util.Calendar
+import java.util.Date
+import java.util.concurrent.TimeUnit
+
 data class WeatherForFiveDaysDomain(
     val city: CityDomain,
     val timeCount: Int,
@@ -7,6 +11,12 @@ data class WeatherForFiveDaysDomain(
     val list: List<WeatherForFiveDaysResultDomain>,
     val message: Int
 ) {
+    fun groupByDate() = list.groupBy {
+        with(Calendar.getInstance()) {
+            time = Date(TimeUnit.SECONDS.toMillis(it.time.toLong()))
+            get(Calendar.DATE)
+        }
+    }
     companion object {
         val unknown = WeatherForFiveDaysDomain(
             city = CityDomain.unknown,

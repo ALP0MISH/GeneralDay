@@ -27,6 +27,8 @@ class HomeFeatureImpl @Inject constructor(
     override fun registerGraph(
         navGraphBuilder: NavGraphBuilder,
         navController: NavHostController,
+        theme: Boolean,
+        onThemeChange: (Boolean) -> Unit,
         modifier: Modifier
     ) {
         navGraphBuilder.composable(route) {
@@ -44,7 +46,9 @@ class HomeFeatureImpl @Inject constructor(
                 }
                 HomeScreen(
                     uiStateFlow = viewModel.state,
-                    onEvent = viewModel::onEvent
+                    onEvent = viewModel::onEvent,
+                    onThemeChange = onThemeChange,
+                    isDarkTheme = theme
                 )
             }
         }

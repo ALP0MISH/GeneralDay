@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -49,7 +51,6 @@ import com.example.general.day.ui.core.theme.dp17
 import com.example.general.day.ui.core.theme.dp40
 import com.example.general.day.ui.core.theme.dp8
 
-
 @Composable
 internal fun FavoriteScreen(
     uiState: FavoriteUIState,
@@ -68,84 +69,106 @@ internal fun FavoriteScreen(
             .padding(top = dp17)
             .padding(horizontal = dp16)
     ) {
-        LazyColumn(
-            state = scrollState, modifier = Modifier.fillMaxSize()
-        ) {
-            item {
-                FavoriteTopItem(
-                    cityName = uiState.savedWeatherUI.savedWeather.firstOrNull()?.cityName
-                        ?: String(), theme = theme, onThemeChange = onThemeChange
-                )
-                SearchComponent(
-                    onEvent = onEvent, value = uiState.savedWeatherUI.query
-                )
-                Spacer(modifier = Modifier.height(dp8))
-                when {
-                    uiState.savedWeatherUI.savedWeather.isEmpty() -> LottieErrorScreen()
-                    uiState.savedWeatherUI.savedWeather.isNotEmpty() -> {
-                        this@LazyColumn.items(uiState.savedWeatherUI.savedWeather) { weather ->
-                            FavoriteContentItem(
-                                temperatureMax = weather.tempMax,
-                                temperatureMin = weather.tempMin,
-                                cityName = weather.cityName,
-                                weatherIcon = weather.weatherIcon,
-                                onEvent = onEvent,
-                                id = weather.id
-                            )
-                        }
-                    }
+        if (uiState.isLoading) {
+            LoadingScreen()
+        } else {
+            LazyColumn(
+                state = scrollState, modifier = Modifier.fillMaxSize()
+            ) {
+                item {
+                    FavoriteTopSection(
+                        uiState = uiState,
+                        theme = theme,
+                        onThemeChange = onThemeChange,
+                        onEvent = onEvent
+                    )
+                }
+                items(uiState.savedWeatherUI.savedWeather, key = { it.id }) { weather ->
+                    FavoriteContentItem(
+                        temperatureMax = weather.tempMax,
+                        temperatureMin = weather.tempMin,
+                        cityName = weather.cityName,
+                        weatherIcon = weather.weatherIcon,
+                        onEvent = onEvent,
+                        id = weather.id
+                    )
+                }
+            }
+            Row(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(dp16)
+                    .background(Color.Transparent),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Button(
+                    shape = RoundedCornerShape(dp12),
+                    onClick = { showDialog = true },
+                    colors = ButtonDefaults.textButtonColors(
+                        containerColor = AddCityColor
+                    )
+                ) {
+                    Text(
+                        text = stringResource(id = string.save_city),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.White
+                    )
+                }
+                SpacerWidth(size = dp8)
+                Box(
+                    modifier = Modifier
+                        .size(dp40)
+                        .clip(RoundedCornerShape(dp12))
+                        .background(MaterialTheme.colorScheme.secondary)
+                        .clickable { onEvent(FavoriteEvent.DoNavigateToMapScreen) },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        modifier = Modifier,
+                        painter = painterResource(id = drawable.location),
+                        contentDescription = null,
+                        tint = Color.Gray
+                    )
                 }
             }
         }
-        Row(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(dp16)
-                .background(Color.Transparent),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Button(
-                shape = RoundedCornerShape(dp12),
-                onClick = { showDialog = true },
-                colors = ButtonDefaults.textButtonColors(
-                    containerColor = AddCityColor
-                )
-            ) {
-                Text(
-                    text = stringResource(id = string.save_city),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = Color.White
-                )
-            }
-            SpacerWidth(size = dp8)
-            Box(
-                modifier = Modifier
-                    .size(dp40)
-                    .clip(RoundedCornerShape(dp12))
-                    .background(MaterialTheme.colorScheme.secondary)
-                    .clickable { onEvent(FavoriteEvent.DoNavigateToMapScreen) },
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    modifier = Modifier,
-                    painter = painterResource(id = drawable.location),
-                    contentDescription = null,
-                    tint = Color.LightGray
+
+        if (showDialog) {
+            Dialog(onDismissRequest = { showDialog = false }) {
+                AddCityDialog(
+                    onDismissRequest = { showDialog = false },
+                    onAddClick = { showDialog = false },
+                    onEvent = onEvent,
+                    value = uiState.query,
+                    uiState = uiState,
                 )
             }
         }
     }
+}
 
-    if (showDialog) {
-        Dialog(onDismissRequest = { showDialog = false }) {
-            AddCityDialog(
-                onDismissRequest = { showDialog = false },
-                onAddClick = { showDialog = false },
-                onEvent = onEvent,
-                value = uiState.query,
-                uiState = uiState,
-            )
+@Composable
+private fun FavoriteTopSection(
+    uiState: FavoriteUIState,
+    theme: Boolean,
+    onThemeChange: (Boolean) -> Unit,
+    onEvent: (FavoriteEvent) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(modifier = modifier) {
+        FavoriteTopItem(
+            cityName = uiState.cityName,
+            theme = theme,
+            onThemeChange = onThemeChange
+        )
+        SearchComponent(
+            onEvent = onEvent, value = uiState.savedWeatherUI.query
+        )
+        Spacer(modifier = Modifier.height(dp8))
+
+        if (uiState.savedWeatherUI.savedWeather.isEmpty()) {
+            LottieErrorScreen()
         }
     }
 }
