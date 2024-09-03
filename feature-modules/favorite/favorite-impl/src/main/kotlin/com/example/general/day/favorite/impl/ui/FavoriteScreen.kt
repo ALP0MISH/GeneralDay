@@ -58,6 +58,7 @@ internal fun FavoriteScreen(
     modifier: Modifier = Modifier,
     theme: Boolean,
     onThemeChange: (Boolean) -> Unit,
+    onNavigateToBack: () -> Unit,
 ) {
     var showDialog by remember { mutableStateOf(false) }
     val scrollState = rememberLazyListState()
@@ -80,7 +81,8 @@ internal fun FavoriteScreen(
                         uiState = uiState,
                         theme = theme,
                         onThemeChange = onThemeChange,
-                        onEvent = onEvent
+                        onEvent = onEvent,
+                        onNavigateToBack = onNavigateToBack
                     )
                 }
                 items(uiState.savedWeatherUI.savedWeather, key = { it.id }) { weather ->
@@ -154,13 +156,15 @@ private fun FavoriteTopSection(
     theme: Boolean,
     onThemeChange: (Boolean) -> Unit,
     onEvent: (FavoriteEvent) -> Unit,
+    onNavigateToBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
         FavoriteTopItem(
             cityName = uiState.cityName,
             theme = theme,
-            onThemeChange = onThemeChange
+            onThemeChange = onThemeChange,
+            onNavigateToBack = onNavigateToBack
         )
         SearchComponent(
             onEvent = onEvent, value = uiState.savedWeatherUI.query
@@ -177,8 +181,14 @@ private fun FavoriteTopSection(
 @Composable
 fun FavoriteScreenPreview() {
     MaterialTheme {
-        FavoriteScreen(uiState = FavoriteUIState(
-            savedWeatherUI = SavedWeatherUI.unknown,
-        ), onEvent = {}, theme = false, onThemeChange = {})
+        FavoriteScreen(
+            uiState = FavoriteUIState(
+                savedWeatherUI = SavedWeatherUI.unknown,
+            ),
+            onEvent = {},
+            theme = false,
+            onThemeChange = {},
+            onNavigateToBack = {}
+        )
     }
 }

@@ -40,6 +40,7 @@ class FavoriteFeatureImpl @Inject constructor(
                     onEvent = viewModel::onEvent,
                     theme = theme,
                     onThemeChange = onThemeChange,
+                    onNavigateToBack = { navController.navigateUp() }
                 )
             }
         }

@@ -23,7 +23,7 @@ interface FavoriteFeatureDependencies {
 
     fun getMapRoute(): MapRouteProvider
 
-    fun getDetailRoute(weatherId: String): DetailFeatureRouteProvider
+    fun getDetailRoute(): DetailFeatureRouteProvider
 
     fun getFetchWeatherByCity(): FetchWeatherByCity
 

@@ -1,9 +1,9 @@
 package com.example.general.day.home.impl.ui
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import androidx.core.content.ContextCompat.getSystemService
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -143,14 +143,11 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun onNavigateToDetailScreen(weatherName: String) {
-        getNavigationRouteFlowCommunication
-            .emit(
-                navigationParams(
-                    dependencies.getDetailRoute(weatherName).getDetailRoure()
-                )
-            )
+        val route = "${dependencies.getDetailRoute().getDetailRoute()}/$weatherName"
+        getNavigationRouteFlowCommunication.emit(navigationParams(route))
     }
 
+    @SuppressLint("MissingPermission")
     private fun isInternetAvailable(): Boolean {
         val activeNetwork = connectivityManager.activeNetwork ?: return false
         val networkCapabilities =

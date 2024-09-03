@@ -35,6 +35,7 @@ internal fun FavoriteTopItem(
     modifier: Modifier = Modifier,
     theme: Boolean,
     onThemeChange: (Boolean) -> Unit,
+    onNavigateToBack: () -> Unit,
 ) {
     Row(
         modifier = modifier
@@ -47,7 +48,8 @@ internal fun FavoriteTopItem(
             modifier = Modifier
                 .size(dp32)
                 .clip(RoundedCornerShape(dp8))
-                .background(MaterialTheme.colorScheme.secondary),
+                .background(MaterialTheme.colorScheme.secondary)
+                .clickable { onNavigateToBack() },
             contentAlignment = Alignment.Center
         ) {
             Icon(
@@ -86,7 +88,8 @@ fun FavoriteTopItemPreview() {
         FavoriteTopItem(
             cityName = String(),
             theme = false,
-            onThemeChange = {}
+            onThemeChange = {},
+            onNavigateToBack = {}
         )
     }
 }

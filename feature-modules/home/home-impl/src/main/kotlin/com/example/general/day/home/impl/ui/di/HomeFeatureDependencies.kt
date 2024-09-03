@@ -22,7 +22,7 @@ interface HomeFeatureDependencies {
 
     fun getMapRoute(): MapRouteProvider
 
-    fun getDetailRoute(weatherId: String): DetailFeatureRouteProvider
+    fun getDetailRoute(): DetailFeatureRouteProvider
 
     fun getFetchWeatherUseCase(): FetchWeatherUseCase
 
