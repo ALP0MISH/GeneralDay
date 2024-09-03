@@ -12,6 +12,5 @@ interface WeatherIconHelper {
 
     fun fetchBackgroundForTimeOfDay(
         timeOfDay: Long,
-        weatherSystemInfo: WeatherSystemInformationUi
     ): Int
 }

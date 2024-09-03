@@ -2,7 +2,7 @@ package com.example.general.day.domain.models
 
 data class WeatherForFiveDaysResultDomain(
     val clouds: CloudsDomain,
-    val time: Int,
+    val time: Long,
     val timeText: String,
     val weatherTemperature: WeatherTemperatureDomain,
     val probabilityOfPrecipitation: Double,

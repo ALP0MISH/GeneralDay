@@ -12,7 +12,8 @@ class WeatherTemperatureDomainToUiMapper @Inject constructor() :
             feelsLike = feelsLike,
             temperature = temperature,
             tempMax = tempMax,
-            tempMin = tempMin
+            tempMin = tempMin,
+            humidity = humidity
         )
     }
 }

@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -32,7 +34,8 @@ internal fun DetailScreenTopItem(
     onEvent: (DetailEvent) -> Unit,
     isDarkTheme: Boolean,
     onThemeChange: (Boolean) -> Unit,
-) {
+    onNavigateToBack: () -> Unit,
+    ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -41,14 +44,14 @@ internal fun DetailScreenTopItem(
         horizontalArrangement = Arrangement.Center
     ) {
         IconButton(
-            onClick = { onEvent(DetailEvent.DoNavigateToMapScreen) },
+            onClick = {onNavigateToBack() },
             colors = IconButtonDefaults.iconButtonColors(
                 containerColor = MaterialTheme.colorScheme.secondary
             ),
             modifier = Modifier.size(dp32),
         ) {
             Icon(
-                painter = painterResource(drawable.location),
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                 contentDescription = null,
                 tint = Color.Gray
             )
@@ -56,7 +59,7 @@ internal fun DetailScreenTopItem(
         Spacer(modifier = Modifier.weight(1.4f))
         Text(
             text = cityName,
-            style = MaterialTheme.typography.titleSmall,
+            style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.ExtraBold,
             color = MaterialTheme.colorScheme.onBackground
         )
@@ -95,7 +98,8 @@ fun HomeScreenTopItemPreview() {
             cityName = "Тамбов",
             onEvent = {},
             onThemeChange = {},
-            isDarkTheme = false
+            isDarkTheme = false,
+            onNavigateToBack = {}
         )
     }
 }

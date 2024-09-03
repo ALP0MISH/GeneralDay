@@ -1,5 +1,6 @@
 package com.example.general.day.detail.impl.ui
 
+import android.annotation.SuppressLint
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.lifecycle.ViewModel
@@ -37,9 +38,6 @@ class DetailViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<DetailUiState>(DetailUiState.Loading)
     val state: StateFlow<DetailUiState> = _uiState.asStateFlow()
 
-    private val _isLoading = MutableStateFlow(false)
-    val isLoading = _isLoading.asStateFlow()
-
     private var weatherId: String = ""
 
     fun setWeatherId(weatherId: String) {
@@ -54,7 +52,6 @@ class DetailViewModel @Inject constructor(
                     _uiState.tryEmit(DetailUiState.Error(getToastNotificationManger.getString(R.string.no_internet_connection)))
                     return@launch
                 }
-                _isLoading.value = true
                 val weatherForFiveDaysDeferred =
                     fetchWeatherByCity.fetchWeatherCityForFiveDays(weatherId)
 
@@ -67,7 +64,6 @@ class DetailViewModel @Inject constructor(
                             ?: WeatherForFiveDaysResultUi.unknown,
                     )
                 )
-                _isLoading.value = false
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
@@ -76,7 +72,6 @@ class DetailViewModel @Inject constructor(
                         getToastNotificationManger.getString(R.string.failed_to_fetch_weather),
                     )
                 )
-                _isLoading.value = false
             }
         }
     }
@@ -99,6 +94,7 @@ class DetailViewModel @Inject constructor(
         }
     }
 
+    @SuppressLint("MissingPermission")
     private fun isInternetAvailable(): Boolean {
         val activeNetwork = connectivityManager.activeNetwork ?: return false
         val networkCapabilities =
