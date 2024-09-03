@@ -10,7 +10,9 @@ data class WeatherTemperatureCloud(
     @SerializedName("temp_max")
     val tempMax: Double,
     @SerializedName("temp_min")
-    val tempMin: Double
+    val tempMin: Double,
+    @SerializedName("humidity")
+    val humidity: Int,
 ) {
     companion object {
         val unknown = WeatherTemperatureCloud(
@@ -18,6 +20,7 @@ data class WeatherTemperatureCloud(
             temperature = 0.0,
             tempMin = 0.0,
             tempMax = 0.0,
+            humidity = 0
         )
     }
 }

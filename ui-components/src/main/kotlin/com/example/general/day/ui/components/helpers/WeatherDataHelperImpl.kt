@@ -22,7 +22,6 @@ class WeatherDataHelperImpl @Inject constructor(
             feelsLikeTemperature = currentWeatherResult.weatherTemperature.feelsLike.formatTemperature(),
             weatherBackgroundImage = weatherIconHelper.fetchBackgroundForTimeOfDay(
                 currentWeatherResult.time.toLong(),
-                currentWeatherResult.systemInformation
             ),
             currentWeatherIcon = weatherIconHelper.fetchWeatherIcon(
                 currentWeatherResult.weather.firstOrNull() ?: WeatherUi.unknown,

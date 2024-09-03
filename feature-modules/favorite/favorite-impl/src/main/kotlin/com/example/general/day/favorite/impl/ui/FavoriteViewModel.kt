@@ -148,7 +148,6 @@ class FavoriteViewModel @Inject constructor(
                             weather
                         )
                     )
-
                 } else {
                     toastNotificationManger.showToast(string.error_message)
                 }

@@ -8,7 +8,7 @@ data class WeatherForFiveDaysResultCloud(
     @SerializedName("clouds")
     val clouds: CloudsCloud,
     @SerializedName("dt")
-    val time: Int,
+    val time: Long,
     @SerializedName("dt_txt")
     val timeText: String,
     @SerializedName("main")

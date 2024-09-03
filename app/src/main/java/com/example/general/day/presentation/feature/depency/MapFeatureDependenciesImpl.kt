@@ -18,8 +18,7 @@ class MapFeatureDependenciesImpl @Inject constructor(
     private val weatherDataHelper: WeatherDataHelper,
     private val navigationRouteFlowCommunication: NavigationRouteFlowCommunication,
     private val currentWeatherDomainToHomeUiMapper: @JvmSuppressWildcards Mapper<CurrentWeatherDomain, CurrentWeatherUi>,
-
-    ) : MapFeatureDependencies {
+) : MapFeatureDependencies {
 
     override fun getFetchWeatherUseCase(): FetchWeatherUseCase {
         return fetchWeatherUseCase

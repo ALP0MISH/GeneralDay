@@ -6,7 +6,6 @@ import java.util.Locale
 
 private const val SimpleDateFormatTime = "d MMMM, EE"
 private const val Time = "HH:mm"
-private const val SimpleDateFormatDataAndTime = "yyyy-MM-dd HH:mm:ss"
 private const val Language = "ru"
 private const val CONVERT_KELVIN_TO_CELSIUS = 273.15
 private const val Timestamp = 1000
@@ -17,10 +16,10 @@ fun Long.getMonthAndDay(): String {
     return dateFormat.format(date)
 }
 
-fun Date.toFormattedDate(pattern: String = "dd MMMM, EEE"): String =
+fun Date.toFormattedDate(pattern: String = SimpleDateFormatTime): String =
     SimpleDateFormat(pattern, Locale.getDefault()).format(this)
 
-fun Date.toFormattedTime(pattern: String = "HH:mm"): String =
+fun Date.toFormattedTime(pattern: String = Time): String =
     SimpleDateFormat(pattern, Locale.getDefault()).format(this)
 
 fun Double.kelvinToCelsius(): Int {

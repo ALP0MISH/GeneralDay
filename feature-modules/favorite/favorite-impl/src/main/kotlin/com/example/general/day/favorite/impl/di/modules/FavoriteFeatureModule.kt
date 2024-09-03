@@ -9,17 +9,18 @@ import javax.inject.Named
 import javax.inject.Provider
 
 typealias FavoriteRoute = String
+private const val NAMED_FAVORITE = "favorite"
 
 @Module
 class FavoriteFeatureModule {
 
     @Provides
-    @Named("favorite")
+    @Named(NAMED_FAVORITE)
     fun provideFavoriteRoute(): FavoriteRoute = "favorite_screen_route"
 
     @Provides
     fun provideFavoriteFeatureUIApi(
-        @Named("favorite") route: FavoriteRoute,
+        @Named(NAMED_FAVORITE) route: FavoriteRoute,
         viewModelFactory: Provider<FavoriteViewModelFactory>
     ): FavoriteFeatureUIApi = FavoriteFeatureImpl(
         route = route,

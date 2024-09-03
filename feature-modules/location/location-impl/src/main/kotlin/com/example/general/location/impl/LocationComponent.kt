@@ -4,9 +4,7 @@ import com.example.general.day.location.api.LocationFeatureApi
 import dagger.Component
 
 @Component(
-    modules = [
-        LocationModule::class,
-    ],
+    modules = [LocationModule::class],
     dependencies = [LocationFeatureDependencies::class]
 )
 interface LocationComponent : LocationFeatureApi {

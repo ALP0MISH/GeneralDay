@@ -2,8 +2,6 @@ package com.example.general.day.home.impl.ui.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,23 +23,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.general.day.home.impl.ui.HomeScreenEvent
+import com.example.general.day.ui.components.helpers.formatTemperature
 import com.example.general.day.ui.components.helpers.toFormattedDate
 import com.example.general.day.ui.components.helpers.toFormattedTime
 import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
 import com.example.general.day.ui.core.extention.SpacerHeight
 import com.example.general.day.ui.core.extention.SpacerWidth
-import com.example.general.day.ui.core.theme.EachThreeTimeColorDark
-import com.example.general.day.ui.core.theme.EachThreeTimeColorLight
-import com.example.general.day.ui.core.theme.IconTintColorDark
-import com.example.general.day.ui.core.theme.IconTintColorLight
 import com.example.general.day.ui.core.theme.dp10
 import com.example.general.day.ui.core.theme.dp12
 import com.example.general.day.ui.core.theme.dp16
 import com.example.general.day.ui.core.theme.dp20
 import com.example.general.day.ui.core.theme.dp32
 import com.example.general.day.ui.core.theme.dp5
-import com.example.general.day.ui.core.theme.dp73
 import com.example.general.day.ui.core.theme.dp8
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -51,18 +43,15 @@ import kotlinx.collections.immutable.persistentListOf
 fun HomeScreenBottom(
     convertedWeather: WeatherForFiveDaysResultUi,
     weatherForFiveDays: ImmutableList<WeatherForFiveDaysResultUi>,
-    cityName: String,
-    onEvent: (HomeScreenEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
-            .fillMaxHeight(0.14f)
+            .fillMaxHeight(0.11f)
             .fillMaxWidth()
             .padding(bottom = dp8)
             .clip(RoundedCornerShape(dp16))
             .background(MaterialTheme.colorScheme.secondary)
-            .clickable { onEvent(HomeScreenEvent.DoNavigateToDetailScreen(cityName)) },
     ) {
         Column(
             modifier = Modifier
@@ -80,13 +69,13 @@ fun HomeScreenBottom(
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
-                    text = convertedWeather.tempMax,
+                    text = convertedWeather.tempMax.formatTemperature(),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
                 SpacerWidth(dp8)
                 Text(
-                    text = convertedWeather.tempMin,
+                    text = convertedWeather.tempMin.formatTemperature(),
                     style = MaterialTheme.typography.bodyLarge,
                     color = Color.Gray,
                 )
@@ -165,10 +154,8 @@ fun BottomItem(
 fun HomeScreenBottomPreview() {
     MaterialTheme {
         HomeScreenBottom(
-            onEvent = {},
             convertedWeather = WeatherForFiveDaysResultUi.preview,
             weatherForFiveDays = persistentListOf(),
-            cityName = String(),
         )
     }
 }

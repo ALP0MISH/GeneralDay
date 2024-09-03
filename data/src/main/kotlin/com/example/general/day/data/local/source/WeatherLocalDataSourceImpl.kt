@@ -1,6 +1,8 @@
 package com.example.general.day.data.local.source
 
+import com.example.general.day.core.ToastNotificationManger
 import com.example.general.day.core.dispatchers.CoroutineDispatchers
+import com.example.general.day.ui.core.R.string
 import com.example.general.day.data.local.dao.WeatherDao
 import com.example.general.day.data.local.mapper.CurrentWeatherLocalDataToLocalMapper
 import com.example.general.day.data.local.mapper.CurrentWeatherLocalToDataMapper
@@ -11,13 +13,12 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-private const val FailedToSaveCurrentWeather = "Не удалось сохранить текущую местную погоду"
-
 class WeatherLocalDataSourceImpl @Inject constructor(
     private val weatherDao: WeatherDao,
     private val coroutineDispatchers: CoroutineDispatchers,
     private val currentWeatherDataToLocalMapper: CurrentWeatherLocalDataToLocalMapper,
     private val dataToLocal: CurrentWeatherLocalToDataMapper,
+    private val showToastNotificationManger: ToastNotificationManger,
 ) : WeatherLocalDataSource {
 
     override suspend fun saveCurrentWeatherLocal(currentWeatherLocal: CurrentWeatherLocalData) =
@@ -31,7 +32,7 @@ class WeatherLocalDataSourceImpl @Inject constructor(
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                throw IllegalArgumentException(FailedToSaveCurrentWeather, e)
+                throw IllegalArgumentException(showToastNotificationManger.getString(string.failed_to_fetch_weather), e)
             }
         }
 
@@ -43,7 +44,7 @@ class WeatherLocalDataSourceImpl @Inject constructor(
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            throw IllegalArgumentException(FailedToSaveCurrentWeather, e)
+            throw IllegalArgumentException(showToastNotificationManger.getString(string.failed_to_fetch_weather), e)
         }
     }
 
@@ -53,7 +54,7 @@ class WeatherLocalDataSourceImpl @Inject constructor(
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            throw IllegalArgumentException(FailedToSaveCurrentWeather, e)
+            throw IllegalArgumentException(showToastNotificationManger.getString(string.failed_to_fetch_weather), e)
         }
     }
 }

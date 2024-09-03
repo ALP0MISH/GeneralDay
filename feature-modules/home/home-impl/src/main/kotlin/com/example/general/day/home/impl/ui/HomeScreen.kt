@@ -10,12 +10,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.general.day.core.viewModel.component.daggerViewModel
 import com.example.general.day.home.impl.ui.ui.components.HomeScreenBottom
 import com.example.general.day.home.impl.ui.ui.components.HomeScreenContent
 import com.example.general.day.home.impl.ui.ui.components.HomeScreenTop
@@ -24,8 +22,6 @@ import com.example.general.day.ui.core.components.ErrorScreen
 import com.example.general.day.ui.core.components.LoadingScreen
 import com.example.general.day.ui.core.theme.dp16
 import com.example.general.day.ui.core.theme.dp20
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.StateFlow
 
@@ -63,49 +59,39 @@ internal fun HomeScreenItem(
     onEvent: (HomeScreenEvent) -> Unit,
     isDarkTheme: Boolean,
     onThemeChange: (Boolean) -> Unit,
-    viewModel: HomeViewModel = daggerViewModel()
 ) {
-    val isLoading by viewModel.isLoading.collectAsState()
-    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isLoading)
-    SwipeRefresh(
-        state = swipeRefreshState,
-        onRefresh = viewModel::fetchWeather
+    LazyColumn(
+        modifier = modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+            .padding(horizontal = dp16),
     ) {
-        LazyColumn(
-            modifier = modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
-                .padding(horizontal = dp16),
-        ) {
-            item {
-                Column(
-                    modifier = modifier,
-                ) {
-                    HomeScreenTop(
-                        cityName = uiState.currentWeather.cityName,
-                        onEvent = onEvent,
-                        isDarkTheme = isDarkTheme,
-                        onThemeChange = onThemeChange
-                    )
-                    Spacer(modifier = Modifier.height(dp20))
-                    HomeScreenContent(
-                        convertedWeather = uiState.currentWeather,
-                        onEvent = onEvent
-                    )
-                }
-                Spacer(modifier = Modifier.height(dp20))
-            }
-            items(
-                items = uiState.weatherForFiveDays,
-                key = { it.weatherId }
-            ) { weather ->
-                HomeScreenBottom(
-                    convertedWeather = weather,
-                    onEvent = onEvent,
-                    weatherForFiveDays = uiState.weatherForFiveDays,
+        item {
+            Column(
+                modifier = modifier,
+            ) {
+                HomeScreenTop(
                     cityName = uiState.currentWeather.cityName,
+                    onEvent = onEvent,
+                    isDarkTheme = isDarkTheme,
+                    onThemeChange = onThemeChange
+                )
+                Spacer(modifier = Modifier.height(dp20))
+                HomeScreenContent(
+                    convertedWeather = uiState.currentWeather,
+                    onEvent = onEvent
                 )
             }
+            Spacer(modifier = Modifier.height(dp20))
+        }
+        items(
+            items = uiState.weatherForFiveDays,
+            key = { it.weatherId }
+        ) { weather ->
+            HomeScreenBottom(
+                convertedWeather = weather,
+                weatherForFiveDays = uiState.weatherForFiveDays,
+            )
         }
     }
 }

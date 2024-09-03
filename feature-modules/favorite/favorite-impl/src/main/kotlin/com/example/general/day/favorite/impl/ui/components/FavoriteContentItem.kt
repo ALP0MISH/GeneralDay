@@ -22,7 +22,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.general.day.favorite.impl.ui.FavoriteEvent
 import com.example.general.day.ui.core.extention.SpacerWidth
-import com.example.general.day.ui.core.theme.IconTintColorLight
 import com.example.general.day.ui.core.theme.dp16
 import com.example.general.day.ui.core.theme.dp20
 import com.example.general.day.ui.core.theme.dp22
@@ -45,14 +44,15 @@ fun FavoriteContentItem(
             .padding(top = dp8)
             .clip(RoundedCornerShape(dp16))
             .background(MaterialTheme.colorScheme.secondary)
-            .clickable { onEvent(FavoriteEvent.DoNavigateToDetailScreen(cityName)) }
             .pointerInput(Unit) {
                 detectTapGestures(
                     onLongPress = {
                         onEvent(FavoriteEvent.DoDeleteWeatherById(id))
                     }
                 )
-            },
+            }
+            .clickable { onEvent(FavoriteEvent.DoNavigateToDetailScreen(cityName)) }
+        ,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(

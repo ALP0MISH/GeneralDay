@@ -1,126 +1,119 @@
 package com.example.general.day.detail.impl.ui.componets
 
-import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import co.yml.charts.axis.AxisData
+import co.yml.charts.common.model.Point
+import co.yml.charts.ui.linechart.LineChart
+import co.yml.charts.ui.linechart.model.GridLines
+import co.yml.charts.ui.linechart.model.IntersectionPoint
+import co.yml.charts.ui.linechart.model.Line
+import co.yml.charts.ui.linechart.model.LineChartData
+import co.yml.charts.ui.linechart.model.LinePlotData
+import co.yml.charts.ui.linechart.model.LineStyle
+import co.yml.charts.ui.linechart.model.SelectionHighlightPoint
+import co.yml.charts.ui.linechart.model.SelectionHighlightPopUp
+import co.yml.charts.ui.linechart.model.ShadowUnderLine
 import com.example.general.day.detail.impl.ui.DetailUiState
+import com.example.general.day.ui.components.helpers.kelvinToCelsius
 import com.example.general.day.ui.components.helpers.toFormattedTime
-import kotlin.math.roundToInt
+import com.example.general.day.ui.core.theme.AddCityColor
+import com.example.general.day.ui.core.theme.dp100
+import com.example.general.day.ui.core.theme.dp16
+import kotlin.random.Random
+
+private const val STEPS = 10
 
 @Composable
 fun DetailScreenBottomItem(
     modifier: Modifier = Modifier,
     uiState: DetailUiState.Loaded
 ) {
-    val temperaturesList =
-        uiState.weatherForFiveDays.temperature.split(",").map { it.toFloatOrNull() ?: 0f }
-    val timesList = uiState.weatherForFiveDays.time.toFormattedTime().split(",")
-    val weatherIconsList = uiState.weatherForFiveDays.weatherIcon
+    val popUpLabel: (Float, Float) -> (String) = { x, y ->
+        val yLabel = "${String.format("%.1f", y)}"
+        "$yLabel°"
+    }
 
-    val spacing = 100.dp
-    val iconSize = 40.dp
-    val iconOffsetY = 20.dp
-    val chartHeight = 200.dp
+    val pointList = getPointsList(
+        minTemperature = uiState.weatherForFiveDays.tempMin.kelvinToCelsius() ?: 16,
+        maxTemperature = uiState.weatherForFiveDays.tempMax.kelvinToCelsius() ?: 20
+    )
+    val max = getMax(pointList)
+    val min = getMin(pointList)
+    val xAxisData = AxisData.Builder()
+        .axisStepSize(dp100)
+        .steps(pointList.size - 1)
+        .labelData { uiState.weatherForFiveDays.time.toFormattedTime() }
+        .labelAndAxisLinePadding(15.dp)
+        .build()
 
-    val density = LocalDensity.current
+    val yAxisData = AxisData.Builder()
+        .steps(STEPS)
+        .backgroundColor(color = Color.White)
+        .labelAndAxisLinePadding(20.dp)
+        .labelData { i ->
+            val yScale = (max - min) / STEPS.toFloat()
+            ((i * yScale) + min).toString()
+        }.build()
 
-    val spacingPx = with(density) { spacing.toPx() }
-    val iconOffsetYPx = with(density) { iconOffsetY.toPx() }
-    val chartHeightPx = with(density) { chartHeight.toPx() }
-
-    Column(
+    val lineChartData = LineChartData(
+        linePlotData = LinePlotData(
+            lines = listOf(
+                Line(
+                    dataPoints = pointList,
+                    LineStyle(color = AddCityColor),
+                    IntersectionPoint(color = MaterialTheme.colorScheme.onBackground),
+                    SelectionHighlightPoint(color = MaterialTheme.colorScheme.onBackground),
+                    ShadowUnderLine(),
+                    SelectionHighlightPopUp(popUpLabel = popUpLabel)
+                )
+            ),
+        ),
+        xAxisData = xAxisData,
+        yAxisData = yAxisData,
+        gridLines = GridLines(),
+        backgroundColor = Color.White
+    )
+    LineChart(
         modifier = modifier
             .fillMaxWidth()
-            .background(Color(0xFFE6EBF4))
-            .padding(16.dp)
-    ) {
-        Box(modifier = Modifier.height(chartHeight)) {
-            Canvas(modifier = Modifier.fillMaxSize()) {
-                if (temperaturesList.isNotEmpty()) {
-                    val path = Path().apply {
-                        moveTo(0f, size.height - temperaturesList[0])
-                        temperaturesList.forEachIndexed { index, temp ->
-                            val x = index * spacingPx
-                            val y = size.height - temp.coerceIn(0f, size.height)
-                            lineTo(x, y)
-                        }
-                    }
-                    drawPath(
-                        path = path,
-                        color = Color(0xFF4A90E2),
-                        style = Stroke(width = with(density) { 4.dp.toPx() })
-                    )
-                }
-            }
+            .clip(RoundedCornerShape(dp16)),
+        lineChartData = lineChartData
+    )
+}
 
-            if (temperaturesList.isNotEmpty()) {
-                val lastIndex = temperaturesList.size - 1
-                val iconPositionPx = Offset(
-                    x = lastIndex * spacingPx,
-                    y = chartHeightPx - temperaturesList[lastIndex] - iconOffsetYPx
-                )
+fun getPointsList(maxTemperature: Int, minTemperature: Int): List<Point> {
+    val list = ArrayList<Point>()
 
-                val iconPosition = Modifier.offset(
-                    x = with(density) { iconPositionPx.x.toDp() } - (iconSize / 2),
-                    y = with(density) { iconPositionPx.y.toDp() } - iconSize
-                )
-
-                Box(
-                    modifier = iconPosition
-                        .size(iconSize)
-                        .background(Color.White, shape = MaterialTheme.shapes.medium)
-                        .align(Alignment.TopStart)
-                ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Image(
-                            painter = painterResource(id = weatherIconsList),
-                            contentDescription = null,
-                            modifier = Modifier.size(iconSize)
-                        )
-                        Text(
-                            text = "${temperaturesList.getOrElse(lastIndex) { 0f }.roundToInt()}°",
-                            style = TextStyle(color = Color.Black, fontSize = 18.sp)
-                        )
-                    }
-                }
-            }
+    for (i in 0..8) {
+        val yValue = if (maxTemperature == minTemperature) {
+            Random.nextInt(minTemperature, minTemperature + 4).toFloat()
+        } else {
+            Random.nextInt(minTemperature, maxTemperature).toFloat()
         }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            timesList.forEach { time ->
-                Text(
-                    text = time,
-                    style = TextStyle(fontSize = 14.sp, color = Color.Gray)
-                )
-            }
-        }
+        list.add(Point(i.toFloat(), yValue))
     }
+    return list
+}
+
+private fun getMax(list: List<Point>): Float {
+    var max = 0f
+    list.forEach { point ->
+        if (max < point.y) max = point.y
+    }
+    return max
+}
+
+private fun getMin(list: List<Point>): Float {
+    var min = 100f
+    list.forEach { point ->
+        if (min > point.y) min = point.y
+    }
+    return min
 }

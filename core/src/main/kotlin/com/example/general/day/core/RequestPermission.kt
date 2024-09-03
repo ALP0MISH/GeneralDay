@@ -16,9 +16,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import java.util.UUID
+
+private const val REQUEST_PERMISSION = "Чтобы получить данные о погоде необходимо дать разрешение"
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
@@ -83,7 +86,7 @@ fun StartRequestPermission(
         } else {
             Toast.makeText(
                 context,
-                "Чтобы получить данные о погоде необходимо дать разрешение",
+                REQUEST_PERMISSION,
                 Toast.LENGTH_SHORT
             ).show()
         }
