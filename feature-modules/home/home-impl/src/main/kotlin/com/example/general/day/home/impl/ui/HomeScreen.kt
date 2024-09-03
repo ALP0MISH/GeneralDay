@@ -1,6 +1,7 @@
 package com.example.general.day.home.impl.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -63,49 +64,39 @@ internal fun HomeScreenItem(
     onEvent: (HomeScreenEvent) -> Unit,
     isDarkTheme: Boolean,
     onThemeChange: (Boolean) -> Unit,
-    viewModel: HomeViewModel = daggerViewModel()
 ) {
-    val isLoading by viewModel.isLoading.collectAsState()
-    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = isLoading)
-    SwipeRefresh(
-        state = swipeRefreshState,
-        onRefresh = viewModel::fetchWeather
+    LazyColumn(
+        modifier = modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+            .padding(horizontal = dp16),
     ) {
-        LazyColumn(
-            modifier = modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
-                .padding(horizontal = dp16),
-        ) {
-            item {
-                Column(
-                    modifier = modifier,
-                ) {
-                    HomeScreenTop(
-                        cityName = uiState.currentWeather.cityName,
-                        onEvent = onEvent,
-                        isDarkTheme = isDarkTheme,
-                        onThemeChange = onThemeChange
-                    )
-                    Spacer(modifier = Modifier.height(dp20))
-                    HomeScreenContent(
-                        convertedWeather = uiState.currentWeather,
-                        onEvent = onEvent
-                    )
-                }
-                Spacer(modifier = Modifier.height(dp20))
-            }
-            items(
-                items = uiState.weatherForFiveDays,
-                key = { it.weatherId }
-            ) { weather ->
-                HomeScreenBottom(
-                    convertedWeather = weather,
-                    onEvent = onEvent,
-                    weatherForFiveDays = uiState.weatherForFiveDays,
+        item {
+            Column(
+                modifier = modifier,
+            ) {
+                HomeScreenTop(
                     cityName = uiState.currentWeather.cityName,
+                    onEvent = onEvent,
+                    isDarkTheme = isDarkTheme,
+                    onThemeChange = onThemeChange
+                )
+                Spacer(modifier = Modifier.height(dp20))
+                HomeScreenContent(
+                    convertedWeather = uiState.currentWeather,
+                    onEvent = onEvent
                 )
             }
+            Spacer(modifier = Modifier.height(dp20))
+        }
+        items(
+            items = uiState.weatherForFiveDays,
+            key = { it.weatherId }
+        ) { weather ->
+            HomeScreenBottom(
+                convertedWeather = weather,
+                weatherForFiveDays = uiState.weatherForFiveDays,
+            )
         }
     }
 }

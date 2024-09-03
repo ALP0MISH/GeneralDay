@@ -29,9 +29,8 @@ class WeatherIconHelperImpl @Inject constructor(
 
     override fun fetchBackgroundForTimeOfDay(
         timeOfDay: Long,
-        weatherSystemInfo: WeatherSystemInformationUi
     ): Int {
-        return when (determineTimeOfDay.determineTimeOfDay(timeOfDay, weatherSystemInfo)) {
+        return when (determineTimeOfDay.determineTimeOfDay(timeOfDay)) {
             Day.name -> R.drawable.light
             DawnDusk.name -> R.drawable.background_duwn_dusk
             Night.name -> R.drawable.background_dark

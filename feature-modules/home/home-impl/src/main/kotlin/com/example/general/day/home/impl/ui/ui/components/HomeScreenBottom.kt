@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.general.day.home.impl.ui.HomeScreenEvent
+import com.example.general.day.ui.components.helpers.formatTemperature
 import com.example.general.day.ui.components.helpers.toFormattedDate
 import com.example.general.day.ui.components.helpers.toFormattedTime
 import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
@@ -51,18 +52,15 @@ import kotlinx.collections.immutable.persistentListOf
 fun HomeScreenBottom(
     convertedWeather: WeatherForFiveDaysResultUi,
     weatherForFiveDays: ImmutableList<WeatherForFiveDaysResultUi>,
-    cityName: String,
-    onEvent: (HomeScreenEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
-            .fillMaxHeight(0.14f)
+            .fillMaxHeight(0.11f)
             .fillMaxWidth()
             .padding(bottom = dp8)
             .clip(RoundedCornerShape(dp16))
             .background(MaterialTheme.colorScheme.secondary)
-            .clickable { onEvent(HomeScreenEvent.DoNavigateToDetailScreen(cityName)) },
     ) {
         Column(
             modifier = Modifier
@@ -80,13 +78,13 @@ fun HomeScreenBottom(
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
-                    text = convertedWeather.tempMax,
+                    text = convertedWeather.tempMax.formatTemperature(),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
                 SpacerWidth(dp8)
                 Text(
-                    text = convertedWeather.tempMin,
+                    text = convertedWeather.tempMin.formatTemperature(),
                     style = MaterialTheme.typography.bodyLarge,
                     color = Color.Gray,
                 )
@@ -165,10 +163,8 @@ fun BottomItem(
 fun HomeScreenBottomPreview() {
     MaterialTheme {
         HomeScreenBottom(
-            onEvent = {},
             convertedWeather = WeatherForFiveDaysResultUi.preview,
             weatherForFiveDays = persistentListOf(),
-            cityName = String(),
         )
     }
 }

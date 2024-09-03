@@ -29,9 +29,12 @@ import com.example.general.day.ui.core.extention.SpacerHeight
 import com.example.general.day.ui.core.theme.dp12
 import com.example.general.day.ui.core.theme.dp120
 import com.example.general.day.ui.core.theme.dp16
+import com.example.general.day.ui.core.theme.dp2
 import com.example.general.day.ui.core.theme.dp24
 import com.example.general.day.ui.core.theme.dp32
 import com.example.general.day.ui.core.theme.dp6
+import com.example.general.day.ui.core.theme.sp24
+import com.example.general.day.ui.core.theme.sp32
 import com.example.general.day.ui.core.theme.sp48
 
 @Composable
@@ -41,7 +44,7 @@ fun DetailScreenContentItem(
 ) {
     Box(
         modifier = modifier
-            .fillMaxHeight(0.1f)
+            .fillMaxHeight(0.53f)
             .fillMaxWidth()
             .clip(RoundedCornerShape(dp24))
     ) {
@@ -58,7 +61,7 @@ fun DetailScreenContentItem(
         ) {
             Text(
                 modifier = Modifier.padding(top = dp16),
-                text = "Сегодня, ${convertedWeather.time.toFormattedDate()}",
+                text = convertedWeather.time.toFormattedDate(),
                 style = MaterialTheme.typography.bodyMedium,
                 color = Color.White
             )
@@ -85,47 +88,58 @@ fun DetailScreenContentItem(
             )
             SpacerHeight(size = dp32)
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = dp24),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(
-                    text = stringResource(id = string.wind),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onBackground
+                WeatherInfoItem(
+                    label = string.wind,
+                    value = "${convertedWeather.wind.speed.toInt()}",
+                    unit = "м/с"
                 )
-                Text(
-                    text = stringResource(id = string.humidity),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onBackground
+                WeatherInfoItem(
+                    label = string.humidity,
+                    value = "${convertedWeather.humidity}",
+                    unit = "%"
                 )
-                Text(
-                    text = stringResource(id = string.precipitation),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = "${convertedWeather.wind.speed.toInt()}м/с",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                Text(
-                    text = "${convertedWeather.wind.degrees}%",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                Text(
-                    text = "${convertedWeather.rain}%",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onBackground
+                WeatherInfoItem(
+                    label = string.precipitation,
+                    value = convertedWeather.rain,
+                    unit = "%"
                 )
             }
+        }
+    }
+}
+
+@Composable
+fun WeatherInfoItem(label: Int, value: String, unit: String) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = stringResource(id = label),
+            style = MaterialTheme.typography.bodyLarge,
+            color = Color.White
+        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = value,
+                style = MaterialTheme.typography.bodyLarge,
+                color = Color.White,
+                fontSize = sp32,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = unit,
+                style = MaterialTheme.typography.bodyLarge,
+                color = Color.White,
+                modifier = Modifier.padding(start = dp2)
+            )
         }
     }
 }

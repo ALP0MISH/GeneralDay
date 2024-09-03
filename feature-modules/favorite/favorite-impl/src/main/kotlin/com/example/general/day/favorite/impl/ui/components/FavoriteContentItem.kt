@@ -45,14 +45,15 @@ fun FavoriteContentItem(
             .padding(top = dp8)
             .clip(RoundedCornerShape(dp16))
             .background(MaterialTheme.colorScheme.secondary)
-            .clickable { onEvent(FavoriteEvent.DoNavigateToDetailScreen(cityName)) }
             .pointerInput(Unit) {
                 detectTapGestures(
                     onLongPress = {
                         onEvent(FavoriteEvent.DoDeleteWeatherById(id))
                     }
                 )
-            },
+            }
+            .clickable { onEvent(FavoriteEvent.DoNavigateToDetailScreen(cityName)) }
+        ,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(

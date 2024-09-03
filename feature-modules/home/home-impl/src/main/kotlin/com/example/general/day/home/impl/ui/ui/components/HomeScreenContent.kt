@@ -5,9 +5,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,6 +24,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.general.day.home.impl.ui.HomeScreenEvent
 import com.example.general.day.ui.components.models.CurrentConvertedWeather
 import com.example.general.day.ui.core.extention.SpacerHeight
@@ -41,8 +44,8 @@ internal fun HomeScreenContent(
 ) {
     Box(
         modifier = modifier
-            .fillMaxHeight(0.1f)
             .fillMaxWidth()
+            .aspectRatio(1.1f)
             .clip(RoundedCornerShape(dp24))
             .clickable { onEvent(HomeScreenEvent.DoNavigateToDetailScreen(convertedWeather.cityName)) },
     ) {

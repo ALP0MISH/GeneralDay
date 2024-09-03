@@ -49,9 +49,6 @@ class HomeViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     val state: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
-    private val _isLoading = MutableStateFlow(false)
-    val isLoading = _isLoading.asStateFlow()
-
     init {
         fetchWeather()
     }
@@ -63,43 +60,37 @@ class HomeViewModel @Inject constructor(
                     _uiState.tryEmit(HomeUiState.Error(getToastNotificationManger.getString(string.no_internet_connection)))
                     return@launch
                 }
-                _isLoading.value = true
-                val location =
-                    getLocationTrackerManager.fetchCurrentLocation()
+
+                val location = getLocationTrackerManager.fetchCurrentLocation()
                 val latitude = location?.latitude
                 val longitude = location?.longitude
 
-                if (latitude == null || longitude == null) return@launch
+                if (latitude == null || longitude == null) {
+                    return@launch
+                }
 
-                val currentWeatherDeferred =
-                    async {
-                        getFetchWeatherUseCase
-                            .fetchCurrentWeather(latitude, longitude)
-                    }
-                val weatherForFiveDaysDeferred =
-                    async {
-                        getFetchWeatherUseCase
-                            .fetchWeatherForFiveDays(latitude, longitude)
-                    }
+                val currentWeatherDeferred = async {
+                    getFetchWeatherUseCase.fetchCurrentWeather(latitude, longitude)
+                }
+
+                val weatherForFiveDaysDeferred = async {
+                    getFetchWeatherUseCase.fetchWeatherForFiveDays(latitude, longitude)
+                }
 
                 val awaitCurrentWeather = currentWeatherDeferred.await()
                 val awaitWeatherForFiveDays = weatherForFiveDaysDeferred.await()
 
                 val mapCurrentWeather = fetchCurrentWeatherToHomeUi.map(awaitCurrentWeather)
-
                 val mapWeatherForFiveDaysUiModel =
                     fetchWeatherDomainToHomeUiMapper.map(awaitWeatherForFiveDays)
 
                 val savedCityName = sharedPrefManager.getSavedCityName()
-
                 if (mapCurrentWeather.name != savedCityName) {
                     sharedPrefManager.saveCityName(mapCurrentWeather.name)
                 }
 
                 val currentWeatherResult =
-                    getWeatherDataHelper.currentConvertedWeather(
-                        mapCurrentWeather
-                    )
+                    getWeatherDataHelper.currentConvertedWeather(mapCurrentWeather)
 
                 _uiState.tryEmit(
                     HomeUiState.Loaded(
@@ -107,16 +98,12 @@ class HomeViewModel @Inject constructor(
                         currentWeather = currentWeatherResult
                     )
                 )
-                _isLoading.value = false
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
                 _uiState.tryEmit(
-                    HomeUiState.Error(
-                        getToastNotificationManger.getString(string.failed_to_fetch_weather),
-                    )
+                    HomeUiState.Error(getToastNotificationManger.getString(string.failed_to_fetch_weather))
                 )
-                _isLoading.value = false
             }
         }
     }

@@ -13,7 +13,7 @@ data class WeatherForFiveDaysDomain(
 ) {
     fun groupByDate() = list.groupBy {
         with(Calendar.getInstance()) {
-            time = Date(TimeUnit.SECONDS.toMillis(it.time.toLong()))
+            time = Date(TimeUnit.SECONDS.toMillis(it.time))
             get(Calendar.DATE)
         }
     }

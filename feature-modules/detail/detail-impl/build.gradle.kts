@@ -49,6 +49,9 @@ dependencies {
     /** Swiperefresh **/
     implementation(libs.accompanist.swiperefresh)
 
+    /** Charts **/
+    implementation (libs.ycharts)
+
     /** Compose **/
     implementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(platform(libs.androidx.compose.bom))
