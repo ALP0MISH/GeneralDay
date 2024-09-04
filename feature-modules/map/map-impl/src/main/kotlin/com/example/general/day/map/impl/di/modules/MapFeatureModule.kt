@@ -5,6 +5,7 @@ import com.example.general.day.map.impl.MapFeatureImpl
 import com.example.general.day.map.impl.ui.MapViewModelFactory
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 import javax.inject.Provider
 
 typealias MapRoute = String

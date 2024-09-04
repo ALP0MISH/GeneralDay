@@ -13,7 +13,7 @@ class ToastNotificationMangerImpl @Inject constructor(
         Toast.makeText(context, context.getString(resId), Toast.LENGTH_SHORT).show()
     }
 
-    override fun getString(resId: Int): String {
+    override fun getString(@StringRes resId: Int): String {
         return context.getString(resId)
     }
 }

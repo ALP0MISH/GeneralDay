@@ -10,16 +10,18 @@ import javax.inject.Provider
 
 typealias HomeRoute = String
 
+private const val NAMED_HOME = "home"
+
 @Module
 class HomeFeatureModule {
 
     @Provides
-    @Named("home")
+    @Named(NAMED_HOME)
     fun provideHomeRoute(): HomeRoute = "home_screen_route"
 
     @Provides
     fun provideHomeFeatureUiApi(
-        @Named("home") route: HomeRoute,
+        @Named(NAMED_HOME) route: HomeRoute,
         viewModelProvider: Provider<HomeViewModelFactory>
     ): HomeFeatureUiApi = HomeFeatureImpl(
         route = route,

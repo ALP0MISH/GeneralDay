@@ -26,12 +26,14 @@ import com.example.general.day.ui.core.R.string
 import com.example.general.day.ui.components.helpers.toFormattedDate
 import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
 import com.example.general.day.ui.core.extention.SpacerHeight
+import com.example.general.day.ui.core.extention.SpacerWidth
 import com.example.general.day.ui.core.theme.dp12
 import com.example.general.day.ui.core.theme.dp120
 import com.example.general.day.ui.core.theme.dp16
 import com.example.general.day.ui.core.theme.dp2
 import com.example.general.day.ui.core.theme.dp24
 import com.example.general.day.ui.core.theme.dp32
+import com.example.general.day.ui.core.theme.dp4
 import com.example.general.day.ui.core.theme.dp6
 import com.example.general.day.ui.core.theme.sp24
 import com.example.general.day.ui.core.theme.sp32
@@ -80,12 +82,25 @@ fun DetailScreenContentItem(
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
             )
-            Text(
+            Row(
                 modifier = Modifier,
-                text = "Ясно, ощущается как ${convertedWeather.feelsLike}",
-                style = MaterialTheme.typography.titleSmall,
-                color = Color.White,
-            )
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    modifier = Modifier,
+                    text = stringResource(id = string.clearly_feels_like),
+                    style = MaterialTheme.typography.titleSmall,
+                    color = Color.White,
+                )
+                SpacerWidth(size = dp4)
+                Text(
+                    modifier = Modifier,
+                    text = convertedWeather.feelsLike,
+                    style = MaterialTheme.typography.titleSmall,
+                    color = Color.White,
+                )
+            }
             SpacerHeight(size = dp32)
             Row(
                 modifier = Modifier
@@ -97,17 +112,17 @@ fun DetailScreenContentItem(
                 WeatherInfoItem(
                     label = string.wind,
                     value = "${convertedWeather.wind.speed.toInt()}",
-                    unit = "м/с"
+                    unit = string.meter_per_hour
                 )
                 WeatherInfoItem(
                     label = string.humidity,
                     value = "${convertedWeather.humidity}",
-                    unit = "%"
+                    unit = string.percent
                 )
                 WeatherInfoItem(
                     label = string.precipitation,
                     value = convertedWeather.rain,
-                    unit = "%"
+                    unit = string.percent
                 )
             }
         }
@@ -115,7 +130,11 @@ fun DetailScreenContentItem(
 }
 
 @Composable
-fun WeatherInfoItem(label: Int, value: String, unit: String) {
+fun WeatherInfoItem(
+    label: Int,
+    value: String,
+    unit: Int
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -135,7 +154,7 @@ fun WeatherInfoItem(label: Int, value: String, unit: String) {
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = unit,
+                text = stringResource(id = unit),
                 style = MaterialTheme.typography.bodyLarge,
                 color = Color.White,
                 modifier = Modifier.padding(start = dp2)
