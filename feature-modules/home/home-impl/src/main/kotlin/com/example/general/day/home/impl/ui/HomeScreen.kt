@@ -1,7 +1,6 @@
 package com.example.general.day.home.impl.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,12 +10,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.general.day.core.viewModel.component.daggerViewModel
 import com.example.general.day.home.impl.ui.ui.components.HomeScreenBottom
 import com.example.general.day.home.impl.ui.ui.components.HomeScreenContent
 import com.example.general.day.home.impl.ui.ui.components.HomeScreenTop
@@ -25,8 +22,6 @@ import com.example.general.day.ui.core.components.ErrorScreen
 import com.example.general.day.ui.core.components.LoadingScreen
 import com.example.general.day.ui.core.theme.dp16
 import com.example.general.day.ui.core.theme.dp20
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.StateFlow
 
@@ -101,7 +96,7 @@ internal fun HomeScreenItem(
     }
 }
 
-@Preview
+@PreviewScreenSizes
 @Composable
 fun HomeScreenPreview() {
     MaterialTheme {

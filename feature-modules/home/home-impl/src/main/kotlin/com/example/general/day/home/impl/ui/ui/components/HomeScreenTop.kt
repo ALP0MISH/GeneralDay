@@ -1,20 +1,21 @@
 package com.example.general.day.home.impl.ui.ui.components
 
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,6 +24,7 @@ import com.example.general.day.ui.core.R.drawable
 import com.example.general.day.ui.core.extention.SpacerWidth
 import com.example.general.day.ui.core.theme.dp17
 import com.example.general.day.ui.core.theme.dp32
+import com.example.general.day.ui.core.theme.dp4
 import com.example.general.day.ui.core.theme.dp8
 
 @Composable
@@ -33,57 +35,72 @@ internal fun HomeScreenTop(
     isDarkTheme: Boolean,
     onThemeChange: (Boolean) -> Unit,
 ) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(top = dp17),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
-    ) {
-        IconButton(
-            onClick = { onEvent(HomeScreenEvent.DoNavigateToMapScreen) },
-            colors = IconButtonDefaults.iconButtonColors(
-                containerColor = MaterialTheme.colorScheme.secondary
-            ),
-            modifier = Modifier.size(dp32),
+    Box(modifier = modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = dp17)
+                .align(Alignment.Center),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            Icon(
-                painter = painterResource(drawable.location),
-                contentDescription = null,
-                tint = Color.Gray
-            )
+            Box(
+                modifier = Modifier
+                    .size(dp32)
+                    .clip(RoundedCornerShape(dp8))
+                    .background(MaterialTheme.colorScheme.secondary)
+                    .clickable { onEvent(HomeScreenEvent.DoNavigateToMapScreen) }
+                    .padding(dp4),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(drawable.location),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onPrimary,
+                    modifier = Modifier
+                )
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            Box(
+                modifier = Modifier
+                    .size(dp32)
+                    .clip(RoundedCornerShape(dp8))
+                    .background(MaterialTheme.colorScheme.secondary)
+                    .clickable { onThemeChange(!isDarkTheme) }
+                    .padding(dp4),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(drawable.loader),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onPrimary
+                )
+            }
+            SpacerWidth(size = dp8)
+            Box(
+                modifier = Modifier
+                    .size(dp32)
+                    .clip(RoundedCornerShape(dp8))
+                    .background(MaterialTheme.colorScheme.secondary)
+                    .clickable { onEvent(HomeScreenEvent.DoNavigateToFavoriteScreen) }
+                    .padding(dp4),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(drawable.search),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onPrimary
+                )
+            }
         }
-        Spacer(modifier = Modifier.weight(1.4f))
         Text(
             text = cityName,
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.ExtraBold,
-            color = MaterialTheme.colorScheme.onBackground
+            color = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier
+                .align(Alignment.Center)
+                .padding(top = dp17)
         )
-        Spacer(modifier = Modifier.weight(1f))
-        IconButton(
-            onClick = { onThemeChange(!isDarkTheme) },
-            colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.secondary),
-            modifier = Modifier.size(dp32),
-        ) {
-            Icon(
-                painter = painterResource(drawable.loader),
-                contentDescription = null,
-                tint = Color.Gray
-            )
-        }
-        SpacerWidth(size = dp8)
-        IconButton(
-            onClick = { onEvent(HomeScreenEvent.DoNavigateToFavoriteScreen) },
-            colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.secondary),
-            modifier = Modifier.size(dp32),
-        ) {
-            Icon(
-                painter = painterResource(drawable.search),
-                contentDescription = null,
-                tint = Color.Gray
-            )
-        }
     }
 }
 
