@@ -20,6 +20,8 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import java.util.UUID
 
+private const val REQUEST_PERMISSION = "Чтобы получить данные о погоде необходимо дать разрешение"
+
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun <I, O> registerForActivityResult(
@@ -83,7 +85,7 @@ fun StartRequestPermission(
         } else {
             Toast.makeText(
                 context,
-                "Чтобы получить данные о погоде необходимо дать разрешение",
+                REQUEST_PERMISSION,
                 Toast.LENGTH_SHORT
             ).show()
         }

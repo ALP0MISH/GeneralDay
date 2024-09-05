@@ -10,6 +10,11 @@
     <string name="retry">Повторите попытку, пожалуйста</string>
     <string name="error_message">К сожелению такого горада нет</string>
     <string name="wind">Ветер</string>
+    <string name="clearly_feels_like">Ясно, ощущается как</string>
+    <string name="failed_to_save_weather">Не удалось сохранить текущую местную погоду</string>
+    <string name="today">Сегодня,</string>
+    <string name="meter_per_hour">м/с</string>
+    <string name="percent">%</string>
     <string name="humidity">Влажность</string>
     <string name="precipitation">Осадки</string>
     <string name="success_message">Город успешно добавлен</string>

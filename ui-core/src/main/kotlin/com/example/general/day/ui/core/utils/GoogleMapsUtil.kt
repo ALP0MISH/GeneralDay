@@ -1,10 +1,10 @@
 package com.example.general.day.ui.core.utils
 
-/**
- * A set of utility functions for centering the camera given some [LatLng] points.
- */
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+
+private const val VIEW_MODEL_CANNOT_BE_NULL = "viewCoord не может быть нулевым"
+private const val CANNOT_CALCULATE_NOTHING = "Не удается вычислить координаты точки обзора ничего."
 
 fun List<LatLng>.getCenterOfPolygon(): LatLngBounds {
     val centerBuilder: LatLngBounds.Builder = LatLngBounds.builder()
@@ -36,9 +36,9 @@ fun List<LatLng>.calculateCameraViewPoints(pctView: Double = .25): List<LatLng> 
 }
 
 private fun List<LatLng>.findMaxMins(): CameraViewCoord {
-    check(size > 0) { "Cannot calculate the view coordinates of nothing." }
+    check(size > 0) { CANNOT_CALCULATE_NOTHING }
     var viewCoord: CameraViewCoord? = null
-    for(point in this) {
+    for (point in this) {
         viewCoord = CameraViewCoord(
             yMax = viewCoord?.yMax?.let { yMax ->
                 if (point.longitude > yMax) {
@@ -47,21 +47,21 @@ private fun List<LatLng>.findMaxMins(): CameraViewCoord {
                     yMax
                 }
             } ?: point.longitude,
-            yMin = viewCoord?.yMin?.let { yMin->
+            yMin = viewCoord?.yMin?.let { yMin ->
                 if (point.longitude < yMin) {
                     point.longitude
                 } else {
                     yMin
                 }
             } ?: point.longitude,
-            xMax = viewCoord?.xMax?.let { xMax->
+            xMax = viewCoord?.xMax?.let { xMax ->
                 if (point.latitude > xMax) {
                     point.latitude
                 } else {
                     xMax
                 }
             } ?: point.latitude,
-            xMin = viewCoord?.xMin?.let { xMin->
+            xMin = viewCoord?.xMin?.let { xMin ->
                 if (point.latitude < xMin) {
                     point.latitude
                 } else {
@@ -70,5 +70,5 @@ private fun List<LatLng>.findMaxMins(): CameraViewCoord {
             } ?: point.latitude,
         )
     }
-    return viewCoord ?: throw IllegalStateException("viewCoord cannot be null.")
+    return viewCoord ?: throw IllegalStateException(VIEW_MODEL_CANNOT_BE_NULL)
 }

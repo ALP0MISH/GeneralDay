@@ -22,12 +22,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.general.day.favorite.impl.ui.FavoriteEvent
 import com.example.general.day.ui.core.R.drawable
-import com.example.general.day.ui.core.theme.IconTintColorLight
 import com.example.general.day.ui.core.theme.dp32
 import com.example.general.day.ui.core.theme.dp8
-import com.example.general.day.ui.core.theme.dp9
 
 @Composable
 internal fun FavoriteTopItem(

@@ -10,16 +10,18 @@ import javax.inject.Provider
 
 typealias DetailRoute = String
 
+private const val NAMED_DETAIL = "detail"
+
 @Module
 class DetailFeatureModule {
 
     @Provides
-    @Named("detail")
+    @Named(NAMED_DETAIL)
     fun provideHomeRoute(): DetailRoute = "detailRoute_screen_route"
 
     @Provides
     fun provideHomeFeatureUiApi(
-        @Named("detail") route: DetailRoute,
+        @Named(NAMED_DETAIL) route: DetailRoute,
         viewModelFactory: Provider<DetailViewModelFactory>
     ): DetailFeatureUiApi = DetailFeatureImpl(
         route = route,

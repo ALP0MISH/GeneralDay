@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,18 +23,23 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.general.day.home.impl.ui.HomeScreenEvent
 import com.example.general.day.ui.components.models.CurrentConvertedWeather
+import com.example.general.day.ui.core.R
 import com.example.general.day.ui.core.extention.SpacerHeight
+import com.example.general.day.ui.core.extention.SpacerWidth
 import com.example.general.day.ui.core.theme.dp100
 import com.example.general.day.ui.core.theme.dp12
 import com.example.general.day.ui.core.theme.dp120
 import com.example.general.day.ui.core.theme.dp16
 import com.example.general.day.ui.core.theme.dp24
+import com.example.general.day.ui.core.theme.dp4
 import com.example.general.day.ui.core.theme.dp6
+import com.example.general.day.ui.core.theme.dp8
 import com.example.general.day.ui.core.theme.sp48
 
 @Composable
@@ -60,12 +66,25 @@ internal fun HomeScreenContent(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
+            Row(
                 modifier = Modifier.padding(top = dp16),
-                text = "Сегодня, ${convertedWeather.currentMonthAndDay}",
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.White
-            )
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    modifier = Modifier,
+                    text = stringResource(id = R.string.today),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.White,
+                )
+                SpacerWidth(size = dp4)
+                Text(
+                    modifier = Modifier,
+                    text = convertedWeather.currentMonthAndDay,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.White,
+                )
+            }
             SpacerHeight(size = dp12)
             Image(
                 modifier = Modifier
@@ -81,12 +100,26 @@ internal fun HomeScreenContent(
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
             )
-            Text(
+            SpacerHeight(size = dp8)
+            Row(
                 modifier = Modifier,
-                text = "Ясно, ощущается как ${convertedWeather.feelsLikeTemperature}",
-                style = MaterialTheme.typography.titleSmall,
-                color = Color.White,
-            )
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    modifier = Modifier,
+                    text = stringResource(id = R.string.clearly_feels_like),
+                    style = MaterialTheme.typography.titleSmall,
+                    color = Color.White,
+                )
+                SpacerWidth(size = dp4)
+                Text(
+                    modifier = Modifier,
+                    text = convertedWeather.feelsLikeTemperature,
+                    style = MaterialTheme.typography.titleSmall,
+                    color = Color.White,
+                )
+            }
         }
     }
 }

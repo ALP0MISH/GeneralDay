@@ -1,6 +1,5 @@
 package com.example.general.day.presentation.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -27,7 +26,6 @@ fun AppNavGraph(
     Inject(viewModelFactory = viewModelFactory.get()) {
         val viewModel: ApplicationViewModel = daggerViewModel()
         viewModel.navigationRouteFlow.observeWithLifecycle { (route, action) ->
-            Log.d("AAA", "observeWithLifecycle = $route, $action")
             navController.navigate(route = route, builder = action)
         }
     }
@@ -35,9 +33,7 @@ fun AppNavGraph(
         navController = navController,
         startDestination = dependencyProvider.homeFeatureApi().homeRouteProvider.getRoute()
     ) {
-        Log.d("AAA", "AppNavGraph featureApi = $featureApi")
         featureApi.forEach { api ->
-            Log.d("AAA", "AppNavGraph = $api")
             api.registerGraph(
                 navController = navController,
                 modifier = modifier,

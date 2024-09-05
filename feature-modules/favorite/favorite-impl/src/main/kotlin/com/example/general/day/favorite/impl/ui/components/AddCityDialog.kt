@@ -37,6 +37,7 @@ import com.example.general.day.favorite.impl.ui.FavoriteEvent
 import com.example.general.day.favorite.impl.ui.FavoriteUIState
 import com.example.general.day.ui.core.R.string
 import com.example.general.day.ui.core.theme.AddCityColor
+import com.example.general.day.ui.core.theme.dp12
 import com.example.general.day.ui.core.theme.dp16
 import com.example.general.day.ui.core.theme.dp20
 import com.example.general.day.ui.core.theme.dp8
@@ -71,7 +72,7 @@ fun AddCityDialog(
                     Color.Gray.copy(alpha = 0.1f),
                     shape = MaterialTheme.shapes.medium
                 )
-                .padding(horizontal = 16.dp, vertical = 12.dp),
+                .padding(horizontal = dp16, vertical = dp12),
             singleLine = true,
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
             textStyle = TextStyle(
@@ -88,7 +89,7 @@ fun AddCityDialog(
                         contentDescription = null,
                         tint = Color.Gray
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(dp8))
                     Box(Modifier.weight(1f)) {
                         if (value.isEmpty()) {
                             Text(
@@ -115,7 +116,7 @@ fun AddCityDialog(
                 }
             }
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(dp16))
         LazyRow {
             if (uiState.query.isNotEmpty()) {
                 items(uiState.searchResult) { city ->
@@ -123,7 +124,7 @@ fun AddCityDialog(
                         text = city.localName.ru,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(12.dp)
+                            .padding(dp12)
                             .clickable {
                                 onEvent(FavoriteEvent.GetCityName(city.localName.ru))
                             }
@@ -138,11 +139,11 @@ fun AddCityDialog(
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(dp16))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 16.dp),
+                .padding(vertical = dp16),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Button(

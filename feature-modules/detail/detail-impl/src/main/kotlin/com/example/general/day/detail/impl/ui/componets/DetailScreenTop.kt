@@ -35,7 +35,7 @@ internal fun DetailScreenTopItem(
     isDarkTheme: Boolean,
     onThemeChange: (Boolean) -> Unit,
     onNavigateToBack: () -> Unit,
-    ) {
+) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -44,7 +44,7 @@ internal fun DetailScreenTopItem(
         horizontalArrangement = Arrangement.Center
     ) {
         IconButton(
-            onClick = {onNavigateToBack() },
+            onClick = { onNavigateToBack() },
             colors = IconButtonDefaults.iconButtonColors(
                 containerColor = MaterialTheme.colorScheme.secondary
             ),
