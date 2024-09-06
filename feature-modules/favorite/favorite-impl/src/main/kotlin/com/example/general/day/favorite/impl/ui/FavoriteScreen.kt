@@ -162,7 +162,6 @@ internal fun FavoriteScreen(
                 }
             }
         }
-
         if (showDialog) {
             Dialog(onDismissRequest = { showDialog = false }) {
                 Box(
