@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,9 +33,11 @@ import com.example.general.day.ui.core.theme.dp120
 import com.example.general.day.ui.core.theme.dp16
 import com.example.general.day.ui.core.theme.dp2
 import com.example.general.day.ui.core.theme.dp24
+import com.example.general.day.ui.core.theme.dp28
 import com.example.general.day.ui.core.theme.dp32
 import com.example.general.day.ui.core.theme.dp4
 import com.example.general.day.ui.core.theme.dp6
+import com.example.general.day.ui.core.theme.dp8
 import com.example.general.day.ui.core.theme.sp24
 import com.example.general.day.ui.core.theme.sp32
 import com.example.general.day.ui.core.theme.sp48
@@ -46,7 +49,7 @@ fun DetailScreenContentItem(
 ) {
     Box(
         modifier = modifier
-            .fillMaxHeight(0.53f)
+            .aspectRatio(1f)
             .fillMaxWidth()
             .clip(RoundedCornerShape(dp24))
     ) {
@@ -65,7 +68,8 @@ fun DetailScreenContentItem(
                 modifier = Modifier.padding(top = dp16),
                 text = convertedWeather.time.toFormattedDate(),
                 style = MaterialTheme.typography.bodyMedium,
-                color = Color.White
+                color = Color.White,
+                fontWeight = FontWeight.SemiBold
             )
             SpacerHeight(size = dp12)
             Image(
@@ -105,7 +109,7 @@ fun DetailScreenContentItem(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = dp24),
+                    .padding(horizontal = dp28),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -138,13 +142,14 @@ fun WeatherInfoItem(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        SpacerHeight(size = dp6)
         Text(
             text = stringResource(id = label),
             style = MaterialTheme.typography.bodyLarge,
             color = Color.White
         )
         Row(
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 text = value,
@@ -157,7 +162,8 @@ fun WeatherInfoItem(
                 text = stringResource(id = unit),
                 style = MaterialTheme.typography.bodyLarge,
                 color = Color.White,
-                modifier = Modifier.padding(start = dp2)
+                fontWeight = FontWeight.ExtraBold,
+                modifier = Modifier.padding(start = dp2, top = dp8)
             )
         }
     }
