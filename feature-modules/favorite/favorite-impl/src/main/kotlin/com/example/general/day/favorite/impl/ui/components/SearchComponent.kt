@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.general.day.favorite.impl.ui.FavoriteEvent
+import com.example.general.day.favorite.impl.ui.FavoriteUIState
 import com.example.general.day.ui.core.R.string
 import com.example.general.day.ui.core.theme.dp16
 
@@ -27,7 +28,9 @@ fun SearchComponent(
 ) {
     TextField(
         value = value,
-        onValueChange = { onEvent(FavoriteEvent.DoSavedWeatherOnValueChange(it)) },
+        onValueChange = {
+            onEvent(FavoriteEvent.DoSavedWeatherOnValueChange(it))
+        },
         colors = TextFieldDefaults.colors(
             disabledTextColor = MaterialTheme.colorScheme.onBackground,
             focusedTextColor = MaterialTheme.colorScheme.onBackground,
@@ -77,6 +80,6 @@ fun SearchComponent(
 fun SearchComponentPreview() {
     SearchComponent(
         value = String(),
-        onEvent = {}
+        onEvent = {},
     )
 }

@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -18,17 +18,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.general.day.ui.core.R.drawable
+import com.example.general.day.ui.core.R.string
 import com.example.general.day.ui.core.theme.dp32
 import com.example.general.day.ui.core.theme.dp8
 
 @Composable
 internal fun FavoriteTopItem(
-    cityName: String,
     modifier: Modifier = Modifier,
     theme: Boolean,
     onThemeChange: (Boolean) -> Unit,
@@ -50,13 +50,14 @@ internal fun FavoriteTopItem(
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                imageVector = Icons.AutoMirrored.Default.KeyboardArrowLeft,
                 contentDescription = null,
-                tint = Color.Gray
+                tint = MaterialTheme.colorScheme.onPrimary,
+                modifier = Modifier
             )
         }
         Text(
-            text = cityName,
+            text = stringResource(id = string.my_cities),
             style = MaterialTheme.typography.titleSmall,
             color = MaterialTheme.colorScheme.onBackground,
             fontWeight = FontWeight.ExtraBold
@@ -72,7 +73,7 @@ internal fun FavoriteTopItem(
             Icon(
                 painter = painterResource(drawable.loader),
                 contentDescription = null,
-                tint = Color.Gray
+                tint = MaterialTheme.colorScheme.onPrimary,
             )
         }
     }
@@ -83,7 +84,6 @@ internal fun FavoriteTopItem(
 fun FavoriteTopItemPreview() {
     MaterialTheme {
         FavoriteTopItem(
-            cityName = String(),
             theme = false,
             onThemeChange = {},
             onNavigateToBack = {}

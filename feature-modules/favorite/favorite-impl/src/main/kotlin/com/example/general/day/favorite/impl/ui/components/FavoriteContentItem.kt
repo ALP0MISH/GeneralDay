@@ -19,9 +19,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.general.day.favorite.impl.ui.FavoriteEvent
 import com.example.general.day.ui.core.extention.SpacerWidth
+import com.example.general.day.ui.core.theme.Gray
 import com.example.general.day.ui.core.theme.dp16
 import com.example.general.day.ui.core.theme.dp20
 import com.example.general.day.ui.core.theme.dp22
@@ -57,27 +59,25 @@ fun FavoriteContentItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            modifier = Modifier
-                .padding(
-                    start = dp20,
-                    top = dp20,
-                    bottom = dp20
-                ),
+            modifier = Modifier.padding(dp20),
             text = cityName,
             style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onBackground
+            color = MaterialTheme.colorScheme.onBackground,
+            fontWeight = FontWeight.Medium
         )
         Spacer(modifier = Modifier.weight(1f))
         Text(
             text = temperatureMax,
             style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onBackground
+            color = MaterialTheme.colorScheme.onBackground,
+            fontWeight = FontWeight.ExtraBold
+
         )
         SpacerWidth(dp8)
         Text(
             text = temperatureMin,
             style = MaterialTheme.typography.bodyLarge,
-            color = Color.Gray
+            color = Gray
         )
         SpacerWidth(dp16)
         Image(

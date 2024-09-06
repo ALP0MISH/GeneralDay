@@ -35,6 +35,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.text.Collator
+import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.coroutines.cancellation.CancellationException
@@ -103,7 +105,10 @@ class FavoriteViewModel @Inject constructor(
                 val result = searchWeatherByCity.fetchSearchWeatherCity(query)
                 _uiState.update { currentState ->
                     currentState.copy(
-                        searchResult = result.map(searchWeatherDomainToUiMapper::map)
+                        searchResult = result
+                            .map(searchWeatherDomainToUiMapper::map)
+                            .distinctBy { it.localName.ru }
+                            .sortedBy { it.localName.ru }
                             .toImmutableList(),
                         cityName = sharedPrefManager.getSavedCityName() ?: String(),
                         isLoading = false

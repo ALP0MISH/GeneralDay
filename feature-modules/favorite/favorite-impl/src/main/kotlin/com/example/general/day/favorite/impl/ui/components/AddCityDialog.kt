@@ -9,11 +9,14 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -31,16 +34,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.example.general.day.favorite.impl.ui.FavoriteEvent
 import com.example.general.day.favorite.impl.ui.FavoriteUIState
 import com.example.general.day.ui.core.R.string
 import com.example.general.day.ui.core.theme.AddCityColor
+import com.example.general.day.ui.core.theme.dp1
 import com.example.general.day.ui.core.theme.dp12
+import com.example.general.day.ui.core.theme.dp14
 import com.example.general.day.ui.core.theme.dp16
+import com.example.general.day.ui.core.theme.dp2
 import com.example.general.day.ui.core.theme.dp20
+import com.example.general.day.ui.core.theme.dp22
+import com.example.general.day.ui.core.theme.dp24
+import com.example.general.day.ui.core.theme.dp48
+import com.example.general.day.ui.core.theme.dp5
+import com.example.general.day.ui.core.theme.dp50
 import com.example.general.day.ui.core.theme.dp8
+import com.example.general.day.ui.core.theme.dp80
+import com.example.general.day.ui.core.theme.dp87
 import com.example.general.day.ui.core.theme.sp14
 
 @Composable
@@ -55,24 +69,19 @@ fun AddCityDialog(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(dp16)
-            .background(
-                MaterialTheme.colorScheme.background,
-                shape = MaterialTheme.shapes.medium
-            )
-            .padding(dp16)
+            .wrapContentHeight()
     ) {
         BasicTextField(
             value = value,
             onValueChange = { onEvent(FavoriteEvent.GetCityName(it)) },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(dp8)
+                .padding(top = dp16, start = dp16, end = dp16)
                 .background(
                     Color.Gray.copy(alpha = 0.1f),
                     shape = MaterialTheme.shapes.medium
                 )
-                .padding(horizontal = dp16, vertical = dp12),
+                .padding(dp8),
             singleLine = true,
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
             textStyle = TextStyle(
@@ -87,7 +96,8 @@ fun AddCityDialog(
                     Icon(
                         Icons.Default.Search,
                         contentDescription = null,
-                        tint = Color.Gray
+                        tint = Color.Gray,
+                        modifier = Modifier.size(dp24)
                     )
                     Spacer(modifier = Modifier.width(dp8))
                     Box(Modifier.weight(1f)) {
@@ -102,7 +112,7 @@ fun AddCityDialog(
                     }
                     if (value.isNotEmpty()) {
                         IconButton(
-                            modifier = Modifier.size(dp20),
+                            modifier = Modifier.size(dp22),
                             onClick = {
                                 onEvent(FavoriteEvent.GetCityName(String()))
                             },
@@ -117,14 +127,15 @@ fun AddCityDialog(
             }
         )
         Spacer(modifier = Modifier.height(dp16))
-        LazyRow {
+        LazyRow(
+            modifier = Modifier.fillMaxWidth(),
+        ) {
             if (uiState.query.isNotEmpty()) {
-                items(uiState.searchResult) { city ->
+                items(uiState.searchResult.sortedBy { it.localName.ru }) { city ->
                     Text(
                         text = city.localName.ru,
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(dp12)
+                            .padding(start = dp12)
                             .clickable {
                                 onEvent(FavoriteEvent.GetCityName(city.localName.ru))
                             }
@@ -138,22 +149,23 @@ fun AddCityDialog(
                 }
             }
         }
-
         Spacer(modifier = Modifier.height(dp16))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = dp16),
+                .padding(dp16),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Button(
                 onClick = onDismissRequest,
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
+                shape = RoundedCornerShape(dp12)
             ) {
                 Text(
                     text = stringResource(id = string.сancel),
                     style = MaterialTheme.typography.bodyMedium,
-                    color = Color.LightGray
+                    color = Color.Gray,
+                    fontWeight = FontWeight.Bold
                 )
             }
             Button(
@@ -161,14 +173,14 @@ fun AddCityDialog(
                     onAddClick()
                     onEvent(FavoriteEvent.DoFetchCityName)
                 },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = AddCityColor
-                )
+                colors = ButtonDefaults.buttonColors(containerColor = AddCityColor),
+                shape = RoundedCornerShape(dp12)
             ) {
                 Text(
-                    text = stringResource(id = string.add),
+                    text = stringResource(id = string.confirm),
                     style = MaterialTheme.typography.bodyMedium,
                     color = Color.White,
+                    fontWeight = FontWeight.Bold
                 )
             }
         }
