@@ -26,10 +26,9 @@ fun LottieErrorScreen(
         isPlaying = true,
         iterations = LottieConstants.IterateForever
     )
-
     Box(
         modifier = modifier,
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Column(
             modifier = Modifier,

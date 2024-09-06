@@ -7,10 +7,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -31,7 +35,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.general.day.favorite.impl.ui.components.AddCityDialog
 import com.example.general.day.favorite.impl.ui.components.FavoriteContentItem
@@ -47,6 +54,7 @@ import com.example.general.day.ui.core.theme.AddCityColor
 import com.example.general.day.ui.core.theme.dp12
 import com.example.general.day.ui.core.theme.dp16
 import com.example.general.day.ui.core.theme.dp17
+import com.example.general.day.ui.core.theme.dp24
 import com.example.general.day.ui.core.theme.dp40
 import com.example.general.day.ui.core.theme.dp8
 
@@ -114,8 +122,9 @@ internal fun FavoriteScreen(
                 ) {
                     Text(
                         text = stringResource(id = string.save_city),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = Color.White
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
                     )
                 }
                 SpacerWidth(size = dp8)
@@ -136,18 +145,26 @@ internal fun FavoriteScreen(
                 }
             }
         }
-
         if (showDialog) {
             Dialog(onDismissRequest = { showDialog = false }) {
-                AddCityDialog(
-                    onDismissRequest = { showDialog = false },
-                    onAddClick = { showDialog = false },
-                    onEvent = onEvent,
-                    value = uiState.query,
-                    uiState = uiState,
-                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .clip(RoundedCornerShape(dp24))
+                        .background(MaterialTheme.colorScheme.surface)
+                ) {
+                    AddCityDialog(
+                        onDismissRequest = { showDialog = false },
+                        onAddClick = { showDialog = false },
+                        onEvent = onEvent,
+                        value = uiState.query,
+                        uiState = uiState,
+                    )
+                }
             }
         }
+
     }
 }
 
@@ -162,18 +179,18 @@ private fun FavoriteTopSection(
 ) {
     Column(modifier = modifier) {
         FavoriteTopItem(
-            cityName = uiState.cityName,
             theme = theme,
             onThemeChange = onThemeChange,
             onNavigateToBack = onNavigateToBack
         )
         SearchComponent(
-            onEvent = onEvent, value = uiState.savedWeatherUI.query
+            onEvent = onEvent,
+            value = uiState.savedWeatherUI.query,
         )
         Spacer(modifier = Modifier.height(dp8))
 
         if (uiState.savedWeatherUI.savedWeather.isEmpty()) {
-            LottieErrorScreen()
+            LottieErrorScreen(modifier = Modifier.align(Alignment.CenterHorizontally))
         }
     }
 }
