@@ -1,13 +1,10 @@
 package com.example.general.day.map.impl
 
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.example.general.day.core.StartRequestPermission
-import com.example.general.day.core.isPermissionsGranted
 import com.example.general.day.core.viewModel.component.Inject
 import com.example.general.day.core.viewModel.component.daggerViewModel
 import com.example.general.day.map.api.MapFeatureUiApi
@@ -38,17 +35,6 @@ class MapFeatureImpl @Inject constructor(
         navGraphBuilder.composable(route) {
             Inject(viewModelFactory = viewModelProvider.get()) {
                 val viewModel: MapViewModel = daggerViewModel()
-
-                val context = LocalContext.current
-
-                if (isPermissionsGranted(context)) {
-                    viewModel.getDeviceLocation()
-                } else {
-                    StartRequestPermission(
-                        context = context,
-                        fetchCurrentWeather = { viewModel.getDeviceLocation() }
-                    )
-                }
                 MapScreen(
                     state = viewModel.state.collectAsStateWithLifecycle().value,
                     setupClusterManager = viewModel::setupClusterManager,

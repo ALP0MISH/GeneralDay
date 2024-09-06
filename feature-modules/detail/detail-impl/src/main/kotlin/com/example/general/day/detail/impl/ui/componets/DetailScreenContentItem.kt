@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -23,9 +22,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import com.example.general.day.ui.core.R.string
 import com.example.general.day.ui.components.helpers.toFormattedDate
 import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
+import com.example.general.day.ui.core.R.string
 import com.example.general.day.ui.core.extention.SpacerHeight
 import com.example.general.day.ui.core.extention.SpacerWidth
 import com.example.general.day.ui.core.theme.dp12
@@ -38,7 +37,6 @@ import com.example.general.day.ui.core.theme.dp32
 import com.example.general.day.ui.core.theme.dp4
 import com.example.general.day.ui.core.theme.dp6
 import com.example.general.day.ui.core.theme.dp8
-import com.example.general.day.ui.core.theme.sp24
 import com.example.general.day.ui.core.theme.sp32
 import com.example.general.day.ui.core.theme.sp48
 
