@@ -6,13 +6,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -26,13 +24,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.general.day.home.impl.ui.HomeScreenEvent
 import com.example.general.day.ui.components.models.CurrentConvertedWeather
 import com.example.general.day.ui.core.R
 import com.example.general.day.ui.core.extention.SpacerHeight
 import com.example.general.day.ui.core.extention.SpacerWidth
-import com.example.general.day.ui.core.theme.dp100
 import com.example.general.day.ui.core.theme.dp12
 import com.example.general.day.ui.core.theme.dp120
 import com.example.general.day.ui.core.theme.dp16
@@ -50,8 +46,8 @@ internal fun HomeScreenContent(
 ) {
     Box(
         modifier = modifier
+            .wrapContentHeight()
             .fillMaxWidth()
-            .aspectRatio(1.1f)
             .clip(RoundedCornerShape(dp24))
             .clickable { onEvent(HomeScreenEvent.DoNavigateToDetailScreen(convertedWeather.cityName)) },
     ) {
@@ -59,7 +55,8 @@ internal fun HomeScreenContent(
             painter = painterResource(id = convertedWeather.weatherBackgroundImage),
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
         )
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -76,6 +73,7 @@ internal fun HomeScreenContent(
                     text = stringResource(id = R.string.today),
                     style = MaterialTheme.typography.bodyMedium,
                     color = Color.White,
+                    fontWeight = FontWeight.SemiBold
                 )
                 SpacerWidth(size = dp4)
                 Text(
@@ -97,7 +95,7 @@ internal fun HomeScreenContent(
                 modifier = Modifier,
                 text = convertedWeather.currentTemperature,
                 fontSize = sp48,
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.ExtraBold,
                 color = Color.White,
             )
             SpacerHeight(size = dp8)

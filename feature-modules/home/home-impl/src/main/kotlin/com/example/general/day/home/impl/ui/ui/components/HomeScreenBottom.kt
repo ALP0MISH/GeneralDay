@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.general.day.home.impl.ui.HomeScreenEvent
 import com.example.general.day.ui.components.helpers.formatTemperature
@@ -35,6 +36,7 @@ import com.example.general.day.ui.core.extention.SpacerHeight
 import com.example.general.day.ui.core.extention.SpacerWidth
 import com.example.general.day.ui.core.theme.EachThreeTimeColorDark
 import com.example.general.day.ui.core.theme.EachThreeTimeColorLight
+import com.example.general.day.ui.core.theme.Gray
 import com.example.general.day.ui.core.theme.IconTintColorDark
 import com.example.general.day.ui.core.theme.IconTintColorLight
 import com.example.general.day.ui.core.theme.dp10
@@ -69,24 +71,27 @@ fun HomeScreenBottom(
         ) {
             Row(
                 modifier = Modifier,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     modifier = Modifier,
                     text = convertedWeather.time.toFormattedDate(),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground,
+                    fontWeight = FontWeight.Medium
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
                     text = convertedWeather.tempMax.formatTemperature(),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground,
+                    fontWeight = FontWeight.ExtraBold
                 )
                 SpacerWidth(dp8)
                 Text(
                     text = convertedWeather.tempMin.formatTemperature(),
                     style = MaterialTheme.typography.bodyLarge,
-                    color = Color.Gray,
+                    color = Gray,
                 )
                 SpacerWidth(dp16)
                 Image(
@@ -98,11 +103,10 @@ fun HomeScreenBottom(
             SpacerHeight(dp16)
             HorizontalDivider(
                 modifier = Modifier,
-                color = Color.Gray
+                color = Gray
             )
         }
         SpacerHeight(dp8)
-
         LazyRow(
             modifier = Modifier
                 .padding(start = dp12)
@@ -134,14 +138,14 @@ fun BottomItem(
             .padding(dp8)
             .clip(RoundedCornerShape(dp16))
             .background(MaterialTheme.colorScheme.onSecondary)
-            .padding(dp8),
+            .padding(dp12),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = time,
             style = MaterialTheme.typography.bodyLarge,
-            color = Color.Black
+            color = Gray
         )
         SpacerHeight(dp5)
         Image(
@@ -153,7 +157,8 @@ fun BottomItem(
         Text(
             text = temperature,
             style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onBackground
+            color = MaterialTheme.colorScheme.onBackground,
+            fontWeight = FontWeight.ExtraBold
         )
     }
 }

@@ -22,7 +22,8 @@ private val DarkColorScheme = darkColorScheme(
     secondary = IconTintColorDark,
     tertiary = Pink80,
     onSecondary = EachThreeTimeColorDark,
-    background = BackgroundDark
+    background = BackgroundDark,
+    onPrimary = Color.White
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -30,7 +31,8 @@ private val LightColorScheme = lightColorScheme(
     secondary = IconTintColorLight,
     tertiary = Pink40,
     onSecondary = EachThreeTimeColorLight,
-    background = BackgroundLight
+    background = BackgroundLight,
+    onPrimary = Gray
 )
 
 @Composable
