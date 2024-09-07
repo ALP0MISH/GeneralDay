@@ -113,13 +113,15 @@ internal fun FavoriteScreen(
                     .align(Alignment.BottomCenter)
                     .background(
                         brush = Brush.verticalGradient(
-                            colors = listOf(Color.Transparent, Color.White),
+                            colors = listOf(
+                                Color.Transparent,
+                                MaterialTheme.colorScheme.background
+                            ),
                             startY = 0f,
                             endY = 300f
                         )
                     )
             )
-
             Row(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
@@ -160,7 +162,6 @@ internal fun FavoriteScreen(
                 }
             }
         }
-
         if (showDialog) {
             Dialog(onDismissRequest = { showDialog = false }) {
                 Box(

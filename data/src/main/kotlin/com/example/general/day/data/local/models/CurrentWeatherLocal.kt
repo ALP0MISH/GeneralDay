@@ -2,13 +2,21 @@ package com.example.general.day.data.local.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 const val CURRENT_WEATHER_ENTITY = "current_weather_entity"
 
 @Entity(
-    tableName = CURRENT_WEATHER_ENTITY
+    tableName = CURRENT_WEATHER_ENTITY,
+    indices = [
+        Index(
+            value = ["name"],
+            unique = true
+        ),
+    ]
 )
+
 data class CurrentWeatherLocal(
     @PrimaryKey
     @ColumnInfo("id") val id: String,
@@ -16,8 +24,8 @@ data class CurrentWeatherLocal(
     @ColumnInfo("lat") val lat: Double,
     @ColumnInfo("lon") val lon: Double,
     @ColumnInfo("feelsLike") val feelsLike: String,
-    @ColumnInfo("temperature")  val temperature: String,
-    @ColumnInfo("tempMax")  val tempMax: String,
+    @ColumnInfo("temperature") val temperature: String,
+    @ColumnInfo("tempMax") val tempMax: String,
     @ColumnInfo("tempMin") val tempMin: String,
     @ColumnInfo("name") val name: String,
     @ColumnInfo("weatherIcon") val weatherIcon: Int,
