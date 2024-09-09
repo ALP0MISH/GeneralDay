@@ -17,6 +17,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.general.day.home.impl.ui.ui.components.HomeScreenBottom
 import com.example.general.day.home.impl.ui.ui.components.HomeScreenContent
 import com.example.general.day.home.impl.ui.ui.components.HomeScreenTop
+import com.example.general.day.ui.components.helpers.formatTemperature
+import com.example.general.day.ui.components.helpers.toFormattedDate
 import com.example.general.day.ui.components.models.CurrentConvertedWeather
 import com.example.general.day.ui.core.components.ErrorScreen
 import com.example.general.day.ui.core.components.LoadingScreen
@@ -89,7 +91,10 @@ internal fun HomeScreenItem(
             key = { it.weatherId }
         ) { weather ->
             HomeScreenBottom(
-                convertedWeather = weather,
+                time = weather.time.toFormattedDate(),
+                tempMin = weather.tempMin.formatTemperature(),
+                tempMax = weather.tempMax.formatTemperature(),
+                weatherIcon = weather.weatherIcon,
                 weatherForFiveDays = uiState.weatherForFiveDays,
             )
         }

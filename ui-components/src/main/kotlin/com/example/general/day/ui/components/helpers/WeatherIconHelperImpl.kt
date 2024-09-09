@@ -30,10 +30,10 @@ class WeatherIconHelperImpl @Inject constructor(
         timeOfDay: Long,
     ): Int {
         return when (determineTimeOfDay.determineTimeOfDay(timeOfDay)) {
-            Day.name -> R.drawable.light
+            Day.name -> R.drawable.background_image_light
             DawnDusk.name -> R.drawable.background_duwn_dusk
             Night.name -> R.drawable.background_dark
-            else -> R.drawable.light
+            else -> R.drawable.background_image_light
         }
     }
 }
