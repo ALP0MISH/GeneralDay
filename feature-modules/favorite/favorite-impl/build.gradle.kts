@@ -45,6 +45,9 @@ dependencies {
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
 
+    /** Swiperefresh **/
+    implementation(libs.accompanist.swiperefresh)
+
     /** Compose **/
     implementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(platform(libs.androidx.compose.bom))
