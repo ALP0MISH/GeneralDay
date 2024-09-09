@@ -52,7 +52,10 @@ import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun HomeScreenBottom(
-    convertedWeather: WeatherForFiveDaysResultUi,
+    time: String,
+    tempMax: String,
+    tempMin: String,
+    weatherIcon: Int,
     weatherForFiveDays: ImmutableList<WeatherForFiveDaysResultUi>,
     modifier: Modifier = Modifier,
 ) {
@@ -75,28 +78,28 @@ fun HomeScreenBottom(
             ) {
                 Text(
                     modifier = Modifier,
-                    text = convertedWeather.time.toFormattedDate(),
+                    text = time,
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground,
                     fontWeight = FontWeight.Medium
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
-                    text = convertedWeather.tempMax.formatTemperature(),
+                    text = tempMax,
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground,
                     fontWeight = FontWeight.ExtraBold
                 )
                 SpacerWidth(dp8)
                 Text(
-                    text = convertedWeather.tempMin.formatTemperature(),
+                    text = tempMin,
                     style = MaterialTheme.typography.bodyLarge,
                     color = Gray,
                 )
                 SpacerWidth(dp16)
                 Image(
                     modifier = Modifier.size(dp32),
-                    painter = painterResource(id = convertedWeather.weatherIcon),
+                    painter = painterResource(id = weatherIcon),
                     contentDescription = null,
                 )
             }
@@ -168,7 +171,10 @@ fun BottomItem(
 fun HomeScreenBottomPreview() {
     MaterialTheme {
         HomeScreenBottom(
-            convertedWeather = WeatherForFiveDaysResultUi.preview,
+            time = String(),
+            tempMax = String(),
+            tempMin = String(),
+            weatherIcon = 0,
             weatherForFiveDays = persistentListOf(),
         )
     }
