@@ -1,120 +1,99 @@
 package com.example.general.day.detail.impl.ui.componets
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
-import co.yml.charts.axis.AxisData
-import co.yml.charts.common.model.Point
-import co.yml.charts.ui.linechart.LineChart
-import co.yml.charts.ui.linechart.model.GridLines
-import co.yml.charts.ui.linechart.model.IntersectionPoint
-import co.yml.charts.ui.linechart.model.Line
-import co.yml.charts.ui.linechart.model.LineChartData
-import co.yml.charts.ui.linechart.model.LinePlotData
-import co.yml.charts.ui.linechart.model.LineStyle
-import co.yml.charts.ui.linechart.model.SelectionHighlightPoint
-import co.yml.charts.ui.linechart.model.SelectionHighlightPopUp
-import co.yml.charts.ui.linechart.model.ShadowUnderLine
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.sp
+import com.example.general.day.ui.core.R.string
 import com.example.general.day.detail.impl.ui.DetailUiState
-import com.example.general.day.ui.components.helpers.kelvinToCelsius
-import com.example.general.day.ui.components.helpers.toFormattedTime
 import com.example.general.day.ui.core.theme.AddCityColor
-import com.example.general.day.ui.core.theme.dp100
+import com.example.general.day.ui.core.theme.Gray
 import com.example.general.day.ui.core.theme.dp16
-import kotlin.random.Random
-
-private const val STEPS = 10
+import com.example.general.day.ui.core.theme.dp19
+import com.example.general.day.ui.core.theme.dp24
+import com.example.general.day.ui.core.theme.dp4
+import com.example.general.day.ui.core.theme.sp11
+import com.example.general.day.ui.core.theme.sp12
+import ir.ehsannarmani.compose_charts.LineChart
+import ir.ehsannarmani.compose_charts.extensions.format
+import ir.ehsannarmani.compose_charts.models.DrawStyle
+import ir.ehsannarmani.compose_charts.models.HorizontalIndicatorProperties
+import ir.ehsannarmani.compose_charts.models.LabelProperties
+import ir.ehsannarmani.compose_charts.models.Line
+import ir.ehsannarmani.compose_charts.models.PopupProperties
 
 @Composable
 fun DetailScreenBottomItem(
     modifier: Modifier = Modifier,
     uiState: DetailUiState.Loaded
 ) {
-    val popUpLabel: (Float, Float) -> (String) = { x, y ->
-        val yLabel = "${String.format("%.1f", y)}"
-        "$yLabel°"
-    }
-
-    val pointList = getPointsList(
-        minTemperature = uiState.weatherForFiveDays.tempMin.kelvinToCelsius() ?: 16,
-        maxTemperature = uiState.weatherForFiveDays.tempMax.kelvinToCelsius() ?: 20
-    )
-    val max = getMax(pointList)
-    val min = getMin(pointList)
-    val xAxisData = AxisData.Builder()
-        .axisStepSize(dp100)
-        .steps(pointList.size - 1)
-        .labelData { uiState.weatherForFiveDays.time.toFormattedTime() }
-        .labelAndAxisLinePadding(15.dp)
-        .build()
-
-    val yAxisData = AxisData.Builder()
-        .steps(STEPS)
-        .backgroundColor(color = Color.White)
-        .labelAndAxisLinePadding(20.dp)
-        .labelData { i ->
-            val yScale = (max - min) / STEPS.toFloat()
-            ((i * yScale) + min).toString()
-        }.build()
-
-    val lineChartData = LineChartData(
-        linePlotData = LinePlotData(
-            lines = listOf(
-                Line(
-                    dataPoints = pointList,
-                    LineStyle(color = AddCityColor),
-                    IntersectionPoint(color = MaterialTheme.colorScheme.onBackground),
-                    SelectionHighlightPoint(color = MaterialTheme.colorScheme.onBackground),
-                    ShadowUnderLine(),
-                    SelectionHighlightPopUp(popUpLabel = popUpLabel)
-                )
-            ),
-        ),
-        xAxisData = xAxisData,
-        yAxisData = yAxisData,
-        gridLines = GridLines(),
-        backgroundColor = Color.White
-    )
-    LineChart(
+    Box(
         modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(dp16)),
-        lineChartData = lineChartData
-    )
-}
+            .padding(bottom = dp19)
+            .clip(RoundedCornerShape(dp24))
+            .background(MaterialTheme.colorScheme.secondary)
+            .padding(dp16)
+    ) {
+        val temperatures = uiState.weatherForFiveDays.listTemperature
+        val times = uiState.weatherForFiveDays.listTime
 
-fun getPointsList(maxTemperature: Int, minTemperature: Int): List<Point> {
-    val list = ArrayList<Point>()
-
-    for (i in 0..8) {
-        val yValue = if (maxTemperature == minTemperature) {
-            Random.nextInt(minTemperature, minTemperature + 4).toFloat()
+        if (temperatures.size > 1 && times.size > 1) {
+            LineChart(
+                modifier = Modifier.fillMaxWidth(),
+                data = listOf(
+                    Line(
+                        drawStyle = DrawStyle.Stroke(dp4),
+                        values = temperatures,
+                        color = SolidColor(AddCityColor),
+                        firstGradientFillColor = AddCityColor.copy(alpha = .5f),
+                        secondGradientFillColor = Color.Transparent,
+                        label = String()
+                    )
+                ),
+                indicatorProperties = HorizontalIndicatorProperties(
+                    textStyle = TextStyle(
+                        color = Gray,
+                        fontSize = sp12,
+                    ),
+                    contentBuilder = {
+                        it.format(1) + " °C"
+                    },
+                ),
+                popupProperties = PopupProperties(
+                    textStyle = TextStyle(
+                        fontSize = sp12,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    ),
+                    contentBuilder = {
+                        it.format(1) + " °C"
+                    },
+                    containerColor = MaterialTheme.colorScheme.background
+                ),
+                labelProperties = LabelProperties(
+                    enabled = true,
+                    textStyle = TextStyle(color = Gray),
+                    labels = times,
+                ),
+                minValue = uiState.weatherForFiveDays.tempMin,
+                maxValue = uiState.weatherForFiveDays.tempMax,
+            )
         } else {
-            Random.nextInt(minTemperature, maxTemperature).toFloat()
+            Text(
+                text = stringResource(id = string.not_enough_data_to_display),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.error,
+            )
         }
-        list.add(Point(i.toFloat(), yValue))
     }
-    return list
-}
-
-private fun getMax(list: List<Point>): Float {
-    var max = 0f
-    list.forEach { point ->
-        if (max < point.y) max = point.y
-    }
-    return max
-}
-
-private fun getMin(list: List<Point>): Float {
-    var min = 100f
-    list.forEach { point ->
-        if (min > point.y) min = point.y
-    }
-    return min
 }

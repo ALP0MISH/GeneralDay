@@ -12,6 +12,7 @@
     <string name="error_message">К сожелению такого горада нет</string>
     <string name="wind">Ветер</string>
     <string name="clearly_feels_like">Ясно, ощущается как</string>
+    <string name="not_enough_data_to_display"> Недостаточно данных для отображения графика, подождите пожалуйста пока придут новые данные</string>
     <string name="failed_to_save_weather">Не удалось сохранить текущую местную погоду</string>
     <string name="today">Сегодня,</string>
     <string name="meter_per_hour">м/с</string>

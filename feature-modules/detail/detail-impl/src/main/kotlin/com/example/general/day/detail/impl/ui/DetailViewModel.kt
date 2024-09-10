@@ -11,13 +11,15 @@ import com.example.general.day.core.ToastNotificationManger
 import com.example.general.day.core.communication.NavigationRouteFlowCommunication
 import com.example.general.day.core.communication.navigationParams
 import com.example.general.day.detail.impl.di.DetailFeatureDependencies
+import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.models.WeatherForFiveDaysDomain
 import com.example.general.day.domain.usecase.FetchWeatherByCity
-import com.example.general.day.domain.usecase.FetchWeatherUseCase
-import com.example.general.day.location.api.LocationTrackerManager
+import com.example.general.day.ui.components.helpers.WeatherDataHelper
+import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysUi
 import com.example.general.day.ui.core.R
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -31,8 +33,10 @@ class DetailViewModel @Inject constructor(
     private val fetchWeatherByCity: FetchWeatherByCity,
     private val getNavigationRouteFlowCommunication: NavigationRouteFlowCommunication,
     private val fetchWeatherDomainToHomeUiMapper: @JvmSuppressWildcards Mapper<WeatherForFiveDaysDomain, WeatherForFiveDaysUi>,
+    private val fetchCurrentWeatherToHomeUi: @JvmSuppressWildcards Mapper<CurrentWeatherDomain, CurrentWeatherUi>,
     private val getToastNotificationManger: ToastNotificationManger,
     private val connectivityManager: ConnectivityManager,
+    private val weatherDataHelper: WeatherDataHelper
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<DetailUiState>(DetailUiState.Loading)
@@ -52,18 +56,30 @@ class DetailViewModel @Inject constructor(
                     _uiState.tryEmit(DetailUiState.Error(getToastNotificationManger.getString(R.string.no_internet_connection)))
                     return@launch
                 }
-                val weatherForFiveDaysDeferred =
+                val currentWeatherDeferred = async {
+                    fetchWeatherByCity.fetchCurrentCityWeather(weatherId)
+                }
+
+                val weatherForFiveDaysDeferred = async {
                     fetchWeatherByCity.fetchWeatherCityForFiveDays(weatherId)
+                }
+
+                val awaitCurrentWeather = currentWeatherDeferred.await()
+                val awaitWeatherForFiveDays = weatherForFiveDaysDeferred.await()
 
                 val mapWeatherForFiveDaysUiModel =
-                    fetchWeatherDomainToHomeUiMapper.map(weatherForFiveDaysDeferred)
+                    fetchWeatherDomainToHomeUiMapper.map(awaitWeatherForFiveDays)
 
-                _uiState.tryEmit(
-                    DetailUiState.Loaded(
-                        weatherForFiveDays = mapWeatherForFiveDaysUiModel.list.firstOrNull()
-                            ?: WeatherForFiveDaysResultUi.unknown,
-                    )
+                val mapCurrentWeather = fetchCurrentWeatherToHomeUi.map(awaitCurrentWeather)
+
+                val weatherForDetail = weatherDataHelper.convertWeatherForFiveDays(
+                    weatherForFiveDaysUi = mapWeatherForFiveDaysUiModel.list.firstOrNull()
+                        ?: WeatherForFiveDaysResultUi.unknown,
+                    currentWeatherResult = mapCurrentWeather
                 )
+
+                _uiState.tryEmit(DetailUiState.Loaded(weatherForFiveDays = weatherForDetail))
+
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
@@ -90,6 +106,7 @@ class DetailViewModel @Inject constructor(
                     dependencies.getMapRoute().getRoute()
                 )
             )
+
             DetailEvent.DoRetryFetchWeather -> fetchWeather()
         }
     }

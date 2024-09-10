@@ -23,6 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.example.general.day.ui.components.helpers.toFormattedDate
+import com.example.general.day.ui.components.models.WeatherForDetail
 import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
 import com.example.general.day.ui.core.R.string
 import com.example.general.day.ui.core.extention.SpacerHeight
@@ -43,7 +44,7 @@ import com.example.general.day.ui.core.theme.sp48
 @Composable
 fun DetailScreenContentItem(
     modifier: Modifier = Modifier,
-    convertedWeather: WeatherForFiveDaysResultUi,
+    convertedWeather: WeatherForDetail,
 ) {
     Box(
         modifier = modifier
