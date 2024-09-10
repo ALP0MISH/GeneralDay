@@ -1,7 +1,9 @@
 package com.example.general.day.map.impl.di
 
+import android.content.SharedPreferences
 import com.example.general.day.core.Mapper
 import com.example.general.day.core.communication.NavigationRouteFlowCommunication
+import com.example.general.day.data.local.shared.pref.SharedPrefManager
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.usecase.FetchWeatherUseCase
 import com.example.general.day.location.api.LocationTrackerManager
@@ -19,4 +21,6 @@ interface MapFeatureDependencies {
     fun getNavigationRouteFlowCommunication(): NavigationRouteFlowCommunication
 
     fun getCurrentWeatherDomainToHomeUiMapper(): Mapper<CurrentWeatherDomain, CurrentWeatherUi>
+
+    fun sharedPreferences(): SharedPrefManager
 }

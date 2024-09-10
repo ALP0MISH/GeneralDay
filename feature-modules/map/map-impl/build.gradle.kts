@@ -26,6 +26,7 @@ dependencies {
     implementation(projects.core)
     implementation(projects.uiCore)
     implementation(projects.domain)
+    implementation(projects.data)
     implementation(projects.uiComponents)
     implementation(projects.featureModules.map.mapApi)
     implementation(projects.featureModules.location.locationApi)
