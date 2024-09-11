@@ -36,7 +36,7 @@ fun LottieErrorScreen(
         ) {
             LottieAnimation(
                 composition = composition,
-                progress = progress
+                progress = { progress }
             )
             Text(
                 modifier = Modifier,
