@@ -2,12 +2,9 @@ package com.example.general.day.map.impl.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -25,8 +22,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
 import com.example.general.day.ui.core.theme.dp16
 import com.example.general.day.ui.core.theme.dp20
 import com.example.general.day.ui.core.theme.dp32
@@ -35,7 +30,6 @@ import com.example.general.day.ui.core.utils.ZoneClusterItem
 import com.example.general.day.ui.core.utils.ZoneClusterManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
@@ -78,7 +72,7 @@ fun MapScreen(
                     map.setOnCameraIdleListener(clusterManager)
                     map.setOnMarkerClickListener(clusterManager)
                     state.clusterItems.forEach { clusterItem ->
-                        map.addMarker(createMarkerOptions(clusterItem, context, markerSize = 170))
+                        map.addMarker(createMarkerOptions(clusterItem))
                     }
                     map.setOnMapLoadedCallback {
                         if (state.clusterItems.isNotEmpty()) {
@@ -142,24 +136,12 @@ fun MapScreen(
 
 private fun createMarkerOptions(
     clusterItem: ZoneClusterItem,
-    context: Context,
-    markerSize: Int
 ): MarkerOptions {
-    val weatherIconBitmap = getBitmapFromResource(context, clusterItem.icon, markerSize, markerSize)
 
     return MarkerOptions()
         .position(clusterItem.position)
         .title(clusterItem.title)
         .snippet(clusterItem.snippet)
-        .icon(BitmapDescriptorFactory.fromBitmap(weatherIconBitmap))
 }
 
-fun getBitmapFromResource(context: Context, resourceId: Int, width: Int, height: Int): Bitmap {
-    val drawable = ContextCompat.getDrawable(context, resourceId)
-        ?: throw IllegalArgumentException()
-    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-    val canvas = Canvas(bitmap)
-    drawable.setBounds(0, 0, width, height)
-    drawable.draw(canvas)
-    return bitmap
-}
+
