@@ -55,6 +55,7 @@ class WeatherDataHelperImpl @Inject constructor(
 
     override fun convertMapWeatherData(
         currentWeatherResult: CurrentWeatherUi,
+        weatherForFiveDaysUi: WeatherForFiveDaysResultUi,
         latLng: LatLng
     ): ZoneClusterItem {
         return ZoneClusterItem(
@@ -66,7 +67,7 @@ class WeatherDataHelperImpl @Inject constructor(
                     )
                 )
             },
-            snippet = "${currentWeatherResult.weatherTemperature.tempMax.formatTemperature()} ${currentWeatherResult.weatherTemperature.tempMin.formatTemperature()}",
+            snippet = "${weatherForFiveDaysUi.tempMax.toIntegerString()}° ${weatherForFiveDaysUi.tempMin.toIntegerString()}°",
             id = UUID.randomUUID().toString(),
             title = currentWeatherResult.name,
             icon = weatherIconHelper.fetchWeatherIcon(

@@ -21,6 +21,7 @@ interface WeatherDataHelper {
 
     fun convertMapWeatherData(
         currentWeatherResult: CurrentWeatherUi,
+        weatherForFiveDaysUi: WeatherForFiveDaysResultUi,
         latLng: LatLng
     ): ZoneClusterItem
 
