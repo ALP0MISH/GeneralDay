@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.general.day.core.Mapper
+import com.example.general.day.data.local.shared.pref.SharedPrefManager
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.usecase.FetchWeatherUseCase
 import com.example.general.day.map.impl.di.MapFeatureDependencies
@@ -20,6 +21,7 @@ import com.google.android.gms.maps.model.LatLngBounds
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
@@ -32,10 +34,20 @@ class MapViewModel @Inject constructor(
     private val fetchWeatherUseCase: FetchWeatherUseCase,
     private val dependencies: MapFeatureDependencies,
     private val weatherDataHelper: WeatherDataHelper,
+    private val sharedPreferences: SharedPrefManager,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MapState())
     val state: StateFlow<MapState> = _uiState.asStateFlow()
+
+    init {
+        initializeCityName()
+    }
+
+    private fun initializeCityName() {
+        val cityName = sharedPreferences.getSavedCityName().orEmpty()
+        _uiState.update { it.copy(cityName = cityName) }
+    }
 
     fun getWeatherForLocation(location: LatLng) {
         val latitude = location.latitude
@@ -48,16 +60,17 @@ class MapViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-
                 val result = fetchWeatherUseCase.fetchCurrentWeather(latitude, longitude)
                 val weatherHelper = weatherDataHelper.convertMapWeatherData(
                     currentWeatherDomainToHomeUiMapper.map(result), latLng = location
                 )
                 _uiState.tryEmit(
                     MapState(
-                        lastKnownLocation = lastKnownLocation, clusterItems = listOf(
+                        lastKnownLocation = lastKnownLocation,
+                        clusterItems = listOf(
                             weatherHelper
-                        )
+                        ),
+                        cityName = sharedPreferences.getSavedCityName().orEmpty()
                     )
                 )
             } catch (e: CancellationException) {

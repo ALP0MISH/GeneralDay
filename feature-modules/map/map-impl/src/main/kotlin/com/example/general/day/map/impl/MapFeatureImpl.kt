@@ -53,6 +53,7 @@ class MapFeatureImpl @Inject constructor(
                     setupClusterManager = viewModel::setupClusterManager,
                     calculateZoneViewCenter = viewModel::calculateZoneLatLngBounds,
                     onMapClicked = viewModel::getWeatherForLocation,
+                    onNavigateToBack = { navController.navigateUp() }
                 )
             }
         }

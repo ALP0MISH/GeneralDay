@@ -1,7 +1,9 @@
 package com.example.general.day.presentation.feature.depency
 
+import android.content.SharedPreferences
 import com.example.general.day.core.Mapper
 import com.example.general.day.core.communication.NavigationRouteFlowCommunication
+import com.example.general.day.data.local.shared.pref.SharedPrefManager
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.usecase.FetchWeatherUseCase
 import com.example.general.day.location.api.LocationFeatureApi
@@ -17,8 +19,8 @@ class MapFeatureDependenciesImpl @Inject constructor(
     private val weatherDataHelper: WeatherDataHelper,
     private val navigationRouteFlowCommunication: NavigationRouteFlowCommunication,
     private val currentWeatherDomainToHomeUiMapper: @JvmSuppressWildcards Mapper<CurrentWeatherDomain, CurrentWeatherUi>,
-
-    ) : MapFeatureDependencies {
+    private val sharedPreferences: SharedPrefManager,
+) : MapFeatureDependencies {
 
     override fun getFetchWeatherUseCase(): FetchWeatherUseCase {
         return fetchWeatherUseCase
@@ -38,5 +40,9 @@ class MapFeatureDependenciesImpl @Inject constructor(
 
     override fun getCurrentWeatherDomainToHomeUiMapper(): Mapper<CurrentWeatherDomain, CurrentWeatherUi> {
         return currentWeatherDomainToHomeUiMapper
+    }
+
+    override fun sharedPreferences(): SharedPrefManager {
+        return sharedPreferences
     }
 }
