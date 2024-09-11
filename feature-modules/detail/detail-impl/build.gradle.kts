@@ -50,7 +50,7 @@ dependencies {
     implementation(libs.accompanist.swiperefresh)
 
     /** Charts **/
-    implementation (libs.ycharts)
+    implementation(libs.compose.charts)
 
     /** Compose **/
     implementation(platform(libs.androidx.compose.bom))

@@ -2,18 +2,17 @@ package com.example.general.day.ui.components.models
 
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Immutable
-import androidx.compose.ui.Modifier
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import java.util.Date
 import java.util.UUID
 
 @Immutable
 data class WeatherForFiveDaysResultUi(
-    val clouds: CloudsUi,
+    val listTemperature: ImmutableList<Double>,
     val time: Date,
-    val timeText: String,
     val rain: String,
-    val systemInformation: WeatherSystemInformationUi,
+    val listTime: ImmutableList<String>,
     val wind: WindUi,
     val main: String,
     val feelsLike: String,
@@ -28,15 +27,10 @@ data class WeatherForFiveDaysResultUi(
 ) {
     companion object {
         val unknown = WeatherForFiveDaysResultUi(
-            clouds = CloudsUi(all = -1),
+            listTemperature = persistentListOf(),
             time = Date(),
-            timeText = String(),
             rain = String(),
-            systemInformation = WeatherSystemInformationUi(
-                partOfDay = String(),
-                sunset = 0,
-                sunrise = 0
-            ),
+            listTime = persistentListOf(),
             wind = WindUi(degrees = -1, speed = 0.0),
             temperature = String(),
             tempMin = 0.0,
@@ -49,15 +43,10 @@ data class WeatherForFiveDaysResultUi(
             humidity = 0
         )
         val preview = WeatherForFiveDaysResultUi(
-            clouds = CloudsUi(all = 4234234),
+            listTemperature = persistentListOf(),
             time = Date(),
-            timeText = "2024-06-28 09:00:00",
             rain = String(),
-            systemInformation = WeatherSystemInformationUi(
-                partOfDay = String(),
-                sunset = 323,
-                sunrise = 3232,
-            ),
+            listTime = persistentListOf(),
             temperature = String(),
             tempMin = 0.0,
             tempMax = 0.0,

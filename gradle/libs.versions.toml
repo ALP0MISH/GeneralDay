@@ -7,6 +7,7 @@ androidxActivity = "1.9.1"
 androidxComposeBom = "2024.06.00"
 androidGradlePlugin = "8.2.2"
 appcompatVersion = "1.7.0"
+composeChartsVersion = "0.0.13"
 gsonVersion = "2.10.1"
 mapsComposeVersion = "2.8.0"
 mapsKtxVersion = "3.2.1"
@@ -61,6 +62,7 @@ androidx-lifecycle-viewModelCompose = { group = "androidx.lifecycle", name = "li
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil-compose" }
 
 #Collections
+compose-charts = { module = "io.github.ehsannarmani:compose-charts", version.ref = "composeChartsVersion" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gsonVersion" }
 kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinxCollectionsImmutable" }
 

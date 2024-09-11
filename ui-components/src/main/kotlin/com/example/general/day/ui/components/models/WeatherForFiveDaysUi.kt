@@ -3,9 +3,6 @@ package com.example.general.day.ui.components.models
 import androidx.compose.runtime.Immutable
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
-import java.util.Calendar
-import java.util.Date
-import java.util.concurrent.TimeUnit
 
 @Immutable
 data class WeatherForFiveDaysUi(
