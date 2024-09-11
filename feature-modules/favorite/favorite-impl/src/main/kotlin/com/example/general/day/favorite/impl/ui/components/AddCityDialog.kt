@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -36,25 +35,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.unit.dp
 import com.example.general.day.favorite.impl.ui.FavoriteEvent
 import com.example.general.day.favorite.impl.ui.FavoriteUIState
 import com.example.general.day.ui.core.R.string
 import com.example.general.day.ui.core.theme.AddCityColor
-import com.example.general.day.ui.core.theme.dp1
 import com.example.general.day.ui.core.theme.dp12
-import com.example.general.day.ui.core.theme.dp14
 import com.example.general.day.ui.core.theme.dp16
-import com.example.general.day.ui.core.theme.dp2
-import com.example.general.day.ui.core.theme.dp20
 import com.example.general.day.ui.core.theme.dp22
 import com.example.general.day.ui.core.theme.dp24
-import com.example.general.day.ui.core.theme.dp48
-import com.example.general.day.ui.core.theme.dp5
-import com.example.general.day.ui.core.theme.dp50
+import com.example.general.day.ui.core.theme.dp4
 import com.example.general.day.ui.core.theme.dp8
-import com.example.general.day.ui.core.theme.dp80
-import com.example.general.day.ui.core.theme.dp87
 import com.example.general.day.ui.core.theme.sp14
 
 @Composable
@@ -131,7 +121,7 @@ fun AddCityDialog(
             modifier = Modifier.fillMaxWidth(),
         ) {
             if (uiState.query.isNotEmpty()) {
-                items(uiState.searchResult.sortedBy { it.localName.ru }) { city ->
+                items(uiState.searchResult.filter { city -> city.localName.ru.isNotEmpty() }) { city ->
                     Text(
                         text = city.localName.ru,
                         modifier = Modifier
@@ -142,7 +132,8 @@ fun AddCityDialog(
                             .background(
                                 Color.Gray.copy(alpha = 0.1f),
                                 shape = MaterialTheme.shapes.small
-                            ),
+                            )
+                            .padding(dp4),
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onBackground
                     )

@@ -70,7 +70,6 @@ fun SearchComponent(
         modifier = modifier
             .fillMaxWidth()
             .fillMaxHeight(0.05f)
-            .padding(horizontal = dp16)
             .padding(top = dp16)
     )
 }
