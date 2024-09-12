@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class ConnectivityManagerModule {
+class ManagerModule {
 
     @Provides
     fun provideConnectivityManager(context: Context): ConnectivityManager {

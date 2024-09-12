@@ -8,24 +8,19 @@ import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
 import com.example.general.day.ui.core.utils.ZoneClusterItem
 import com.google.android.gms.maps.model.LatLng
 
+interface WeatherDataConverter {
 
-interface WeatherDataHelper {
+    fun toCurrentConvertedWeather(currentWeatherResult: CurrentWeatherUi): CurrentConvertedWeather
 
-    fun currentConvertedWeather(
-        currentWeatherResult: CurrentWeatherUi,
-    ): CurrentConvertedWeather
+    fun toLocalWeather(currentWeatherResult: CurrentWeatherUi): CurrentWeatherLocalUi
 
-    fun convertSavedWeather(
-        currentWeatherResult: CurrentWeatherUi,
-    ): CurrentWeatherLocalUi
-
-    fun convertMapWeatherData(
+    fun toZoneClusterItem(
         currentWeatherResult: CurrentWeatherUi,
         weatherForFiveDaysUi: WeatherForFiveDaysResultUi,
         latLng: LatLng
     ): ZoneClusterItem
 
-    fun convertWeatherForFiveDays(
+    fun toDetailedWeather(
         currentWeatherResult: CurrentWeatherUi,
         weatherForFiveDaysUi: WeatherForFiveDaysResultUi
     ): WeatherForDetail

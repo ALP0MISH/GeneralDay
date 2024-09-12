@@ -19,7 +19,7 @@ import com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToFavorite
 import com.example.general.day.home.impl.ui.HomeScreenEvent.DoNavigateToMapScreen
 import com.example.general.day.home.impl.ui.di.HomeFeatureDependencies
 import com.example.general.day.location.api.LocationTrackerManager
-import com.example.general.day.ui.components.helpers.WeatherDataHelper
+import com.example.general.day.ui.components.helpers.WeatherDataConverter
 import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysUi
 import com.example.general.day.ui.core.R.string
@@ -36,7 +36,7 @@ class HomeViewModel @Inject constructor(
     private val dependencies: HomeFeatureDependencies,
     private val getFetchWeatherUseCase: FetchWeatherUseCase,
     private val getLocationTrackerManager: LocationTrackerManager,
-    private val getWeatherDataHelper: WeatherDataHelper,
+    private val getWeatherDataConverter: WeatherDataConverter,
     private val getNavigationRouteFlowCommunication: NavigationRouteFlowCommunication,
     private val fetchCurrentWeatherToHomeUi: @JvmSuppressWildcards Mapper<CurrentWeatherDomain, CurrentWeatherUi>,
     private val fetchWeatherDomainToHomeUiMapper: @JvmSuppressWildcards Mapper<WeatherForFiveDaysDomain, WeatherForFiveDaysUi>,
@@ -89,7 +89,7 @@ class HomeViewModel @Inject constructor(
                 }
 
                 val currentWeatherResult =
-                    getWeatherDataHelper.currentConvertedWeather(mapCurrentWeather)
+                    getWeatherDataConverter.toCurrentConvertedWeather(mapCurrentWeather)
 
                 _uiState.tryEmit(
                     HomeUiState.Loaded(

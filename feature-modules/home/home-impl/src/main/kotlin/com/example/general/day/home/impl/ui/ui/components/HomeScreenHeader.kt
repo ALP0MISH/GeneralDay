@@ -28,7 +28,7 @@ import com.example.general.day.ui.core.theme.dp4
 import com.example.general.day.ui.core.theme.dp8
 
 @Composable
-internal fun HomeScreenTop(
+internal fun HomeScreenHeader(
     modifier: Modifier = Modifier,
     cityName: String,
     onEvent: (HomeScreenEvent) -> Unit,
@@ -108,7 +108,7 @@ internal fun HomeScreenTop(
 @Composable
 fun HomeScreenTopItemPreview() {
     MaterialTheme {
-        HomeScreenTop(
+        HomeScreenHeader(
             cityName = "Тамбов",
             onEvent = {},
             onThemeChange = {},

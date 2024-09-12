@@ -1,13 +1,13 @@
 package com.example.general.day.ui.components.di
 
-import com.example.general.day.ui.components.helpers.DetermineTimeOfDay
-import com.example.general.day.ui.components.helpers.DetermineTimeOfDayImpl
+import com.example.general.day.ui.components.helpers.TimeOfDayEvaluator
+import com.example.general.day.ui.components.helpers.TimeOfDayEvaluatorImpl
 import com.example.general.day.ui.components.helpers.GetWeatherFromString
 import com.example.general.day.ui.components.helpers.GetWeatherFromStringImpl
-import com.example.general.day.ui.components.helpers.WeatherDataHelper
-import com.example.general.day.ui.components.helpers.WeatherDataHelperImpl
-import com.example.general.day.ui.components.helpers.WeatherIconHelper
-import com.example.general.day.ui.components.helpers.WeatherIconHelperImpl
+import com.example.general.day.ui.components.helpers.WeatherDataConverter
+import com.example.general.day.ui.components.helpers.WeatherDataConverterImpl
+import com.example.general.day.ui.components.helpers.WeatherIconProvider
+import com.example.general.day.ui.components.helpers.WeatherIconProviderImpl
 import dagger.Binds
 import dagger.Module
 
@@ -16,8 +16,8 @@ interface WeatherHelperModule {
 
     @Binds
     fun bindsDetermineTimeOfDay(
-        implementation: DetermineTimeOfDayImpl
-    ): DetermineTimeOfDay
+        implementation: TimeOfDayEvaluatorImpl
+    ): TimeOfDayEvaluator
 
     @Binds
     fun bindsGetWeatherFromString(
@@ -26,11 +26,11 @@ interface WeatherHelperModule {
 
     @Binds
     fun bindsWeatherDataHelper(
-        implementation: WeatherDataHelperImpl
-    ): WeatherDataHelper
+        implementation: WeatherDataConverterImpl
+    ): WeatherDataConverter
 
     @Binds
     fun bindsWeatherIconHelper(
-        implementation: WeatherIconHelperImpl
-    ): WeatherIconHelper
+        implementation: WeatherIconProviderImpl
+    ): WeatherIconProvider
 }

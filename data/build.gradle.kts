@@ -10,6 +10,11 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
+        buildConfigField(
+            type = "String",
+            name = "OPEN_WEATHER_API",
+            value = properties["openweathermap_url"].toString()
+        )
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

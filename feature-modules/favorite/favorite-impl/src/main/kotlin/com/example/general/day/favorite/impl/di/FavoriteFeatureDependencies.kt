@@ -8,7 +8,7 @@ import com.example.general.day.detail.api.DetailFeatureRouteProvider
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.models.CurrentWeatherLocalDomain
 import com.example.general.day.domain.models.SearchWeatherDomain
-import com.example.general.day.domain.usecase.DeleteWeatherById
+import com.example.general.day.domain.usecase.DeleteWeatherByIdUseCase
 import com.example.general.day.domain.usecase.FetchWeatherByCity
 import com.example.general.day.domain.usecase.ObserveCurrentWeatherUseCase
 import com.example.general.day.domain.usecase.SaveCurrentWeatherUseCase
@@ -17,7 +17,7 @@ import com.example.general.day.map.api.MapRouteProvider
 import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
 import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.SearchWeatherUi
-import com.example.general.day.ui.components.helpers.WeatherDataHelper
+import com.example.general.day.ui.components.helpers.WeatherDataConverter
 
 interface FavoriteFeatureDependencies {
 
@@ -33,7 +33,7 @@ interface FavoriteFeatureDependencies {
 
     fun getObserveCurrentWeatherUseCase(): ObserveCurrentWeatherUseCase
 
-    fun getWeatherDataHelper(): WeatherDataHelper
+    fun getWeatherDataHelper(): WeatherDataConverter
 
     fun getShowToastManager(): ToastNotificationManger
 
@@ -47,7 +47,7 @@ interface FavoriteFeatureDependencies {
 
     fun getCurrentWeatherHomeUiToDomainMapper(): Mapper<CurrentWeatherLocalDomain, CurrentWeatherLocalUi>
 
-    fun deleteWeatherById(): DeleteWeatherById
+    fun deleteWeatherByIdUseCase(): DeleteWeatherByIdUseCase
 
     fun sharedPrefManager(): SharedPrefManager
 }

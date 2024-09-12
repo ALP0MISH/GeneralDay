@@ -15,14 +15,6 @@ object FavoriteComponentHolder {
         dependencyProvider = provider
     }
 
-    internal fun getComponent(): FavoriteComponent = checkNotNull(component)
-
-    @Synchronized
-    internal fun initAndGetComponent(): FavoriteComponent {
-        init()
-        return checkNotNull(component)
-    }
-
     fun getApi(): FavoriteFeatureApi = checkNotNull(component)
 
     fun init() {
@@ -31,12 +23,6 @@ object FavoriteComponentHolder {
                 component =
                     FavoriteComponent.initAndGet(checkNotNull(dependencyProvider).get())
             }
-        }
-    }
-
-    fun reset() {
-        synchronized(this) {
-            component = null
         }
     }
 }

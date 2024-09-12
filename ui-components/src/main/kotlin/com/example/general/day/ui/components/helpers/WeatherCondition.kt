@@ -1,6 +1,6 @@
 package com.example.general.day.ui.components.helpers
 
-enum class WeatherConditionsEnum {
+enum class WeatherCondition {
     Snow,
     Rain,
     Clear,
@@ -10,7 +10,7 @@ enum class WeatherConditionsEnum {
     Thunderstorm,
 }
 
-enum class TimeOfDayEnum {
+enum class TimeOfDay {
     DawnDusk,
     Day,
     Night,

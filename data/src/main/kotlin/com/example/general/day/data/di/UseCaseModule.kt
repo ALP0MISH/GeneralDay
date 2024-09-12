@@ -1,7 +1,7 @@
 package com.example.general.day.data.di
 
-import com.example.general.day.domain.usecase.DeleteWeatherById
-import com.example.general.day.domain.usecase.DeleteWeatherByIdImpl
+import com.example.general.day.domain.usecase.DeleteWeatherByIdUseCase
+import com.example.general.day.domain.usecase.DeleteWeatherByIdUseCaseImpl
 import com.example.general.day.domain.usecase.FetchWeatherByCity
 import com.example.general.day.domain.usecase.FetchWeatherByCityImpl
 import com.example.general.day.domain.usecase.FetchWeatherUseCase
@@ -45,6 +45,6 @@ interface UseCaseModule {
 
     @Binds
     fun bindsDeleteWeatherByIdImpl(
-        implementation: DeleteWeatherByIdImpl,
-    ): DeleteWeatherById
+        implementation: DeleteWeatherByIdUseCaseImpl,
+    ): DeleteWeatherByIdUseCase
 }

@@ -15,14 +15,6 @@ object DetailComponentHolder {
         dependencyProvider = provider
     }
 
-    internal fun getComponent(): DetailComponent = checkNotNull(component)
-
-    @Synchronized
-    internal fun initAndGetComponent(): DetailComponent {
-        init()
-        return checkNotNull(component)
-    }
-
     fun getApi(): DetailFeatureApi = checkNotNull(component)
 
     fun init() {
@@ -31,12 +23,6 @@ object DetailComponentHolder {
                 component =
                     DetailComponent.initAndGet(checkNotNull(dependencyProvider).get())
             }
-        }
-    }
-
-    fun reset() {
-        synchronized(this) {
-            component = null
         }
     }
 }

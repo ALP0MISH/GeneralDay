@@ -12,22 +12,22 @@ import com.google.maps.android.ktx.model.polygonOptions
 import java.util.UUID
 import javax.inject.Inject
 
-class WeatherDataHelperImpl @Inject constructor(
-    private val weatherIconHelper: WeatherIconHelper,
-    private val determineTimeOfDay: DetermineTimeOfDay,
-) : WeatherDataHelper {
+class WeatherDataConverterImpl @Inject constructor(
+    private val weatherIconProvider: WeatherIconProvider,
+    private val timeOfDayEvaluator: TimeOfDayEvaluator,
+) : WeatherDataConverter {
 
-    override fun currentConvertedWeather(
+    override fun toCurrentConvertedWeather(
         currentWeatherResult: CurrentWeatherUi,
     ): CurrentConvertedWeather {
         return CurrentConvertedWeather(
             feelsLikeTemperature = currentWeatherResult.weatherTemperature.feelsLike.formatTemperature(),
-            weatherBackgroundImage = weatherIconHelper.fetchBackgroundForTimeOfDay(
+            weatherBackgroundImage = weatherIconProvider.getBackgroundForTimeOfDay(
                 currentWeatherResult.time.toLong(),
             ),
-            currentWeatherIcon = weatherIconHelper.fetchWeatherIcon(
+            currentWeatherIcon = weatherIconProvider.getWeatherIcon(
                 currentWeatherResult.weather.firstOrNull() ?: WeatherUi.unknown,
-                determineTimeOfDay.isDayOrNight(currentWeatherResult.time.toLong())
+                timeOfDayEvaluator.isDayTime(currentWeatherResult.time.toLong())
             ),
             currentTemperature = currentWeatherResult.weatherTemperature.temperature.formatTemperature(),
             currentMonthAndDay = currentWeatherResult.time.toLong().getMonthAndDay(),
@@ -35,7 +35,7 @@ class WeatherDataHelperImpl @Inject constructor(
         )
     }
 
-    override fun convertSavedWeather(currentWeatherResult: CurrentWeatherUi): CurrentWeatherLocalUi {
+    override fun toLocalWeather(currentWeatherResult: CurrentWeatherUi): CurrentWeatherLocalUi {
         return CurrentWeatherLocalUi(
             id = UUID.randomUUID().toString(),
             code = currentWeatherResult.cod,
@@ -46,14 +46,14 @@ class WeatherDataHelperImpl @Inject constructor(
             tempMax = currentWeatherResult.weatherTemperature.tempMax.formatTemperature(),
             tempMin = currentWeatherResult.weatherTemperature.tempMin.formatTemperature(),
             cityName = currentWeatherResult.name,
-            weatherIcon = weatherIconHelper.fetchWeatherIcon(
+            weatherIcon = weatherIconProvider.getWeatherIcon(
                 currentWeatherResult.weather.firstOrNull() ?: WeatherUi.unknown,
-                determineTimeOfDay.isDayOrNight(currentWeatherResult.time.toLong())
+                timeOfDayEvaluator.isDayTime(currentWeatherResult.time.toLong())
             ),
         )
     }
 
-    override fun convertMapWeatherData(
+    override fun toZoneClusterItem(
         currentWeatherResult: CurrentWeatherUi,
         weatherForFiveDaysUi: WeatherForFiveDaysResultUi,
         latLng: LatLng
@@ -70,14 +70,14 @@ class WeatherDataHelperImpl @Inject constructor(
             snippet = "${weatherForFiveDaysUi.tempMax.toIntegerString()}° ${weatherForFiveDaysUi.tempMin.toIntegerString()}°",
             id = UUID.randomUUID().toString(),
             title = currentWeatherResult.name,
-            icon = weatherIconHelper.fetchWeatherIcon(
+            icon = weatherIconProvider.getWeatherIcon(
                 currentWeatherResult.weather.firstOrNull() ?: WeatherUi.unknown,
-                determineTimeOfDay.isDayOrNight(currentWeatherResult.time.toLong())
+                timeOfDayEvaluator.isDayTime(currentWeatherResult.time.toLong())
             ),
         )
     }
 
-    override fun convertWeatherForFiveDays(
+    override fun toDetailedWeather(
         currentWeatherResult: CurrentWeatherUi,
         weatherForFiveDaysUi: WeatherForFiveDaysResultUi
     ): WeatherForDetail {
@@ -93,11 +93,11 @@ class WeatherDataHelperImpl @Inject constructor(
                 temperature = currentWeatherResult.weatherTemperature.temperature.formatTemperature(),
                 main = main,
                 feelsLike = currentWeatherResult.weatherTemperature.feelsLike.formatTemperature(),
-                weatherIcon = weatherIconHelper.fetchWeatherIcon(
+                weatherIcon = weatherIconProvider.getWeatherIcon(
                     weatherHomeUi = currentWeatherResult.weather.firstOrNull() ?: WeatherUi.unknown,
-                    determineTimeOfDay.isDayOrNight(currentWeatherResult.time.toLong())
+                    timeOfDayEvaluator.isDayTime(currentWeatherResult.time.toLong())
                 ),
-                weatherBackgroundImage = weatherIconHelper.fetchBackgroundForTimeOfDay(
+                weatherBackgroundImage = weatherIconProvider.getBackgroundForTimeOfDay(
                     currentWeatherResult.time.toLong()
                 ),
                 cityName = cityName,

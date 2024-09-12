@@ -14,7 +14,7 @@ import com.example.general.day.location.api.LocationTrackerManager
 import com.example.general.day.map.api.MapRouteProvider
 import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysUi
-import com.example.general.day.ui.components.helpers.WeatherDataHelper
+import com.example.general.day.ui.components.helpers.WeatherDataConverter
 
 interface HomeFeatureDependencies {
 
@@ -28,7 +28,7 @@ interface HomeFeatureDependencies {
 
     fun getLocationTrackerManager(): LocationTrackerManager
 
-    fun getWeatherDataHelper(): WeatherDataHelper
+    fun getWeatherDataHelper(): WeatherDataConverter
 
     fun getNavigationRouteFlowCommunication(): NavigationRouteFlowCommunication
 

@@ -47,7 +47,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MapScreen(
     state: MapState,
-    setupClusterManager: (Context, GoogleMap) -> ZoneClusterManager,
+    setupClusterManager: (GoogleMap) -> ZoneClusterManager,
     calculateZoneViewCenter: () -> LatLngBounds,
     onMapClicked: (LatLng) -> Unit,
     onNavigateToBack: () -> Unit,
@@ -56,6 +56,8 @@ fun MapScreen(
         isMyLocationEnabled = state.lastKnownLocation != null,
     )
     val cameraPositionState = rememberCameraPositionState()
+    val scope = rememberCoroutineScope()
+
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -64,11 +66,9 @@ fun MapScreen(
             properties = mapProperties,
             cameraPositionState = cameraPositionState
         ) {
-            val context = LocalContext.current
-            val scope = rememberCoroutineScope()
             MapEffect(state.clusterItems) { map ->
                 if (state.clusterItems.isNotEmpty()) {
-                    val clusterManager = setupClusterManager(context, map)
+                    val clusterManager = setupClusterManager(map)
                     map.setOnCameraIdleListener(clusterManager)
                     map.setOnMarkerClickListener(clusterManager)
                     state.clusterItems.forEach { clusterItem ->

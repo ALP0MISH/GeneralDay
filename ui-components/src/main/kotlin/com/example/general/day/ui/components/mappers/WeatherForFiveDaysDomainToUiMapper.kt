@@ -5,8 +5,8 @@ import com.example.general.day.domain.models.CityDomain
 import com.example.general.day.domain.models.WeatherDomain
 import com.example.general.day.domain.models.WeatherForFiveDaysDomain
 import com.example.general.day.domain.models.WindDomain
-import com.example.general.day.ui.components.helpers.DetermineTimeOfDay
-import com.example.general.day.ui.components.helpers.WeatherIconHelper
+import com.example.general.day.ui.components.helpers.TimeOfDayEvaluator
+import com.example.general.day.ui.components.helpers.WeatherIconProvider
 import com.example.general.day.ui.components.helpers.fetchListWeather
 import com.example.general.day.ui.components.helpers.findMaxValue
 import com.example.general.day.ui.components.helpers.findMinValue
@@ -28,8 +28,8 @@ class WeatherForFiveDaysDomainToUiMapper @Inject constructor(
     private val cityDataToCityDomain: @JvmSuppressWildcards Mapper<CityDomain, CityUi>,
     private val windCloudToWindDomain: @JvmSuppressWildcards Mapper<WindDomain, WindUi>,
     private val weatherDomainToUiMapper: @JvmSuppressWildcards Mapper<WeatherDomain, WeatherUi>,
-    private val weatherIconHelper: WeatherIconHelper,
-    private val determineTimeOfDay: DetermineTimeOfDay
+    private val weatherIconProvider: WeatherIconProvider,
+    private val timeOfDayEvaluator: TimeOfDayEvaluator
 ) : Mapper<@JvmSuppressWildcards WeatherForFiveDaysDomain, @JvmSuppressWildcards WeatherForFiveDaysUi> {
 
     override fun map(from: WeatherForFiveDaysDomain): WeatherForFiveDaysUi = from.run {
@@ -51,21 +51,21 @@ class WeatherForFiveDaysDomainToUiMapper @Inject constructor(
                         temperature = weatherTemperature.temperature.formatTemperature(),
                         main = weather.firstOrNull()?.main ?: "",
                         feelsLike = weatherTemperature.feelsLike.formatTemperature(),
-                        weatherIcon = weatherIconHelper.fetchWeatherIcon(
+                        weatherIcon = weatherIconProvider.getWeatherIcon(
                             weatherHomeUi = weatherDomainToUiMapper.map(
                                 weather.firstOrNull() ?: WeatherDomain.unknown
-                            ), determineTimeOfDay.isDayOrNight(time)
+                            ), timeOfDayEvaluator.isDayTime(time)
                         ),
-                        weatherBackgroundImage = weatherIconHelper.fetchBackgroundForTimeOfDay(
+                        weatherBackgroundImage = weatherIconProvider.getBackgroundForTimeOfDay(
                             time,
                         ),
                         cityName = from.city.name,
                         humidity = weatherTemperature.humidity,
                         weatherForBottomItem = item.value.getListWeatherForBottomItem(
-                            weatherIconHelper.fetchWeatherIcon(
+                            weatherIconProvider.getWeatherIcon(
                                 weatherHomeUi = weatherDomainToUiMapper.map(
                                     weather.firstOrNull() ?: WeatherDomain.unknown
-                                ), determineTimeOfDay.isDayOrNight(time)
+                                ), timeOfDayEvaluator.isDayTime(time)
                             )
                         )
                     )

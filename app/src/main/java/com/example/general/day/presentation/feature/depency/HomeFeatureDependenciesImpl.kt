@@ -17,14 +17,14 @@ import com.example.general.day.map.api.MapRouteProvider
 import com.example.general.day.presentation.di.DependencyProvider
 import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysUi
-import com.example.general.day.ui.components.helpers.WeatherDataHelper
+import com.example.general.day.ui.components.helpers.WeatherDataConverter
 import javax.inject.Inject
 
 class HomeFeatureDependenciesImpl @Inject constructor(
     private val dependencyProvider: DependencyProvider,
     private val fetchWeatherUseCase: FetchWeatherUseCase,
     private val locationFeatureApi: LocationFeatureApi,
-    private val weatherDataHelper: WeatherDataHelper,
+    private val weatherDataConverter: WeatherDataConverter,
     private val navigationRouteFlowCommunication: NavigationRouteFlowCommunication,
     private val currentWeatherToHomeUi: @JvmSuppressWildcards Mapper<CurrentWeatherDomain, CurrentWeatherUi>,
     private val weatherDomainToHomeUiMapper: @JvmSuppressWildcards Mapper<WeatherForFiveDaysDomain, WeatherForFiveDaysUi>,
@@ -53,8 +53,8 @@ class HomeFeatureDependenciesImpl @Inject constructor(
         return locationFeatureApi.provideLocationTrackerManager()
     }
 
-    override fun getWeatherDataHelper(): WeatherDataHelper {
-        return weatherDataHelper
+    override fun getWeatherDataHelper(): WeatherDataConverter {
+        return weatherDataConverter
     }
 
     override fun getNavigationRouteFlowCommunication(): NavigationRouteFlowCommunication {

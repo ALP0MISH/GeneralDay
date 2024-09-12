@@ -1,18 +1,20 @@
 package com.example.general.day.ui.components.helpers
 
-import com.example.general.day.ui.components.helpers.TimeOfDayEnum.DawnDusk
-import com.example.general.day.ui.components.helpers.TimeOfDayEnum.Day
-import com.example.general.day.ui.components.helpers.TimeOfDayEnum.Night
+import androidx.annotation.DrawableRes
+import com.example.general.day.ui.components.helpers.TimeOfDay.DawnDusk
+import com.example.general.day.ui.components.helpers.TimeOfDay.Day
+import com.example.general.day.ui.components.helpers.TimeOfDay.Night
 import com.example.general.day.ui.components.models.WeatherUi
 import com.example.general.day.ui.core.R
 import javax.inject.Inject
 
-class WeatherIconHelperImpl @Inject constructor(
+class WeatherIconProviderImpl @Inject constructor(
     private val getWeatherFromString: GetWeatherFromString,
-    private val determineTimeOfDay: DetermineTimeOfDay,
-) : WeatherIconHelper {
+    private val timeOfDayEvaluator: TimeOfDayEvaluator,
+) : WeatherIconProvider {
 
-    override fun fetchWeatherIcon(weatherHomeUi: WeatherUi, isDayTime: Boolean): Int {
+    @DrawableRes
+    override fun getWeatherIcon(weatherHomeUi: WeatherUi, isDayTime: Boolean): Int {
         return when (getWeatherFromString.getWeatherFromString(weatherHomeUi.main)) {
             WeatherSealedComponent.Snow -> if (isDayTime) R.drawable.snow_light else R.drawable.snow_night
             WeatherSealedComponent.Rain -> if (isDayTime) R.drawable.rain_light else R.drawable.rain_night
@@ -26,14 +28,12 @@ class WeatherIconHelperImpl @Inject constructor(
         }
     }
 
-    override fun fetchBackgroundForTimeOfDay(
-        timeOfDay: Long,
-    ): Int {
-        return when (determineTimeOfDay.determineTimeOfDay(timeOfDay)) {
-            Day.name -> R.drawable.background_image_light
-            DawnDusk.name -> R.drawable.background_duwn_dusk
-            Night.name -> R.drawable.background_dark
-            else -> R.drawable.background_image_light
+    @DrawableRes
+    override fun getBackgroundForTimeOfDay(timeOfDay: Long): Int {
+        return when (timeOfDayEvaluator.determineTimeOfDay(timeOfDay)) {
+            Day -> R.drawable.background_image_light
+            DawnDusk -> R.drawable.background_duwn_dusk
+            Night -> R.drawable.background_dark
         }
     }
 }

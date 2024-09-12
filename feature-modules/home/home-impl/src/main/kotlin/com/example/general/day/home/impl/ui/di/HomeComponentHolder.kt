@@ -15,14 +15,6 @@ object HomeComponentHolder {
         dependencyProvider = provider
     }
 
-    internal fun getComponent(): HomeComponent = checkNotNull(component)
-
-    @Synchronized
-    internal fun initAndGetComponent(): HomeComponent {
-        init()
-        return checkNotNull(component)
-    }
-
     fun getApi(): HomeFeatureApi = checkNotNull(component)
 
     fun init() {
@@ -30,12 +22,6 @@ object HomeComponentHolder {
             if (component == null) {
                 component = HomeComponent.initAndGet(checkNotNull(dependencyProvider).get())
             }
-        }
-    }
-
-    fun reset() {
-        synchronized(this) {
-            component = null
         }
     }
 }

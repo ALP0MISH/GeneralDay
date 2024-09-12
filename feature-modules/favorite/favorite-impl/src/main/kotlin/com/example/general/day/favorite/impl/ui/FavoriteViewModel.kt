@@ -11,7 +11,7 @@ import com.example.general.day.data.local.shared.pref.SharedPrefManager
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.models.CurrentWeatherLocalDomain
 import com.example.general.day.domain.models.SearchWeatherDomain
-import com.example.general.day.domain.usecase.DeleteWeatherById
+import com.example.general.day.domain.usecase.DeleteWeatherByIdUseCase
 import com.example.general.day.domain.usecase.FetchWeatherByCity
 import com.example.general.day.domain.usecase.ObserveCurrentWeatherUseCase
 import com.example.general.day.domain.usecase.SaveCurrentWeatherUseCase
@@ -22,7 +22,7 @@ import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.SavedWeatherUI
 import com.example.general.day.ui.components.models.SearchWeatherUi
 import com.example.general.day.ui.core.R.string
-import com.example.general.day.ui.components.helpers.WeatherDataHelper
+import com.example.general.day.ui.components.helpers.WeatherDataConverter
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,8 +35,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.text.Collator
-import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.coroutines.cancellation.CancellationException
@@ -45,7 +43,7 @@ private const val DebounceTime = 300L
 
 class FavoriteViewModel @Inject constructor(
     private val fetchWeatherByCity: FetchWeatherByCity,
-    private val weatherDataHelper: WeatherDataHelper,
+    private val weatherDataConverter: WeatherDataConverter,
     private val searchWeatherByCity: SearchWeatherByCity,
     private val navigationRouteFlowCommunication: NavigationRouteFlowCommunication,
     private val saveCurrentWeatherUseCase: SaveCurrentWeatherUseCase,
@@ -56,7 +54,7 @@ class FavoriteViewModel @Inject constructor(
     private val searchWeatherDomainToUiMapper: @JvmSuppressWildcards Mapper<SearchWeatherDomain, SearchWeatherUi>,
     private val favoriteFeatureDependencies: FavoriteFeatureDependencies,
     private val toastNotificationManger: ToastNotificationManger,
-    private val deleteWeatherById: DeleteWeatherById,
+    private val deleteWeatherByIdUseCase: DeleteWeatherByIdUseCase,
     private val sharedPrefManager: SharedPrefManager,
 ) : ViewModel() {
 
@@ -145,7 +143,7 @@ class FavoriteViewModel @Inject constructor(
                     fetchWeatherByCity.fetchCurrentCityWeather(cityName = state.query)
 
                 if (currentWeatherDeferred.cod != -1) {
-                    val weather = weatherDataHelper.convertSavedWeather(
+                    val weather = weatherDataConverter.toLocalWeather(
                         currentWeatherDomainToUiMapper.map(currentWeatherDeferred)
                     )
                     saveCurrentWeatherUseCase.invoke(
@@ -172,7 +170,7 @@ class FavoriteViewModel @Inject constructor(
 
     private fun onDeleteWeatherById(id: String) {
         viewModelScope.launch {
-            deleteWeatherById.invoke(id = id)
+            deleteWeatherByIdUseCase.invoke(id = id)
         }
     }
 

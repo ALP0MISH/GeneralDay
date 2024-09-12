@@ -21,4 +21,6 @@
     <string name="precipitation">Осадки</string>
     <string name="success_message">Город успешно добавлен</string>
     <string name="location_message">Требуется разрешение на определение местоположения!</string>
+    <string name="with_temperature">%s °C</string>
+    <string name="something_went_wrong">Что то пошло не так</string>
 </resources>
