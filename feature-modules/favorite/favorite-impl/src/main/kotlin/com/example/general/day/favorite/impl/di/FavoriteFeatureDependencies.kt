@@ -48,6 +48,4 @@ interface FavoriteFeatureDependencies {
     fun getCurrentWeatherHomeUiToDomainMapper(): Mapper<CurrentWeatherLocalDomain, CurrentWeatherLocalUi>
 
     fun deleteWeatherByIdUseCase(): DeleteWeatherByIdUseCase
-
-    fun sharedPrefManager(): SharedPrefManager
 }

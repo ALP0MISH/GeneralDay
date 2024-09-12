@@ -12,6 +12,5 @@ data class FavoriteUIState(
     val query: String = String(),
     val isLoading: Boolean = false,
     val error: String = String(),
-    val cityName: String = String(),
     val savedWeatherUI: SavedWeatherUI = SavedWeatherUI.unknown,
 )
