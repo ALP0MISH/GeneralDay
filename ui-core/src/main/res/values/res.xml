@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="save_city">Добавить город</string>
+    <string name="сancel">Отменить</string>
+    <string name="add">Добавить</string>
+    <string name="confirm">Подтвердить</string>
+    <string name="search_sity">Поиск города</string>
+    <string name="exception_message">Не опознанный ViewModel клаcc</string>
+    <string name="failed_to_fetch_weather">Не удалось получить прогноз погоды</string>
+    <string name="no_internet_connection">Отсутствует подключения к интернету</string>
+    <string name="retry">Повторите попытку, пожалуйста</string>
+    <string name="error_message">К сожелению такого горада нет</string>
+    <string name="wind">Ветер</string>
+    <string name="clearly_feels_like">Ясно, ощущается как</string>
+    <string name="not_enough_data_to_display"> Недостаточно данных для отображения графика, подождите пожалуйста пока придут новые данные</string>
+    <string name="failed_to_save_weather">Не удалось сохранить текущую местную погоду</string>
+    <string name="today">Сегодня,</string>
+    <string name="meter_per_hour">м/с</string>
+    <string name="percent">%</string>
+    <string name="humidity">Влажность</string>
+    <string name="precipitation">Осадки</string>
+    <string name="success_message">Город успешно добавлен</string>
+    <string name="location_message">Требуется разрешение на определение местоположения!</string>
+    <string name="with_temperature">%s °C</string>
+    <string name="something_went_wrong">Что то пошло не так</string>
+</resources>
