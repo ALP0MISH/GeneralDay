@@ -95,7 +95,7 @@ internal fun HomeScreenItem(
                 tempMin = "${weather.tempMin.toIntegerString()}°",
                 tempMax = "${weather.tempMax.toIntegerString()}°",
                 weatherIcon = weather.weatherIcon,
-                weatherForFiveDays = uiState.weatherForFiveDays,
+                weatherForFiveDays = weather,
             )
         }
     }

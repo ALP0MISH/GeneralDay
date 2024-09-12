@@ -23,7 +23,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.general.day.ui.components.helpers.toFormattedTime
 import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
 import com.example.general.day.ui.core.extention.SpacerHeight
 import com.example.general.day.ui.core.extention.SpacerWidth
@@ -35,8 +34,6 @@ import com.example.general.day.ui.core.theme.dp20
 import com.example.general.day.ui.core.theme.dp32
 import com.example.general.day.ui.core.theme.dp5
 import com.example.general.day.ui.core.theme.dp8
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun HomeScreenBottom(
@@ -44,7 +41,7 @@ fun HomeScreenBottom(
     tempMax: String,
     tempMin: String,
     weatherIcon: Int,
-    weatherForFiveDays: ImmutableList<WeatherForFiveDaysResultUi>,
+    weatherForFiveDays: WeatherForFiveDaysResultUi,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -104,11 +101,10 @@ fun HomeScreenBottom(
                 .padding(bottom = dp10),
         ) {
             items(
-                items = weatherForFiveDays,
-                key = { it.weatherId }
+                items = weatherForFiveDays.weatherForBottomItem,
             ) { item ->
                 BottomItem(
-                    time = item.time.toFormattedTime(),
+                    time = item.time,
                     temperature = item.temperature,
                     image = item.weatherIcon
                 )
@@ -163,7 +159,7 @@ fun HomeScreenBottomPreview() {
             tempMax = String(),
             tempMin = String(),
             weatherIcon = 0,
-            weatherForFiveDays = persistentListOf(),
+            weatherForFiveDays = WeatherForFiveDaysResultUi.unknown
         )
     }
 }

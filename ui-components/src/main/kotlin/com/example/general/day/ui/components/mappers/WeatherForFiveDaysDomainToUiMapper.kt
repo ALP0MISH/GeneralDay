@@ -12,6 +12,7 @@ import com.example.general.day.ui.components.helpers.findMaxValue
 import com.example.general.day.ui.components.helpers.findMinValue
 import com.example.general.day.ui.components.helpers.formatTemperature
 import com.example.general.day.ui.components.helpers.getListTime
+import com.example.general.day.ui.components.helpers.getListWeatherForBottomItem
 import com.example.general.day.ui.components.helpers.toIntegerString
 import com.example.general.day.ui.components.models.CityUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
@@ -59,7 +60,14 @@ class WeatherForFiveDaysDomainToUiMapper @Inject constructor(
                             time,
                         ),
                         cityName = from.city.name,
-                        humidity = weatherTemperature.humidity
+                        humidity = weatherTemperature.humidity,
+                        weatherForBottomItem = item.value.getListWeatherForBottomItem(
+                            weatherIconHelper.fetchWeatherIcon(
+                                weatherHomeUi = weatherDomainToUiMapper.map(
+                                    weather.firstOrNull() ?: WeatherDomain.unknown
+                                ), determineTimeOfDay.isDayOrNight(time)
+                            )
+                        )
                     )
                 }
             }.toImmutableList()
