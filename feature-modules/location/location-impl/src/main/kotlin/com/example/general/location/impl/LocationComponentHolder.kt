@@ -16,14 +16,6 @@ object LocationComponentHolder {
         dependencyProvider = provider
     }
 
-    internal fun getComponent(): LocationComponent = checkNotNull(component)
-
-    @Synchronized
-    internal fun initAndGetComponent(): LocationComponent {
-        init()
-        return checkNotNull(component)
-    }
-
     fun getApi(): LocationFeatureApi = checkNotNull(component)
 
     fun init() {
@@ -32,12 +24,6 @@ object LocationComponentHolder {
                 component =
                     LocationComponent.initAndGet(checkNotNull(dependencyProvider).get())
             }
-        }
-    }
-
-    fun reset() {
-        synchronized(this) {
-            component = null
         }
     }
 }

@@ -4,8 +4,19 @@ import android.content.Context
 import com.google.android.gms.maps.GoogleMap
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.collections.MarkerManager
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 
-class ZoneClusterManager(
+class ZoneClusterManager @AssistedInject constructor(
+    @Assisted googleMap: GoogleMap,
     context: Context,
-    googleMap: GoogleMap,
-): ClusterManager<ZoneClusterItem>(context, googleMap, MarkerManager(googleMap))
+) : ClusterManager<ZoneClusterItem>(context, googleMap, MarkerManager(googleMap))
+
+
+@AssistedFactory
+interface ZoneClusterManagerFactory {
+    fun create(
+        @Assisted googleMap: GoogleMap
+    ): ZoneClusterManager
+}

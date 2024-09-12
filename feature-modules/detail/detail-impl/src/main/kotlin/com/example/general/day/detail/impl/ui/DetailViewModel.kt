@@ -14,7 +14,7 @@ import com.example.general.day.detail.impl.di.DetailFeatureDependencies
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.models.WeatherForFiveDaysDomain
 import com.example.general.day.domain.usecase.FetchWeatherByCity
-import com.example.general.day.ui.components.helpers.WeatherDataHelper
+import com.example.general.day.ui.components.helpers.WeatherDataConverter
 import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysUi
@@ -36,7 +36,7 @@ class DetailViewModel @Inject constructor(
     private val fetchCurrentWeatherToHomeUi: @JvmSuppressWildcards Mapper<CurrentWeatherDomain, CurrentWeatherUi>,
     private val getToastNotificationManger: ToastNotificationManger,
     private val connectivityManager: ConnectivityManager,
-    private val weatherDataHelper: WeatherDataHelper
+    private val weatherDataConverter: WeatherDataConverter
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<DetailUiState>(DetailUiState.Loading)
@@ -49,7 +49,7 @@ class DetailViewModel @Inject constructor(
         fetchWeather()
     }
 
-    fun fetchWeather() {
+    private fun fetchWeather() {
         viewModelScope.launch {
             try {
                 if (!isInternetAvailable()) {
@@ -72,7 +72,7 @@ class DetailViewModel @Inject constructor(
 
                 val mapCurrentWeather = fetchCurrentWeatherToHomeUi.map(awaitCurrentWeather)
 
-                val weatherForDetail = weatherDataHelper.convertWeatherForFiveDays(
+                val weatherForDetail = weatherDataConverter.toDetailedWeather(
                     weatherForFiveDaysUi = mapWeatherForFiveDaysUiModel.list.firstOrNull()
                         ?: WeatherForFiveDaysResultUi.unknown,
                     currentWeatherResult = mapCurrentWeather

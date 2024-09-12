@@ -8,7 +8,7 @@ import com.example.general.day.detail.api.DetailFeatureRouteProvider
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.models.CurrentWeatherLocalDomain
 import com.example.general.day.domain.models.SearchWeatherDomain
-import com.example.general.day.domain.usecase.DeleteWeatherById
+import com.example.general.day.domain.usecase.DeleteWeatherByIdUseCase
 import com.example.general.day.domain.usecase.FetchWeatherByCity
 import com.example.general.day.domain.usecase.ObserveCurrentWeatherUseCase
 import com.example.general.day.domain.usecase.SaveCurrentWeatherUseCase
@@ -19,24 +19,24 @@ import com.example.general.day.presentation.di.DependencyProvider
 import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
 import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.SearchWeatherUi
-import com.example.general.day.ui.components.helpers.WeatherDataHelper
+import com.example.general.day.ui.components.helpers.WeatherDataConverter
 import javax.inject.Inject
 
 class FavoriteFeatureDependenciesImpl @Inject constructor(
     private val dependencyProvider: DependencyProvider,
     private val fetchWeatherByCity: FetchWeatherByCity,
-    private val weatherDataHelper: WeatherDataHelper,
+    private val weatherDataConverter: WeatherDataConverter,
     private val searchWeatherByCity: SearchWeatherByCity,
     private val navigationRouteFlowCommunication: NavigationRouteFlowCommunication,
     private val saveCurrentWeatherUseCase: SaveCurrentWeatherUseCase,
     private val toastNotificationManger: ToastNotificationManger,
     private val observeCurrentWeatherUseCase: ObserveCurrentWeatherUseCase,
+    private val deleteWeatherByIdUseCase: DeleteWeatherByIdUseCase,
+    private val sharedPrefManager: SharedPrefManager,
     private val currentWeatherLocalDomainToHomeUiMapper: @JvmSuppressWildcards Mapper<CurrentWeatherLocalUi, CurrentWeatherLocalDomain>,
     private val currentWeatherDomainToUiMapper: @JvmSuppressWildcards Mapper<CurrentWeatherDomain, CurrentWeatherUi>,
     private val currentWeatherHomeUiToDomainMapper: @JvmSuppressWildcards Mapper<CurrentWeatherLocalDomain, CurrentWeatherLocalUi>,
     private val searchWeatherDomainToUiMapper: @JvmSuppressWildcards Mapper<SearchWeatherDomain, SearchWeatherUi>,
-    private val deleteWeatherById: DeleteWeatherById,
-    private val sharedPrefManager: SharedPrefManager,
 ) : FavoriteFeatureDependencies {
 
     override fun getMapRoute(): MapRouteProvider {
@@ -63,8 +63,8 @@ class FavoriteFeatureDependenciesImpl @Inject constructor(
         return observeCurrentWeatherUseCase
     }
 
-    override fun getWeatherDataHelper(): WeatherDataHelper {
-        return weatherDataHelper
+    override fun getWeatherDataHelper(): WeatherDataConverter {
+        return weatherDataConverter
     }
 
     override fun getShowToastManager(): ToastNotificationManger {
@@ -91,8 +91,8 @@ class FavoriteFeatureDependenciesImpl @Inject constructor(
         return currentWeatherHomeUiToDomainMapper
     }
 
-    override fun deleteWeatherById(): DeleteWeatherById {
-        return deleteWeatherById
+    override fun deleteWeatherByIdUseCase(): DeleteWeatherByIdUseCase {
+        return deleteWeatherByIdUseCase
     }
 
     override fun sharedPrefManager(): SharedPrefManager {

@@ -36,7 +36,7 @@ import com.example.general.day.ui.core.theme.dp5
 import com.example.general.day.ui.core.theme.dp8
 
 @Composable
-fun HomeScreenBottom(
+fun HomeScreenFooter(
     time: String,
     tempMax: String,
     tempMin: String,
@@ -154,7 +154,7 @@ fun BottomItem(
 @Composable
 fun HomeScreenBottomPreview() {
     MaterialTheme {
-        HomeScreenBottom(
+        HomeScreenFooter(
             time = String(),
             tempMax = String(),
             tempMin = String(),

@@ -53,7 +53,7 @@ class DetailFeatureImpl @Inject constructor(
                     onEvent = viewModel::onEvent,
                     onThemeChange = onThemeChange,
                     isDarkTheme = theme,
-                    onNavigateToBack = { navController.navigateUp() }
+                    onNavigateToBack = navController::navigateUp
                 )
             }
         }

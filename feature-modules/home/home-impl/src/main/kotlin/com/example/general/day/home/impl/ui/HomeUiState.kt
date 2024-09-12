@@ -6,7 +6,6 @@ import com.example.general.day.ui.components.models.CurrentConvertedWeather
 import com.example.general.day.ui.components.models.WeatherForFiveDaysResultUi
 import kotlinx.collections.immutable.ImmutableList
 
-@Immutable
 sealed class HomeUiState {
 
     data object Loading : HomeUiState()
@@ -18,7 +17,5 @@ sealed class HomeUiState {
     ) : HomeUiState()
 
     @Immutable
-    data class Error(
-        val message: String,
-    ) : HomeUiState()
+    data class Error(val message: String) : HomeUiState()
 }

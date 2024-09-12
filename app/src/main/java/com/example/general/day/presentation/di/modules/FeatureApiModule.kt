@@ -7,8 +7,6 @@ import com.example.general.day.home.api.HomeFeatureApi
 import com.example.general.day.location.api.LocationFeatureApi
 import com.example.general.day.location.api.LocationTrackerManager
 import com.example.general.day.map.api.MapFeatureApi
-import com.example.general.day.presentation.feature.depency.FeatureApiProvider
-import com.example.general.day.presentation.feature.depency.FeatureApiProviderImpl
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoSet
@@ -52,11 +50,4 @@ class FeatureApiModule {
     fun providesDetailFeatureApi(
         detailFeatureApi: DetailFeatureApi
     ): FeatureApi = detailFeatureApi.provideDetailFeatureUiApi()
-
-    @Provides
-    fun providesFeatureApiProvider(
-        featureApi: Set<@JvmSuppressWildcards FeatureApi>
-    ): FeatureApiProvider = FeatureApiProviderImpl(
-        featureApi = featureApi
-    )
 }

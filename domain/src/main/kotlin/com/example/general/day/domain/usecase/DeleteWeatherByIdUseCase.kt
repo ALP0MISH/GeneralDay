@@ -1,6 +1,6 @@
 package com.example.general.day.domain.usecase
 
-interface DeleteWeatherById {
+interface DeleteWeatherByIdUseCase {
 
     suspend operator fun invoke(id: String)
 }

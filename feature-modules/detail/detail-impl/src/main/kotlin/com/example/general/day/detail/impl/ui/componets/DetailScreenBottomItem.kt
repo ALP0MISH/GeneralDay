@@ -12,18 +12,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.sp
-import com.example.general.day.ui.core.R.string
 import com.example.general.day.detail.impl.ui.DetailUiState
+import com.example.general.day.ui.core.R.string
 import com.example.general.day.ui.core.theme.AddCityColor
 import com.example.general.day.ui.core.theme.Gray
 import com.example.general.day.ui.core.theme.dp16
 import com.example.general.day.ui.core.theme.dp19
 import com.example.general.day.ui.core.theme.dp24
 import com.example.general.day.ui.core.theme.dp4
-import com.example.general.day.ui.core.theme.sp11
 import com.example.general.day.ui.core.theme.sp12
 import ir.ehsannarmani.compose_charts.LineChart
 import ir.ehsannarmani.compose_charts.extensions.format
@@ -47,6 +46,7 @@ fun DetailScreenBottomItem(
     ) {
         val temperatures = uiState.weatherForFiveDays.listTemperature
         val times = uiState.weatherForFiveDays.listTime
+        val context = LocalContext.current
 
         if (temperatures.size > 1 && times.size > 1) {
             LineChart(
@@ -67,7 +67,7 @@ fun DetailScreenBottomItem(
                         fontSize = sp12,
                     ),
                     contentBuilder = {
-                        it.format(1) + " °C"
+                        context.getString(string.with_temperature, it.format(1))
                     },
                 ),
                 popupProperties = PopupProperties(
@@ -76,7 +76,7 @@ fun DetailScreenBottomItem(
                         color = MaterialTheme.colorScheme.onBackground,
                     ),
                     contentBuilder = {
-                        it.format(1) + " °C"
+                        context.getString(string.with_temperature, it.format(1))
                     },
                     containerColor = MaterialTheme.colorScheme.background
                 ),

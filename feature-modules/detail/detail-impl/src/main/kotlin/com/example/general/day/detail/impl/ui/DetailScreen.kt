@@ -73,8 +73,6 @@ fun DetailScreenItem(
             convertedWeather = uiState.weatherForFiveDays
         )
         SpacerHeight(size = dp20)
-        DetailScreenBottomItem(
-            uiState = uiState
-        )
+        DetailScreenBottomItem(uiState = uiState)
     }
 }

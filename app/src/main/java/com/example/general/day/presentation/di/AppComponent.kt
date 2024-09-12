@@ -1,12 +1,12 @@
 package com.example.general.day.presentation.di
 
 import android.content.Context
+import com.example.general.day.core.FeatureApi
 import com.example.general.day.core.di.CommunicationModule
 import com.example.general.day.core.di.CoroutineDispatchersModule
 import com.example.general.day.core.di.OnInitApp
 import com.example.general.day.core.di.ContextDecoratorModule
 import com.example.general.day.data.di.DataModule
-import com.example.general.day.data.local.shared.pref.SharedPrefManager
 import com.example.general.day.detail.api.DetailFeatureApi
 import com.example.general.day.detail.impl.di.modules.DetailFeatureModule
 import com.example.general.day.favorite.api.FavoriteFeatureApi
@@ -18,8 +18,9 @@ import com.example.general.day.map.impl.di.modules.MapFeatureModule
 import com.example.general.day.presentation.ApplicationViewModelFactory
 import com.example.general.day.presentation.MainActivity
 import com.example.general.day.presentation.di.modules.AppInitModule
-import com.example.general.day.presentation.di.modules.ConnectivityManagerModule
+import com.example.general.day.presentation.di.modules.ManagerModule
 import com.example.general.day.presentation.di.modules.FeatureApiModule
+import com.example.general.day.presentation.di.modules.FeatureApiSet
 import com.example.general.day.presentation.di.modules.FeatureDependencyModule
 import com.example.general.day.presentation.di.modules.ProvideComponentHolderModule
 import com.example.general.day.ui.components.di.MapperModuleUiComponent
@@ -48,7 +49,7 @@ import javax.inject.Singleton
         MapFeatureModule::class,
         DetailFeatureModule::class,
         MapperModuleUiComponent::class,
-        ConnectivityManagerModule::class,
+        ManagerModule::class,
     ]
 )
 
@@ -59,9 +60,10 @@ interface AppComponent {
     fun favoriteFeatureApi(): FavoriteFeatureApi
     fun detailFeatureApi(): DetailFeatureApi
     fun mapFeatureApi(): MapFeatureApi
-    fun getSharedPrefManager(): SharedPrefManager
     fun getApplicationViewModel(): Provider<ApplicationViewModelFactory>
     fun onAllInitAppSet(): Set<OnInitApp>
+    @FeatureApiSet
+    fun featureApi(): Set<@JvmSuppressWildcards FeatureApi>
 
     @Component.Builder
     interface Builder {

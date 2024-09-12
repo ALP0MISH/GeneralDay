@@ -15,14 +15,6 @@ object MapComponentHolder {
         dependencyProvider = provider
     }
 
-    internal fun getComponent(): MapComponent = checkNotNull(component)
-
-    @Synchronized
-    internal fun initAndGetComponent(): MapComponent {
-        init()
-        return checkNotNull(component)
-    }
-
     fun getApi(): MapFeatureApi = checkNotNull(component)
 
     fun init() {
@@ -31,12 +23,6 @@ object MapComponentHolder {
                 component =
                     MapComponent.initAndGet(checkNotNull(dependencyProvider).get())
             }
-        }
-    }
-
-    fun reset() {
-        synchronized(this) {
-            component = null
         }
     }
 }

@@ -14,9 +14,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.general.day.home.impl.ui.ui.components.HomeScreenBottom
+import com.example.general.day.home.impl.ui.ui.components.HomeScreenFooter
 import com.example.general.day.home.impl.ui.ui.components.HomeScreenContent
-import com.example.general.day.home.impl.ui.ui.components.HomeScreenTop
+import com.example.general.day.home.impl.ui.ui.components.HomeScreenHeader
 import com.example.general.day.ui.components.helpers.toFormattedDate
 import com.example.general.day.ui.components.helpers.toIntegerString
 import com.example.general.day.ui.components.models.CurrentConvertedWeather
@@ -72,7 +72,7 @@ internal fun HomeScreenItem(
             Column(
                 modifier = modifier,
             ) {
-                HomeScreenTop(
+                HomeScreenHeader(
                     cityName = uiState.currentWeather.cityName,
                     onEvent = onEvent,
                     isDarkTheme = isDarkTheme,
@@ -90,7 +90,7 @@ internal fun HomeScreenItem(
             items = uiState.weatherForFiveDays,
             key = { it.weatherId }
         ) { weather ->
-            HomeScreenBottom(
+            HomeScreenFooter(
                 time = weather.time.toFormattedDate(),
                 tempMin = "${weather.tempMin.toIntegerString()}°",
                 tempMax = "${weather.tempMax.toIntegerString()}°",
