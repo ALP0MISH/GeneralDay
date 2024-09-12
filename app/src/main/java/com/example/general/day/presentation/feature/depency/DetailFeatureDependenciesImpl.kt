@@ -10,7 +10,7 @@ import com.example.general.day.domain.models.WeatherForFiveDaysDomain
 import com.example.general.day.domain.usecase.FetchWeatherByCity
 import com.example.general.day.favorite.api.FavoriteRouteProvider
 import com.example.general.day.map.api.MapRouteProvider
-import com.example.general.day.presentation.di.DependencyProvider
+import com.example.general.day.presentation.navigation.DependencyProvider
 import com.example.general.day.ui.components.helpers.WeatherDataConverter
 import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysUi

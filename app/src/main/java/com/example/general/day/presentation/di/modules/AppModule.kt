@@ -1,4 +1,4 @@
-package com.example.general.day.presentation.di
+package com.example.general.day.presentation.di.modules
 
 import android.app.Application
 import dagger.Module

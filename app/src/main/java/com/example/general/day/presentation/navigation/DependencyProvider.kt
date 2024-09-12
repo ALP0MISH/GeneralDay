@@ -1,4 +1,4 @@
-package com.example.general.day.presentation.di
+package com.example.general.day.presentation.navigation
 
 import com.example.general.day.detail.api.DetailFeatureUiApi
 import com.example.general.day.favorite.api.FavoriteFeatureUIApi

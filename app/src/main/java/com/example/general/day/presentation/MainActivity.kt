@@ -28,29 +28,22 @@ class MainActivity : ComponentActivity() {
             val appComponent = App.instance.appComponent
             val viewModelFactory = appComponent.getApplicationViewModel()
             Inject(viewModelFactory = viewModelFactory.get()) {
-                val viewModel: ApplicationViewModel = daggerViewModel()
+                val viewModel: MainActivityViewModel = daggerViewModel()
                 viewModel.navigationRouteFlow.observeWithLifecycle { (route, action) ->
                     navController.navigate(route = route, builder = action)
                 }
 
                 var isDarkTheme by rememberSaveable { mutableStateOf(viewModel.isDarkTheme()) }
-                val featureApi = appComponent.featureApi()
-                val dependencyProvider = appComponent.dependencyProvider()
 
                 WeatherTestAppTheme(darkTheme = isDarkTheme) {
                     Surface(
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.background
                     ) {
-                        val startDestination = dependencyProvider
-                            .homeFeatureApi()
-                            .homeRouteProvider
-                            .getRoute()
-
                         AppNavGraph(
                             navController = navController,
-                            startDestination = startDestination,
-                            featureApi = featureApi,
+                            startDestination = viewModel.startDestinationProvider().getRoute(),
+                            featureApi = viewModel.getFeatureApiSet(),
                             theme = isDarkTheme,
                             onThemeChange = { newTheme ->
                                 isDarkTheme = newTheme
