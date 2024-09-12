@@ -14,7 +14,7 @@ import com.example.general.day.home.impl.ui.di.HomeFeatureDependencies
 import com.example.general.day.location.api.LocationFeatureApi
 import com.example.general.day.location.api.LocationTrackerManager
 import com.example.general.day.map.api.MapRouteProvider
-import com.example.general.day.presentation.di.DependencyProvider
+import com.example.general.day.presentation.navigation.DependencyProvider
 import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.WeatherForFiveDaysUi
 import com.example.general.day.ui.components.helpers.WeatherDataConverter

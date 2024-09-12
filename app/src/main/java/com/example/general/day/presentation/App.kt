@@ -2,7 +2,7 @@ package com.example.general.day.presentation
 
 import android.app.Application
 import com.example.general.day.presentation.di.AppComponent
-import com.example.general.day.presentation.di.AppModule
+import com.example.general.day.presentation.di.modules.AppModule
 import com.example.general.day.presentation.di.DaggerAppComponent
 
 class App : Application() {

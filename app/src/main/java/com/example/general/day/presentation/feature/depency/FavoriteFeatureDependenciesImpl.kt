@@ -15,7 +15,7 @@ import com.example.general.day.domain.usecase.SaveCurrentWeatherUseCase
 import com.example.general.day.domain.usecase.SearchWeatherByCity
 import com.example.general.day.favorite.impl.di.FavoriteFeatureDependencies
 import com.example.general.day.map.api.MapRouteProvider
-import com.example.general.day.presentation.di.DependencyProvider
+import com.example.general.day.presentation.navigation.DependencyProvider
 import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
 import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.SearchWeatherUi
