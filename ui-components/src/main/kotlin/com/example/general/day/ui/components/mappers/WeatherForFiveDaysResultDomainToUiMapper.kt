@@ -41,7 +41,8 @@ class WeatherForFiveDaysResultDomainToUiMapper @Inject constructor(
             ),
             weatherBackgroundImage = weatherIconHelper.fetchBackgroundForTimeOfDay(time),
             cityName = String(),
-            humidity = weatherTemperature.humidity
+            humidity = weatherTemperature.humidity,
+            weatherForBottomItem = persistentListOf()
         )
     }
 }

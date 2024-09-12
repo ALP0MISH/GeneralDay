@@ -23,7 +23,8 @@ data class WeatherForFiveDaysResultUi(
     val cityName: String,
     val weatherId: String = UUID.randomUUID().toString(),
     @DrawableRes val weatherBackgroundImage: Int,
-    @DrawableRes val weatherIcon: Int
+    @DrawableRes val weatherIcon: Int,
+    val weatherForBottomItem: ImmutableList<WeatherForBottomItem>
 ) {
     companion object {
         val unknown = WeatherForFiveDaysResultUi(
@@ -40,7 +41,8 @@ data class WeatherForFiveDaysResultUi(
             weatherIcon = 0,
             weatherBackgroundImage = 0,
             cityName = String(),
-            humidity = 0
+            humidity = 0,
+            weatherForBottomItem = persistentListOf()
         )
         val preview = WeatherForFiveDaysResultUi(
             listTemperature = persistentListOf(),
@@ -56,7 +58,8 @@ data class WeatherForFiveDaysResultUi(
             wind = WindUi(degrees = -1, speed = 0.0),
             weatherBackgroundImage = 0,
             cityName = String(),
-            humidity = 53453
+            humidity = 53453,
+            weatherForBottomItem = persistentListOf()
         )
     }
 }

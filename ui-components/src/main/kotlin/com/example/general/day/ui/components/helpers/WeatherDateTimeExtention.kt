@@ -1,6 +1,7 @@
 package com.example.general.day.ui.components.helpers
 
 import com.example.general.day.domain.models.WeatherForFiveDaysResultDomain
+import com.example.general.day.ui.components.models.WeatherForBottomItem
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import java.text.SimpleDateFormat
@@ -9,7 +10,6 @@ import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 private const val SimpleDateFormatTime = "d MMMM, EE"
-private const val SimpleMonthDateFormatTime = "yyyy-MM-dd HH:mm:ss"
 private const val Time = "HH:mm"
 private const val Language = "ru"
 private const val CONVERT_KELVIN_TO_CELSIUS = 273.15
@@ -39,6 +39,16 @@ fun Double.toIntegerString(): String {
 fun List<WeatherForFiveDaysResultDomain>.getListTime(): ImmutableList<String> {
     return this.map { weather ->
         Date(TimeUnit.SECONDS.toMillis(weather.time)).toFormattedTime()
+    }.toImmutableList()
+}
+
+fun List<WeatherForFiveDaysResultDomain>.getListWeatherForBottomItem(weatherIcon: Int): ImmutableList<WeatherForBottomItem> {
+    return this.map { weather ->
+        WeatherForBottomItem(
+            weatherIcon = weatherIcon,
+            temperature = weather.weatherTemperature.temperature.formatTemperature(),
+            time = Date(TimeUnit.SECONDS.toMillis(weather.time)).toFormattedTime()
+        )
     }.toImmutableList()
 }
 
