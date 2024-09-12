@@ -32,7 +32,6 @@ class FavoriteFeatureDependenciesImpl @Inject constructor(
     private val toastNotificationManger: ToastNotificationManger,
     private val observeCurrentWeatherUseCase: ObserveCurrentWeatherUseCase,
     private val deleteWeatherByIdUseCase: DeleteWeatherByIdUseCase,
-    private val sharedPrefManager: SharedPrefManager,
     private val currentWeatherLocalDomainToHomeUiMapper: @JvmSuppressWildcards Mapper<CurrentWeatherLocalUi, CurrentWeatherLocalDomain>,
     private val currentWeatherDomainToUiMapper: @JvmSuppressWildcards Mapper<CurrentWeatherDomain, CurrentWeatherUi>,
     private val currentWeatherHomeUiToDomainMapper: @JvmSuppressWildcards Mapper<CurrentWeatherLocalDomain, CurrentWeatherLocalUi>,
@@ -93,9 +92,5 @@ class FavoriteFeatureDependenciesImpl @Inject constructor(
 
     override fun deleteWeatherByIdUseCase(): DeleteWeatherByIdUseCase {
         return deleteWeatherByIdUseCase
-    }
-
-    override fun sharedPrefManager(): SharedPrefManager {
-        return sharedPrefManager
     }
 }

@@ -7,7 +7,6 @@ import com.example.general.day.core.Mapper
 import com.example.general.day.core.ToastNotificationManger
 import com.example.general.day.core.communication.NavigationRouteFlowCommunication
 import com.example.general.day.core.communication.navigationParams
-import com.example.general.day.data.local.shared.pref.SharedPrefManager
 import com.example.general.day.domain.models.CurrentWeatherDomain
 import com.example.general.day.domain.models.CurrentWeatherLocalDomain
 import com.example.general.day.domain.models.SearchWeatherDomain
@@ -17,12 +16,12 @@ import com.example.general.day.domain.usecase.ObserveCurrentWeatherUseCase
 import com.example.general.day.domain.usecase.SaveCurrentWeatherUseCase
 import com.example.general.day.domain.usecase.SearchWeatherByCity
 import com.example.general.day.favorite.impl.di.FavoriteFeatureDependencies
+import com.example.general.day.ui.components.helpers.WeatherDataConverter
 import com.example.general.day.ui.components.models.CurrentWeatherLocalUi
 import com.example.general.day.ui.components.models.CurrentWeatherUi
 import com.example.general.day.ui.components.models.SavedWeatherUI
 import com.example.general.day.ui.components.models.SearchWeatherUi
 import com.example.general.day.ui.core.R.string
-import com.example.general.day.ui.components.helpers.WeatherDataConverter
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -55,7 +54,6 @@ class FavoriteViewModel @Inject constructor(
     private val favoriteFeatureDependencies: FavoriteFeatureDependencies,
     private val toastNotificationManger: ToastNotificationManger,
     private val deleteWeatherByIdUseCase: DeleteWeatherByIdUseCase,
-    private val sharedPrefManager: SharedPrefManager,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(FavoriteUIState(isLoading = true))
@@ -108,7 +106,6 @@ class FavoriteViewModel @Inject constructor(
                             .distinctBy { it.localName.ru }
                             .sortedBy { it.localName.ru }
                             .toImmutableList(),
-                        cityName = sharedPrefManager.getSavedCityName() ?: String(),
                         isLoading = false
                     )
                 }

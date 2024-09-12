@@ -26,7 +26,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.general.day.favorite.impl.ui.FavoriteEvent
 import com.example.general.day.ui.core.theme.Gray
-import com.example.general.day.ui.core.theme.dp12
 import com.example.general.day.ui.core.theme.dp16
 import com.example.general.day.ui.core.theme.dp20
 import com.example.general.day.ui.core.theme.dp32
