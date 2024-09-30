@@ -135,10 +135,17 @@ class HomeViewModel @Inject constructor(
 
     @SuppressLint("MissingPermission")
     private fun isInternetAvailable(): Boolean {
-        val activeNetwork = connectivityManager.activeNetwork ?: return false
-        val networkCapabilities =
-            connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
-        return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        return try {
+            val activeNetwork = connectivityManager.activeNetwork
+            if (activeNetwork != null) {
+                val networkCapabilities = connectivityManager.getNetworkCapabilities(activeNetwork)
+                networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+            } else {
+                false
+            }
+        } catch (e: Exception) {
+            false
+        }
     }
 }
 
