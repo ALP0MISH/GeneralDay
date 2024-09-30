@@ -20,14 +20,14 @@ private const val ErrorAPICall = "Ошибка во время вызова API"
 suspend fun <T> callSafe(
     dispatcher: CoroutineDispatcher,
     block: suspend () -> T
-): T {
+): Result<T> {
     return withContext(dispatcher) {
         try {
-            block()
+            Result.success(block())
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            throw IllegalArgumentException("$ErrorAPICall:${e.message}", e)
+            Result.failure(IllegalArgumentException("$ErrorAPICall: ${e.message}", e))
         }
     }
 }

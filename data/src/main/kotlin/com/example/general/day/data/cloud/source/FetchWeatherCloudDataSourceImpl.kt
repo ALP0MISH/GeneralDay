@@ -45,6 +45,11 @@ class FetchWeatherCloudDataSourceImpl @Inject constructor(
             } else {
                 CurrentWeatherData.unknown
             }
+        }.getOrElse {
+            withContext(coroutineDispatchers.main) {
+                toastNotificationManger.showToast(string.no_internet_connection)
+            }
+            CurrentWeatherData.unknown
         }
 
     override suspend fun fetchWeatherForFiveDays(
@@ -60,6 +65,8 @@ class FetchWeatherCloudDataSourceImpl @Inject constructor(
             } else {
                 WeatherForFiveDaysData.unknown
             }
+        }.getOrElse {
+            WeatherForFiveDaysData.unknown
         }
 
     override suspend fun fetchCurrentCityWeather(cityName: String): CurrentWeatherData =
@@ -74,6 +81,8 @@ class FetchWeatherCloudDataSourceImpl @Inject constructor(
             } else {
                 CurrentWeatherData.unknown
             }
+        }.getOrElse {
+            CurrentWeatherData.unknown
         }
 
     override suspend fun fetchWeatherCityForFiveDays(cityName: String): WeatherForFiveDaysData =
@@ -87,11 +96,10 @@ class FetchWeatherCloudDataSourceImpl @Inject constructor(
                     weatherForFiveDaysToDataMapper.map(it)
                 } ?: WeatherForFiveDaysData.unknown
             } else {
-                withContext(coroutineDispatchers.main) {
-                    toastNotificationManger.showToast(string.error_message)
-                }
                 WeatherForFiveDaysData.unknown
             }
+        }.getOrElse {
+            WeatherForFiveDaysData.unknown
         }
 
     override suspend fun fetchSearchWeatherCity(cityName: String): List<SearchWeatherData> =
@@ -102,5 +110,7 @@ class FetchWeatherCloudDataSourceImpl @Inject constructor(
             } else {
                 emptyList()
             }
+        }.getOrElse {
+            emptyList()
         }
 }
